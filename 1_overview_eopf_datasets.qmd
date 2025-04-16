@@ -1,0 +1,5 @@
+# About EOPF datasets {.unnumbered}
+
+Why cloud-optimized formats, why EOPF, why Zarr for EOPF, EOPF data model
+
+
