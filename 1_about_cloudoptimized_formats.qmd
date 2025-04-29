@@ -1,5 +1,88 @@
-# About Cloud-Optimized Data Formats {.unnumbered}
+---
+title: "1.1 About Cloud Optimised Formats"
+format: html
+---
 
-Why cloud-optimized formats, why EOPF, why Zarr for EOPF, EOPF data model
+# Why is cloud computing important?
 
+For decades, **EO** data analysis was restricted by the download-and-process model, in which users were limited by their local storage and bandwidth. Cloud computing transforms this paradigm by combining data and compute resources, allowing for data-driven science at scale. Users may now:
+
+- Access petabytes of Sentinel data on demand
+- Use massive parallel processing (e.g., for continent-wide time-series analysis)
+- Exchange results globally without requiring physical data transfers
+
+## Why are cloud-optimised data formats useful for EO?
+
+The volume of EO data has grown exponentially in recent years. For ESA, Copernicus alone generates ~16TB daily from Sentinel flights. Traditional formats, such as **SAFE** (300-500MB per file), limit users to downloading whole items, even when just tiny parts are required (for example, a single city over ten years). 
+
+Cloud-optimised formats (e.g., Zarr, COG) optimise data analysis and it's managementby allowing:
+
+- **Subsetting extraction**: Avoiding full downloads (optimised ELT operations)
+- **Parallel processing**: of dispersed multiple files, speeding up the analytical process
+- **Scalable storage**: Using cloud-native architecture (such as chunked arrays)
+- **Optimised data latency**: during processing and visualisation
+
+Allowing the users to reduce latency, enables a faster access for users lacking high-performance infrastructure, allowing a broader accessibility to Sentinel missions' data regardless of physical location. 
+It also enhnces the enrichment of datasets for analysis, that is reflected in much more accurate results, as the models are fed with 
+
+## What is Data Latency?
+
+**Data latency** in cloud computing refers to the time it takes for data to be available for processing once requested from cloud storage. For geospatial applications, this extends over the entire period from satellite data acquisition to user accessibility.
+
+Minimising latency is crucial where delays impact:
+
+- Faster accessibility for the users
+- Decision making
+- Data Integration and Analysis
+
+Modern cloud architectures reduce latency through:
+
+- Geographic distribution of processing (e.g., AWS regions co-located with ESA ground stations)
+- Caching high-demand products
+- Utilising serverless computing for burst-scale processing during emergencies
+
+::: {.callout-note}
+When accessing data over the internet (e.g., cloud storage), latency is high compared to local storage, so it's preferable to fetch lots of data in fewer reads.
+:::
+
+## Cloud Optimised Formats
+
+Initiatives like the Cloud Native Geospatial Forum (CNG) provide frameworks to optimise geospatial data usage in the cloud, leveraging commoditised cloud technologies and fostering open collaboration on data formats. Among these, Cloud-Optimised GeoTIFFs (COGs) and Zarr have emerged as two dominant standards in the geospatial community for efficient data storage and access.
+
+### Cloud-optimised GeoTIFF (COG)
+
+COGs store raster data (e.g., satellite imagery, digital elevation models) as one-time snapshots. This widely adopted format (undergoing OGC standardisation) enhances GeoTIFF with:
+
+- **Tiling**: Organizes data into 512×512 pixel processing units
+- **Pyramided overviews**: Pre-generated lower-resolution versions
+
+![Figure _ COG structure](cogtiff.png)
+
+Key innovation: The **Internal File Directory (IFD)** structure contains an internal index enabling:
+- Retrieval of only needed portions via HTTP range requests (bytes start-end)
+- Example: Accessing just Parisian tiles from a Europe-wide Sentinel-2 panorama
+
+### Zarr
+
+Specialises in multidimensional "data cubes". The Zarr data format is a community-maintained format for large-scale n-dimensional data. 
+A Zarr store:
+- Is based on compressed and chunked n-dimensional arrays.
+- Provides flexibility while indexing and parallel processing.
+- Allows a tailored metadata for each of the present arrays.
+
+![Figure _ Zarr structure](cogtiff.png)
+
+A comparison between COGs and Zarr is deployed as:
+
+| Feature | Zarr | COG |
+|---------|------|-----|
+| Structure | Multi-file chunks | Single file |
+| Access | Parallel | Sequential |
+| Compression | Per-chunk | Whole-file |
+| Scales | Multi-scale in single file | Pyramided overviews |
+
+Enables operations like extracting summer 2023 temperature data from a 50-year climate dataset without full loading.
+
+## What's next?
+Now that you have an idea of the available cloud optimised formats, and what cloud optimised means, we will explore the available data sets inside the EOPF products.
 

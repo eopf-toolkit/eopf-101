@@ -1,5 +1,125 @@
-# About EOPF datasets {.unnumbered}
+---
+title: "1.2 About EOPF Available Datasets"
+format: html
+---
 
-Why cloud-optimized formats, why EOPF, why Zarr for EOPF, EOPF data model
+The ESA Copernicus Earth Observation Processor Framework defined the encoding format for the EOPF catalogue as **Zarr**. The format's structure will be described in the chapter **What is Zarr?**
+
+## Sentinel-1
+
+### Product Structure
+Level 1 and L2 products are enclosed in **Zarr** files with three main groups:
+
+| Group | Contents |
+|-------|----------|
+| **Measurements** | Main retrieved variables |
+| **Conditions** | Measurement context (geometric angles, meteorological/instrumental data) |
+| **Quality** | Flags and quality information for measurement filtering |
+
+### Level 1 Products
+
+#### Single Look Complex (SLC)
+Single Look complex or **SLC** products are images in the slant range by azimuth imaging plane in the image plane of satellite data acquisition. Each image pixel is represented by a complex magnitude value (phase (I) and quadrature (Q) components of the detected SAR signal) and, therefore, contains both amplitude and phase information. The amount of data available for the Level 1 SLC product also depends on the acquisition mode.
+
+#### Ground Range Detected (GRD)
+
+Ground Range Detected or **GRD** products consist of focused SAR data that has been detected, multi-looked, and projected to ground range using an Earth ellipsoid model. The ellipsoid projection of the GRD products is corrected using the terrain height specified in the product's general annotation. The terrain height used varies in azimuth but is constant in range.
+
+Ground range coordinates are the slant range coordinates projected onto the ellipsoid of the Earth. Pixel values represent detected magnitude, and phase information is lost. The resulting product has approximately square spatial resolution and square pixel spacing with reduced speckle due to the multi-look processing.
+
+### Level 2 Products (OCN)
+Consists of three components:
+1. **OSW**: Ocean Swell Wave spectra
+2. **OWI**: Ocean Wind field
+3. **RVL**: Radial Surface Velocity
+
+The Level 2 **OCN** products, as an EOProduct, also come with global attributes, amongst which also discovery metadata following the STAC standard. As explained above, the **Zarr** format supports the inclusion of both the processed measurement data and the associated metadata within the same file, so the Level 2 OCN products are a self-contained, self-describing file that requires no additional annotations or supporting files.
+
+**Metadata**: Includes STAC-compliant discovery metadata within the Zarr file, making products self-contained.
+
+## Sentinel-2
+
+### Spectral Organisation
+Preserves MSI characteristics through dimensional structuring:
+
+| Resolution | Bands |
+|------------|-------|
+| 10m | B2, B3, B4, B8 |
+| 20m | B5, B6, B7, B8a, B11, B12 |
+| 60m | B1, B9, B10 |
+
+**Metadata**: Includes central wavelengths, bandwidths, and radiometric precision markers (<5% quantisation accuracy).
+
+### Spatial Chunking
+- **Strategy**: 256×256 pixel blocks
+- **Alignment**: Matches native band resolutions
+- **Swath Coverage**: 290km optimised for multi-resolution access
+
+### Level 0
+
+The purpose of the Sentinel-2 **MSI** Level-0 processor is to perform the initial processing of raw data received from the Sentinel-2 satellite. The Level-0 processor is the first step in the data processing chain and is responsible for transforming the raw telemetry data into a format suitable for further processing and analysis.
+
+### Level 1-A and 1-B
+
+The format definition of S02MSIL1A and S02MSILB is in progress, as it requires the implementation of a new accessor. The new accessor is currently being developed and will soon be available.
+The proposition below highlights the optimised format for the measurement data to be used by the MSI processor.
+
+### Level 1-C
+
+The Level-1C product is composed of 110x110 km² tiles (ortho-images in UTM/WGS84 projection). Earth is subdivided into a predefined set of tiles, defined in UTM/WGS84 projection and using a 100 km step. However, each tile has a surface of 110x110 km² to provide a large overlap with the neighbouring tiles. The Level-1C product results from using a Digital Elevation Model (DEM) to project the image in cartographic geometry. Per-pixel radiometric measurements are provided in Top Of Atmosphere (TOA) reflectances along with the parameters to transform them into radiances.
+
+### Level 2A
+
+Provides atmospherically corrected Surface Reflectance (SR) images, derived from the associated Level-1C products. The atmospheric correction of Sentinel-2 images includes the correction of the scattering of air molecules (Rayleigh scattering), of the absorbing and scattering effects of atmospheric gases, in particular ozone, oxygen and water vapour and the correction of absorption and scattering due to aerosol particles. Additional Level-2A output image products are an Aerosol Optical Thickness (AOT) map, a Water Vapour (WV) map and a Scene Classification (SCL) map. These image products, as well as the Surface Reflectance for the different spectral bands, are resampled at different spatial resolutions.
 
 
+::: {.callout-note}
+It is currently being re-engineered by ESA, for more information, visit 
+:::
+
+## Sentinel-3
+
+### Mission Overview
+Ensures continuity of ERS/ENVISAT/SPOT data with enhanced performance for:
+- Ocean forecasting
+- Environmental monitoring
+- Climate studies
+
+### Instrument Suite
+
+| Instrument | Measurements | Resolution |
+|------------|--------------|------------|
+| **OLCI** | Ocean/land color (21 bands) | 300m/1.2km |
+| **SLSTR** | Surface temperature (9 channels) | 500m/1km |
+| **SRAL** | Sea surface topography | Variable |
+| **SYN** | Synergistic products | N/A |
+
+### Product Levels
+
+### Level-1
+
+Provides calibrated, geolocated, and time-referenced measurements from all onboard instruments. 
+The OLCI delivers top-of-atmosphere radiances in 21 spectral bands (400–1020 nm) at 300 m (full resolution) or 1.2 km (reduced resolution), typically available within one month of acquisition. 
+The SLSTR supplies brightness temperatures and radiances in nine spectral channels, with 500 m resolution for visible/shortwave infrared bands and 1 km for thermal infrared bands, processed within days of data capture. 
+The SRAL offers corrected waveform data and ancillary parameters for precise sea surface height measurements, with latency dependent on orbital processing chains.
+
+### Level-2 
+
+Derived from Level-1 inputs, focus on geophysical parameters tailored to operational and scientific use. 
+OLCI generates ocean colour data (e.g., chlorophyll-a concentration, suspended matter) and land surface reflectance, incorporating atmospheric correction flags. 
+SLSTR produces sea and land surface temperatures at coarser resolutions but with enhanced quality control. 
+SRAL's Level-2 data includes advanced oceanographic parameters like significant wave height and wind speed, processed using refined algorithms. 
+The SYN Level-2 product combines OLCI and SLSTR outputs for atmospheric applications such as aerosol optical depth retrieval.
+
+### Precise Orbit Data
+
+Orbital products are categorised by timeliness:
+
+- **NRT**: Near Real-Time (GPS-based)
+- **STC**: Short Time-Critical (1-day latency)
+- **NTC**: Non-Time-Critical (post-processed)
+
+::: {.callout-important}
+**Legacy Considerations**: While most Sentinel-3 products follow current specifications, select legacy versions (e.g., OLCI v02.50, SLSTR v02.10) remain unsupported due to ongoing format refinements. Users should consult ESA's product notices for version-specific details.
+It is important to highlight that some product versions are not yet supported by the ongoing developments, mainly due to the continuous evolution of legacy SAFE/SEN3 products.
+:::
