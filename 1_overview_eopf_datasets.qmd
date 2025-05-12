@@ -3,7 +3,7 @@ title: "1.2 About EOPF Available Datasets"
 format: html
 ---
 
-The ESA Copernicus Earth Observation Processor Framework proposed the encoding format for the EOPF catalogue as **Zarr**. Think of it as a well-structured container for all the information. The format's structure will be described in more detail in the chapter **What is Zarr?**.
+The ESA Copernicus Earth Observation Processor Framework proposed using **Zarr** as the encoding format for the EOPF catalogue.. Think of it as a well-structured container for all the information. The format's structure will be described in more detail in the chapter **What is Zarr?**.
 
 An overview of the groups included 
 
@@ -19,7 +19,7 @@ It is important to highlight that some product versions are not yet supported by
 :::
 
 ## Sentinel-1
-Sentinel-1 data, useful for seeing through clouds and at night
+The Copernicus Sentinel-1 mission uses two satellites that work together. Each satellite has a special radar that can take pictures of the Earth's surface no matter the weather or if it is day or night. This ensures we always have a steady stream of images.
 
 ### Level 1 Products
 These are the first processed versions of the raw data.
@@ -42,6 +42,7 @@ ESA is currently updating this product. A deeper structure of this product is av
 :::
 
 ## Sentinel-2
+The Copernicus Sentinel-2 mission uses two synchronised satellites flying together. Each satellite has a special camera that takes very detailed colour pictures of the land and plants. This camera captures light in 13 different colours, giving us a new way to see our Earth. The satellites are designed to cover a wide area with each pass.
 
 Sentinel-2 gives us detailed colour images of the land. It captures light in different colours (bands) and at different resolutions(detail levels):
 
@@ -84,17 +85,16 @@ ESA is currently updating this product. A deeper structure of this product its a
 
 ## Sentinel-3
 
-### Mission Overview
-Ensures continuity of ERS/ENVISAT/SPOT data with enhanced performance for exploring the ocean, monitoring the environment, and studying climate change.
+Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers, lakes, ice on land, sea ice, and the atmosphere. Its goal is to keep track of and help us understand how these large parts of our planet change over long periods.
 
 ### Instrument Suite
 
-| Instrument | Measurements | Resolution |
-|------------|--------------|------------|
-| **OLCI** | Ocean/land color (21 bands) | 300m/1.2km |
-| **SLSTR** | Surface temperature (9 channels) | 500m/1km |
-| **SRAL** | Sea surface topography | Variable |
-| **SYN** | Synergistic products | N/A |
+| Instrument | Name | Measurements | Resolution |
+|------------|------------|--------------|------------|
+| **OLCI** |Ocean and Land Colour Instrumen |t Ocean/land color (21 bands) | 300m/1.2km |
+| **SLSTR** |Sea and Land Surface Temperature Radiometer | Surface temperature (9 channels) | 500m/1km |
+| **SRAL** | Synthetic Aperture Radar Altimeter | Sea surface topography | Variable |
+| **SYN** | Synergy | Synergistic products from OLCI and SLSTR | N/A |
 
 ### Product Levels
 
@@ -116,5 +116,5 @@ Information about the satellite's position is available at different times after
 
 
 ::: {.callout-note}
-ESA is currently updating this product. A deeper structure of this product its available at the [EOPF Sentinel-3 Product Documentation](https://s3.pages.eopf.copernicus.eu/pdfs-adfs/)
+ESA is currently updating this product. The product structure is described in more detail at the [EOPF Sentinel-3 Product Documentation](https://s3.pages.eopf.copernicus.eu/pdfs-adfs/)
 :::
