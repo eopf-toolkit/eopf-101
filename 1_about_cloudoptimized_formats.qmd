@@ -4,7 +4,8 @@ format: html
 ---
 
 ## Why is Cloud Computing Important for Sentinel Data?
-For many years, using Earth Observation (EO) data meant downloading large files to the computer. Cloud computing changes this completely by bringing the data and the tools to process it together. This allows for large-scale analysis that wasn't possible before. Now, it is possible to:
+
+For many years, using Earth Observation (EO) data meant downloading large files to the computer. Cloud computing changes this completely by bringing the data and the tools to process it together. This allows for large-scale analysis that was not possible before. Now, it is possible to:
 
 - Access huge amounts of Sentinel data on demand.
 - Process data much faster using powerful cloud computers (for example, analysing changes across a whole continent over time).
@@ -12,31 +13,29 @@ For many years, using Earth Observation (EO) data meant downloading large files 
 
 ## Why are Cloud-Optimised Data formats useful for Sentinel Data?
 
-The volume of EO data has grown exponentially in recent years. For ESA, Copernicus alone generates ~16TB daily from Sentinel flights. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), make it slow to get just the specific information needed (for example, data for a single city over a decade). It is often needed to download the entire asset, even if only a small part is needed.
+The volume of EO data has grown exponentially in recent years. For ESA, Copernicus alone generates ~16TB daily from Sentinel flights. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), make it slow to get just the specific information needed (for example, data for a single city over a decade). We have to download the entire asset, even if only a small part of it is needed.
 
 Cloud-optimised formats like Zarr and COG make working with this data much more efficient by allowing:
 
-- **Subsetting extraction**: Avoiding full downloads (optimised ELT operations).
+- **Subsetting extraction**: Avoiding full downloads (optimised Extract-Load-Transform (ELT) operations)
 - **Parallel processing**: by working with many parts of the data at the same time.
 - **Scalable storage**: Using cloud-native storage systems that can grow as needed.
 - **Optimised data latency**: Reducing delays when processing and visualising data.
 
-Allowing the users to reduce latency enables faster access for users who don't have powerful computers, making Sentinel data more accessible to everyone, no matter where they are. 
-It also allows for more detailed analysis, leading to more accurate results because the analysis can use more relevant data.
-
 ## What is Data Latency?
 
-**Data latency** in cloud computing refers to the time it takes for data to be available for processing once requested from cloud storage. For satellite data, this includes the time from when the satellite captures the data to when it is possible to work with it.
+**Data latency** in cloud computing refers to the time it takes for data to be available for processing once requested from cloud storage. For satellite data, this includes the time from when the satellite captures the data to when it is possible to work with it. 
+Reducing latency enables faster access for users without powerful computers, making Sentinel data more accessible to everyone, no matter where they are. It also allows for more detailed analysis, leading to more accurate results because the analysis can use more relevant data.
 
-Minimising latency is crucial where delays impact:
+Minimising latency benefits:
 
-- Faster accessibility for the users
-- Decisions can be made more quickly.
-- Combining and analysing different datasets is more efficient.
+- We can access the data in less time.
+- Decisions are made more quickly.
+- Combining and analysing different datasets in an efficient way, reducing computing costs.
 
 Modern cloud architectures reduce latency through:
 
-- Storing and processing data in different geographic locations (e.g., cloud provider regions co-located with ESA ground stations)
+- Storing and processing data in different geographic locations (e.g., AWS regions co-located with ESA ground stations)
 - Caching high-demand products, so they are readily available.
 - Utilising flexible computing resources that can quickly handle large processing tasks during emergencies
 
@@ -59,7 +58,7 @@ COGs are like snapshots of raster data (such as satellite images or elevation ma
 
 A key feature is the **Internal File Directory** (IFD), which acts like an internal index. This allows:
 
-- Retrieve only the parts of the data needed using simple web requests.
+- Retrieving only the parts of the data needed using simple web requests.
 - For example, it is possible to access just the tiles covering Paris from a large Sentinel-2 image of Europe.
 
 ### Zarr
@@ -74,7 +73,7 @@ This format is designed for handling large, multi-dimensional datasets (often ca
 
 For example, Zarr makes it possible to extract temperature data for the summer of 2023 from a climate dataset spanning 50 years without needing to load the entire dataset.
 
-A comparison between COGs and Zarr is deployed as:
+The table below compares some features of COG and Zarr:
 
 | Feature | Zarr | COG |
 |---------|------|-----|
@@ -84,11 +83,11 @@ A comparison between COGs and Zarr is deployed as:
 | Scales | Multi-scale in single file | Separate, pre-generated lower-resolution files |
 
 
-## When to Use COGs? and When to Use Zarr?
+## When to use COGs versus Zarr?
 
 Based on the structure and capabilities for each format, it is advised to use COGs when:
 
-- Working with raster data (like images or elevation models) that doesn't change frequently.
+- Working with raster data (like images or elevation models) that does not change frequently.
 - It is needed to easily visualise or access specific geographic areas without loading the entire dataset.
 - Interoperability with existing GIS software is important, as COG is a widely adopted standard.
 
@@ -100,4 +99,4 @@ On the other hand, it is advised to use Zarr when:
 - Working in cloud environments that benefit from chunked data storage for parallel processing.
 
 ## What's next?
-Now that you have an idea of the available cloud-optimised formats and what cloud-optimised means, we will explore the available data sets inside the EOPF available products.
+Now that we have an idea of the available cloud-optimised formats and what cloud-optimised means, we will explore the available data sets inside the EOPF available products.
