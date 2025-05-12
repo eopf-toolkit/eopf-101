@@ -1,5 +1,0 @@
-# Welcome {.unnumbered}
-
-This online book is the go-to resource to learn everything about the EOPF Sample Service by ESA.
-
-To be continued...
