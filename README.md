@@ -1,4 +1,7 @@
-# Earth Observation Processing Framework (EOPF) 101
+# The Sentinels EOPF Toolkit
+
+![](./img/logos.png)
+
 
 ## About
 EOPF 101 is a community-driven toolkit that facilitates the adoption of the Zarr data format for Copernicus Sentinel data, targeting users who are new to cloud computing. The Sentinels EOPF Toolkit is developed by [Development Seed](https://developmentseed.org/), [thriveGEO](https://thrivegeo.com/) and [Sparkgeo](https://sparkgeo.com/), together with a group of champion users. Together they are creating EOPF 101, a user-friendly resource consisting of documentation, Jupyter Notebooks and plug-ins that showcase the use of Zarr format Sentinel data for applications across multiple domains.
@@ -32,7 +35,7 @@ Together with a group of champion users, we will developed and publish technical
   * EOPF and STAC (xpystac)
   * Multi-scale Zarr
   * Dataset screening with rio-tiler and lonboard
-* Thematic
+* `Thematic case studies`:
   * Monitoring coastal dynamics in cloud-prone regions using Sentinel-1
   * African rangeland monitoring using Sentinel-2 / Sentinel-3 fusion
   * Wildfire assessment with Sentinel-3 and Sentinel-2 data
