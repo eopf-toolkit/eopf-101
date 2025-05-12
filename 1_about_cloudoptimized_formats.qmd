@@ -54,7 +54,7 @@ COGs are like snapshots of raster data (such as satellite images or elevation ma
 - Organising data into **tiles**: Dividing the data into smaller, manageable squares (like 512x512 pixels).
 - Including lower-resolution previews: Having pre-generated, less detailed versions of the data.
 
-![Figure _ COG structure. Retrieved from CNG](cogtiff.png)
+![Figure _ COG structure. Retrieved from CNG](img/cogtiff.png)
 
 A key feature is the **Internal File Directory** (IFD), which acts like an internal index. This allows:
 
@@ -69,7 +69,7 @@ This format is designed for handling large, multi-dimensional datasets (often ca
 - Allowing for efficient indexing and processing of the data in parallel.
 - Enabling specific descriptions (metadata) for each part of the data.
 
-![Figure _ Zarr structure. Retrieved from CNG.](zarr1.png)
+![Figure _ Zarr structure. Retrieved from CNG.](img/zarr1.png)
 
 For example, Zarr makes it possible to extract temperature data for the summer of 2023 from a climate dataset spanning 50 years without needing to load the entire dataset.
 

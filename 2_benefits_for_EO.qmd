@@ -1,0 +1,31 @@
+---
+title: "2.1 Benefits of Zarr for Earth Observation"
+format: html
+---
+
+Considering ESA's aim to modernise the Copernicus Sentinel Data, the storage capabilities of `zarr` offer several benefits for EO applications.
+
+`zarr`'s integration within EO is advantageous because:
+
+- Sentinel missions generate a significant volume of data. Formats like `zarr` are designed to handle and efficiently store these large datasets by breaking them into manageable chunks. 
+- The format facilitates innovation in new processing methods for faster analysis. The parallel processing capabilities derived from `zarr`'s chunked structure enable more rapid computations.
+- The interoperability across multiple datasets becomes smoother, leading to a more accurate understanding of the Earth's current state. The organised structure within `zarr` allows for the logical grouping and linking of related datasets.
+- The adoption of internet-based requests allows geospatial users to access datasets of interest online. `zarr`'s cloud-native design and compatibility with HTTP range requests enable efficient data access over the internet.
+- Complex imagery can be stored efficiently, allowing for the retrieval of only the bands of interest without accessing the entire dataset. This selective access is a key feature of `zarr`'s multi-dimensional array storage and chunking.
+- The integration of long time series for analysis is unlocked. `zarr`'s efficient storage and access patterns make it well-suited for managing and analysing extensive temporal datasets.
+- `zarr`'s chunking allows the processing of only the necessary portions of a band, improving efficiency when aiming to focus on a specific location for a fine analysis.
+
+Some considerations on the limitations that `zarr` can encounter are:
+
+- **Format Recognition and Established Support**: Due to its more recent creation, `zarr` does not yet have the broad acceptance and support seen throughout the geospatial ecosystem.  This may affect the smooth interaction with current procedures and applications.
+- **Possible Absence of Advanced Native Features**: Certain advanced functionalities, like direct data subsetting by dimension labels or a wide range of native data types commonly found in other formats, might require the use of additional software packages when working with `zarr`.
+- **Reliance on External Libraries**: While the structure of `zarr` data can be extracted directly from its storage location, the exploitation of its full capabilities within geospatial workflows commonly involves integration with a programming language.
+This enhances the dependency on external tools for effective processing.
+- **CRS Definition**: `zarr` does not yet have a universally enforced standard for Coordinate Reference System (CRS). Therefore, it is advisable to define geospatial data within `zarr` using a local or regional-scale CRS.
+The `zarr` format has already started an adoption within the Geospatial community through initiatives such as the STAC, Pangeo and GeoZarr. These projects demonstrate the practical application and community support for `zarr` in handling geospatial data.
+
+For exploring the available resources and getting to know the current state of `zarr` development within the geospatial community, check out:
+
+- [ESA's EOPF Sentinel Zarr Samples Service](https://zarr.eopf.copernicus.eu/)
+- [Pangeo Community](https://discourse.pangeo.io/)
+- [Cloud Native Geospatial Guide on Zarr](https://guide.cloudnativegeo.org/zarr/zarr-in-practice.html)

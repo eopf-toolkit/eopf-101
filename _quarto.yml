@@ -21,10 +21,10 @@ book:
         - 1_about_eopf.qmd
         - 1_about_cloudoptimized_formats.qmd
         - 1_overview_eopf_datasets.qmd
-    - part: "[COMING] About Zarr"
- #     chapters:
-  #      - 2_subchapter_1.qmd
-  #      - 2_subchapter_2.qmd
+    - part: "About Zarr"
+      chapters:
+       - 2_what_is_zarr.qmd
+       - 2_benefits_for_EO.qmd
     - part: "[COMING] EOPF and STAC"
  #     chapters: 
   #      - 3_subchapter_1.qmd

@@ -1,0 +1,45 @@
+---
+title: "2. Deep dive into the Zarr format: What Is Zarr?"
+format: html
+---
+
+In essence, **Zarr** is a community project to develop specifications and software for the storage of large N-dimensional typed arrays, also commonly known as tensors. A particular focus of `zarr` is to provide support for storage using distributed systems like cloud object stores, and to enable efficient data flow for parallel computing applications.
+
+::: {.callout-note}
+Note: To check in-depth `zarr`, visit the [Zarr Documentation](https://zarr.dev/)
+:::
+
+This project aligns with ESA's objective of enhancing the accessibility of Sentinel Data by modernising the previous **SAFE** encoding into a more flexible structure. The cloud-native nature of  `zarr` is expected to broaden the applications of the Sentinel data within the geospatial community while maintaining data quality and established algorithms.
+The `zarr` format includes descriptive information (**metadata**) at various levels, providing an overview of a `zarr` files content and organisation. This metadata allows users to identify and utilise specific portions of the file without requiring full access to the entire dataset. Then the desired data can be located and accessed efficiently.
+The capability to store **multi-dimensional arrays** within organised groups facilitates the management of diverse data elements, such as image bands at varying resolutions. This structure is well-suited for storing multispectral imagery.
+The chunking principle enables users to access only the regions of interest within a dataset. By dividing the data into smaller, independent pieces (**chunks**), it becomes possible to retrieve and process specific areas without loading the complete dataset. Furthermore, this chunking strategy supports parallel processing, which can optimise calculation times. The parameters defining how the data is divided are recorded within the metadata.
+For a visual representation of this organisation, refer to Figure _.
+
+![Figure _. Zarr conceptual structure](img/zarr_str.jpg){fig-align="center"}
+
+The compression schemes supported by `zarr` contribute to efficient storage and data retrieval. Compressed data requires less storage space and can be transferred and accessed more quickly.
+
+`zarr`'s adaptable storage capabilities enable the structured organisation of data across different storage systems. Individual chunks can be stored as separate entities, allowing for effective data access even with limited hardware processing capabilities.
+
+## Zarr Format Structure
+
+The `zarr` format exhibits a hierarchical structure, conceptually similar to a system of nested directories on a local computer.
+Descriptive information (metadata) is included at each level of this structure. This metadata belongs to the container and any contained groups (sub-folders), and is typically stored in a text-based format.
+Within this structure, groups (containing multiple arrays) or individual arrays (data files) can be found, each accompanied by its specific metadata. The parameters governing the chunking of the data are defined at the array level.
+To understand the structure with an example, imagine a simple RGB colour image, represented by an `rgb.zarr` file. This hypothetical image comprises 1000 by 1000 pixels and three spectral bands: Red, Green, and Blue. The image data is segmented into smaller, manageable units, the chunks, composed of groups of 250 by 250 pixels. 
+This means that per band, 16 chunks are available. 
+The `zarr` visual representation of the image can be found in Figure _.
+
+![Figure _. rgb example structure](img/rgb_zarr.jpg){fig-align="center"}
+
+Then, inside the tree structure of `rgb.zarr`, the elements would be described as:
+- General image metadata: This metadata provides the general information about the entire image dataset.
+- bands (group): This functions as a container for metadata concerning the spectral bands' structure and the individual reflectance bands.
+Within the "bands" group:
+- Bands metadata: This level of metadata describes the organisation of the individual spectral bands.
+- Red, green, blue: These represent the individual bands of the image, containing the segmented data (chunks).
+Finally, inside each of the bands:
+- Detailed organisational metadata: This metadata is essential for defining the structure, chunking, and encoding of the array representing that specific band.
+- Chunk 1 ... chunk 16: These constitute the discrete segments of the image's pixel values for that particular colour. Their arrangement adheres to a predefined size, enabling the retrieval of specific spatial regions from the complete image.
+
+Now that a broad structure of `zarr` has been described, we will explore the applications for Earth Observation data, plus dive into the format specifications for the Copernicus Sentinel Missions.
