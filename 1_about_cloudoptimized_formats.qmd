@@ -36,7 +36,7 @@ Minimising latency is crucial where delays impact:
 
 Modern cloud architectures reduce latency through:
 
-- Storing and processing data in different geographic locations (e.g., AWS regions co-located with ESA ground stations)
+- Storing and processing data in different geographic locations (e.g., cloud provider regions co-located with ESA ground stations)
 - Caching high-demand products, so they are readily available.
 - Utilising flexible computing resources that can quickly handle large processing tasks during emergencies
 
