@@ -1,0 +1,12 @@
+project:
+  type: book
+
+book:
+  title: "ESA EOPF 101"
+  repo-url: https://github.com/eopf-toolkit/eopf-101
+
+  chapters:
+    - index.qmd
+
+execute:
+  freeze: auto
