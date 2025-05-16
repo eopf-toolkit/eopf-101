@@ -1,0 +1,65 @@
+---
+title: "Deep dive into the Zarr format: Chunking"
+format: html
+---
+::: {.justify}
+
+Chunking in the `zarr` format involves dividing data arrays into smaller, more manageable pieces. This segmentation allows parallel processing and efficient storage of the information contained within the `zarr` structure.
+
+One common approach is a regular grid, where an array is partitioned into equally shaped chunks. 
+The grid's number of dimensions matches that of the array.
+Each chunk within this grid can be identified by a tuple *(m,n,...)*, representing its position along each dimension.
+
+The chunks of a multi-dimensional array are an “additional” grid overlaying structure that groups the elements of the main array. The dimensions of this chunk grid are derived from the array's dimensions. 
+
+The starting point of a chunk within the array's overall structure is determined by multiplying the chunk index *(m,n,...)* by the internal size of a chunk along each corresponding dimension *(x,y,...)*. 
+
+![Sentinel-2 L2A zarr structure](chunks_rgb.jpg){fig-align="center"}
+
+First chunk at index *(0, 0,...)* is set at the origin *(0, 0,...)* of the original array. It is important to note that if the array's dimensions are not perfectly divisible by the chosen chunk sizes, the grid of chunks may extend beyond the overall array boundaries.
+
+::: {.callout-note}
+The chunks do not need to be equally sized. This size will depend on the optimisation strategy that is intended to be adopted for the calculations on the data.
+:::
+
+Each chunk is identified by a set of numbers, similar to coordinates, allowing for the precise location of each chunk within the array.
+
+Considering the example of a 1000x1000 pixel `rbg.zarr` image, a chunking strategy of 250x250 pixels results in 16 chunks. 
+In this specific case, the chunk grid perfectly aligns with the image dimensions. However, this perfect alignment is not always the case. If the array dimensions are not evenly divisible by the chunk sizes, the boundary chunks may contain empty regions.
+
+### Considerations
+
+Strategies for organising data into chunks are important when working with the `zarr` format, especially for multi-dimensional arrays.
+The chunking strategy is often determined by how the data will be analysed.
+
+The specific size of these chunks is influenced by several factors, including:
+
+- Data set size
+- Available computing resources
+- The nature of the analysis being performed
+
+Consider again a dataset with dimensions of 1000 x 1000 for spatial extent and an additional time dimension.
+
+![A zarr data set](chunk_example.png){fig-align="center"}
+
+For analyses focused on the entire spatial extent, organising the data into chunks along the time dimension can be beneficial.
+This would primarily involve processing the complete spatial extent at once.
+When a specific period is of interest, the system only needs to access a limited number of chunks containing the complete spatial extent for that time, leading to more efficient data loading.
+
+![Chunking along time](chunk_time.png){fig-align="center"}
+
+Conversely, for time series analyses, it is more efficient to chunk the data along the spatial dimensions (x and y). This arrangement ensures all the time steps for a particular spatial location are stored together within the same chunk, useful for examining changes over time at specific locations.  Retrieving the temporal evolution for a point or a small area requires accessing fewer chunks while conserving the temporal variability.
+
+![Chunking along space](chunk_space.png){fig-align="center"}
+
+
+::: {.callout-note}
+According to Zarr documentation, a chunk size of up to 1 MB is generally considered efficient.
+:::
+
+It is important to emphasise that the selection of chunking strategies should be guided by the intended data processing objectives. 
+
+We will explore different chunking strategies and their implications in subsequent sections.
+
+
+:::
