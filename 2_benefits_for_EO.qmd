@@ -1,7 +1,8 @@
 ---
-title: "2.1 Benefits of Zarr for Earth Observation"
+title: "Deep dive into the Zarr format: Benefits of Zarr for Earth Observation"
 format: html
 ---
+::: {.justify}
 
 Considering ESA's aim to modernise the Copernicus Sentinel Data, the storage capabilities of `zarr` offer several benefits for EO applications.
 
@@ -29,3 +30,5 @@ For exploring the available resources and getting to know the current state of `
 - [ESA's EOPF Sentinel Zarr Samples Service](https://zarr.eopf.copernicus.eu/)
 - [Pangeo Community](https://discourse.pangeo.io/)
 - [Cloud Native Geospatial Guide on Zarr](https://guide.cloudnativegeo.org/zarr/zarr-in-practice.html)
+
+:::

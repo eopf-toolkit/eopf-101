@@ -1,7 +1,8 @@
 ---
-title: "1. Introduction to EOPF: The Earth Observation Processor Framework"
+title: "Chapter 1: Introduction to EOPF: The Earth Observation Processor Framework"
 format: html
 ---
+::: {.justify}
 
 ## What is the Earth Observation Processor Framework?
 
@@ -29,9 +30,10 @@ To achieve this, ESA's roadmap defines four key development areas:
 ### a) Meta Model: information contained in an EOPF product
 
 A metadata model is like a well-organised system for describing data. It explains how information about the data is structured, stored, and connected. This system defines the key details we need to know about a dataset, like when it was collected or its level of detail (the attributes). 
-ESA is working to create a common structure for Sentinel data products (as shown in Fig. 1) will result in a common meta-model that can be used not only across all multiple missions, but also on other Earth Observation (EO) datasets. This unified approach ensures that data from several missions is organised and consistent. Thus, it is easier to combine, relate, and evaluate data from multiple missions.
+ESA is working to create a common structure for Sentinel data products. This will result in a common meta-model that can be used not only across all multiple missions, but also on other Earth Observation (EO) datasets. 
+This unified approach ensures that data from several missions is organised and consistent. Thus, it is easier to combine, relate, and evaluate data from multiple missions.
 
-![Figure 1. EOPF Product structure](img/product_structure.png){fig-align="center"}
+![EOPF Product structure](img/product_structure.png){fig-align="center"}
 
 The structure is proposed as:
 
@@ -42,8 +44,8 @@ The structure is proposed as:
 
 ### b) Metadata Structure
 
-Metadata can be seen as data about data, and it provides essential information to understand and use other data effectively. 
-Inside the Copernicus ecosystem allows uniquely identifying each Sentinel product, detailing its technical and geographic coverage information. To make sure the new data system works well and avoids redundancy, the metadata will be organised into:
+Metadata can be seen as data about data, that provides essential information to understand and use data effectively. 
+Inside the Copernicus ecosystem, it allows us to uniquely identifying each Sentinel product by detailing its technical and geographic coverage information. To make sure the new data system works well and avoids redundancy, the metadata will be organised into:
 
 - Discovery Metadata: Focusing on the SpatioTemporal Asset Catalogues [STAC](https://stacspec.org/en/) structure, which helps to keep things consistent across different missions.
 - Processing History Metadata: A record of how the data has been processed.
@@ -91,3 +93,5 @@ For a deep dive into the framework, visit [https://eopf.copernicus.eu/eopf/](htt
 ## What's next?
 
 In the following chapters, we will introduce the details of the new EOPF data structure, explain the reasons behind ESA's choice of data storage methods, and help the community become comfortable with the new EOPF data format.
+
+:::
