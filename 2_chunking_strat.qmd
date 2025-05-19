@@ -14,7 +14,7 @@ The chunks of a multi-dimensional array are an “additional” grid overlaying 
 
 The starting point of a chunk within the array's overall structure is determined by multiplying the chunk index *(m,n,...)* by the internal size of a chunk along each corresponding dimension *(x,y,...)*. 
 
-![Sentinel-2 L2A zarr structure](chunks_rgb.jpg){fig-align="center"}
+![Sentinel-2 L2A zarr structure](img/chunks_rgb.jpg){fig-align="center"}
 
 First chunk at index *(0, 0,...)* is set at the origin *(0, 0,...)* of the original array. It is important to note that if the array's dimensions are not perfectly divisible by the chosen chunk sizes, the grid of chunks may extend beyond the overall array boundaries.
 
@@ -27,7 +27,7 @@ Each chunk is identified by a set of numbers, similar to coordinates, allowing f
 Considering the example of a 1000x1000 pixel `rbg.zarr` image, a chunking strategy of 250x250 pixels results in 16 chunks. 
 In this specific case, the chunk grid perfectly aligns with the image dimensions. However, this perfect alignment is not always the case. If the array dimensions are not evenly divisible by the chunk sizes, the boundary chunks may contain empty regions.
 
-### Considerations
+### Considerations {.unnumbered}
 
 Strategies for organising data into chunks are important when working with the `zarr` format, especially for multi-dimensional arrays.
 The chunking strategy is often determined by how the data will be analysed.
@@ -40,17 +40,17 @@ The specific size of these chunks is influenced by several factors, including:
 
 Consider again a dataset with dimensions of 1000 x 1000 for spatial extent and an additional time dimension.
 
-![A zarr data set](chunk_example.png){fig-align="center"}
+![A zarr data set](img/chunk_example.png){fig-align="center"}
 
 For analyses focused on the entire spatial extent, organising the data into chunks along the time dimension can be beneficial.
 This would primarily involve processing the complete spatial extent at once.
 When a specific period is of interest, the system only needs to access a limited number of chunks containing the complete spatial extent for that time, leading to more efficient data loading.
 
-![Chunking along time](chunk_time.png){fig-align="center"}
+![Chunking along time](img/chunk_time.png){fig-align="center"}
 
 Conversely, for time series analyses, it is more efficient to chunk the data along the spatial dimensions (x and y). This arrangement ensures all the time steps for a particular spatial location are stored together within the same chunk, useful for examining changes over time at specific locations.  Retrieving the temporal evolution for a point or a small area requires accessing fewer chunks while conserving the temporal variability.
 
-![Chunking along space](chunk_space.png){fig-align="center"}
+![Chunking along space](img/chunk_space.png){fig-align="center"}
 
 
 ::: {.callout-note}

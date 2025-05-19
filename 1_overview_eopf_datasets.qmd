@@ -22,9 +22,9 @@ Note: the re-processing from the legacy SAFE/SEN3  format to Zarr is an ongoing 
 ## Sentinel-1 {.unnumbered}
 Sentinel-1 is radar imaging mission is composed of a constellation of two polar-orbiting satellites providing continuous all-weather, day and night imagery.
 
-### Available product Levels
+### Available product Levels {.unnumbered}
 
-### Level 1
+### Level 1 {.unnumbered}
 These are the first processed versions of the raw data.
 
 Single Look Complex (SLC)
@@ -37,7 +37,7 @@ GRD products are radar images that have been processed to look like they are vie
 ESA is currently updating this product. A more detailed structure of this product is available at the [EOPF Sentinel-1 Product Documentation](https://s1.pages.eopf.copernicus.eu/s1-l12-rp/main/pfs/index.html)
 :::
 
-## Sentinel-2
+## Sentinel-2 {.unnumbered}
 Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over land and coastal waters. The mission supports applications such as agricultural monitoring, emergency management, land cover classifications, and water quality. Sentinel-2 imagery have 12 spectral bands with the following resolutions:
 
 | Resolution | Bands |
@@ -47,9 +47,9 @@ Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over
 | 60m | B1, B9, B10 |
 
 
-### Available product Levels
+### Available product Levels {.unnumbered}
 
-### Level 2A
+### Level 2A {.unnumbered}
 
 Level 2A images are atmospherically corrected Surface Reflectance (SR) images, derived from the associated Level-1C products.
 These products have been further processed to display surface reflection while adjusting for atmospheric factors (such as air and clouds).
@@ -61,7 +61,7 @@ Until now, the ESA, along with the EOPF project, have decided to launch samples 
 ESA is currently updating this product. A more detailed structure of this product is available at the [EOPF Sentinel-2 Product Documentation](https://s2.pages.eopf.copernicus.eu/pdfs-adfs/)
 :::
 
-## Sentinel-3
+## Sentinel-3 {.unnumbered}
 
 Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers, lakes, ice on land, sea ice, and the atmosphere. Its goal is to keep track of and help us understand how these large parts of our planet change over long periods.
 
@@ -74,13 +74,13 @@ Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers
 | **SRAL** | Synthetic Aperture Radar Altimeter | Sea surface topography | Variable |
 | **SYN** | Synergy | Synergistic products from OLCI and SLSTR | N/A |
 
-### Available product Levels
+### Available product Levels {.unnumbered}
 
-### Level-2 
+### Level-2 {.unnumbered}
 
 These products process particular information that is helpful for various applications using the Level-1 data. In terms of OLCI, this incorporates factors like the ocean's chlorophyll content and the land surface's reflectivity while accounting for the atmosphere. Sea and land surface temperatures with quality checks are provided by SLSTR. SRAL offers sophisticated ocean data, such as wind speed and wave height. The SYN product analyses the atmosphere by combining information from SLSTR and OLCI.
 
-#### Precise Orbit Data
+#### Precise Orbit Data {.unnumbered}
 
 Information about the satellite's position is available at different times after the data is collected:
 

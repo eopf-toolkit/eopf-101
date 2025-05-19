@@ -99,7 +99,7 @@ On the other hand, it is advised to use Zarr when:
 - Efficiently handling different resolutions or variables within a single dataset is required.
 - Working in cloud environments that benefit from chunked data storage for parallel processing.
 
-## What's next?
+## What's next? {.unnumbered}
 Cloud-optimised formats bridge the gap between the vast potential of cloud storage and the need for efficient data access, ultimately making cloud-based geospatial analysis faster, more cost-effective, and more powerful.
 
 Now that we have an idea of the available cloud-optimised formats and what cloud-optimised means, we will explore the available data sets inside the EOPF available products.

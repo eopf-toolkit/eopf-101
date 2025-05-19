@@ -22,7 +22,7 @@ The compression schemes supported by `zarr` contribute to efficient storage and 
 
 `zarr`'s adaptable storage capabilities enable the structured organisation of data across different storage systems. Individual chunks can be stored as separate entities, allowing for effective data access even with limited hardware processing capabilities.
 
-## Zarr Format Structure
+## Zarr Format Structure {.unnumbered}
 
 The `zarr` format exhibits a hierarchical structure, conceptually similar to a system of nested directories on a local computer.
 Descriptive information (metadata) is included at each level of this structure. This metadata belongs to the container and any contained groups (sub-folders), and is typically stored in a text-based format.
