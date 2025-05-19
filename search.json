@@ -4,9 +4,130 @@
     "href": "index.html",
     "title": "ESA EOPF 101",
     "section": "",
-    "text": "Welcome\nHello world.",
+    "text": "Welcome\nThis online book is the go-to resource to learn everything about the EOPF Sample Service by ESA.\nTo be continued…",
     "crumbs": [
       "Welcome"
+    ]
+  },
+  {
+    "objectID": "1_about_eopf.html#what-is-the-earth-observation-processor-framework",
+    "href": "1_about_eopf.html#what-is-the-earth-observation-processor-framework",
+    "title": "1  Introduction to the Earth Observation Processor Framework",
+    "section": "What is the Earth Observation Processor Framework?",
+    "text": "What is the Earth Observation Processor Framework?\nThe Earth Observation Processor Framework (EOPF) is an initiative led by the European Space Agency (ESA) designed to modernise and harmonise data from the Copernicus Sentinel Missions.\nWith the upcoming Copernicus Expansion missions in 2028, the amount of data will significantly increase. EOPF is ESA’s solution to organise Sentinel data in a way that works seamlessly with modern cloud technology. This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.\nThe Sentinel-1, Sentinel-2, and Sentinel-3 missions are the first to be updated with this new system.",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to the Earth Observation Processor Framework</span>"
+    ]
+  },
+  {
+    "objectID": "1_about_eopf.html#the-eopf-data-model",
+    "href": "1_about_eopf.html#the-eopf-data-model",
+    "title": "1  Introduction to the Earth Observation Processor Framework",
+    "section": "The EOPF Data Model",
+    "text": "The EOPF Data Model\nThe EOPF data model has been defined by following a set of principles:\n\nOpen standards: Following common and community approved data standards ensure sustainability and user uptake.\nInteroperability: Harmonised with a clear and organised structure that describes the data itself.\nCloud optimisation: Designed for efficient access and handling in cloud environments.\nConversion flexibility: Providing tools to adjust the data for different applications.\n\nTo achieve this, there are the following key development areas under EOPF:\n\nEOPF product structure\nThe EOPF prodcut structure defines how information about the data is structured, stored, and connected. It contains the key details we need to know about a dataset, like when it was collected or its level of detail (the attributes). As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used nacross all Sentinel and other EO missions. This approach ensures that data from several missions is consistent. Thus, it is easier to combine, relate, and evaluate data from different missions.\n\n\n\nEOPF Product structure\n\n\nThe EOPF product structure contains of the following key parts:\n\nMeasurements: The actual sensor readings (like how much light is reflected or the temperature), at different levels of detail.\nQuality indicators: Details that help understand how reliable the measurements are.\nConditions: Information about the environment or technical aspects when the data was collected.\nAttributes: Global metadata, such as when it was acquired and the sensor’s orbit.\n\n\n\nMetadata Structure\nMetadata can be seen as data about data, that provides essential information to understand and use data effectively. Inside the Copernicus ecosystem, it allows us to uniquely identifying each Sentinel product by detailing its technical and geographic coverage information. To make sure the new data system works well and avoids redundancy, the EOPF metadata structure will be organised into:\n\nDiscovery Metadata: Following the metadata structure defined by the SpatioTemporal Asset Catalogue (STAC) which helps to keep things consistent across different missions.\nProcessing History Metadata: keeping a record of how the data has been processed.\nOther Metadata: Information like the status of the sensor and details about the satellite’s orbit.\n\n\n\n\n\n\n\nNote\n\n\n\n“Learn more about EOPF and STAC here.”\n\n\n\n\nEncoding Structure\nAn encoding structure can be seen as the specific method used to package and store data and its associated metadata in a digital format. Building on the consistent data structure and clear metadata, the new storage system must be capable of handling various aspects of current Sentinel data (such as manifest files and tile structures from the SAFE format) while remaining fully compatible with cloud environments.\nThis cloud-friendly architecture will enable instant access to data, efficient processing of massive amounts of data, and seamless integration with other datasets, allowing you to work with data from multiple missions more effectively.\nCurrently, there are different ways to store geospatial data in the cloud, such as: - Zarr - Cloud-Optimised GeoTIFF (COG) - Hierarchical Data Format (HDF5) with Cloud Adaptations - Apache Parquet (with GeoParquet Extension)\nESA chose Zarr as encoding format as it allow for efficient handling of data, like selecting specific areas and combining different datasets easily (for example, by dividing the data into smaller chunks). Learn more about the EOPF Zarr format here.\n\n\n\n\n\n\nNote\n\n\n\nLearn more about cloud-optimized geospatial data formats in the Cloud-Optimized Geospatial Data Formats Guide\n\n\n\n\nProcessor Development\nThe way Sentinel data is processed is being updated to take advantage of modern cloud computing. This will make the processing faster and more efficient, while ensuring the scientific quality and accuracy of the Sentinel data remains the same.\n\n\n\n\n\n\nNote\n\n\n\nTo learn more about the EOPF processor framework, visit https://eopf.copernicus.eu/eopf/",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to the Earth Observation Processor Framework</span>"
+    ]
+  },
+  {
+    "objectID": "1_about_eopf.html#whats-next",
+    "href": "1_about_eopf.html#whats-next",
+    "title": "1  Introduction to the Earth Observation Processor Framework",
+    "section": "What’s next?",
+    "text": "What’s next?\nIn the following chapters, we will introduce the details of the new EOPF data structure, explain the reasons behind ESA’s choice of data storage methods, and help the community become comfortable with the new EOPF data format.",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to the Earth Observation Processor Framework</span>"
+    ]
+  },
+  {
+    "objectID": "1_about_cloudoptimized_formats.html#why-do-we-need-to-cloud-optimise-geospatial-data-formats",
+    "href": "1_about_cloudoptimized_formats.html#why-do-we-need-to-cloud-optimise-geospatial-data-formats",
+    "title": "2  About Cloud Optimised Formats",
+    "section": "Why do we need to cloud-optimise geospatial data formats?",
+    "text": "Why do we need to cloud-optimise geospatial data formats?\nThe volume of EO data has grown exponentially in recent years. For ESA, Copernicus alone generates ~16TB daily from the Sentinel missions alone. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), make it slow to get just the specific information needed (for example, data for a single city over a decade). We have to download the entire asset, even if only a small part of it is needed. This might not a problem when you work close to the data.\nWhen moving your Earth Observation processing workflow to the cloud however, your data\nCloud-optimised formats make working with this data much more efficient by allowing:\n\nSubsetting extraction: Avoiding full downloads (optimised Extract-Load-Transform (ELT) operations)\nParallel processing: by working with many parts of the data at the same time.\nScalable storage: Using cloud-native storage systems that can grow as needed.\nOptimised data latency: Reducing delays when processing and visualising data.",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>About Cloud Optimised Formats</span>"
+    ]
+  },
+  {
+    "objectID": "1_about_cloudoptimized_formats.html#what-is-data-latency",
+    "href": "1_about_cloudoptimized_formats.html#what-is-data-latency",
+    "title": "2  About Cloud Optimised Formats",
+    "section": "2.1 What is Data Latency?",
+    "text": "2.1 What is Data Latency?\nData latency in cloud computing refers to the time it takes for data to be available for processing once requested from cloud storage. For satellite data, this includes the time from when the satellite captures the data to when it is possible to work with it. Reducing latency enables faster access for users without powerful computers, making Sentinel data more accessible to everyone, no matter where they are. It also allows for more detailed analysis, leading to more accurate results because the analysis can use more relevant data.\nMinimising latency benefits:\n\nWe can access the data in less time.\nDecisions are made more quickly.\nCombining and analysing different datasets in an efficient way, reducing computing costs.\n\nModern cloud architectures reduce latency through:\n\nStoring and processing data in different geographic locations (e.g., AWS regions co-located with ESA ground stations)\nCaching high-demand products, so they are readily available.\nUtilising flexible computing resources that can quickly handle large processing tasks during emergencies\n\n\n\n\n\n\n\nNote\n\n\n\nWhen accessing data over the internet (e.g., cloud storage), latency is high compared to local storage, so it’s preferable to fetch lots of data in fewer reads.",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>About Cloud Optimised Formats</span>"
+    ]
+  },
+  {
+    "objectID": "1_about_cloudoptimized_formats.html#cloud-optimised-geospatial-raster-formats",
+    "href": "1_about_cloudoptimized_formats.html#cloud-optimised-geospatial-raster-formats",
+    "title": "2  About Cloud Optimised Formats",
+    "section": "2.2 Cloud-Optimised Geospatial Raster Formats",
+    "text": "2.2 Cloud-Optimised Geospatial Raster Formats\nInitiatives like the Cloud Native Geospatial Forum (CNG) help develop ways to use geospatial data efficiently in the cloud, using standard cloud technologies and encouraging open collaboration on data formats. Two of the most important formats for storing and accessing geospatial data efficiently are Cloud-Optimised GeoTIFFs (COGs) and Zarr.\n\n2.2.1 Cloud-optimised GeoTIFF (COG)\nCOGs are like snapshots of raster data (such as satellite images or elevation maps). This widely used format improves the standard GeoTIFF format by:\n\nOrganising data into tiles: Dividing the data into smaller, manageable squares (like 512x512 pixels).\nIncluding lower-resolution previews: Having pre-generated, less detailed versions of the data.\n\n\n\n\nCOG structure. Retrieved from CNG documentation\n\n\nA key feature is the Internal File Directory (IFD), which acts like an internal index. This allows:\n\nRetrieving only the parts of the data needed using simple web requests.\nFor example, it is possible to access just the tiles covering Paris from a large Sentinel-2 image of Europe.\n\n\n\n2.2.2 Zarr\nThis format is designed for handling large, multi-dimensional datasets (often called “data cubes”). Zarr, developed and maintained by the community, works by:\n\nStoring data as compressed chunks in a flexible way.\nAllowing for efficient indexing and processing of the data in parallel.\nEnabling specific descriptions (metadata) for each part of the data.\n\n\n\n\nZarr structure. Retrieved from CNG documentation.\n\n\nFor example, Zarr makes it possible to extract temperature data for the summer of 2023 from a climate dataset spanning 50 years without needing to load the entire dataset.\nThe table below compares some features of COG and Zarr:\n\n\n\n\n\n\n\n\nFeature\nZarr\nCOG\n\n\n\n\nStructure\nMulti-file chunks\nSingle file\n\n\nAccess\nParallel\nSequential\n\n\nCompression\nDifferently per-chunk\nWhole-file\n\n\nScales\nMulti-scale in single file\nSeparate, pre-generated lower-resolution files",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>About Cloud Optimised Formats</span>"
+    ]
+  },
+  {
+    "objectID": "1_about_cloudoptimized_formats.html#when-to-use-cogs-versus-zarr",
+    "href": "1_about_cloudoptimized_formats.html#when-to-use-cogs-versus-zarr",
+    "title": "2  About Cloud Optimised Formats",
+    "section": "2.3 When to use COGs versus Zarr?",
+    "text": "2.3 When to use COGs versus Zarr?\nBased on the structure and capabilities for each format, it is advised to use COGs when:\n\nWorking with raster data (like images or elevation models) that does has sudden changes.\nIt is needed to easily visualise or access specific geographic areas without loading the entire dataset.\nInteroperability with existing GIS software is important, as COG is a widely adopted standard.\n\nOn the other hand, it is advised to use Zarr when:\n\nDealing with large, multi-dimensional datasets that might be updated or modified.\nPerforming complex analyses that involve accessing different parts of the data in parallel.\nEfficiently handling different resolutions or variables within a single dataset is required.\nWorking in cloud environments that benefit from chunked data storage for parallel processing.",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>About Cloud Optimised Formats</span>"
+    ]
+  },
+  {
+    "objectID": "1_about_cloudoptimized_formats.html#whats-next",
+    "href": "1_about_cloudoptimized_formats.html#whats-next",
+    "title": "2  About Cloud Optimised Formats",
+    "section": "2.4 What’s next?",
+    "text": "2.4 What’s next?\nNow that we have an idea of the available cloud-optimised formats and what cloud-optimised means, we will explore the available data sets inside the EOPF available products.",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>About Cloud Optimised Formats</span>"
+    ]
+  },
+  {
+    "objectID": "1_overview_eopf_datasets.html#sentinel-1",
+    "href": "1_overview_eopf_datasets.html#sentinel-1",
+    "title": "3  The EOPF Available Datasets",
+    "section": "Sentinel-1",
+    "text": "Sentinel-1\nSentinel-1 is radar imaging mission is composed of a constellation of two polar-orbiting satellites providing continuous all-weather, day and night imagery.\n\n3.0.1 Available product Levels\n\n\n3.0.2 Level 1\nThese are the first processed versions of the raw data.\nSingle Look Complex (SLC) SLC images show the Earth’s surface as seen by the satellite’s radar. Each point has a complex value, giving both the strength and the phase of the signal. The amount of detail depends on how the data was collected.\nGround Range Detected (GRD) GRD products are radar images that have been processed to look like they are viewed from directly above. They have been adjusted for the Earth’s shape, and each point represents the signal strength. Some fine details (phase) are lost in this process, but the image has less ‘speckling’ and a more regular shape.\n\n\n\n\n\n\nNote\n\n\n\nESA is currently updating this product. A more detailed structure of this product is available at the EOPF Sentinel-1 Product Documentation",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>The EOPF Available Datasets</span>"
+    ]
+  },
+  {
+    "objectID": "1_overview_eopf_datasets.html#sentinel-2",
+    "href": "1_overview_eopf_datasets.html#sentinel-2",
+    "title": "3  The EOPF Available Datasets",
+    "section": "3.1 Sentinel-2",
+    "text": "3.1 Sentinel-2\nSentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over land and coastal waters. The mission supports applications such as agricultural monitoring, emergency management, land cover classifications, and water quality. Sentinel-2 imagery have 12 spectral bands with the following resolutions:\n\n\n\nResolution\nBands\n\n\n\n\n10m\nB2, B3, B4, B8\n\n\n20m\nB5, B6, B7, B8a, B11, B12\n\n\n60m\nB1, B9, B10\n\n\n\n\n3.1.1 Available product Levels\n\n\n3.1.2 Level 2A\nLevel 2A images are atmospherically corrected Surface Reflectance (SR) images, derived from the associated Level-1C products. These products have been further processed to display surface reflection while adjusting for atmospheric factors (such as air and clouds).\nThese image products, as well as the Surface Reflectance for the different spectral bands, are resampled at different spatial resolutions. Until now, the ESA, along with the EOPF project, have decided to launch samples for the Level 2A, which encopass the following structure:\n\n\n\n\n\n\nNote\n\n\n\nESA is currently updating this product. A more detailed structure of this product is available at the EOPF Sentinel-2 Product Documentation",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>The EOPF Available Datasets</span>"
+    ]
+  },
+  {
+    "objectID": "1_overview_eopf_datasets.html#sentinel-3",
+    "href": "1_overview_eopf_datasets.html#sentinel-3",
+    "title": "3  The EOPF Available Datasets",
+    "section": "3.2 Sentinel-3",
+    "text": "3.2 Sentinel-3\nSentinel-3 is a mission that regularly measures our Earth’s oceans, land, rivers, lakes, ice on land, sea ice, and the atmosphere. Its goal is to keep track of and help us understand how these large parts of our planet change over long periods.\n\n3.2.1 Instrument Suite\n\n\n\n\n\n\n\n\n\nInstrument\nName\nMeasurements\nResolution\n\n\n\n\nOLCI\nOcean and Land Colour Instrumen\nt Ocean/land color (21 bands)\n300m/1.2km\n\n\nSLSTR\nSea and Land Surface Temperature Radiometer\nSurface temperature (9 channels)\n500m/1km\n\n\nSRAL\nSynthetic Aperture Radar Altimeter\nSea surface topography\nVariable\n\n\nSYN\nSynergy\nSynergistic products from OLCI and SLSTR\nN/A\n\n\n\n\n\n3.2.2 Available product Levels\n\n\n3.2.3 Level-2\nThese products process particular information that is helpful for various applications using the Level-1 data. In terms of OLCI, this incorporates factors like the ocean’s chlorophyll content and the land surface’s reflectivity while accounting for the atmosphere. Sea and land surface temperatures with quality checks are provided by SLSTR. SRAL offers sophisticated ocean data, such as wind speed and wave height. The SYN product analyses the atmosphere by combining information from SLSTR and OLCI.\n\n3.2.3.1 Precise Orbit Data\nInformation about the satellite’s position is available at different times after the data is collected:\n\nNRT: Near Real-Time (GPS-based)\nSTC: Short Time-Critical (1-day latency)\nNTC: Non-Time-Critical (post-processed)\n\n\n\n\n\n\n\nNote\n\n\n\nESA is currently updating this product. The product structure is described in more detail at the EOPF Sentinel-3 Product Documentation\n\n\nIn the following chapter, the zarr specific structure for each of the products will be explored, allowing us to understand better, how to integrate the new format into Earth Observation workflows.",
+    "crumbs": [
+      "About EOPF",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>The EOPF Available Datasets</span>"
     ]
   }
 ]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ESA EOPF 101</title>
+<title>2&nbsp; About Cloud Optimised Formats – ESA EOPF 101</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./1_about_eopf.html" rel="next">
+<link href="./1_overview_eopf_datasets.html" rel="next">
+<link href="./1_about_eopf.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -81,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_about_eopf.html">About EOPF</a></li><li class="breadcrumb-item"><a href="./1_about_cloudoptimized_formats.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About Cloud Optimised Formats</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -111,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -132,7 +133,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link">
+  <a href="./1_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About Cloud Optimised Formats</span></span></a>
   </div>
 </li>
@@ -161,21 +162,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_about_eopf.html">About EOPF</a></li><li class="breadcrumb-item"><a href="./1_about_cloudoptimized_formats.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About Cloud Optimised Formats</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">ESA EOPF 101</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About Cloud Optimised Formats</span></h1>
 </div>
 
 
@@ -192,13 +187,147 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>This online book is the go-to resource to learn everything about the EOPF Sample Service by ESA.</p>
-<p>To be continued…</p>
-
-
+<div class="justify">
+<section id="why-do-we-need-to-cloud-optimise-geospatial-data-formats" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="why-do-we-need-to-cloud-optimise-geospatial-data-formats">Why do we need to cloud-optimise geospatial data formats?</h2>
+<p>The volume of EO data has grown exponentially in recent years. For ESA, Copernicus alone generates ~16TB daily from the Sentinel missions alone. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), make it slow to get just the specific information needed (for example, data for a single city over a decade). We have to download the entire asset, even if only a small part of it is needed. This might not a problem when you work close to the data.</p>
+<p>When moving your Earth Observation processing workflow to the cloud however, your data</p>
+<p>Cloud-optimised formats make working with this data much more efficient by allowing:</p>
+<ul>
+<li><strong>Subsetting extraction</strong>: Avoiding full downloads (optimised Extract-Load-Transform (ELT) operations)</li>
+<li><strong>Parallel processing</strong>: by working with many parts of the data at the same time.</li>
+<li><strong>Scalable storage</strong>: Using cloud-native storage systems that can grow as needed.</li>
+<li><strong>Optimised data latency</strong>: Reducing delays when processing and visualising data.</li>
+</ul>
 </section>
+<section id="what-is-data-latency" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="what-is-data-latency"><span class="header-section-number">2.1</span> What is Data Latency?</h2>
+<p><strong>Data latency</strong> in cloud computing refers to the time it takes for data to be available for processing once requested from cloud storage. For satellite data, this includes the time from when the satellite captures the data to when it is possible to work with it. Reducing latency enables faster access for users without powerful computers, making Sentinel data more accessible to everyone, no matter where they are. It also allows for more detailed analysis, leading to more accurate results because the analysis can use more relevant data.</p>
+<p>Minimising latency benefits:</p>
+<ul>
+<li>We can access the data in less time.</li>
+<li>Decisions are made more quickly.</li>
+<li>Combining and analysing different datasets in an efficient way, reducing computing costs.</li>
+</ul>
+<p>Modern cloud architectures reduce latency through:</p>
+<ul>
+<li>Storing and processing data in different geographic locations (e.g., AWS regions co-located with ESA ground stations)</li>
+<li>Caching high-demand products, so they are readily available.</li>
+<li>Utilising flexible computing resources that can quickly handle large processing tasks during emergencies</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When accessing data over the internet (e.g., cloud storage), latency is high compared to local storage, so it’s preferable to fetch lots of data in fewer reads.</p>
+</div>
+</div>
+</section>
+<section id="cloud-optimised-geospatial-raster-formats" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="cloud-optimised-geospatial-raster-formats"><span class="header-section-number">2.2</span> Cloud-Optimised Geospatial Raster Formats</h2>
+<p>Initiatives like the <a href="https://cloudnativegeo.org/">Cloud Native Geospatial Forum (CNG)</a> help develop ways to use geospatial data efficiently in the cloud, using standard cloud technologies and encouraging open collaboration on data formats. Two of the most important formats for storing and accessing geospatial data efficiently are Cloud-Optimised GeoTIFFs (COGs) and Zarr.</p>
+<section id="cloud-optimised-geotiff-cog" class="level3" data-number="2.2.1">
+<h3 data-number="2.2.1" class="anchored" data-anchor-id="cloud-optimised-geotiff-cog"><span class="header-section-number">2.2.1</span> Cloud-optimised GeoTIFF (COG)</h3>
+<p>COGs are like snapshots of raster data (such as satellite images or elevation maps). This widely used format improves the standard GeoTIFF format by:</p>
+<ul>
+<li>Organising data into <strong>tiles</strong>: Dividing the data into smaller, manageable squares (like 512x512 pixels).</li>
+<li>Including lower-resolution previews: Having pre-generated, less detailed versions of the data.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/cogtiff.png" class="img-fluid figure-img"></p>
+<figcaption>COG structure. Retrieved from CNG documentation</figcaption>
+</figure>
+</div>
+<p>A key feature is the <strong>Internal File Directory</strong> (IFD), which acts like an internal index. This allows:</p>
+<ul>
+<li>Retrieving only the parts of the data needed using simple web requests.</li>
+<li>For example, it is possible to access just the tiles covering Paris from a large Sentinel-2 image of Europe.</li>
+</ul>
+</section>
+<section id="zarr" class="level3" data-number="2.2.2">
+<h3 data-number="2.2.2" class="anchored" data-anchor-id="zarr"><span class="header-section-number">2.2.2</span> Zarr</h3>
+<p>This format is designed for handling large, multi-dimensional datasets (often called “data cubes”). Zarr, developed and maintained by the community, works by:</p>
+<ul>
+<li>Storing data as compressed <strong>chunks</strong> in a flexible way.</li>
+<li>Allowing for efficient indexing and processing of the data in parallel.</li>
+<li>Enabling specific descriptions (metadata) for each part of the data.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/zarr1.png" class="img-fluid figure-img"></p>
+<figcaption>Zarr structure. Retrieved from CNG documentation.</figcaption>
+</figure>
+</div>
+<p>For example, Zarr makes it possible to extract temperature data for the summer of 2023 from a climate dataset spanning 50 years without needing to load the entire dataset.</p>
+<p>The table below compares some features of COG and Zarr:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 30%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Zarr</th>
+<th>COG</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Structure</td>
+<td>Multi-file chunks</td>
+<td>Single file</td>
+</tr>
+<tr class="even">
+<td>Access</td>
+<td>Parallel</td>
+<td>Sequential</td>
+</tr>
+<tr class="odd">
+<td>Compression</td>
+<td>Differently per-chunk</td>
+<td>Whole-file</td>
+</tr>
+<tr class="even">
+<td>Scales</td>
+<td>Multi-scale in single file</td>
+<td>Separate, pre-generated lower-resolution files</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="when-to-use-cogs-versus-zarr" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="when-to-use-cogs-versus-zarr"><span class="header-section-number">2.3</span> When to use COGs versus Zarr?</h2>
+<p>Based on the structure and capabilities for each format, it is advised to use COGs when:</p>
+<ul>
+<li>Working with raster data (like images or elevation models) that does has sudden changes.</li>
+<li>It is needed to easily visualise or access specific geographic areas without loading the entire dataset.</li>
+<li>Interoperability with existing GIS software is important, as COG is a widely adopted standard.</li>
+</ul>
+<p>On the other hand, it is advised to use Zarr when:</p>
+<ul>
+<li>Dealing with large, multi-dimensional datasets that might be updated or modified.</li>
+<li>Performing complex analyses that involve accessing different parts of the data in parallel.</li>
+<li>Efficiently handling different resolutions or variables within a single dataset is required.</li>
+<li>Working in cloud environments that benefit from chunked data storage for parallel processing.</li>
+</ul>
+</section>
+<section id="whats-next" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="whats-next"><span class="header-section-number">2.4</span> What’s next?</h2>
+<p>Now that we have an idea of the available cloud-optimised formats and what cloud-optimised means, we will explore the available data sets inside the EOPF available products.</p>
+</section>
+</div>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -602,10 +731,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./1_about_eopf.html" class="pagination-link" aria-label="Introduction to the Earth Observation Processor Framework">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to the Earth Observation Processor Framework</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./1_about_eopf.html" class="pagination-link" aria-label="Introduction to the Earth Observation Processor Framework">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to the Earth Observation Processor Framework</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./1_overview_eopf_datasets.html" class="pagination-link" aria-label="The EOPF Available Datasets">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The EOPF Available Datasets</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

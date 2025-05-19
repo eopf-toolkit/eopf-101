@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ESA EOPF 101</title>
+<title>3&nbsp; The EOPF Available Datasets – ESA EOPF 101</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./1_about_eopf.html" rel="next">
+<link href="./glossary.html" rel="next">
+<link href="./1_about_cloudoptimized_formats.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -81,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_about_eopf.html">About EOPF</a></li><li class="breadcrumb-item"><a href="./1_overview_eopf_datasets.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The EOPF Available Datasets</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -111,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome</span></a>
   </div>
 </li>
@@ -138,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link">
+  <a href="./1_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The EOPF Available Datasets</span></span></a>
   </div>
 </li>
@@ -161,21 +162,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_about_eopf.html">About EOPF</a></li><li class="breadcrumb-item"><a href="./1_overview_eopf_datasets.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The EOPF Available Datasets</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">ESA EOPF 101</h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The EOPF Available Datasets</span></h1>
 </div>
 
 
@@ -192,13 +187,207 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="welcome" class="level1 unnumbered">
-<h1 class="unnumbered">Welcome</h1>
-<p>This online book is the go-to resource to learn everything about the EOPF Sample Service by ESA.</p>
-<p>To be continued…</p>
-
-
+<div class="justify">
+<p>The ESA Copernicus Earth Observation Processor Framework uses <strong>Zarr</strong> as the encoding format for the EOPF catalogue. The chapter <a href="">About Zarr</a> gives you a practical introduction to the sample data being made available as part of the EOPF Sentinel Zarr Sample Service.</p>
+<p>The main groups of the Zarr encoding are:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 58%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Measurements</strong></td>
+<td>Main retrieved variables</td>
+</tr>
+<tr class="even">
+<td><strong>Conditions</strong></td>
+<td>Measurement context (geometric angles, meteorological/instrumental data)</td>
+</tr>
+<tr class="odd">
+<td><strong>Quality</strong></td>
+<td>Flags and quality information for measurement filtering</td>
+</tr>
+<tr class="even">
+<td><strong>Metadata</strong></td>
+<td>Attributes for the compression definition</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note: the re-processing from the legacy SAFE/SEN3 format to Zarr is an ongoing activity as part of the <a href="https://zarr.eopf.copernicus.eu/">EOPF Sentinel Zarr Sample Service</a>. This page will continuously be updated as soon as new data products are available.</p>
+</div>
+</div>
+<section id="sentinel-1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="sentinel-1">Sentinel-1</h2>
+<p>Sentinel-1 is radar imaging mission is composed of a constellation of two polar-orbiting satellites providing continuous all-weather, day and night imagery.</p>
+<section id="available-product-levels" class="level3" data-number="3.0.1">
+<h3 data-number="3.0.1" class="anchored" data-anchor-id="available-product-levels"><span class="header-section-number">3.0.1</span> Available product Levels</h3>
 </section>
+<section id="level-1" class="level3" data-number="3.0.2">
+<h3 data-number="3.0.2" class="anchored" data-anchor-id="level-1"><span class="header-section-number">3.0.2</span> Level 1</h3>
+<p>These are the first processed versions of the raw data.</p>
+<p>Single Look Complex (SLC) SLC images show the Earth’s surface as seen by the satellite’s radar. Each point has a complex value, giving both the strength and the phase of the signal. The amount of detail depends on how the data was collected.</p>
+<p>Ground Range Detected (GRD) GRD products are radar images that have been processed to look like they are viewed from directly above. They have been adjusted for the Earth’s shape, and each point represents the signal strength. Some fine details (phase) are lost in this process, but the image has less ‘speckling’ and a more regular shape.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ESA is currently updating this product. A more detailed structure of this product is available at the <a href="https://s1.pages.eopf.copernicus.eu/s1-l12-rp/main/pfs/index.html">EOPF Sentinel-1 Product Documentation</a></p>
+</div>
+</div>
+</section>
+</section>
+<section id="sentinel-2" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sentinel-2"><span class="header-section-number">3.1</span> Sentinel-2</h2>
+<p>Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over land and coastal waters. The mission supports applications such as agricultural monitoring, emergency management, land cover classifications, and water quality. Sentinel-2 imagery have 12 spectral bands with the following resolutions:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Resolution</th>
+<th>Bands</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10m</td>
+<td>B2, B3, B4, B8</td>
+</tr>
+<tr class="even">
+<td>20m</td>
+<td>B5, B6, B7, B8a, B11, B12</td>
+</tr>
+<tr class="odd">
+<td>60m</td>
+<td>B1, B9, B10</td>
+</tr>
+</tbody>
+</table>
+<section id="available-product-levels-1" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="available-product-levels-1"><span class="header-section-number">3.1.1</span> Available product Levels</h3>
+</section>
+<section id="level-2a" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="level-2a"><span class="header-section-number">3.1.2</span> Level 2A</h3>
+<p>Level 2A images are atmospherically corrected Surface Reflectance (SR) images, derived from the associated Level-1C products. These products have been further processed to display surface reflection while adjusting for atmospheric factors (such as air and clouds).</p>
+<p>These image products, as well as the Surface Reflectance for the different spectral bands, are resampled at different spatial resolutions. Until now, the ESA, along with the EOPF project, have decided to launch samples for the Level 2A, which encopass the following structure:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ESA is currently updating this product. A more detailed structure of this product is available at the <a href="https://s2.pages.eopf.copernicus.eu/pdfs-adfs/">EOPF Sentinel-2 Product Documentation</a></p>
+</div>
+</div>
+</section>
+</section>
+<section id="sentinel-3" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sentinel-3"><span class="header-section-number">3.2</span> Sentinel-3</h2>
+<p>Sentinel-3 is a mission that regularly measures our Earth’s oceans, land, rivers, lakes, ice on land, sea ice, and the atmosphere. Its goal is to keep track of and help us understand how these large parts of our planet change over long periods.</p>
+<section id="instrument-suite" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="instrument-suite"><span class="header-section-number">3.2.1</span> Instrument Suite</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 24%">
+<col style="width: 28%">
+<col style="width: 24%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Instrument</th>
+<th>Name</th>
+<th>Measurements</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>OLCI</strong></td>
+<td>Ocean and Land Colour Instrumen</td>
+<td>t Ocean/land color (21 bands)</td>
+<td>300m/1.2km</td>
+</tr>
+<tr class="even">
+<td><strong>SLSTR</strong></td>
+<td>Sea and Land Surface Temperature Radiometer</td>
+<td>Surface temperature (9 channels)</td>
+<td>500m/1km</td>
+</tr>
+<tr class="odd">
+<td><strong>SRAL</strong></td>
+<td>Synthetic Aperture Radar Altimeter</td>
+<td>Sea surface topography</td>
+<td>Variable</td>
+</tr>
+<tr class="even">
+<td><strong>SYN</strong></td>
+<td>Synergy</td>
+<td>Synergistic products from OLCI and SLSTR</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="available-product-levels-2" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="available-product-levels-2"><span class="header-section-number">3.2.2</span> Available product Levels</h3>
+</section>
+<section id="level-2" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="level-2"><span class="header-section-number">3.2.3</span> Level-2</h3>
+<p>These products process particular information that is helpful for various applications using the Level-1 data. In terms of OLCI, this incorporates factors like the ocean’s chlorophyll content and the land surface’s reflectivity while accounting for the atmosphere. Sea and land surface temperatures with quality checks are provided by SLSTR. SRAL offers sophisticated ocean data, such as wind speed and wave height. The SYN product analyses the atmosphere by combining information from SLSTR and OLCI.</p>
+<section id="precise-orbit-data" class="level4" data-number="3.2.3.1">
+<h4 data-number="3.2.3.1" class="anchored" data-anchor-id="precise-orbit-data"><span class="header-section-number">3.2.3.1</span> Precise Orbit Data</h4>
+<p>Information about the satellite’s position is available at different times after the data is collected:</p>
+<ul>
+<li><strong>NRT</strong>: Near Real-Time (GPS-based)</li>
+<li><strong>STC</strong>: Short Time-Critical (1-day latency)</li>
+<li><strong>NTC</strong>: Non-Time-Critical (post-processed)</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ESA is currently updating this product. The product structure is described in more detail at the <a href="https://s3.pages.eopf.copernicus.eu/pdfs-adfs/">EOPF Sentinel-3 Product Documentation</a></p>
+</div>
+</div>
+<p>In the following chapter, the <code>zarr</code> specific structure for each of the products will be explored, allowing us to understand better, how to integrate the new format into Earth Observation workflows.</p>
+</section>
+</section>
+</section>
+</div>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -602,10 +791,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./1_about_cloudoptimized_formats.html" class="pagination-link" aria-label="About Cloud Optimised Formats">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About Cloud Optimised Formats</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./1_about_eopf.html" class="pagination-link" aria-label="Introduction to the Earth Observation Processor Framework">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to the Earth Observation Processor Framework</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./glossary.html" class="pagination-link" aria-label="Glossary">
+        <span class="nav-page-text">Glossary</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
