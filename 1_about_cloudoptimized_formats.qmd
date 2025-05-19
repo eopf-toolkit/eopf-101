@@ -4,19 +4,18 @@ format: html
 ---
 ::: {.justify}
 
-## Why is Cloud Computing Important for Sentinel Data?
 
-For many years, using Earth Observation (EO) data meant downloading large files to the computer. Cloud computing changes this completely by bringing the data and the tools to process it together. This allows for large-scale analysis that was not possible before. Now, it is possible to:
+## Why do we need to cloud-optimise geospatial data formats? {.unnumbered}
 
-- Access huge amounts of Sentinel data on demand.
-- Process data much faster using powerful cloud computers (for example, analysing changes across a whole continent over time).
-- Exchange results easily with others around the world without needing to physically send files.
+The volume of EO data has grown exponentially in recent years. For ESA, Copernicus alone generates ~16TB daily from the Sentinel missions alone. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), make it slow to get just the specific information needed (for example, data for a single city over a decade). We have to download the entire asset, even if only a small part of it is needed. This might not a problem when you work close to the data.
 
-## Why are Cloud-Optimised Data formats useful for Sentinel Data?
 
-The volume of EO data has grown exponentially in recent years. For ESA, Copernicus alone generates ~16TB daily from Sentinel flights. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), make it slow to get just the specific information needed (for example, data for a single city over a decade). We have to download the entire asset, even if only a small part of it is needed.
+When moving your Earth Observation processing workflow to the cloud however, your data  
 
-Cloud-optimised formats like Zarr and COG make working with this data much more efficient by allowing:
+
+
+
+Cloud-optimised formats make working with this data much more efficient by allowing:
 
 - **Subsetting extraction**: Avoiding full downloads (optimised Extract-Load-Transform (ELT) operations)
 - **Parallel processing**: by working with many parts of the data at the same time.
@@ -44,7 +43,7 @@ Modern cloud architectures reduce latency through:
 When accessing data over the internet (e.g., cloud storage), latency is high compared to local storage, so it's preferable to fetch lots of data in fewer reads.
 :::
 
-## Cloud Optimised Formats
+## Cloud-Optimised Geospatial Raster Formats
 
 Initiatives like the [Cloud Native Geospatial Forum (CNG)](https://cloudnativegeo.org/) help develop ways to use geospatial data efficiently in the cloud, using standard cloud technologies and encouraging open collaboration on data formats. Two of the most important formats for storing and accessing geospatial data efficiently are Cloud-Optimised GeoTIFFs (COGs) and Zarr.
 

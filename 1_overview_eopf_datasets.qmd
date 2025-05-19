@@ -4,9 +4,9 @@ format: html
 ---
 ::: {.justify}
 
-The ESA Copernicus Earth Observation Processor Framework proposed using **Zarr** as the encoding format for the EOPF catalogue.. Think of it as a well-structured container for all the information. The format's structure will be described in more detail in the chapter **What is Zarr?**.
+The ESA Copernicus Earth Observation Processor Framework uses **Zarr** as the encoding format for the EOPF catalogue. The chapter [About Zarr]() gives you a practical introduction to the sample data being made available as part of the EOPF Sentinel Zarr Sample Service.
 
-An overview of the groups included 
+The main groups of the Zarr encoding are:
 
 | Group | Contents |
 |-------|----------|
@@ -16,11 +16,11 @@ An overview of the groups included
 | **Metadata** | Attributes for the compression definition |
 
 ::: {.callout-important}
-It is important to highlight that some product versions are not yet supported by the ongoing developments, mainly due to the continuous evolution of legacy SAFE/SEN3 products.
+Note: the re-processing from the legacy SAFE/SEN3  format to Zarr is an ongoing activity as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). This page will continuously be updated as soon as new data products are available.
 :::
 
-## Sentinel-1
-The Copernicus Sentinel-1 mission uses two satellites that work together. Each satellite has a special radar that can take pictures of the Earth's surface no matter the weather or if it is day or night. This ensures we always have a steady stream of images.
+## Sentinel-1 {.unnumbered}
+Sentinel-1 is radar imaging mission is composed of a constellation of two polar-orbiting satellites providing continuous all-weather, day and night imagery.
 
 ### Available product Levels
 
@@ -33,16 +33,12 @@ SLC images show the Earth's surface as seen by the satellite's radar. Each point
 Ground Range Detected (GRD)
 GRD products are radar images that have been processed to look like they are viewed from directly above. They have been adjusted for the Earth's shape, and each point represents the signal strength. Some fine details (phase) are lost in this process, but the image has less 'speckling' and a more regular shape.
 
-Until now, the ESA, along with the EOPF project, have decided to launch samples for the Level 1, which encopass the following structure:
-
 ::: {.callout-note}
-ESA is currently updating this product. A deeper structure of this product is available at the [EOPF Sentinel-1 Product Documentation](https://s1.pages.eopf.copernicus.eu/s1-l12-rp/main/pfs/index.html)
+ESA is currently updating this product. A more detailed structure of this product is available at the [EOPF Sentinel-1 Product Documentation](https://s1.pages.eopf.copernicus.eu/s1-l12-rp/main/pfs/index.html)
 :::
 
 ## Sentinel-2
-The Copernicus Sentinel-2 mission uses two synchronised satellites flying together. Each satellite has a special camera that takes very detailed colour pictures of the land and plants. This camera captures light in 13 different colours, giving us a new way to see our Earth. The satellites are designed to cover a wide area with each pass.
-
-Sentinel-2 gives us detailed colour images of the land. It captures light in different colours (bands) and at different resolutions(detail levels):
+Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over land and coastal waters. The mission supports applications such as agricultural monitoring, emergency management, land cover classifications, and water quality. Sentinel-2 imagery have 12 spectral bands with the following resolutions:
 
 | Resolution | Bands |
 |------------|-------|
@@ -50,26 +46,19 @@ Sentinel-2 gives us detailed colour images of the land. It captures light in dif
 | 20m | B5, B6, B7, B8a, B11, B12 |
 | 60m | B1, B9, B10 |
 
-Spatial Chunking
-For the compression envisioned, the tiles for each image are divided into blocks of 256x256 pixels. This is done in a way that aligns with the different resolutions of the colour bands, making it efficient to access different levels of detail. Each image covers a wide area of 290km.
-
-The chunking strategies will be deeply explored in **Chapter 2**
 
 ### Available product Levels
 
 ### Level 2A
 
-Provides atmospherically corrected Surface Reflectance (SR) images, derived from the associated Level-1C products.
-These products have been further processed to display surface reflection while adjusting for atmospheric factors (such as air and clouds). Along with surface reflection data for various hues, it is possible to aquire products such as:
-- Aerosol Optical Thickness (AOT)
-- Water Vapour (WV)
-- Scene Classification (SCL) map.
+Level 2A images are atmospherically corrected Surface Reflectance (SR) images, derived from the associated Level-1C products.
+These products have been further processed to display surface reflection while adjusting for atmospheric factors (such as air and clouds).
 
 These image products, as well as the Surface Reflectance for the different spectral bands, are resampled at different spatial resolutions.
 Until now, the ESA, along with the EOPF project, have decided to launch samples for the Level 2A, which encopass the following structure:
 
 ::: {.callout-note}
-ESA is currently updating this product. A deeper structure of this product its available at the [EOPF Sentinel-2  Product Documentation](https://s2.pages.eopf.copernicus.eu/pdfs-adfs/)
+ESA is currently updating this product. A more detailed structure of this product is available at the [EOPF Sentinel-2 Product Documentation](https://s2.pages.eopf.copernicus.eu/pdfs-adfs/)
 :::
 
 ## Sentinel-3
@@ -89,7 +78,7 @@ Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers
 
 ### Level-2 
 
-These products process particular information that is helpful for various applications using the Level-1 data.  In terms of OLCI, this incorporates factors like the ocean's chlorophyll content and the land surface's reflectivity while accounting for the atmosphere.  Sea and land surface temperatures with quality checks are provided by SLSTR.  SRAL offers sophisticated ocean data, such as wind speed and wave height.  The SYN product analyses the atmosphere by combining information from SLSTR and OLCI.
+These products process particular information that is helpful for various applications using the Level-1 data. In terms of OLCI, this incorporates factors like the ocean's chlorophyll content and the land surface's reflectivity while accounting for the atmosphere. Sea and land surface temperatures with quality checks are provided by SLSTR. SRAL offers sophisticated ocean data, such as wind speed and wave height. The SYN product analyses the atmosphere by combining information from SLSTR and OLCI.
 
 #### Precise Orbit Data
 
@@ -104,8 +93,6 @@ Information about the satellite's position is available at different times after
 ESA is currently updating this product. The product structure is described in more detail at the [EOPF Sentinel-3 Product Documentation](https://s3.pages.eopf.copernicus.eu/pdfs-adfs/)
 :::
 
-To have an overview to the samples and explore interactiveley their structure, visit the [EOPF Product Structure Examples](https://eopf.copernicus.eu/eopf-products-and-adfs/eopf-product-structure-examples/)
-
-In the following chapter, the `zarr` specific structure for each of the products will be explored, allowing us to understand better, how to integrate the new format to Eart Observation aplications of our interest.
+In the following chapter, the `zarr` specific structure for each of the products will be explored, allowing us to understand better, how to integrate the new format into Earth Observation workflows.
 
 :::
