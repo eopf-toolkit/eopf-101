@@ -6,9 +6,9 @@ book:
   author: ""
   date: ""
   search: true
-  repo-url: https://github.com/
+  repo-url: https://github.com/eopf-toolkit/eopf-101
   page-navigation: true
-  page-footer: 
+  page-footer:
     left: "Development Seed, thriveGEO, SparkGeo"
     right:
       - icon: github
@@ -21,26 +21,6 @@ book:
         - 1_about_eopf.qmd
         - 1_about_cloudoptimized_formats.qmd
         - 1_overview_eopf_datasets.qmd
-    - part: "[COMING]About Zarr"
-      chapters:
-   #    - 2_what_is_zarr.qmd
-    #   - 2_benefits_for_EO.qmd
-   #    - 2_zarr_struct_S2L2A.qmd
-    - part: "[COMING] EOPF and STAC"
- #     chapters: 
-  #      - 3_subchapter_1.qmd
-  #      - 3_subchapter_2.qmd
-    - part: "[COMING] Tools to work with Zarr"
- #     chapters:
-  #      - 1_zarr_julia.qmd
-  #      - 2_zarr_qgis.qmd
-  #      - 3_zarr_R.qmd
-  #      - 4_titiler.qmd
-    - part: "[COMING] EOPF in Action"
-  #    chapters:
-  #      - 1_case_study.qmd
-  #      - 2_case_study.qmd
-  #      - 3_case_study.qmd
     - glossary.qmd
     - references.qmd
 
@@ -54,5 +34,5 @@ format:
   pdf:
     documentclass: scrreprt
 
-
-
+execute:
+  freeze: auto
