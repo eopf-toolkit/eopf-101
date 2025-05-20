@@ -4,50 +4,51 @@ format: html
 ---
 ::: {.justify}
 
-The ESA Copernicus Earth Observation Processor Framework uses **Zarr** as the encoding format for the EOPF catalogue. The chapter [About Zarr]() gives you a practical introduction to the sample data being made available as part of the EOPF Sentinel Zarr Sample Service.
+The ESA Copernicus **Earth Observation Processor Framework** has chosen `.zarr` as the encoding format for the data available in the EOPF catalogue.
+The chapter "[About Zarr]()" introduces the sample data made available as part of the [EOPF Sentinel Zarr Sample Service](https://stac.browser.user.eopf.eodc.eu/?.language=en). There, it is possible to explore further the structure of a `zarr` asset and how to visualise it.
 
-The main groups of the Zarr encoding are:
-
-| Group | Contents |
-|-------|----------|
-| **Measurements** | Main retrieved variables |
-| **Conditions** | Measurement context (geometric angles, meteorological/instrumental data) |
-| **Quality** | Flags and quality information for measurement filtering |
-| **Metadata** | Attributes for the compression definition |
+So far, the missions integrated inside the catalogue are the Sentinel 1, Sentinel 2 and Sentinel 3.
+Each of them makes available to the public several Processing Levels (from raw info to composites) from which we can choose the data set that best suits our analysis needs.
 
 ::: {.callout-important}
-Note: the re-processing from the legacy SAFE/SEN3  format to Zarr is an ongoing activity as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). This page will continuously be updated as soon as new data products are available.
+The re-processing from the Sentinel Missions `.SAFE` format to `.zarr` is an ongoing activity as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). This page and our tutorials will continuously be updated as soon as new data products are available.
 :::
 
-## Sentinel-1 {.unnumbered}
-Sentinel-1 is radar imaging mission is composed of a constellation of two polar-orbiting satellites providing continuous all-weather, day and night imagery.
+The main groups included in the `zarr` EOPF structure for the three available Missions are:
 
-### Available product Levels {.unnumbered}
+![The EOPF product zarr structure](img/EOPF_product.jpg){fig-align="center"}
+
+Were they containing information such as:
+
+**Measurements**: Main retrieved variables
+**Conditions**: Measurement context (geometric angles, meteorological/instrumental data)
+**Quality**: Flags and quality information for measurement filtering
+**Metadata**: Attributes for the compression definition
+
+Here, we intend to give an overview of the available information for each of the missions.
+
+## Available product Levels {.unnumbered}
+
+## Sentinel-1 {.unnumbered}
+Sentinel-1 is a radar imaging mission that is composed of a constellation of two polar-orbiting satellites providing continuous all-weather, day and night imagery.
 
 ### Level 1 {.unnumbered}
-These are the first processed versions of the raw data.
 
-Single Look Complex (SLC)
+These are the first processed versions of the raw data. EOPF samples include the following products:
+
+- Single Look Complex (SLC)
 SLC images show the Earth's surface as seen by the satellite's radar. Each point has a complex value, giving both the strength and the phase of the signal. The amount of detail depends on how the data was collected.
 
-Ground Range Detected (GRD)
+- Ground Range Detected (GRD)
 GRD products are radar images that have been processed to look like they are viewed from directly above. They have been adjusted for the Earth's shape, and each point represents the signal strength. Some fine details (phase) are lost in this process, but the image has less 'speckling' and a more regular shape.
 
 ::: {.callout-note}
-ESA is currently updating this product. A more detailed structure of this product is available at the [EOPF Sentinel-1 Product Documentation](https://s1.pages.eopf.copernicus.eu/s1-l12-rp/main/pfs/index.html)
+ESA is currently updating this product. A more detailed structure of this product is available at the [EOPF Sentinel-1 Product Documentation](https://s1.pages.eopf.copernicus.eu/s1-l12-rp/main/pfs/index.html)<br>
+You can explore [this example of Sentinel 1 SLC](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-slc) inside the [EOPF Sentinel Zarr Sample Service](https://stac.browser.user.eopf.eodc.eu/?.language=en). 
 :::
 
 ## Sentinel-2 {.unnumbered}
-Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over land and coastal waters. The mission supports applications such as agricultural monitoring, emergency management, land cover classifications, and water quality. Sentinel-2 imagery have 12 spectral bands with the following resolutions:
-
-| Resolution | Bands |
-|------------|-------|
-| 10m | B2, B3, B4, B8 |
-| 20m | B5, B6, B7, B8a, B11, B12 |
-| 60m | B1, B9, B10 |
-
-
-### Available product Levels {.unnumbered}
+Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over land and coastal waters. The mission supports applications such as agricultural monitoring, emergency management, land cover classifications, and water quality.
 
 ### Level 2A {.unnumbered}
 
@@ -55,10 +56,13 @@ Level 2A images are atmospherically corrected Surface Reflectance (SR) images, d
 These products have been further processed to display surface reflection while adjusting for atmospheric factors (such as air and clouds).
 
 These image products, as well as the Surface Reflectance for the different spectral bands, are resampled at different spatial resolutions.
-Until now, the ESA, along with the EOPF project, have decided to launch samples for the Level 2A, which encopass the following structure:
+Until now, the ESA, along with the EOPF project, have decided to launch samples for the Level 2A, which encompasses the following structure:
+
+![Sentinel-2 L2A zarr structure](img/s2l2a.jpg)
 
 ::: {.callout-note}
-ESA is currently updating this product. A more detailed structure of this product is available at the [EOPF Sentinel-2 Product Documentation](https://s2.pages.eopf.copernicus.eu/pdfs-adfs/)
+ESA is currently updating this product. A more detailed structure of this product is available at the [EOPF Sentinel-2 Product Documentation](https://s2.pages.eopf.copernicus.eu/pdfs-adfs/)<br>
+You can explore [this example of Sentinel 2 L2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) inside the [EOPF Sentinel Zarr Sample Service](https://stac.browser.user.eopf.eodc.eu/?.language=en). 
 :::
 
 ## Sentinel-3 {.unnumbered}
@@ -67,14 +71,10 @@ Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers
 
 ### Instrument Suite
 
-| Instrument | Name | Measurements | Resolution |
-|------------|------------|--------------|------------|
-| **OLCI** |Ocean and Land Colour Instrumen |t Ocean/land color (21 bands) | 300m/1.2km |
-| **SLSTR** |Sea and Land Surface Temperature Radiometer | Surface temperature (9 channels) | 500m/1km |
-| **SRAL** | Synthetic Aperture Radar Altimeter | Sea surface topography | Variable |
-| **SYN** | Synergy | Synergistic products from OLCI and SLSTR | N/A |
-
-### Available product Levels {.unnumbered}
+**OLCI**: Ocean and Land Colour Instrument<br>
+**SLSTR**: Sea and Land Surface Temperature Radiometer<br>
+**SRAL**:Synthetic Aperture Radar Altimeter<br>
+**SYN**: Synergy (Synergistic products from OLCI and SLSTR)
 
 ### Level-2 {.unnumbered}
 
@@ -90,9 +90,12 @@ Information about the satellite's position is available at different times after
 
 
 ::: {.callout-note}
-ESA is currently updating this product. The product structure is described in more detail at the [EOPF Sentinel-3 Product Documentation](https://s3.pages.eopf.copernicus.eu/pdfs-adfs/)
+ESA is currently updating this product. The product structure is described in more detail at the [EOPF Sentinel-3 Product Documentation](https://s3.pages.eopf.copernicus.eu/pdfs-adfs/)<br>
+You can explore [examples of Sentinel 3 ]() soon to be available inside the [EOPF Sentinel Zarr Sample Service](https://stac.browser.user.eopf.eodc.eu/?.language=en). 
 :::
 
-In the following chapter, the `zarr` specific structure for each of the products will be explored, allowing us to understand better, how to integrate the new format into Earth Observation workflows.
+:::
+
+In the following chapter, the `zarr` specific structure for each of the products will be explored, allowing us to better understand, how to integrate the new format into Earth Observation workflows.
 
 :::
