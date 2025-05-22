@@ -4,11 +4,11 @@ format: html
 ---
 ::: {.justify}
 
-## What is the Earth Observation Processor Framework?  {.unnumbered}
+## What is the Earth Observation Processor Framework? {.unnumbered}
 
 The [Earth Observation Processor Framework](https://eopf.copernicus.eu/) (EOPF) is an initiative led by the European Space Agency (ESA) designed to modernise and harmonise data from the Copernicus Sentinel Missions.
 
-With the upcoming Copernicus Expansion missions in 2028, the amount of data will significantly increase. EOPF is ESA's solution to organise Sentinel data in a way that works seamlessly with modern cloud technology. This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.
+With the upcoming Copernicus Expansion missions in 2028, the amount of data will increase from the current ~16TB daily to an estimated 40TB+ per day. EOPF is ESA's solution to organize Sentinel data in a way that works seamlessly with modern cloud technology. This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.
 
 The [Sentinel-1](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1), [Sentinel-2](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2), and [Sentinel-3](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-3) missions are the first to be updated with this new system.
 
@@ -25,26 +25,58 @@ To achieve this, there are the following key development areas under EOPF:
 
 ### EOPF product structure {.unnumbered}
 
-The EOPF prodcut structure defines how information about the data is structured, stored, and connected. It contains the key details we need to know about a dataset, like when it was collected or its level of detail (the attributes). 
-As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used nacross all Sentinel and other EO missions. This approach ensures that data from several missions is consistent. Thus, it is easier to combine, relate, and evaluate data from different missions.
+The EOPF product structure defines how information about the data is structured, stored, and connected. It contains the key details we need to know about a dataset, like when it was collected or its level of detail (the attributes). 
+As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used across all Sentinel and other EO missions. This approach ensures that data from several missions is consistent. Thus, it is easier to combine, relate, and evaluate data from different missions.
 
 ![EOPF Product structure](img/product_structure.png){fig-align="center"}
 
-The EOPF product structure contains of the following key parts:
+The EOPF product structure consists of the following key components:
 
-- **Measurements:** The actual sensor readings (like how much light is reflected or the temperature), at different levels of detail.
-- **Quality indicators:** Details that help understand how reliable the measurements are.
-- **Conditions:** Information about the environment or technical aspects when the data was collected.
-- **Attributes:** Global metadata, such as when it was acquired and the sensor's orbit.
+| Component | Description | Examples |
+|-----------|-------------|----------|
+| **Measurements** | Primary sensor data | - S1: Radar backscatter<br>- S2: Surface reflectance<br>- S3: Sea surface temperature |
+| **Quality indicators** | Data quality metrics | - Cloud coverage percentage<br>- Signal-to-noise ratio<br>- Data completeness flags |
+| **Conditions** | Acquisition context | - Solar/viewing angles<br>- Atmospheric conditions<br>- Instrument settings |
+| **Attributes** | Global metadata | - Acquisition time<br>- Orbit number<br>- Processing baseline<br>- Geographic coverage |
 
 ### Metadata Structure {.unnumbered}
 
 Metadata can be seen as data about data, that provides essential information to understand and use data effectively. 
-Inside the Copernicus ecosystem, it allows us to uniquely identifying each Sentinel product by detailing its technical and geographic coverage information. To make sure the new data system works well and avoids redundancy, the EOPF metadata structure will be organised into:
+Inside the Copernicus ecosystem, it allows us to uniquely identify each Sentinel product by detailing its technical and geographic coverage information. To make sure the new data system works well and avoids redundancy, the EOPF metadata structure will be organised into three main categories:
 
-- Discovery Metadata: Following the metadata structure defined by the SpatioTemporal Asset Catalogue ([STAC](https://stacspec.org/en/)) which helps to keep things consistent across different missions.
-- Processing History Metadata: keeping a record of how the data has been processed.
-- Other Metadata: Information like the status of the sensor and details about the satellite's orbit.
+1. **Discovery Metadata (STAC)**
+
+Following the metadata structure defined by the SpatioTemporal Asset Catalogue ([STAC](https://stacspec.org/en/)) which helps to keep things consistent across different missions.
+
+```json
+{
+  "type": "Feature",
+  "stac_version": "1.0.0",
+  "id": "S2A_MSIL2A_20230615T105031_N0509",
+  "bbox": [11.0, 45.0, 12.0, 46.0],
+  "properties": {
+    "datetime": "2023-06-15T10:50:31Z",
+    "platform": "sentinel-2a",
+    "instruments": ["msi"],
+    "eopf:processing_baseline": "05.09",
+    "eopf:product_type": "L2A"
+  }
+}
+```
+
+2. **Processing History Metadata**
+
+- Original SAFE product ID
+- Processing steps applied
+- Algorithm versions
+- Calibration data used
+
+3. **Other Metadata**
+   
+- Instrument health indicators
+- Orbit parameters
+- Geographic coverage details
+- Quality assessment results
 
 ::: {.callout-note}
 *"Learn more about EOPF and STAC [here](./)."*
@@ -64,11 +96,18 @@ Currently, there are different ways to store geospatial data in the cloud, such 
 - Hierarchical Data Format (HDF5) with Cloud Adaptations
 - Apache Parquet (with GeoParquet Extension)
 
-ESA chose `Zarr` as encoding format as it allow for efficient handling of data, like selecting specific areas and combining different datasets easily (for example, by dividing the data into smaller chunks). Learn more about the EOPF Zarr format [here]().
+ESA chose `Zarr` as encoding format for its key advantages:
+
+- Efficient parallel data access through flexible chunking
+- Superior compression ratios (up to 5x better than traditional formats)
+- Native cloud storage integration with minimal latency
+- Support for arbitrary N-dimensional arrays
+- Built-in versioning and metadata handling
+
+Learn more about the EOPF Zarr format in the [EOPF Zarr Documentation](https://zarr.eopf.copernicus.eu/).
 
 ::: {.callout-note}
 Learn more about cloud-optimized geospatial data formats in the [Cloud-Optimized Geospatial Data Formats Guide](https://guide.cloudnativegeo.org/)
-
 :::
 
 ### Processor Development {.unnumbered}
@@ -77,11 +116,15 @@ The way Sentinel data is processed is being updated to take advantage of modern 
 
 ::: {.callout-note}
 To learn more about the EOPF processor framework, visit [https://eopf.copernicus.eu/eopf/](https://eopf.copernicus.eu/eopf/)
-
 :::
 
 ## What's next? {.unnumbered}
 
-In the following chapters, we will introduce the details of the new EOPF data structure, explain the reasons behind ESA's choice of data storage methods, and help the community become comfortable with the new EOPF data format.
+In the following chapters, we will explore:
+
+- Detailed explanation of EOPF's Zarr implementation
+- Practical examples of working with EOPF data
+- Tools and libraries for EOPF data access
+- Best practices for cloud-based processing
 
 :::
