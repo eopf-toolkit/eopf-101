@@ -28,7 +28,7 @@ To achieve this, there are the following key development areas under EOPF:
 The EOPF prodcut structure defines how information about the data is structured, stored, and connected. It contains the key details we need to know about a dataset, like when it was collected or its level of detail (the attributes). 
 As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used nacross all Sentinel and other EO missions. This approach ensures that data from several missions is consistent. Thus, it is easier to combine, relate, and evaluate data from different missions.
 
-![EOPF Product structure](img/product_structure.png){fig-align="center"}
+![EOPF Product structure](img/product_structure.jpg){fig-align="center"}
 
 The EOPF product structure contains of the following key parts:
 
@@ -39,15 +39,15 @@ The EOPF product structure contains of the following key parts:
 
 ### Metadata Structure {.unnumbered}
 
-Metadata can be seen as data about data, that provides essential information to understand and use data effectively. 
-Inside the Copernicus ecosystem, it allows us to uniquely identifying each Sentinel product by detailing its technical and geographic coverage information. To make sure the new data system works well and avoids redundancy, the EOPF metadata structure will be organised into:
+Metadata can be seen as data about data, which provides essential information to understand and use data effectively. 
+Inside the Copernicus ecosystem, it allows us to uniquely identify each Sentinel product by detailing its technical and geographic coverage information. To make sure the new data system works well and avoids redundancy, the EOPF metadata structure will be organised into:
 
-- Discovery Metadata: Following the metadata structure defined by the SpatioTemporal Asset Catalogue ([STAC](https://stacspec.org/en/)) which helps to keep things consistent across different missions.
+- Discovery Metadata: Following the metadata structure defined by the SpatioTemporal Asset Catalogue ([STAC](https://stacspec.org/en/)), which helps to keep things consistent across different missions.
 - Processing History Metadata: keeping a record of how the data has been processed.
 - Other Metadata: Information like the status of the sensor and details about the satellite's orbit.
 
 ::: {.callout-note}
-*"Learn more about EOPF and STAC [here](./)."*
+*"Learn more about EOPF and STAC [here](https://stacindex.org/catalogs/cdse#/)."*
 
 :::
 
@@ -64,10 +64,10 @@ Currently, there are different ways to store geospatial data in the cloud, such 
 - Hierarchical Data Format (HDF5) with Cloud Adaptations
 - Apache Parquet (with GeoParquet Extension)
 
-ESA chose `Zarr` as encoding format as it allow for efficient handling of data, like selecting specific areas and combining different datasets easily (for example, by dividing the data into smaller chunks). Learn more about the EOPF Zarr format [here]().
+ESA chose `.zarr` as encoding format as it allows for efficient handling of data, like selecting specific areas and combining different datasets easily (for example, by dividing the data into smaller chunks). Learn more about the EOPF Zarr format [here](https://zarr.eopf.copernicus.eu/).
 
 ::: {.callout-note}
-Learn more about cloud-optimized geospatial data formats in the [Cloud-Optimized Geospatial Data Formats Guide](https://guide.cloudnativegeo.org/)
+Learn more about cloud-optimised geospatial data formats in the [Cloud-Optimised Geospatial Data Formats Guide](https://guide.cloudnativegeo.org/)
 
 :::
 
