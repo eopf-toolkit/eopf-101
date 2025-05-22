@@ -18,9 +18,7 @@ book:
     - index.qmd
     - part: "About EOPF"
       chapters:
-        - 1_about_eopf.qmd
-        - 1_about_cloudoptimized_formats.qmd
-        - 1_overview_eopf_datasets.qmd
+        - 2_what_is_zarr.qmd
     - glossary.qmd
     - references.qmd
 

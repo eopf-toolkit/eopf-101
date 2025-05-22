@@ -1,0 +1,58 @@
+---
+title: "Chapter 2: Deep dive into the Zarr format"
+format: html
+---
+::: {.justify}
+
+# What Is Zarr?
+
+In essence, **Zarr** is a community project to develop specifications and software for the storage of large N-dimensional typed arrays, also commonly known as tensors. A particular focus of `zarr` is to provide support for storage using distributed systems like cloud object stores, and to enable efficient data flow for parallel computing applications.
+
+::: {.callout-note}
+Note: To check in-depth `zarr`, visit the [Zarr Documentation](https://zarr.dev/)
+:::
+
+This project aligns with ESA's objective of enhancing the accessibility of Sentinel Data by modernising the previous `.SAFE` encoding into a more flexible structure. The cloud-native nature of  `zarr` is expected to broaden the applications of the Sentinel data within the geospatial community while maintaining data quality and established algorithms.
+The `zarr` format includes descriptive information (**metadata**) at various levels, providing an overview of a `zarr` files content and organisation. This metadata allows users to identify and utilise specific portions of the file without requiring full access to the entire dataset. Then the desired data can be located and accessed efficiently.
+The capability to store **multi-dimensional arrays** within organised groups facilitates the management of diverse data elements, such as image bands at varying resolutions. This structure is well-suited for storing multispectral imagery.
+The chunking principle enables users to access only the regions of interest within a dataset. By dividing the data into smaller, independent pieces (**chunks**), it becomes possible to retrieve and process specific areas without loading the complete dataset. Furthermore, this chunking strategy supports parallel processing, which can optimise calculation times. The parameters defining how the data is divided are recorded within the metadata.
+
+![Zarr conceptual structure](img/zarr_str.png){fig-align="center"}
+
+The compression schemes supported by `zarr` contribute to efficient storage and data retrieval. Compressed data requires less storage space and can be transferred and accessed more quickly.
+
+`zarr`'s adaptable storage capabilities enable the structured organisation of data across different storage systems. Individual chunks can be stored as separate entities, allowing for effective data access even with limited hardware processing capabilities.
+
+## Zarr EOPF Format Structure
+
+The ESA Copernicus Earth Observation Processor Framework defines the encoding format for the EOPF catalogue as `.zarr`.
+
+The `.zarr` format exhibits a hierarchical structure, conceptually similar to a system of nested directories on a local computer.
+Descriptive information (metadata) is included at each level of this structure. This metadata belongs to the container and any contained groups (sub-folders), and is typically stored in a text-based format.
+Within this structure, groups (containing multiple arrays) or individual arrays (data files) can be found, each accompanied by its specific metadata. The parameters governing the chunking of the data are defined at the array level.
+
+EOPF zarr products are enclosed files with three main groups:
+
+| Group | Contents |
+|-------|----------|
+| **Attributes** | STAC format metadata for the `.zarr` element |
+| **Measurements** | Main retrieved variables |
+| **Conditions** | Measurement context (geometric angles, meteorological/instrumental data) |
+| **Quality** | Flags and quality information for measurement filtering |
+
+We imagine a Sentinel 2 L2A asset. The image might have dimensions of approximately 10980 by 10980 pixels, and include 12 spectral bands (B01 to B12, excluding B10) at different resolutions, plus additional data arrays like a Scene Classification Map (SCL) and an Atmospheric Optical Thickness (AOT) array.<br>
+For an efficient handling, the data could be chunked into 1024 by 1024-pixel segments.
+
+Following the described structure and according to the [EOPF Sentinel 2 documentation](), the concept of this `.zarr` asset can be seen as this:
+
+![An rgb example structure](img/s2l2a.jpg){fig-align="center"}
+
+- The processing history and chunking metadata for each of the groups will be stored under `attributes`
+- The r10, r20 and r60 arrays for each band will be contaianed inside `measurements`
+
+This structured zarr organization for Sentinel-2 L2A data allows for efficient access to specific bands or spatial regions without loading the entire dataset, making it ideal for large-scale geospatial analysis. It also ensures all relevant metadata is co-located with the data it describes, enhancing data discoverability and usability.
+
+
+Now that a broad structure of zarr has been described, we will explore the applications for Earth Observation data, plus dive into the format specifications for the Copernicus Sentinel 1, Sentinel 2 and Sentinel 3 Missions.
+
+:::
