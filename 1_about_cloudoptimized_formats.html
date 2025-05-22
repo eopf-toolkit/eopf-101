@@ -95,11 +95,14 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./img/logos.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="./">ESA EOPF 101</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/eopf-toolkit/eopf-101" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="https://github.com/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
 </div>
     </div>
       </div>
@@ -145,10 +148,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">About Zarr</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">[COMING] EOPF and STAC</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">[COMING] Tools to work with Zarr</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">[COMING] EOPF in Action</span></span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./glossary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Glossary</span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Glossary</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -190,30 +209,11 @@ ul.task-list li input[type="checkbox"] {
 <div class="justify">
 <section id="why-do-we-need-to-cloud-optimise-geospatial-data-formats" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="why-do-we-need-to-cloud-optimise-geospatial-data-formats">Why do we need to cloud-optimise geospatial data formats?</h2>
-<p>The volume of EO data has grown exponentially in recent years. For ESA, Copernicus alone generates ~16TB daily from the Sentinel missions alone. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), make it slow to get just the specific information needed (for example, data for a single city over a decade). We have to download the entire asset, even if only a small part of it is needed. This might not a problem when you work close to the data.</p>
-<p>When moving your Earth Observation processing workflow to the cloud however, your data</p>
-<p>Cloud-optimised formats make working with this data much more efficient by allowing:</p>
+<p>The volume of EO data has grown exponentially in recent years. The Copernicus programme alone generates ~16TB daily from the Sentinel missions. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), are optimised for efficient archiving and distributing data. This means that we often download the data from an entire overpass, even if we only need to access a small part of it, for example, if we want to do an analysis of the area of a single city over a decade.</p>
+<p>With growing data volumes, this becomes a challenge. To picture the different nature of challenges we come across, let us compare a traditional local workflow with a cloud-based workflow:</p>
 <ul>
-<li><strong>Subsetting extraction</strong>: Avoiding full downloads (optimised Extract-Load-Transform (ELT) operations)</li>
-<li><strong>Parallel processing</strong>: by working with many parts of the data at the same time.</li>
-<li><strong>Scalable storage</strong>: Using cloud-native storage systems that can grow as needed.</li>
-<li><strong>Optimised data latency</strong>: Reducing delays when processing and visualising data.</li>
-</ul>
-</section>
-<section id="what-is-data-latency" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="what-is-data-latency"><span class="header-section-number">2.1</span> What is Data Latency?</h2>
-<p><strong>Data latency</strong> in cloud computing refers to the time it takes for data to be available for processing once requested from cloud storage. For satellite data, this includes the time from when the satellite captures the data to when it is possible to work with it. Reducing latency enables faster access for users without powerful computers, making Sentinel data more accessible to everyone, no matter where they are. It also allows for more detailed analysis, leading to more accurate results because the analysis can use more relevant data.</p>
-<p>Minimising latency benefits:</p>
-<ul>
-<li>We can access the data in less time.</li>
-<li>Decisions are made more quickly.</li>
-<li>Combining and analysing different datasets in an efficient way, reducing computing costs.</li>
-</ul>
-<p>Modern cloud architectures reduce latency through:</p>
-<ul>
-<li>Storing and processing data in different geographic locations (e.g., AWS regions co-located with ESA ground stations)</li>
-<li>Caching high-demand products, so they are readily available.</li>
-<li>Utilising flexible computing resources that can quickly handle large processing tasks during emergencies</li>
+<li><p><strong>Traditional local workflow</strong>: When working locally, we download much more data than we need, and we are constrained by the compute and storage capacity of the local system. However, one big advantage is that data and compute are close together, meaning that there is not much delay.</p></li>
+<li><p><strong>Cloud-based workflow</strong>: A cloud environment offers solutions to limitations local workflows have. A cloud environment offers limitless storage and compute capacity. On the contrary, data storage, compute, and you the destination are far apart. There is an additional time for data to travel between the storage location, processing resources and us. This time is referred to as <strong>data latency</strong>.</p></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -225,19 +225,45 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When accessing data over the internet (e.g., cloud storage), latency is high compared to local storage, so it’s preferable to fetch lots of data in fewer reads.</p>
+<p><strong>Data latency</strong> refers to the time it takes for data to be transmitted or processed from cloud storage to your computer. In local workflows, data latency is minimal, whereas in cloud-based workflows, data latency needs to be optimised.</p>
+</div>
+</div>
+<p>Local workflows are similar to placing an order at the nearby pizzeria. It is quick since the ‘data’ (pizza) is easily accessible, but we can only choose from what they have on hand and their menu. The local alternatives limit our options. On the other hand, cloud-based workflow offers almost limitless choices and access to a wide range of speciality ingredients or distinctive styles. <br> This makes it similar to being able to order a pizza from any pizzeria on the globe. While we might have more options to choose from, the time between order and delivery can become a challenge.</p>
+<p>The overall goal with cloud-based workflows is to minimise <strong>data latency</strong> as much as possible. This is why traditional data formats need to be cloud-optimised.</p>
+</section>
+<section id="characteristics-of-cloud-optimised-formats" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="characteristics-of-cloud-optimised-formats"><span class="header-section-number">2.1</span> Characteristics of cloud-optimised formats</h2>
+<p>Cloud-optimised formats are optimised to minimise data latency. By allowing for an efficient retrieval of smaller, specific chunks of information rather than downloading an entire file. Accessing a smaller data subset also reduces the costs associated with data transfer and data processing.</p>
+<p>Cloud-optimised geospatial data formats have the following characteristics:</p>
+<ul>
+<li>Data is accessible over an HTTP protocol.</li>
+<li>Read-Oriented, as it supports partial and parallel reads.</li>
+<li>Data is organised in internal groupings (such as chunks, tiles, shards) for efficient subsetting, distributed processing and data access in memory.</li>
+<li>Metadata can be accessed in one read.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When accessing data over the internet (e.g., cloud storage), latency is high compared to local storage, so it is preferable to fetch lots of data in fewer reads.</p>
 </div>
 </div>
 </section>
-<section id="cloud-optimised-geospatial-raster-formats" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="cloud-optimised-geospatial-raster-formats"><span class="header-section-number">2.2</span> Cloud-Optimised Geospatial Raster Formats</h2>
+<section id="cloud-optimised-geospatial-raster-formats" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="cloud-optimised-geospatial-raster-formats">Cloud-Optimised Geospatial Raster Formats</h2>
 <p>Initiatives like the <a href="https://cloudnativegeo.org/">Cloud Native Geospatial Forum (CNG)</a> help develop ways to use geospatial data efficiently in the cloud, using standard cloud technologies and encouraging open collaboration on data formats. Two of the most important formats for storing and accessing geospatial data efficiently are Cloud-Optimised GeoTIFFs (COGs) and Zarr.</p>
-<section id="cloud-optimised-geotiff-cog" class="level3" data-number="2.2.1">
-<h3 data-number="2.2.1" class="anchored" data-anchor-id="cloud-optimised-geotiff-cog"><span class="header-section-number">2.2.1</span> Cloud-optimised GeoTIFF (COG)</h3>
+<section id="cloud-optimised-geotiff-cog" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="cloud-optimised-geotiff-cog">Cloud-optimised GeoTIFF (COG)</h3>
 <p>COGs are like snapshots of raster data (such as satellite images or elevation maps). This widely used format improves the standard GeoTIFF format by:</p>
 <ul>
 <li>Organising data into <strong>tiles</strong>: Dividing the data into smaller, manageable squares (like 512x512 pixels).</li>
-<li>Including lower-resolution previews: Having pre-generated, less detailed versions of the data.</li>
+<li>Including lower-resolution previews: Having pre-generated, less detailed versions of the data. This allows for fast and efficient data visualisations.</li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -245,14 +271,10 @@ Note
 <figcaption>COG structure. Retrieved from CNG documentation</figcaption>
 </figure>
 </div>
-<p>A key feature is the <strong>Internal File Directory</strong> (IFD), which acts like an internal index. This allows:</p>
-<ul>
-<li>Retrieving only the parts of the data needed using simple web requests.</li>
-<li>For example, it is possible to access just the tiles covering Paris from a large Sentinel-2 image of Europe.</li>
-</ul>
+<p>A key feature is the <strong>Internal File Directory</strong> (IFD), which acts like an internal index. This allows for retrieving only the parts of the data needed using simple web requests. For example, it is possible to access just the tiles covering Paris from a large Sentinel-2 image of Europe.</p>
 </section>
-<section id="zarr" class="level3" data-number="2.2.2">
-<h3 data-number="2.2.2" class="anchored" data-anchor-id="zarr"><span class="header-section-number">2.2.2</span> Zarr</h3>
+<section id="zarr" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="zarr">Zarr</h3>
 <p>This format is designed for handling large, multi-dimensional datasets (often called “data cubes”). Zarr, developed and maintained by the community, works by:</p>
 <ul>
 <li>Storing data as compressed <strong>chunks</strong> in a flexible way.</li>
@@ -266,12 +288,16 @@ Note
 </figure>
 </div>
 <p>For example, Zarr makes it possible to extract temperature data for the summer of 2023 from a climate dataset spanning 50 years without needing to load the entire dataset.</p>
+</section>
+</section>
+<section id="when-to-use-cogs-versus-zarr" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="when-to-use-cogs-versus-zarr">When to use COGs versus Zarr?</h2>
 <p>The table below compares some features of COG and Zarr:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 45%">
-<col style="width: 30%">
 <col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -303,13 +329,9 @@ Note
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="when-to-use-cogs-versus-zarr" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="when-to-use-cogs-versus-zarr"><span class="header-section-number">2.3</span> When to use COGs versus Zarr?</h2>
 <p>Based on the structure and capabilities for each format, it is advised to use COGs when:</p>
 <ul>
-<li>Working with raster data (like images or elevation models) that does has sudden changes.</li>
+<li>Working with raster data (like images or elevation models) that have sudden changes.</li>
 <li>It is needed to easily visualise or access specific geographic areas without loading the entire dataset.</li>
 <li>Interoperability with existing GIS software is important, as COG is a widely adopted standard.</li>
 </ul>
@@ -321,13 +343,14 @@ Note
 <li>Working in cloud environments that benefit from chunked data storage for parallel processing.</li>
 </ul>
 </section>
-<section id="whats-next" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="whats-next"><span class="header-section-number">2.4</span> What’s next?</h2>
-<p>Now that we have an idea of the available cloud-optimised formats and what cloud-optimised means, we will explore the available data sets inside the EOPF available products.</p>
+<section id="whats-next" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="whats-next">What’s next?</h2>
+<p>Cloud-optimised formats bridge the gap between the vast potential of cloud storage and the need for efficient data access, ultimately making cloud-based geospatial analysis faster, more cost-effective, and more powerful.</p>
+<p>Now that we have an idea of the available cloud-optimised formats and what cloud-optimised means, we will explore the EOPF data products.</p>
+
+
 </section>
 </div>
-
-
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -748,12 +771,12 @@ Note
 <p>Development Seed, thriveGEO, SparkGeo</p>
 </div>   
     <div class="nav-footer-center">
-      &nbsp;
-    </div>
+<p>License: Apache 2.0</p>
+</div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link active" href="https://github.com/eopf-toolkit/eopf-101" aria-current="page">
+    <a class="nav-link" href="https://github.com/eopf-toolkit/eopf-101">
       <i class="bi bi-github" role="img">
 </i> 
     </a>
