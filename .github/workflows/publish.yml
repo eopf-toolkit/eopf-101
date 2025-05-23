@@ -27,7 +27,7 @@ jobs:
       - name: Install Jupyter and Dependencies
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install jupyter nbformat xarray
+          python3 -m pip install jupyter nbformat xarray[io]
 
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
