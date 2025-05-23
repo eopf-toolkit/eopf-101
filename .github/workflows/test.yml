@@ -16,5 +16,15 @@ jobs:
         with:
           tinytex: true
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Jupyter and dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jupyter nbformat
+
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
