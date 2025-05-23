@@ -1,0 +1,92 @@
+---
+title: "About Cloud Optimised Formats"
+format: html
+---
+::: {.justify}
+
+## Why do we need to cloud-optimise geospatial data formats? {.unnumbered}
+The volume of EO data has grown exponentially in recent years. The Copernicus programme alone generates ~16TB daily from the Sentinel missions.
+Traditional file formats, like SAFE (where each file can be hundreds of megabytes), are optimised for efficient archiving and distributing data. This means that we often download the data from an entire overpass, even if we only need to access a small part of it, for example, if we want to do an analysis of the area of a single city over a decade.  
+
+With growing data volumes, this becomes a challenge. To picture the different nature of challenges we come across, let us compare a traditional local workflow with a cloud-based workflow:
+
+- **Traditional local workflow**: When working locally, we download much more data than we need, and we are constrained by the compute and storage capacity of the local system. However, one big advantage is that data and compute are close together, meaning that there is not much delay.
+
+- **Cloud-based workflow**: A cloud environment offers solutions to limitations local workflows have. A cloud environment offers limitless storage and compute capacity. On the contrary, data storage, compute, and you the destination are far apart. There is an additional time for data to travel between the storage location, processing resources and us. This time is referred to as **data latency**.
+
+::: {.callout-note}
+**Data latency** refers to the time it takes for data to be transmitted or processed from cloud storage to your computer. In local workflows, data latency is minimal, whereas in cloud-based workflows, data latency needs to be optimised.
+:::
+
+Local workflows are similar to placing an order at the nearby pizzeria. It is quick since the 'data' (pizza) is easily accessible, but we can only choose from what they have on hand and their menu. The local alternatives limit our options.
+On the other hand, cloud-based workflow offers almost limitless choices and access to a wide range of speciality ingredients or distinctive styles. <br>
+This makes it similar to being able to order a pizza from any pizzeria on the globe. While we might have more options to choose from, the time between order and delivery can become a challenge.
+
+The overall goal with cloud-based workflows is to minimise **data latency** as much as possible. This is why traditional data formats need to be cloud-optimised.
+
+## Characteristics of cloud-optimised formats
+Cloud-optimised formats are optimised to minimise data latency. By allowing for an efficient retrieval of smaller, specific chunks of information rather than downloading an entire file. Accessing a smaller data subset also reduces the costs associated with data transfer and data processing.
+
+Cloud-optimised geospatial data formats have the following characteristics:
+
+- Data is accessible over an HTTP protocol.
+- Read-Oriented, as it supports partial and parallel reads.
+- Data is organised in internal groupings (such as chunks, tiles, shards) for efficient subsetting, distributed processing and data access in memory.
+- Metadata can be accessed in one read.
+
+::: {.callout-note}
+When accessing data over the internet (e.g., cloud storage), latency is high compared to local storage, so it is preferable to fetch lots of data in fewer reads.
+:::
+
+## Cloud-Optimised Geospatial Raster Formats {.unnumbered}
+Initiatives like the [Cloud Native Geospatial Forum (CNG)](https://cloudnativegeo.org/) help develop ways to use geospatial data efficiently in the cloud, using standard cloud technologies and encouraging open collaboration on data formats. Two of the most important formats for storing and accessing geospatial data efficiently are Cloud-Optimised GeoTIFFs (COGs) and Zarr.
+
+### Cloud-optimised GeoTIFF (COG) {.unnumbered}
+
+COGs are like snapshots of raster data (such as satellite images or elevation maps). This widely used format improves the standard GeoTIFF format by:
+
+- Organising data into **tiles**: Dividing the data into smaller, manageable squares (like 512x512 pixels).
+- Including lower-resolution previews: Having pre-generated, less detailed versions of the data. This allows for fast and efficient data visualisations.
+
+![COG structure. Retrieved from CNG documentation](img/cogtiff.png)
+
+A key feature is the **Internal File Directory** (IFD), which acts like an internal index. This allows for retrieving only the parts of the data needed using simple web requests. For example, it is possible to access just the tiles covering Paris from a large Sentinel-2 image of Europe.
+
+### Zarr {.unnumbered}
+This format is designed for handling large, multi-dimensional datasets (often called "data cubes"). Zarr, developed and maintained by the community, works by:
+
+- Storing data as compressed **chunks** in a flexible way.
+- Allowing for efficient indexing and processing of the data in parallel.
+- Enabling specific descriptions (metadata) for each part of the data.
+
+![Zarr structure. Retrieved from CNG documentation.](img/zarr1.png)
+
+For example, Zarr makes it possible to extract temperature data for the summer of 2023 from a climate dataset spanning 50 years without needing to load the entire dataset.
+
+## When to use COGs versus Zarr? {.unnumbered}
+The table below compares some features of COG and Zarr:
+
+| Feature | Zarr | COG |
+|------|---------|---------|
+| Structure | Multi-file chunks | Single file |
+| Access | Parallel | Sequential |
+| Compression | Differently per-chunk | Whole-file |
+| Scales | Multi-scale in single file | Separate, pre-generated lower-resolution files |
+
+Based on the structure and capabilities for each format, it is advised to use COGs when:
+
+- Working with raster data (like images or elevation models) that have sudden changes.
+- It is needed to easily visualise or access specific geographic areas without loading the entire dataset.
+- Interoperability with existing GIS software is important, as COG is a widely adopted standard.
+
+On the other hand, it is advised to use Zarr when:
+
+- Dealing with large, multi-dimensional datasets that might be updated or modified.
+- Performing complex analyses that involve accessing different parts of the data in parallel.
+- Efficiently handling different resolutions or variables within a single dataset is required.
+- Working in cloud environments that benefit from chunked data storage for parallel processing.
+
+## What's next? {.unnumbered}
+Cloud-optimised formats bridge the gap between the vast potential of cloud storage and the need for efficient data access, ultimately making cloud-based geospatial analysis faster, more cost-effective, and more powerful.
+
+Now that we have an idea of the available cloud-optimised formats and what cloud-optimised means, we will explore the EOPF data products.
