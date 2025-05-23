@@ -24,7 +24,7 @@ jobs:
       - name: Install Jupyter and dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install jupyter nbformat
+          python -m pip install jupyter nbformat xarray
 
       - name: Render Quarto Project
         uses: quarto-dev/quarto-actions/render@v2
