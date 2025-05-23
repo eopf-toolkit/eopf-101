@@ -26,10 +26,11 @@ book:
         - 1_about_cloudoptimized_formats.qmd
         - 1_overview_eopf_datasets.qmd
     - part: "About Zarr"
-      # chapters:
+      chapters:
       #  - 2_what_is_zarr.qmd
       #  - 2_benefits_for_EO.qmd
-      #  - 2_zarr_struct_S2L2A.ipynb
+        - 2_zarr_struct_S2L2A.ipynb
+        
     - part: "[COMING] EOPF and STAC"
  #     chapters: 
   #      - 3_subchapter_1.qmd
@@ -47,6 +48,9 @@ book:
   #      - 3_case_study.qmd
     - glossary.qmd
     - references.qmd
+
+execute:
+  enabled: true
 
 bibliography: references.bib
 
