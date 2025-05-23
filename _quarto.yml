@@ -49,6 +49,9 @@ book:
     - glossary.qmd
     - references.qmd
 
+execute:
+  enabled: true
+
 bibliography: references.bib
 
 format:
