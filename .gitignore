@@ -1,2 +1,4 @@
 /.quarto/
 _book/
+.venv/
+eopf_101.egg-info/
