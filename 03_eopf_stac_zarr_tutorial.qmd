@@ -1,0 +1,91 @@
+---
+title: "Exploring the EOPF Sentinel Zarr Samples Service STAC Catalogue"
+code-block-background: true
+---
+::: {.justify}
+
+::: {.callout-note}
+This section will guide users through exploring the EOPF Sentinel Zarr Samples Service STAC catalogue.<br>
+We will navigate its interface, inspect the various levels of information, and demonstrate how to access the underlying Sentinel data in Zarr format.
+:::
+
+The [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en) offers and ensures the access to the reingeneered version of the Sentinel 1, Sentinel 2 and Sentinel 3 data missions.<br>
+It allows us to easily explore, locate and retrieve the available `.zarr` Sentinel assets into a user friendly interface. 
+
+### Home page {.unnumbered}
+
+Upon accessing the landing page of the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en), a comprehensive overview of the available data collections, curated by the ESA EOPF is presented. This serves as our initial entry point into the catalogue.
+
+![Home page](img/home.png){fig-align="center"}
+
+As outlined in our chapter [The EOPF Available Datasets](1_overview_eopf_datasets.qmd), the catalogue is structured to display 11 distinct collections derived from Sentinel-1, Sentinel-2, and Sentinel-3 missions. These collections are organised to facilitate easy discovery of the data:
+
+#### Sentinel-1 {.unnumbered}
+
+| Product | Instrument | Description | Available at |
+|:---------|:---------|:---------|:---------|
+| Level-1 GRD| Ground Range Detected | The Sentinel-1 Level-1 GDR products consist of focused SAR data that has been detected, multi-looked and projected to ground range using the Earth ellipsoid model WGS84. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.language=en) |
+| Level-1 SLC | Single Look Complex | The Sentinel-1 Level-1 SLC products consist of focused SAR data, geo-referenced using orbit and attitude data from the satellite, and provided in slant-range geometry. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-slc?.language=en) |
+| Level-2 OCN | Ocean | The Sentinel-1 Level-2 OCN products for wind, wave and currents applications may contain the following geophysical components derived from the SAR data: Ocean Wind field (OWI), Ocean Swell spectra (OSW), Surface Radial Velocity (RVL). | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l2-ocn?.language=en) |
+
+#### Sentinel-2 {.unnumbered}
+
+| Product | Instrument | Description | Available at |
+|:---------|:---------|:---------|:---------|
+| Level-1C | Multi-Spectral Instrument | The Sentinel-2 Level-1C product is composed of 110x110 km2 tiles (ortho-images in UTM/WGS84 projection). Earth is subdivided on a predefined set of tiles, defined in UTM/WGS84 projection and using a 100 km step. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l1c) |
+| Level-2A | Multi-Spectral Instrument | The Sentinel-2 Level-2A Collection 1 product provides orthorectified Surface Reflectance (Bottom-Of-Atmosphere: BOA), with sub-pixel multispectral and multitemporal registration accuracy. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) |
+
+#### Sentinel-3 {.unnumbered}
+
+#### Ocean and Land Colour Instrument {.unnumbered}
+
+| Product | Product | Description | Available at |
+|:---------|:---------|:---------|:---------|
+| Level-1 EFR | Earth Full Resolution | Provides TOA radiances at full resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-efr) |
+| Level-1 ERR | Earth Reduced Resolution | The Sentinel-3 OLCI L1 ERR product provides TOA radiances at reduced resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-err) |
+| Level-2 LFR | Land Full Resolution | The Sentinel-3 OLCI L2 LFR product provides land and atmospheric geophysical parameters computed for full resolution. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr) |
+| Level-2 LRR | Land Reduced Resolution | The Sentinel-3 OLCI L2 LRR product provides land and atmospheric geophysical parameters computed for reduced resolution. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lrr) |
+
+#### Sea and Land Surface Temperature Radiometer {.unnumbered}
+
+| Product | Data | Description | Available at |
+|:---------|:---------|:---------|:---------|
+| Level-1 RBT | Radiance Brightness Temperature | The Sentinel-3 SLSTR Level-1B RBT product provides radiances and brightness temperatures for each pixel in a regular image grid for each view and SLSTR channel. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l1-rbt) |
+| Level-2 LST | Land Surface Temperature | The Sentinel-3 SLSTR Level-2 LST product provides land surface temperature. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst) |
+
+
+The user interface provides intuitive mechanisms to interact with these collections. Users can filter them by specific criteria or select them manually, allowing for precise control over the displayed data. This enables the selection of data based on the desired level of processing, ensuring relevance to specific analysis needs.
+
+### Sentinel Collections {.unnumbered}
+
+Navigating into any chosen Collection reveals an interactive map, which visually represents the geographical distribution of the available data samples. Situated on the right-hand side of the page, a list of Items is displayed, corresponding to the selected mission and the geographical area currently shown on the map. This visual correlation between the map and the item list streamlines data discovery.
+
+![A collection example](img/sentinel2l2a.png){fig-align="center"}
+
+Furthermore, within each Collection's view, comprehensive metadata is provided. This includes crucial details such as the temporal extent (the period over which the data was acquired), spatial coverage, names of the data providers, and general metadata relevant to the collection. <br>
+
+![Metadata and further information](img/sentinel2l2a_meta.png){fig-align="center"}
+
+Additionally, specific information about the bands and instruments used for each mission, along with mission-specific data like backscatter or reflectance information (depending on whether it's a Sentinel-1, Sentinel-2, or Sentinel-3 collection), is readily accessible.
+
+### Item Specifications  {.unnumbered}
+
+When a specific Item is of interest, clicking on it will transition the view to a detailed overview page for that selected item. <br>
+This page typically features another interactive map, highlighting the precise footprint of the data, along with more granular metadata pertinent to that individual Item.
+
+![A selected item inside the collection](img/finland_item.png){fig-align="center"}
+
+### Assets  {.unnumbered}
+
+The Assets menu, prominently displayed on the Item's detailed page, lists all the constituent elements that comprise the selected Item. These are composed by the actual retrieved data and associated resources. <br>
+By expanding the dropdown menu for any given Asset, users can access its specific metadata and, most important its array information. <br>
+The array information provides details about the structure and content of the data, hinting at the actual values contained within the asset. It also contains the chunking grid information and everything that is needed to process the data.
+
+![Download and assets information](img/download_img.png){fig-align="center"}
+
+For direct data access, it is possible to download only the information separately in the `zarr` format by clicking the **Download** option associated with an Asset. <br>
+Alternatively, users can copy the direct URL to retrieve the data programmatically, facilitating direct integration into an integrated development environment (IDE) or custom scripts via an API.
+
+In the next chapter, we will explore an alternative workflow to retrieve assets based on the API the EOPF Sample Service provides.
+
+:::

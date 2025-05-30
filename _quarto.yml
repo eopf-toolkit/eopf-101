@@ -31,8 +31,8 @@ book:
       #  - 2_benefits_for_EO.qmd
       #  - 2_zarr_struct_S2L2A.ipynb
     - part: "[COMING] EOPF and STAC"
- #     chapters: 
-  #      - 3_subchapter_1.qmd
+      chapters: 
+        - 03_eopf_stac_zarr_tutorial.qmd
   #      - 3_subchapter_2.qmd
     - part: "[COMING] Tools to work with Zarr"
  #     chapters:
