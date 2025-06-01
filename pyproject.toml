@@ -1,0 +1,44 @@
+[project]
+name = "eopf-101"
+version = "0.1.0"
+description = "EOPF 101 - A toolkit for working with Sentinel data in Zarr format"
+requires-python = ">=3.9"
+readme = "README.md"
+authors = [
+    { name = "Emmanuel Mathot", email = "emmanuel@developmentseed.com" },
+    { name = "Gisela Romero Candanedo" },
+    { name = "Julia Wagemann" }
+
+]
+license = { text = "MIT" }
+keywords = [
+    "EOPF",
+    "Sentinel",
+    "Zarr",
+    "Earth Observation",
+    "Remote Sensing",
+    "Data Science",
+    "Geospatial",
+    "Python",
+    "Jupyter",
+    "Data Analysis",
+]
+
+dependencies = [
+    "jupyter>=1.1.1",
+    "zarr>=2.18.0",
+    "pystac>=1.13.0", 
+    "numpy>=2.2.6",
+    "pandas>=2.0.2",
+    "matplotlib>=3.7.1",
+    "rioxarray>=0.14.1",
+    "stackstac>=0.4.4",
+    "ipykernel>=6.23.1",
+    "quarto>=0.1.0"
+]
+
+[project.urls]
+Homepage="https://eopf-toolkit.github.io/eopf-101/"
+Source="https://github.com/eopf-toolkit/eopf-101"
+
+
