@@ -45,5 +45,5 @@ jobs:
           0.0.1 jupyterhub/jupyterhub \
           --namespace eopf-toolkit-dev \
           --version=4.2.0 \
-          --values config.yaml
+          --values config.yaml \
           --set-string 'singleuser.profileList[1].kubespawner_override.image=${{ secrets.OVH_HARBOR_REGISTRY }}/eopf-toolkit-dev/eopf-toolkit-dev:$TAG'
