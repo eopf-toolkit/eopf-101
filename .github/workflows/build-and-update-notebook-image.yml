@@ -35,6 +35,9 @@ jobs:
         working-directory: deployment
         run: make build-and-push-docker-image TAG=$TAG
 
+      - name: Helm add jupyter repo
+        run: helm repo add jupyterhub https://hub.jupyter.org/helm-chart/
+
       - name: Helm upgrade with new image
         working-directory: deployment
         run: |
