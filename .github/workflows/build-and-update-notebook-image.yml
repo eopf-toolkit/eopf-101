@@ -33,7 +33,7 @@ jobs:
         
       - name: Build and push docker image
         working-directory: deployment
-        run: make build-and-push-image TAG=$TAG
+        run: make build-and-push-docker-image TAG=$TAG
 
       - name: Helm upgrade with new image
         working-directory: deployment
