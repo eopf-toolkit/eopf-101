@@ -46,4 +46,4 @@ jobs:
           --namespace eopf-toolkit-dev \
           --version=4.2.0 \
           --values config.yaml \
-          --set-string 'singleuser.profileList[1].kubespawner_override.image=${{ secrets.OVH_HARBOR_REGISTRY }}/eopf-toolkit-dev/eopf-toolkit-dev:$TAG'
+          --set-string 'singleuser.profileList[1].kubespawner_override.image=${{ secrets.OVH_HARBOR_REGISTRY }}/eopf-toolkit-dev/eopf-toolkit-dev:${{ env.TAG }}'
