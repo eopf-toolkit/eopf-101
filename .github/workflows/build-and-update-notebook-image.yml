@@ -1,0 +1,44 @@
+name: Build and update JupyterHub Notebook image on pyproject.toml change
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pyproject.toml'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG_CONTENT }}" > ~/.kube/config
+          chmod 600 ~/.kube/config
+
+      - name: Extract short commit hash
+        run: echo "TAG=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+
+      - name: Login to OVH Harbor docker registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.OVH_HARBOR_REGISTRY }}
+          username: ${{ secrets.OVH_HARBOR_USERNAME }}
+          password: ${{ secrets.OVH_HARBOR_PASSWORD }}
+        
+      - name: Build and push docker image
+        run: make build-and-push-image TAG=$TAG
+
+      - name: Helm upgrade with new image
+        run: |
+          helm upgrade --cleanup-on-fail \
+          0.0.1 jupyterhub/jupyterhub \
+          --namespace eopf-toolkit-dev \
+          --version=4.2.0 \
+          --values config.yaml
+          --set-string 'singleuser.profileList[1].kubespawner_override.image=${{ secrets.OVH_HARBOR_REGISTRY }}/eopf-toolkit-dev/eopf-toolkit-dev:$TAG'

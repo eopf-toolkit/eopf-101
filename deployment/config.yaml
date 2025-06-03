@@ -52,3 +52,13 @@ singleuser:
     tag: "202504241023"
     pullSecrets:
       - name: regcred
+  profileList:
+    - display_name: "Original environment"
+      description: "The original 'full' environment for eopf-toolkit-dev"
+      default: true
+    - display_name: "Reduced, new environment"
+      description: "The new environment based on pyproject.toml"
+      kubespawner_override:
+        image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev:202506031328
+        pullSecrets:
+          - name: regcred
