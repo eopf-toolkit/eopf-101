@@ -8,7 +8,7 @@ authors = [
     { name = "Emmanuel Mathot", email = "emmanuel@developmentseed.com" },
     { name = "Gisela Romero Candanedo" },
     { name = "Julia Wagemann" },
-    { name = "Ciaran Sweet", email = "ciaran@developmentseed.org" }
+    { name = "Ciaran Sweet ", email = "ciaran@developmentseed.org" }
 ]
 license = { text = "MIT" }
 keywords = [
