@@ -32,9 +32,11 @@ jobs:
           password: ${{ secrets.OVH_HARBOR_PASSWORD }}
         
       - name: Build and push docker image
+        working-directory: deployment
         run: make build-and-push-image TAG=$TAG
 
       - name: Helm upgrade with new image
+        working-directory: deployment
         run: |
           helm upgrade --cleanup-on-fail \
           0.0.1 jupyterhub/jupyterhub \
