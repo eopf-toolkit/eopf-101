@@ -5,8 +5,54 @@ on:
   pull_request:
 
 jobs:
-  test-render:
+  check-diff:
     runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.check.outputs.build }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for relevant file changes
+        id: check
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+
+          if echo "$CHANGED_FILES" | grep -qE '^pyproject\.toml$|^deployment/Dockerfile$'; then
+            echo "Building image as we've modified pyproject.toml or deployment Dockerfile in this PR"
+            echo "build=true" >> $GITHUB_OUTPUT
+          else
+            echo "Using latest image"
+            echo "build=false" >> $GITHUB_OUTPUT
+          fi
+
+  prepare-docker-image:
+    runs-on: ubuntu-latest
+    needs: check-diff
+    if: needs.check-diff.outputs.build == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: build image
+        working-directory: deployment
+        run: |
+          make build-docker-image
+          make tag-docker-image TAG=latest
+
+  test-render:
+    needs: [check-diff, prepare-docker-image]
+    runs-on: ubuntu-latest
+    container:
+      image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev:latest
+      credentials:
+        username: ${{ secrets.OVH_HARBOR_USERNAME }}
+        password: ${{ secrets.OVH_HARBOR_PASSWORD }}
+      options: --entrypoint ""
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
