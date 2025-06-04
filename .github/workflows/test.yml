@@ -32,13 +32,14 @@ jobs:
   prepare-docker-image:
     runs-on: ubuntu-latest
     needs: check-diff
-    if: needs.check-diff.outputs.build == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        if: needs.check-diff.outputs.build == 'true'
 
       - name: build image
         working-directory: deployment
+        if: needs.check-diff.outputs.build == 'true'
         run: |
           make build-docker-image
           make tag-docker-image TAG=latest
@@ -46,6 +47,7 @@ jobs:
   test-render:
     needs: [check-diff, prepare-docker-image]
     runs-on: ubuntu-latest
+    if: needs.check-diff.result == 'success' && (needs.prepare-docker-image.result == 'success' || needs.prepare-docker-image.result == 'skipped')
     container:
       image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev:latest
       credentials:
