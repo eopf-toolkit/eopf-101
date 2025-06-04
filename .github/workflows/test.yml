@@ -25,7 +25,7 @@ jobs:
           if echo "$CHANGED_FILES" | grep -qE '^pyproject\.toml$|^deployment/Dockerfile$'; then
             echo "Building image as we've modified pyproject.toml or deployment Dockerfile in this PR"
             echo "build=true" >> $GITHUB_OUTPUT
-            echo "tag=${{ github.run_id }}" >> $GITHUB_OUTPUT
+            echo "tag=pr-${{ github.run_id }}" >> $GITHUB_OUTPUT
           else
             echo "Using latest image"
             echo "build=false" >> $GITHUB_OUTPUT
@@ -52,7 +52,7 @@ jobs:
         working-directory: deployment
         if: needs.check-diff.outputs.build == 'true'
         run: |
-          make build-and-push-docker-image TAG=${{ github.run_id }}
+          make build-and-push-docker-image TAG=${{ needs.check-diff.outputs.tag }}
 
   test-render:
     needs: [check-diff, prepare-docker-image]
