@@ -73,7 +73,17 @@ jobs:
       - name: Install GitHub CLI
         run: |
           sudo apt-get update
-          sudo apt-get install -y gh curl jq
+          sudo apt-get install -y \
+          gh \
+          curl \
+          jq \
+          libfontconfig1 \
+          libfreetype6 \
+          libx11-6 \
+          libxrender1 \
+          libxext6 \
+          ghostscript \
+          zlib1g
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
