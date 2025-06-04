@@ -44,21 +44,8 @@ hub:
       c.GitHubOAuthenticator.client_secret = os.environ["OAUTH_CLIENT_SECRET"]
 singleuser:
   image:
-    # You should replace the "latest" tag with a fixed version from:
-    # https://hub.docker.com/r/jupyter/datascience-notebook/tags/
-    # Inspect the Dockerfile at:
-    # https://github.com/jupyter/docker-stacks/tree/HEAD/datascience-notebook/Dockerfile
+    # This `latest` should ideally be replaced during CI deployments
     name: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev
-    tag: "202504241023"
+    tag: "latest"
     pullSecrets:
       - name: regcred
-  profileList:
-    - display_name: "Original environment"
-      description: "The original 'full' environment for eopf-toolkit-dev"
-      default: true
-    - display_name: "Reduced, new environment"
-      description: "The new environment based on pyproject.toml"
-      kubespawner_override:
-        image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev:202506031328
-        pullSecrets:
-          - name: regcred
