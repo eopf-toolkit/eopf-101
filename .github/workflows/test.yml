@@ -63,7 +63,7 @@ jobs:
       credentials:
         username: ${{ secrets.OVH_HARBOR_USERNAME }}
         password: ${{ secrets.OVH_HARBOR_PASSWORD }}
-      options: --entrypoint ""
+      options: --entrypoint "" --user root
 
     steps:
       - name: Check out repository
