@@ -33,7 +33,10 @@ jobs:
         
       - name: Build and push docker image
         working-directory: deployment
-        run: make build-and-push-docker-image TAG=$TAG
+        run: |
+          make build-and-push-docker-image TAG=$TAG
+          make tag-docker-image TAG=latest
+          make push-docker-image TAG=latest
 
       - name: Helm add jupyter repo
         run: helm repo add jupyterhub https://hub.jupyter.org/helm-chart/

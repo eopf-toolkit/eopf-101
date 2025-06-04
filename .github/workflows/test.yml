@@ -5,11 +5,85 @@ on:
   pull_request:
 
 jobs:
-  test-render:
+  check-diff:
     runs-on: ubuntu-latest
+    outputs:
+      build: ${{ steps.check.outputs.build }}
+      tag: ${{ steps.check.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for relevant file changes
+        id: check
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+
+          if echo "$CHANGED_FILES" | grep -qE '^pyproject\.toml$|^deployment/Dockerfile$'; then
+            echo "Building image as we've modified pyproject.toml or deployment Dockerfile in this PR"
+            echo "build=true" >> $GITHUB_OUTPUT
+            echo "tag=${{ github.run_id }}" >> $GITHUB_OUTPUT
+          else
+            echo "Using latest image"
+            echo "build=false" >> $GITHUB_OUTPUT
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          fi
+
+  prepare-docker-image:
+    runs-on: ubuntu-latest
+    needs: check-diff
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        if: needs.check-diff.outputs.build == 'true'
+
+      - name: Login to OVH Harbor docker registry
+        uses: docker/login-action@v3
+        if: needs.check-diff.outputs.build == 'true'
+        with:
+          registry: ${{ secrets.OVH_HARBOR_REGISTRY }}
+          username: ${{ secrets.OVH_HARBOR_USERNAME }}
+          password: ${{ secrets.OVH_HARBOR_PASSWORD }}
+
+      - name: build image
+        working-directory: deployment
+        if: needs.check-diff.outputs.build == 'true'
+        run: |
+          make build-and-push-docker-image TAG=${{ github.run_id }}
+
+  test-render:
+    needs: [check-diff, prepare-docker-image]
+    runs-on: ubuntu-latest
+    if: needs.check-diff.result == 'success' && (needs.prepare-docker-image.result == 'success' || needs.prepare-docker-image.result == 'skipped')
+    container:
+      image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev:${{ needs.check-diff.outputs.tag }}
+      credentials:
+        username: ${{ secrets.OVH_HARBOR_USERNAME }}
+        password: ${{ secrets.OVH_HARBOR_PASSWORD }}
+      options: --entrypoint "" --user root
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      # Quarto uses these but we probably don't want them baked into our image
+      - name: Install quarto dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+          gh \
+          curl \
+          jq \
+          libfontconfig1 \
+          libfreetype6 \
+          libx11-6 \
+          libxrender1 \
+          libxext6 \
+          ghostscript \
+          zlib1g
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
