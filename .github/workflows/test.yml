@@ -69,6 +69,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      # Quarto uses GH CLI but we probably don't want it baked into our image
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
