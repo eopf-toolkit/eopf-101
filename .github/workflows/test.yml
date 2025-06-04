@@ -70,7 +70,7 @@ jobs:
         uses: actions/checkout@v4
 
       # Quarto uses these but we probably don't want them baked into our image
-      - name: Install GitHub CLI
+      - name: Install quarto dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y \
