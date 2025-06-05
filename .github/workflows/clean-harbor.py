@@ -3,7 +3,7 @@ import requests
 import re
 from datetime import datetime, timedelta
 
-HARBOR_URL = os.environ["OVH_HARBOR_REGISTRY"]
+HARBOR_URL = f"https://{os.environ['OVH_HARBOR_REGISTRY']}"
 PROJECT = "eopf-toolkit-dev"
 REPO = "eopf-toolkit-dev"
 USERNAME = os.environ["OVH_HARBOR_ROBOT_USERNAME"]
