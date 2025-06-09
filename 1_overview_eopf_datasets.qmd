@@ -3,21 +3,19 @@ title: "The EOPF Available Datasets"
 format: html
 ---
 ::: {.justify}
+Re-engineered datasets as part of ESA's EOPF activity are available for exploration via the [EOPF Sentinel Sample Service's STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
 
-The ESA Copernicus **Earth Observation Processor Framework** has made available assets as part of the Sentinel processor re-engineering in the [EOPF Sentinel Sample Service](https://stac.browser.user.eopf.eodc.eu/?.language=en). There, it is possible to explore different data sets in a Cloud Optimised format.<br>
-So far, the missions integrated inside the catalogue are the Sentinel 1, Sentinel 2 and Sentinel 3.
-Each of them makes available to the public several Processing Levels (from raw info to composites) from which we can choose the data set that best suits our analysis needs.
+At the moment data from Sentinel-1, Sentinel-2 and Sentinel-3 missions are being re-processed and made available.
 
 ::: {.callout-important}
 The re-processing from the Sentinel Missions is an ongoing activity as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). This page and our tutorials will continuously be updated as soon as new data products are available.
-
 :::
 
-An overview of the available data sets and the information they contain for each of the missions is explained in this document.
+An overview of the datasets that are being re-engineered for different processing levels is given below.
 
-# Available product Levels {.unnumbered}
+### Available EOPF products
 
-## Sentinel-1 {.unnumbered}
+#### Sentinel-1
 Sentinel-1 is a radar imaging mission that is composed of a constellation of two polar-orbiting satellites providing continuous all-weather, day and night imagery.
 
 | Product | Instrument | Description | Available at |
@@ -27,7 +25,7 @@ Sentinel-1 is a radar imaging mission that is composed of a constellation of two
 | Level-2 OCN | Ocean | The Sentinel-1 Level-2 OCN products for wind, wave and currents applications may contain the following geophysical components derived from the SAR data: Ocean Wind field (OWI), Ocean Swell spectra (OSW), Surface Radial Velocity (RVL). | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l2-ocn?.language=en) |
 
 
-## Sentinel-2 {.unnumbered}
+#### Sentinel-2 {.unnumbered}
 Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over land and coastal waters. The mission supports applications such as agricultural monitoring, emergency management, land cover classifications, and water quality.
 
 | Product | Instrument | Description | Available at |
@@ -35,11 +33,11 @@ Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over
 | Level-1C | Multi-Spectral Instrument | The Sentinel-2 Level-1C product is composed of 110x110 km2 tiles (ortho-images in UTM/WGS84 projection). Earth is subdivided on a predefined set of tiles, defined in UTM/WGS84 projection and using a 100 km step. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l1c) |
 | Level-2A | Multi-Spectral Instrument | The Sentinel-2 Level-2A Collection 1 product provides orthorectified Surface Reflectance (Bottom-Of-Atmosphere: BOA), with sub-pixel multispectral and multitemporal registration accuracy. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) |
 
-## Sentinel-3 {.unnumbered}
+#### Sentinel-3 {.unnumbered}
 
 Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers, lakes, ice on land, sea ice, and the atmosphere. Its goal is to keep track of and help us understand how these large parts of our planet change over long periods.
 
-### Ocean and Land Colour Instrument
+##### Ocean and Land Colour Instrument
 
 | Product | Product | Description | Available at |
 |:---------|:---------|:---------|:---------|
@@ -48,15 +46,13 @@ Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers
 | Level-2 LFR | Land Full Resolution | The Sentinel-3 OLCI L2 LFR product provides land and atmospheric geophysical parameters computed for full resolution. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr) |
 | Level-2 LRR | Land Reduced Resolution | The Sentinel-3 OLCI L2 LRR product provides land and atmospheric geophysical parameters computed for reduced resolution. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lrr) |
 
-### Sea and Land Surface Temperature Radiometer
+##### Sea and Land Surface Temperature Radiometer
 
 | Product | Data | Description | Available at |
 |:---------|:---------|:---------|:---------|
 | Level-1 RBT | Radiance Brightness Temperature | The Sentinel-3 SLSTR Level-1B RBT product provides radiances and brightness temperatures for each pixel in a regular image grid for each view and SLSTR channel. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l1-rbt) |
 | Level-2 LST | LST: Land Surface Temperature | The Sentinel-3 SLSTR Level-2 LST product provides land surface temperature. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst) |
 
-<br>
 
-In the following chapter, the `zarr` specific structure for each of the products will be explored, allowing us to better understand, how to integrate the new format into Earth Observation workflows.
-
-:::
+### What's next?
+In the following chapter, we dive deeper into the advantages of the `Zarr` data format and we start with practically working with EOPF Zarr datasets.
