@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>1&nbsp; Introduction to the Earth Observation Processor Framework – ESA EOPF 101</title>
+<title>Introduction to the EOPF – ESA EOPF 101</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_about_eopf.html">About EOPF</a></li><li class="breadcrumb-item"><a href="./1_about_eopf.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to the Earth Observation Processor Framework</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_about_eopf.html">About EOPF</a></li><li class="breadcrumb-item"><a href="./1_about_eopf.html"><span class="chapter-title">Introduction to the EOPF</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,27 +130,36 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_about_eopf.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to the Earth Observation Processor Framework</span></span></a>
+  <a href="./1_about_eopf.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Introduction to the EOPF</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About Cloud Optimised Formats</span></span></a>
+  <a href="./1_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About Cloud Optimised Formats</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./1_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The EOPF Available Datasets</span></span></a>
+  <a href="./1_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">The EOPF Available Datasets</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">About Zarr</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">About Zarr</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <span class="sidebar-item-text sidebar-link text-start">
@@ -166,8 +175,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Glossary</span></span></a>
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Glossary</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -187,9 +195,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_about_eopf.html">About EOPF</a></li><li class="breadcrumb-item"><a href="./1_about_eopf.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to the Earth Observation Processor Framework</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./1_about_eopf.html">About EOPF</a></li><li class="breadcrumb-item"><a href="./1_about_eopf.html"><span class="chapter-title">Introduction to the EOPF</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to the Earth Observation Processor Framework</span></h1>
+<h1 class="title"><span class="chapter-title">Introduction to the EOPF</span></h1>
 </div>
 
 
@@ -207,14 +215,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="justify">
-<section id="what-is-the-earth-observation-processor-framework" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="what-is-the-earth-observation-processor-framework">What is the Earth Observation Processor Framework?</h2>
+<section id="what-is-the-earth-observation-processor-framework-eopf" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-the-earth-observation-processor-framework-eopf">What is the Earth Observation Processor Framework (EOPF)?</h3>
 <p>The <a href="https://eopf.copernicus.eu/">Earth Observation Processor Framework</a> (EOPF) is an initiative led by the European Space Agency (ESA) designed to modernise and harmonise data from the Copernicus Sentinel Missions.</p>
-<p>With the upcoming Copernicus Expansion missions in 2028, the amount of data will significantly increase. EOPF is ESA’s solution to organise Sentinel data in a way that works seamlessly with modern cloud technology. This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.</p>
+<p>With the upcoming Copernicus Expansion missions in 2028, the amount of data produced daily will significantly increase. EOPF is ESA’s solution to organise Sentinel data in a way that works seamlessly with modern cloud technology. This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.</p>
 <p>The <a href="https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1">Sentinel-1</a>, <a href="https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2">Sentinel-2</a>, and <a href="https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-3">Sentinel-3</a> missions are the first to be updated with this new system.</p>
 </section>
-<section id="the-eopf-data-model" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="the-eopf-data-model">The EOPF Data Model</h2>
+<section id="the-eopf-data-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-eopf-data-model">The EOPF Data Model</h3>
 <p>The EOPF data model has been defined by following a set of principles:</p>
 <ul>
 <li><strong>Open standards:</strong> Following common and community approved data standards ensure sustainability and user uptake.</li>
@@ -222,31 +230,44 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Cloud optimisation:</strong> Designed for efficient access and handling in cloud environments.</li>
 <li><strong>Conversion flexibility:</strong> Providing tools to adjust the data for different applications.</li>
 </ul>
-<p>To achieve this, there are the following key development areas under EOPF:</p>
-<section id="eopf-product-structure" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="eopf-product-structure">EOPF product structure</h3>
-<p>The EOPF prodcut structure defines how information about the data is structured, stored, and connected. It contains the key details we need to know about a dataset, like when it was collected or its level of detail (the attributes). As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used nacross all Sentinel and other EO missions. This approach ensures that data from several missions is consistent. Thus, it is easier to combine, relate, and evaluate data from different missions.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/product_structure.jpg" class="img-fluid figure-img"></p>
-<figcaption>EOPF Product structure</figcaption>
-</figure>
-</div>
-<p>The EOPF product structure contains of the following key parts:</p>
+<p>Under EOPF, there are four key areas of activities: (i) EOPF product structure, (ii) EOPF metadata structure, (iii) EOPF encoding structure and (iv) EOPF Processor Framework</p>
+<section id="eopf-product-structure" class="level4">
+<h4 class="anchored" data-anchor-id="eopf-product-structure">EOPF product structure</h4>
+<p>As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used across all Sentinel and other EO missions. This approach ensures that data from several missions is consistent.</p>
+<p>The EOPF product structure consists of the following components:</p>
 <ul>
 <li><strong>Measurements:</strong> The actual sensor readings (like how much light is reflected or the temperature), at different levels of detail.</li>
 <li><strong>Quality indicators:</strong> Details that help understand how reliable the measurements are.</li>
 <li><strong>Conditions:</strong> Information about the environment or technical aspects when the data was collected.</li>
 <li><strong>Attributes:</strong> Global metadata, such as when it was acquired and the sensor’s orbit.</li>
 </ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/EOProduct-structure.png" class="img-fluid figure-img"></p>
+<figcaption>EOPF product structure</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Learn more about the EOPF Zarr product structure <a href="./2_what_is_zarr.html">here</a>.</p>
+</div>
+</div>
 </section>
-<section id="metadata-structure" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="metadata-structure">Metadata Structure</h3>
-<p>Metadata can be seen as data about data, which provides essential information to understand and use data effectively. Inside the Copernicus ecosystem, it allows us to uniquely identify each Sentinel product by detailing its technical and geographic coverage information. To make sure the new data system works well and avoids redundancy, the EOPF metadata structure will be organised into:</p>
+<section id="eopf-metadata-structure" class="level4">
+<h4 class="anchored" data-anchor-id="eopf-metadata-structure">EOPF metadata structure</h4>
+<p>Metadata provide all relevant information required to uniquely describing each Sentinel product. The EOPF metadata structure will be organised into:</p>
 <ul>
-<li>Discovery Metadata: Following the metadata structure defined by the SpatioTemporal Asset Catalogue (<a href="https://stacspec.org/en/">STAC</a>), which helps to keep things consistent across different missions.</li>
-<li>Processing History Metadata: keeping a record of how the data has been processed.</li>
-<li>Other Metadata: Information like the status of the sensor and details about the satellite’s orbit.</li>
+<li><strong>Discovery Metadata</strong>: Following the metadata structure defined by the SpatioTemporal Asset Catalogue (<a href="https://stacspec.org/en/">STAC</a>), which helps to keep things consistent across different missions.</li>
+<li><strong>Processing History Metadata</strong>: keeping a record of how the data has been processed.</li>
+<li><strong>Other Metadata</strong>: Information like the status of the sensor and details about the satellite’s orbit.</li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -258,16 +279,14 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><em>“Learn more about EOPF and STAC <a href="https://stacindex.org/catalogs/cdse#/">here</a>.”</em></p>
+<p>EOPF and STAC: Learn more about EOPF and STAC <a href="https://stacindex.org/catalogs/cdse#/">here</a>.</p>
 </div>
 </div>
 </section>
-<section id="encoding-structure" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="encoding-structure">Encoding Structure</h3>
+<section id="eopf-encoding-structure" class="level4">
+<h4 class="anchored" data-anchor-id="eopf-encoding-structure">EOPF encoding structure</h4>
 <p>An encoding structure can be seen as the specific method used to package and store data and its associated metadata in a digital format. Building on the consistent data structure and clear metadata, the new storage system must be capable of handling various aspects of current Sentinel data (such as manifest files and tile structures from the SAFE format) while remaining fully compatible with cloud environments.</p>
-<p>This cloud-friendly architecture will enable instant access to data, efficient processing of massive amounts of data, and seamless integration with other datasets, allowing you to work with data from multiple missions more effectively.</p>
-<p>Currently, there are different ways to store geospatial data in the cloud, such as: - Zarr - Cloud-Optimised GeoTIFF (COG) - Hierarchical Data Format (HDF5) with Cloud Adaptations - Apache Parquet (with GeoParquet Extension)</p>
-<p>ESA chose <code>.zarr</code> as encoding format as it allows for efficient handling of data, like selecting specific areas and combining different datasets easily (for example, by dividing the data into smaller chunks). Learn more about the EOPF Zarr format <a href="https://zarr.eopf.copernicus.eu/">here</a>.</p>
+<p>ESA chose <code>.zarr</code> as encoding format as it allows for instant access to data, efficient processing of massive amounts of data, and seamless integration with other datasets. The EOPF Zarr data format allows you to work with data from multiple missions more effectively.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -278,12 +297,12 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Learn more about cloud-optimised geospatial data formats in the <a href="https://guide.cloudnativegeo.org/">Cloud-Optimised Geospatial Data Formats Guide</a></p>
+<p>Learn more about the EOPF Zarr format <a href="https://zarr.eopf.copernicus.eu/">here</a>. And learn more about cloud-optimised geospatial data formats in general in the <a href="https://guide.cloudnativegeo.org/">Cloud-Optimised Geospatial Data Formats Guide</a></p>
 </div>
 </div>
 </section>
-<section id="processor-development" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="processor-development">Processor Development</h3>
+<section id="eopf-processor-framework" class="level4">
+<h4 class="anchored" data-anchor-id="eopf-processor-framework">EOPF processor framework</h4>
 <p>The way Sentinel data is processed is being updated to take advantage of modern cloud computing. This will make the processing faster and more efficient, while ensuring the scientific quality and accuracy of the Sentinel data remains the same.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -300,9 +319,9 @@ Note
 </div>
 </section>
 </section>
-<section id="whats-next" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="whats-next">What’s next?</h2>
-<p>In the following chapters, we will introduce the details of the new EOPF data structure, explain the reasons behind ESA’s choice of data storage methods, and help the community become comfortable with the new EOPF data format.</p>
+<section id="whats-next" class="level3">
+<h3 class="anchored" data-anchor-id="whats-next">What’s next?</h3>
+<p>In the following chapters, we will introduce the datasets being made available under EOPF and will provide you practical examples to work with the new EOPF Zarr data format.</p>
 </section>
 </div>
 
@@ -716,7 +735,7 @@ Note
   </div>
   <div class="nav-page nav-page-next">
       <a href="./1_about_cloudoptimized_formats.html" class="pagination-link" aria-label="About Cloud Optimised Formats">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About Cloud Optimised Formats</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-title">About Cloud Optimised Formats</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

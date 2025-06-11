@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>References – ESA EOPF 101</title>
+<title>Overview of the EOPF Zarr format – ESA EOPF 101</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -49,7 +30,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./glossary.html" rel="prev">
+<link href="./glossary.html" rel="next">
+<link href="./1_overview_eopf_datasets.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -100,7 +82,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2_what_is_zarr.html">About Zarr</a></li><li class="breadcrumb-item"><a href="./2_what_is_zarr.html"><span class="chapter-title">Overview of the EOPF Zarr format</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -174,7 +156,7 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./2_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
+  <a href="./2_what_is_zarr.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
   </div>
 </li>
       </ul>
@@ -198,7 +180,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -213,9 +195,9 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./2_what_is_zarr.html">About Zarr</a></li><li class="breadcrumb-item"><a href="./2_what_is_zarr.html"><span class="chapter-title">Overview of the EOPF Zarr format</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title"><span class="chapter-title">Overview of the EOPF Zarr format</span></h1>
 </div>
 
 
@@ -232,11 +214,166 @@ div.csl-indent {
 </header>
 
 
-<div id="refs" role="list" style="display: none">
-
+<div class="justify">
+<section id="what-is-zarr" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-zarr">What Is Zarr?</h3>
+<p><strong>Zarr</strong> is an open-source, cloud-native protocol for storing multi-dimensional arrays. It is specifically desgined to work well with cloud storage and larger-scale computing systems and can be seen as a cloud-native alternative to older formats like HDF5 or NetCDF.</p>
+<p>Key advantage to traditional formats is that the Zarr specification stores large multi-dimensional arrays in <strong>chunks</strong>, which are smaller pieces of the larger array. Chunks can be accessed individually or multiple chunks can be read and written in parallel, making data access highly <strong>efficient</strong>.</p>
+<p>Zarr works across different storage systems, including local file systems, cloud object storage as well as distributed file systems; offering a greater <strong>flexibility</strong> compared to traditional file formats.</p>
+<p>In addition, Zarr embeds <strong>metadata</strong> directly alongside the data. This makes Zarr <strong>self-descriptive</strong>, as each data array contains descriptive information about itself, such as data type, dimensions or additional attributes.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pro tip: Learn more about Zarr in the official <a href="https://zarr.dev/">Zarr Documentation</a> and the <a href="https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html">Zarr V3 storage specification</a></p>
+</div>
+</div>
+</section>
+<section id="components-of-zarr" class="level3">
+<h3 class="anchored" data-anchor-id="components-of-zarr">Components of Zarr</h3>
+<p>Zarr is organised in a <strong>human-readable</strong>, <strong>hierarchical</strong> structure using simple JSON metadata files and is composed of <code>groups and stores</code>, <code>chunks</code> and <code>metadata</code>:</p>
+<section id="groups-and-stores" class="level4">
+<h4 class="anchored" data-anchor-id="groups-and-stores">Groups and Stores</h4>
+<p><strong>Groups</strong> and <strong>stores</strong> are concepts that allow Zarr to differentiate between (i) where the data is stored (<strong>stores</strong>) and (ii) how it is organised (<strong>groups</strong>). A <strong>group</strong> is a container for logically organising the data, similar to folders in a file system. A <strong>store</strong> defines where the data is stored; it can be e.g.&nbsp;a bucket in the cloud or a directory on a disk.</p>
+</section>
+<section id="chunks" class="level4">
+<h4 class="anchored" data-anchor-id="chunks">Chunks</h4>
+<p>Zarr divides arrays into smaller, independent pieces (<strong>chunks</strong>). Through chunking it is possible to retrieve and process specific areas without loading the complete dataset. Its organisation into chunks is the main reason Zarr’s high performance. Chunks are saved as binary files inside a <code>/c</code> directory and are further organised through nested folder paths based on their index, e.g.&nbsp;<code>c/0/0/0</code> for the chunk position <code>[0,0.0]</code>.</p>
+</section>
+<section id="metadata" class="level4">
+<h4 class="anchored" data-anchor-id="metadata">Metadata</h4>
+<p>Zarr uses descriptive <strong>metadata</strong> to describe the individual arrays but also the full hierarchy of the dataset. Metadata are stored in <code>zarr.json</code> files and are available on the array, group and store level. This structured metadata approach makes Zarr datasets <strong>self-descriptive</strong> and easy to navigate.</p>
+<p>The graphic below shows an overview of all relevant Zarr components.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/zarr_str.png" class="img-fluid figure-img"></p>
+<figcaption>Zarr conceptual structure</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="zarr-eopf-format-structure" class="level3">
+<h3 class="anchored" data-anchor-id="zarr-eopf-format-structure">Zarr EOPF Format Structure</h3>
+<p>The ESA Copernicus Earth Observation Processor Framework defines <code>.zarr</code> as the encoding format for the EOPF catalogue. The Zarr encoding is well aligned with ESA’s objective of enhancing the accessibility of Sentinel Data by modernising the previous <code>.SAFE</code> encoding into a flexible, cloud-native structure. The cloud-native nature of <code>zarr</code> is expected to broaden the applications of the Sentinel data within the geospatial community while maintaining data quality and established algorithms.</p>
+<p>EOPF Zarr products contain of four main groups:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 41%">
+<col style="width: 58%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Group</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Attributes</strong></td>
+<td>STAC format metadata for the <code>.zarr</code> element</td>
+</tr>
+<tr class="even">
+<td><strong>Measurements</strong></td>
+<td>Main retrieved variables</td>
+</tr>
+<tr class="odd">
+<td><strong>Conditions</strong></td>
+<td>Measurement context (geometric angles, meteorological/instrumental data)</td>
+</tr>
+<tr class="even">
+<td><strong>Quality</strong></td>
+<td>Flags and quality information for measurement filtering</td>
+</tr>
+</tbody>
+</table>
+<p>Let us imagine a Sentinel-2 L2A tile. The tile has dimensions of approximately 10,980 by 10,980 pixels, and include 12 spectral bands (B01 to B12, excluding B10) at different resolutions, plus additional data arrays like a Scene Classification Map (SCL) and an Atmospheric Optical Thickness (AOT) array.<br></p>
+<p>For efficient handling, the data is divided into 1024 by 1024-pixel chunks. This chunking strategy allows for optimal performance when reading specific spatial regions of interest.</p>
+<p>Following the defined EOPF Zarr product structure, a Sentinel-2 L2A <code>.zarr</code> file is organized as follows:</p>
+<ul>
+<li>Under <code>attributes</code>, you’ll find:
+<ul>
+<li>Processing history metadata</li>
+<li>Chunking configuration</li>
+<li>Global metadata (acquisition time, sensing time, etc.)</li>
+<li>Product-specific metadata</li>
+</ul></li>
+<li>Under <code>measurements</code>, the spectral bands are stored at their native resolutions:
+<ul>
+<li>10m resolution (r10):
+<ul>
+<li>B02 (Blue, 490nm)</li>
+<li>B03 (Green, 560nm)</li>
+<li>B04 (Red, 665nm)</li>
+<li>B08 (NIR, 842nm)</li>
+</ul></li>
+<li>20m resolution (r20):
+<ul>
+<li>B05 (Red Edge 1, 705nm)</li>
+<li>B06 (Red Edge 2, 740nm)</li>
+<li>B07 (Red Edge 3, 783nm)</li>
+<li>B8A (Narrow NIR, 865nm)</li>
+<li>B11 (SWIR 1, 1610nm)</li>
+<li>B12 (SWIR 2, 2190nm)</li>
+</ul></li>
+<li>60m resolution (r60):
+<ul>
+<li>B01 (Coastal aerosol, 443nm)</li>
+<li>B09 (Water vapour, 945nm)</li>
+</ul></li>
+</ul></li>
+<li>Under <code>quality</code>, you’ll find quality indicators including:
+<ul>
+<li>Scene Classification Layer (SCL)</li>
+<li>Quality flags for each band</li>
+<li>Detector footprint</li>
+<li>Defective pixels masks</li>
+</ul></li>
+<li>Under <code>conditions</code>, there’s measurement context information:
+<ul>
+<li>Sun angles (zenith, azimuth)</li>
+<li>Viewing angles</li>
+<li>Mean solar irradiance</li>
+<li>Atmospheric parameters like:
+<ul>
+<li>Aerosol Optical Thickness (AOT)</li>
+<li>Water Vapor (WV)</li>
+<li>Cloud and snow probability</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/s2l2a.jpg" class="img-fluid figure-img"></p>
+<figcaption>Overview of EOPF Zarr product structure on the example of Sentinel-2 L2A</figcaption>
+</figure>
+</div>
+<p>This EOPF Zarr organisation for Sentinel-2 L2A data allows for efficient access to individual bands or specific spatial regions without loading the entire dataset, making it ideal for large-scale geospatial analysis. It also ensures all relevant metadata is co-located with the data it describes, enhancing data discoverability and usability.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Zarr Deep Dive: Dive deeper into the benefits of Zarr in a blogpost by Lindsey Nield from the Earthmover team: <a href="https://earthmover.io/blog/what-is-zarr">Fundamentals: What is Zarr? A Cloud-Native Format for Tensor Data</a>.</p>
+</div>
+</div>
+</section>
+<section id="whats-next" class="level3">
+<h3 class="anchored" data-anchor-id="whats-next">What’s next?</h3>
 
 
+</section>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -640,11 +777,14 @@ div.csl-indent {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./glossary.html" class="pagination-link" aria-label="Glossary">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Glossary</span></span>
+      <a href="./1_overview_eopf_datasets.html" class="pagination-link" aria-label="The EOPF Available Datasets">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">The EOPF Available Datasets</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./glossary.html" class="pagination-link" aria-label="Glossary">
+        <span class="nav-page-text"><span class="chapter-title">Glossary</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
