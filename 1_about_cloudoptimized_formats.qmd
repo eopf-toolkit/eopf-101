@@ -77,7 +77,7 @@ While xarray provides the data model for working with n-dimensional arrays, Zarr
 
 This makes Zarr particularly well-suited for cloud-based Earth observation data, where datasets often combine multiple dimensions like space, time, and spectral bands.
 
-![Zarr's hierarchical organization showing stores, groups, arrays, and chunks](img/zarr-terminology-hierarchy.webp)
+![Zarr's hierarchical organization showing stores, groups, arrays, and chunks](img/zarr-terminology-hierarchy.png)
 
 
 ### When to use COGs versus Zarr?
