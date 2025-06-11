@@ -33,7 +33,7 @@ The EOPF product structure consists of the following components:
 - **Conditions:** Information about the environment or technical aspects when the data was collected.
 - **Attributes:** Global metadata, such as when it was acquired and the sensor's orbit.
 
-![EOPF product structure](img/product_structure.jpg){fig-align="center"}
+![EOPF product structure](img/EOProduct-structure.png){fig-align="center"}
 
 ::: {.callout-note}
 Learn more about the EOPF Zarr product structure [here](./2_what_is_zarr.qmd).
