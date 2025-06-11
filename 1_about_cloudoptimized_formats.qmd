@@ -38,8 +38,23 @@ Cloud-optimised geospatial data formats have the following characteristics:
 When accessing data over the internet (e.g., cloud storage), latency is high compared to local storage, so it is preferable to fetch lots of data in fewer reads.
 :::
 
-### Cloud-Optimised Geospatial Raster Formats
-For satellite data, there are two cloud-optimised formats currently used: **Cloud-Optimised GeoTIFFs (COGs)** and **Zarr**.
+### Understanding N-dimensional Arrays
+Earth observation data often consists of multiple dimensions - think of a satellite image series that has spatial dimensions (latitude, longitude), spectral bands, and time. This multi-dimensional nature requires specialized data structures and tools.
+
+#### The xarray Data Model
+[xarray](https://docs.xarray.dev/) provides a powerful data model for working with labeled multi-dimensional arrays. It introduces:
+
+- **Dimensions**: Named axes (e.g., latitude, longitude, time)
+- **Coordinates**: Labels for points along dimensions
+- **Variables**: N-dimensional arrays with corresponding dimensions
+- **Attributes**: Metadata about the arrays
+
+![xarray's data model showing dimensions, coordinates, and variables](img/xarray.png)
+
+### Cloud-Optimised Geospatial Data Formats
+For satellite data, there are two main categories of cloud-optimised formats:
+1. **Raster Formats**: Optimized for 2D image data (like Cloud-Optimised GeoTIFFs)
+2. **Multi-dimensional Array Formats**: Designed for complex, n-dimensional data structures
 
 #### Cloud-optimised GeoTIFF (COG)
 COGs have widely been used as cloud-native format for satellite imagery and improve the standard GeoTIFF format by:
@@ -50,13 +65,19 @@ A key feature of COGs is the **Internal File Directory** (IFD), which acts like 
 
 ![COG structure. Retrieved from CNG documentation](img/cogtiff.png)
 
-#### Zarr 
-Zarr is more recent than COG and is primarily designed for handling large, multi-dimensional datasets by:
+#### Multi-dimensional Array Storage with Zarr
+While xarray provides the data model for working with n-dimensional arrays, Zarr provides the storage format. Zarr is designed specifically for storing and accessing large n-dimensional arrays in the cloud by:
 
-- Storing data as compressed **chunks** in a flexible way, and
-- Embedding metadata directly alongside the data, making it self-descriptive.
+- **Chunking**: Breaking large arrays into smaller pieces that can be accessed independently
+- **Compression**: Each chunk can be compressed individually for efficient storage
+- **Hierarchical Organization**: Arrays are organized in groups, similar to folders in a filesystem
+- **Cloud-Native Access**: Optimized for reading partial data over HTTP
+- **Parallel I/O**: Multiple chunks can be read or written simultaneously
+- **Self-Description**: Rich metadata is stored alongside the data using JSON
 
-![Zarr structure. Retrieved from CNG documentation.](img/zarr1.png)
+This makes Zarr particularly well-suited for cloud-based Earth observation data, where datasets often combine multiple dimensions like space, time, and spectral bands.
+
+![Zarr's hierarchical organization showing stores, groups, arrays, and chunks](img/zarr-terminology-hierarchy.webp)
 
 
 ### When to use COGs versus Zarr?
