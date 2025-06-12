@@ -41,6 +41,8 @@ dependencies = [
     "ipykernel>=6.23.1",
     "quarto>=0.1.0",
     "pystac-client",
+    "folium",
+    "shapely",
 ]
 
 [tool.setuptools]
