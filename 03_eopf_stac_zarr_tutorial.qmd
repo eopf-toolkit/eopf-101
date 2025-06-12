@@ -9,8 +9,8 @@ This section will guide users through exploring the EOPF Sentinel Zarr Samples S
 We will navigate its interface, inspect the various levels of information, and demonstrate how to access the underlying Sentinel data in Zarr format.
 :::
 
-The [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en) offers and ensures the access to the reingeneered version of the Sentinel 1, Sentinel 2 and Sentinel 3 data missions.<br>
-It allows us to easily explore, locate and retrieve the available `.zarr` Sentinel assets into a user friendly interface. 
+The [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en) offers and ensures the access to the re-engineered version of the Sentinel 1, Sentinel 2 and Sentinel 3 data missions.<br>
+It allows us to easily explore, locate and retrieve the available `.zarr` Sentinel assets through a user-friendly interface.
 
 ### Home page
 
@@ -24,34 +24,34 @@ As outlined in our chapter [The EOPF Available Datasets](1_overview_eopf_dataset
 
 | Product | Instrument | Description | Available at |
 |:---------|:---------|:---------|:---------|
-| Level-1 GRD| Ground Range Detected | The Sentinel-1 Level-1 GDR products consist of focused SAR data that has been detected, multi-looked and projected to ground range using the Earth ellipsoid model WGS84. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.language=en) |
-| Level-1 SLC | Single Look Complex | The Sentinel-1 Level-1 SLC products consist of focused SAR data, geo-referenced using orbit and attitude data from the satellite, and provided in slant-range geometry. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-slc?.language=en) |
-| Level-2 OCN | Ocean | The Sentinel-1 Level-2 OCN products for wind, wave and currents applications may contain the following geophysical components derived from the SAR data: Ocean Wind field (OWI), Ocean Swell spectra (OSW), Surface Radial Velocity (RVL). | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l2-ocn?.language=en) |
+| Level-1 GRD| Ground Range Detected | The Sentinel-1 Level-1 GRD products consist of focused SAR data that has been detected, multi-looked and projected to ground range using the Earth ellipsoid model WGS84. | [Sentinel-1 L1 GRD Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.language=en) |
+| Level-1 SLC | Single Look Complex | The Sentinel-1 Level-1 SLC products consist of focused SAR data, geo-referenced using orbit and attitude data from the satellite, and provided in slant-range geometry. | [Sentinel-1 L1 SLC Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-slc?.language=en) |
+| Level-2 OCN | Ocean | The Sentinel-1 Level-2 OCN products for wind, wave and currents applications may contain the following geophysical components derived from the SAR data: Ocean Wind field (OWI), Ocean Swell spectra (OSW), Surface Radial Velocity (RVL). | [Sentinel-1 L2 OCN Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l2-ocn?.language=en) |
 
 #### Sentinel-2
 
 | Product | Instrument | Description | Available at |
 |:---------|:---------|:---------|:---------|
-| Level-1C | Multi-Spectral Instrument | The Sentinel-2 Level-1C product is composed of 110x110 km2 tiles (ortho-images in UTM/WGS84 projection). Earth is subdivided on a predefined set of tiles, defined in UTM/WGS84 projection and using a 100 km step. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l1c) |
-| Level-2A | Multi-Spectral Instrument | The Sentinel-2 Level-2A Collection 1 product provides orthorectified Surface Reflectance (Bottom-Of-Atmosphere: BOA), with sub-pixel multispectral and multitemporal registration accuracy. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) |
+| Level-1C | Multi-Spectral Instrument | The Sentinel-2 Level-1C product is composed of 110x110 km2 tiles (ortho-images in UTM/WGS84 projection). Earth is subdivided on a predefined set of tiles, defined in UTM/WGS84 projection and using a 100 km step. | [Sentinel-2 L1C Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l1c?.language=en) |
+| Level-2A | Multi-Spectral Instrument | The Sentinel-2 Level-2A Collection 1 product provides orthorectified Surface Reflectance (Bottom-Of-Atmosphere: BOA), with sub-pixel multispectral and multitemporal registration accuracy. | [Sentinel-2 L2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a?.language=en) |
 
 #### Sentinel-3
 
 ##### Ocean and Land Colour Instrument
 
-| Product | Product | Description | Available at |
+| Product | Level | Description | Available at |
 |:---------|:---------|:---------|:---------|
-| Level-1 EFR | Earth Full Resolution | Provides TOA radiances at full resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-efr) |
-| Level-1 ERR | Earth Reduced Resolution | The Sentinel-3 OLCI L1 ERR product provides TOA radiances at reduced resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-err) |
-| Level-2 LFR | Land Full Resolution | The Sentinel-3 OLCI L2 LFR product provides land and atmospheric geophysical parameters computed for full resolution. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr) |
-| Level-2 LRR | Land Reduced Resolution | The Sentinel-3 OLCI L2 LRR product provides land and atmospheric geophysical parameters computed for reduced resolution. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lrr) |
+| Level-1 EFR | Earth Full Resolution | Provides TOA radiances at full resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. | [Sentinel-3 OLCI L1 EFR Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-efr?.language=en) |
+| Level-1 ERR | Earth Reduced Resolution | The Sentinel-3 OLCI L1 ERR product provides TOA radiances at reduced resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. | [Sentinel-3 OLCI L1 ERR Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-err?.language=en) |
+| Level-2 LFR | Land Full Resolution | The Sentinel-3 OLCI L2 LFR product provides land and atmospheric geophysical parameters computed for full resolution. | [Sentinel-3 OLCI L2 LFR Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr?.language=en) |
+| Level-2 LRR | Land Reduced Resolution | The Sentinel-3 OLCI L2 LRR product provides land and atmospheric geophysical parameters computed for reduced resolution. | [Sentinel-3 OLCI L2 LRR Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lrr?.language=en) |
 
 ##### Sea and Land Surface Temperature Radiometer
 
 | Product | Data | Description | Available at |
 |:---------|:---------|:---------|:---------|
-| Level-1 RBT | Radiance Brightness Temperature | The Sentinel-3 SLSTR Level-1B RBT product provides radiances and brightness temperatures for each pixel in a regular image grid for each view and SLSTR channel. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l1-rbt) |
-| Level-2 LST | Land Surface Temperature | The Sentinel-3 SLSTR Level-2 LST product provides land surface temperature. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst) |
+| Level-1 RBT | Radiance Brightness Temperature | The Sentinel-3 SLSTR Level-1B RBT product provides radiances and brightness temperatures for each pixel in a regular image grid for each view and SLSTR channel. | [Sentinel-3 SLSTR L1 RBT Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l1-rbt?.language=en) |
+| Level-2 LST | Land Surface Temperature | The Sentinel-3 SLSTR Level-2 LST product provides land surface temperature. | [Sentinel-3 SLSTR L2 LST Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst?.language=en) |
 
 
 The user interface provides intuitive mechanisms to interact with these collections. Users can filter them by specific criteria or select them manually, allowing for precise control over the displayed data. This enables the selection of data based on the desired level of processing, ensuring relevance to specific analysis needs.
@@ -96,10 +96,10 @@ Alternatively, users can copy the direct URL to retrieve the data programmatical
 
 We encourage you to explore the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en) on your own. <br>
 
-Try filtering other Collections, besides the [Sentinel-2 Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a).<br>
+Try filtering other Collections, besides the [Sentinel-2 Level-2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a?.language=en).<br>
 
-1. Explore the [Sentinel-1 Level-1 GRD](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1). How many items were retrieved in 2023?
-2. What about 2024?
+1. Explore the [Sentinel-1 Level-1 GRD Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1&language=en). How many items are available for recent years?
+2. Try filtering by different time periods and compare the results.
 3. Explore the interactive map. List 3 areas where there are available items.
 
 ## Conclusion
