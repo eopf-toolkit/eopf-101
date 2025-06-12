@@ -1,0 +1,30 @@
+name: Cleanup Harbor Images
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at 00:00 UTC
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_CLEANUP_DAYS: 7
+      OVH_HARBOR_REGISTRY: ${{ secrets.OVH_HARBOR_REGISTRY }}
+      OVH_HARBOR_ROBOT_USERNAME: ${{ secrets.OVH_HARBOR_ROBOT_USERNAME }}
+      OVH_HARBOR_ROBOT_PASSWORD: ${{ secrets.OVH_HARBOR_ROBOT_PASSWORD }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Harbor cleanup script
+        run: python .github/workflows/clean-harbor.py

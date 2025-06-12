@@ -2,13 +2,14 @@
 name = "eopf-101"
 version = "0.1.0"
 description = "EOPF 101 - A toolkit for working with Sentinel data in Zarr format"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 readme = "README.md"
 authors = [
     { name = "Emmanuel Mathot", email = "emmanuel@developmentseed.com" },
     { name = "Gisela Romero Candanedo" },
-    { name = "Julia Wagemann" }
-
+    { name = "Julia Wagemann" },
+    { name = "Ciaran Sweet", email = "ciaran@developmentseed.org" },
+    { name = "Felix Delattre", email = "felix@developmentseed.org" }
 ]
 license = { text = "MIT" }
 keywords = [
