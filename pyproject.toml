@@ -1,8 +1,12 @@
+[build-system]
+requires = ["setuptools>=67.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "eopf-101"
 version = "0.1.0"
 description = "EOPF 101 - A toolkit for working with Sentinel data in Zarr format"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 readme = "README.md"
 authors = [
     { name = "Emmanuel Mathot", email = "emmanuel@developmentseed.com" },
@@ -11,7 +15,7 @@ authors = [
     { name = "Ciaran Sweet", email = "ciaran@developmentseed.org" },
     { name = "Felix Delattre", email = "felix@developmentseed.org" }
 ]
-license = { text = "MIT" }
+license = "MIT"
 keywords = [
     "EOPF",
     "Sentinel",
@@ -38,8 +42,12 @@ dependencies = [
     "quarto>=0.1.0"
 ]
 
+[tool.setuptools]
+packages = ["deployment", "img"]
+
+[tool.setuptools.package-data]
+"*" = ["*.png", "*.jpg", "*.PNG", "*.webp"]
+
 [project.urls]
 Homepage="https://eopf-toolkit.github.io/eopf-101/"
 Source="https://github.com/eopf-toolkit/eopf-101"
-
-
