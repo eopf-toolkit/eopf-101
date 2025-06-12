@@ -13,7 +13,7 @@ authors = [
     { name = "Gisela Romero Candanedo" },
     { name = "Julia Wagemann" },
     { name = "Ciaran Sweet", email = "ciaran@developmentseed.org" },
-    { name = "Felix Delattre", email = "felix@developmentseed.org" }
+    { name = "Felix Delattre", email = "felix@developmentseed.org" },
 ]
 license = "MIT"
 keywords = [
@@ -32,14 +32,15 @@ keywords = [
 dependencies = [
     "jupyter>=1.1.1",
     "zarr>=2.18.0",
-    "pystac>=1.13.0", 
+    "pystac>=1.13.0",
     "numpy>=2.2.6",
     "pandas>=2.0.2",
     "matplotlib>=3.7.1",
     "rioxarray>=0.14.1",
     "stackstac>=0.4.4",
     "ipykernel>=6.23.1",
-    "quarto>=0.1.0"
+    "quarto>=0.1.0",
+    "pystac-client",
 ]
 
 [tool.setuptools]
@@ -49,5 +50,5 @@ packages = ["deployment", "img"]
 "*" = ["*.png", "*.jpg", "*.PNG", "*.webp"]
 
 [project.urls]
-Homepage="https://eopf-toolkit.github.io/eopf-101/"
-Source="https://github.com/eopf-toolkit/eopf-101"
+Homepage = "https://eopf-toolkit.github.io/eopf-101/"
+Source = "https://github.com/eopf-toolkit/eopf-101"
