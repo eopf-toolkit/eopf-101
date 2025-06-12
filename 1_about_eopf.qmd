@@ -1,18 +1,18 @@
 ---
-title: "Introduction to the Earth Observation Processor Framework"
+title: "Introduction to the EOPF"
 format: html
 ---
 ::: {.justify}
 
-## What is the Earth Observation Processor Framework?  {.unnumbered}
+### What is the Earth Observation Processor Framework (EOPF)?
 
 The [Earth Observation Processor Framework](https://eopf.copernicus.eu/) (EOPF) is an initiative led by the European Space Agency (ESA) designed to modernise and harmonise data from the Copernicus Sentinel Missions.
 
-With the upcoming Copernicus Expansion missions in 2028, the amount of data will significantly increase. EOPF is ESA's solution to organise Sentinel data in a way that works seamlessly with modern cloud technology. This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.
+With the upcoming Copernicus Expansion missions in 2028, the amount of data produced daily will significantly increase. EOPF is ESA's solution to organise Sentinel data in a way that works seamlessly with modern cloud technology. This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.
 
 The [Sentinel-1](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1), [Sentinel-2](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2), and [Sentinel-3](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-3) missions are the first to be updated with this new system.
 
-## The EOPF Data Model {.unnumbered}
+### The EOPF Data Model
 
 The EOPF data model has been defined by following a set of principles:
 
@@ -21,58 +21,48 @@ The EOPF data model has been defined by following a set of principles:
 - **Cloud optimisation:** Designed for efficient access and handling in cloud environments.
 - **Conversion flexibility:** Providing tools to adjust the data for different applications.
 
-To achieve this, there are the following key development areas under EOPF:
+Under EOPF, there are four key areas of activities: (i) EOPF product structure, (ii) EOPF metadata structure, (iii) EOPF encoding structure and (iv) EOPF Processor Framework
 
-### EOPF product structure {.unnumbered}
+#### EOPF product structure
+As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used across all Sentinel and other EO missions. This approach ensures that data from several missions is consistent.
 
-The EOPF prodcut structure defines how information about the data is structured, stored, and connected. It contains the key details we need to know about a dataset, like when it was collected or its level of detail (the attributes). 
-As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used nacross all Sentinel and other EO missions. This approach ensures that data from several missions is consistent. Thus, it is easier to combine, relate, and evaluate data from different missions.
-
-![EOPF Product structure](img/product_structure.jpg){fig-align="center"}
-
-The EOPF product structure contains of the following key parts:
+The EOPF product structure consists of the following components:
 
 - **Measurements:** The actual sensor readings (like how much light is reflected or the temperature), at different levels of detail.
 - **Quality indicators:** Details that help understand how reliable the measurements are.
 - **Conditions:** Information about the environment or technical aspects when the data was collected.
 - **Attributes:** Global metadata, such as when it was acquired and the sensor's orbit.
 
-### Metadata Structure {.unnumbered}
-
-Metadata can be seen as data about data, which provides essential information to understand and use data effectively. 
-Inside the Copernicus ecosystem, it allows us to uniquely identify each Sentinel product by detailing its technical and geographic coverage information. To make sure the new data system works well and avoids redundancy, the EOPF metadata structure will be organised into:
-
-- Discovery Metadata: Following the metadata structure defined by the SpatioTemporal Asset Catalogue ([STAC](https://stacspec.org/en/)), which helps to keep things consistent across different missions.
-- Processing History Metadata: keeping a record of how the data has been processed.
-- Other Metadata: Information like the status of the sensor and details about the satellite's orbit.
+![EOPF product structure](img/EOProduct-structure.png){fig-align="center"}
 
 ::: {.callout-note}
-*"Learn more about EOPF and STAC [here](https://stacindex.org/catalogs/cdse#/)."*
-
+Learn more about the EOPF Zarr product structure [here](./2_what_is_zarr.qmd).
 :::
 
-### Encoding Structure {.unnumbered}
+#### EOPF metadata structure
 
+Metadata provide all relevant information required to uniquely describing each Sentinel product. The EOPF metadata structure will be organised into:
+
+- **Discovery Metadata**: Following the metadata structure defined by the SpatioTemporal Asset Catalogue ([STAC](https://stacspec.org/en/)), which helps to keep things consistent across different missions.
+- **Processing History Metadata**: keeping a record of how the data has been processed.
+- **Other Metadata**: Information like the status of the sensor and details about the satellite's orbit.
+
+::: {.callout-note}
+EOPF and STAC: Learn more about EOPF and STAC [here](https://stacindex.org/catalogs/cdse#/).
+:::
+
+#### EOPF encoding structure
 An encoding structure can be seen as the specific method used to package and store data and its associated metadata in a digital format.
 Building on the consistent data structure and clear metadata, the new storage system must be capable of handling various aspects of current Sentinel data (such as manifest files and tile structures from the SAFE format) while remaining fully compatible with cloud environments.
 
-This cloud-friendly architecture will enable instant access to data, efficient processing of massive amounts of data, and seamless integration with other datasets, allowing you to work with data from multiple missions more effectively.
+ESA chose `.zarr` as encoding format as it allows for instant access to data, efficient processing of massive amounts of data, and seamless integration with other datasets. The EOPF Zarr data format allows you to work with data from multiple missions more effectively.
 
-Currently, there are different ways to store geospatial data in the cloud, such as:
-- Zarr
-- Cloud-Optimised GeoTIFF (COG)
-- Hierarchical Data Format (HDF5) with Cloud Adaptations
-- Apache Parquet (with GeoParquet Extension)
-
-ESA chose `.zarr` as encoding format as it allows for efficient handling of data, like selecting specific areas and combining different datasets easily (for example, by dividing the data into smaller chunks). Learn more about the EOPF Zarr format [here](https://zarr.eopf.copernicus.eu/).
 
 ::: {.callout-note}
-Learn more about cloud-optimised geospatial data formats in the [Cloud-Optimised Geospatial Data Formats Guide](https://guide.cloudnativegeo.org/)
-
+Learn more about the EOPF Zarr format [here](https://zarr.eopf.copernicus.eu/). And learn more about cloud-optimised geospatial data formats in general in the [Cloud-Optimised Geospatial Data Formats Guide](https://guide.cloudnativegeo.org/)
 :::
 
-### Processor Development {.unnumbered}
-
+#### EOPF processor framework
 The way Sentinel data is processed is being updated to take advantage of modern cloud computing. This will make the processing faster and more efficient, while ensuring the scientific quality and accuracy of the Sentinel data remains the same.
 
 ::: {.callout-note}
@@ -80,8 +70,6 @@ To learn more about the EOPF processor framework, visit [https://eopf.copernicus
 
 :::
 
-## What's next? {.unnumbered}
-
-In the following chapters, we will introduce the details of the new EOPF data structure, explain the reasons behind ESA's choice of data storage methods, and help the community become comfortable with the new EOPF data format.
-
+### What's next?
+In the following chapters, we will introduce the datasets being made available under EOPF and will provide you practical examples to work with the new EOPF Zarr data format.
 :::
