@@ -1,5 +1,5 @@
 ---
-title: "The EOPF Available Datasets"
+title: "EOPF Sentinel Zarr products"
 format: html
 ---
 ::: {.justify}

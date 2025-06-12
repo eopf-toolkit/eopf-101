@@ -1,5 +1,54 @@
-# Welcome {.unnumbered}
 
-This online book is the go-to resource to learn everything about the EOPF Sample Service by ESA.
+### Your community guide for working with EOPF Sentinel Zarr data in the cloud {.unlisted} 
 
-To be continued...
+Explore EOPF 101, an open community resource designed to help Sentinel data users explore EOPF Sentinel Zarr data in the cloud. 
+With our step-by-step and hands-on tutorials, you learn how to effectively use EOPF Sentinel Zarr data and build Earth Observation workflows that scale.
+
+## Ready to explore EOPF 101?
+EOPF 101 is designed for Sentinel data users that are new to cloud-optimised geospatial formats and cloud-based workflows.
+It introduces you to fundamental cloud-native geospatial concepts, the Earth Observation Processing Framework (EOPF) activities by ESA, 
+re-processed EOPF Sentinel Zarr data as well as tools and libraries to work with EOPF Sentinel Zarr data in the cloud.
+
+
+Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data. 
+
+* **Chapter 1 - About EOPF**
+  * [Introduction to the EOPF](./1_about_eopf.qmd)
+  * [About Cloud-Optimised Formats](./1_about_cloudoptimized_formats.qmd)
+  * [EOPF Sentinel Zarr products](./1_overview_eopf_datasets.qmd)
+* **Chapter 2 - About Zarr**
+  * [Overview of the EOPF Zarr format](./2_what_is_zarr.qmd)
+* **Chapter 3 - EOPF and STAC**
+* **Chapter 4 - Tools to work with Zarr**
+  * **COMING** - get hands-on with different libraries and tools facilitating the use of EOPF Sentinel Zarr data
+* **Chapter 5 - EOPF in Action**
+  * **COMING** - See end-to-end workflows leveraging EOPF Sentinel Zarr data across different application domains.
+
+
+## How to best use EOPF 101
+You can use EOPF 101 as reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. 
+Beyond this browsable version, you can also setup the required environment to execute the notebooks. Below, you find instructions how you can setup the required environment locally as well as ... TO DO
+
+--> TO DO - Instructions on local setup and / or docker container on CDSE
+
+
+## How to get involved
+EOPF 101 is an open community resource under active development. Our activiites are there to engage with Sentinel users and to gather feedback on EOPF Sentinel Zarr products. 
+There are different ways you can get involved and engaged:
+
+### Join the EOPF Toolkit Notebook Competition
+Learn more about the upcoming Notebook Competition and express your interest hear. --> TO DO
+
+### Ideas & Feedback?
+Is there a plugin or librariy missing and you would like to see it integrated? You have some feedback on EOPF 101? Please submit an [issue](https://github.com/eopf-toolkit/eopf-101/issues) and we will review your request.
+
+
+## About the ESA EOPF Toolkit project
+EOPF 101 is a community resource developed as part of the [EOPF Toolkit project](https://github.com/eopf-toolkit) funded by the [European Space Agency](https://www.esa.int/). 
+EOPF 101 is brought to you by [Development Seed](https://developmentseed.org/), [thriveGEO](www.thrivegeo.com) and [SparkGeo](https://sparkgeo.com/).
+
+
+
+
+
+

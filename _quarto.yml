@@ -6,7 +6,7 @@ book:
   author: ""
   date: ""
   search: true
-  repo-url: https://github.com/
+  repo-url: https://github.com/eopf-toolkit/eopf-101
   page-navigation: true
   sidebar:
    search: true
