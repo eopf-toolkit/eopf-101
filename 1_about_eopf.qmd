@@ -2,17 +2,28 @@
 title: "Introduction to the EOPF"
 format: html
 ---
+
 ::: {.justify}
 
-### What is the Earth Observation Processor Framework (EOPF)?
+## Introduction
 
 The [Earth Observation Processor Framework](https://eopf.copernicus.eu/) (EOPF) is an initiative led by the European Space Agency (ESA) designed to modernise and harmonise data from the Copernicus Sentinel Missions.
 
-With the upcoming Copernicus Expansion missions in 2028, the amount of data produced daily will significantly increase. EOPF is ESA's solution to organise Sentinel data in a way that works seamlessly with modern cloud technology. This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.
+## By the end of this page, we will be able to...<br>
+
+- 🛰️ Understand ESA's reasoning for the EOPF initiative
+- 👾 Have a broad idea of EOPF's encoding structure
+
+<hr>
+
+### What is the Earth Observation Processor Framework (EOPF)?
+
+With the upcoming Copernicus Expansion missions in 2028, the amount of data produced daily will significantly increase. EOPF is ESA's solution to organise Sentinel data in a way that works seamlessly with modern cloud technology. <br>
+This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.
 
 The [Sentinel-1](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1), [Sentinel-2](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2), and [Sentinel-3](https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-3) missions are the first to be updated with this new system.
 
-### The EOPF Data Model
+#### The EOPF Data Model
 
 The EOPF data model has been defined by following a set of principles:
 
@@ -23,7 +34,7 @@ The EOPF data model has been defined by following a set of principles:
 
 Under EOPF, there are four key areas of activities: (i) EOPF product structure, (ii) EOPF metadata structure, (iii) EOPF encoding structure and (iv) EOPF Processor Framework
 
-#### EOPF product structure
+#### Product structure
 As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used across all Sentinel and other EO missions. This approach ensures that data from several missions is consistent.
 
 The EOPF product structure consists of the following components:
@@ -39,7 +50,7 @@ The EOPF product structure consists of the following components:
 Learn more about the EOPF Zarr product structure [here](./2_what_is_zarr.qmd).
 :::
 
-#### EOPF metadata structure
+#### Metadata structure
 
 Metadata provide all relevant information required to uniquely describing each Sentinel product. The EOPF metadata structure will be organised into:
 
@@ -51,8 +62,8 @@ Metadata provide all relevant information required to uniquely describing each S
 EOPF and STAC: Learn more about EOPF and STAC [here](https://stacindex.org/catalogs/cdse#/).
 :::
 
-#### EOPF encoding structure
-An encoding structure can be seen as the specific method used to package and store data and its associated metadata in a digital format.
+#### Encoding structure
+An encoding structure can be seen as the specific method used to package and store data and its associated metadata in a digital format.<br>
 Building on the consistent data structure and clear metadata, the new storage system must be capable of handling various aspects of current Sentinel data (such as manifest files and tile structures from the SAFE format) while remaining fully compatible with cloud environments.
 
 ESA chose `.zarr` as encoding format as it allows for instant access to data, efficient processing of massive amounts of data, and seamless integration with other datasets. The EOPF Zarr data format allows you to work with data from multiple missions more effectively.
@@ -67,9 +78,11 @@ The way Sentinel data is processed is being updated to take advantage of modern 
 
 ::: {.callout-note}
 To learn more about the EOPF processor framework, visit [https://eopf.copernicus.eu/eopf/](https://eopf.copernicus.eu/eopf/)
-
 :::
 
-### What's next?
-In the following chapters, we will introduce the datasets being made available under EOPF and will provide you practical examples to work with the new EOPF Zarr data format.
+<hr>
+
+## What's next?
+In the following chapters, we will introduce the datasets being made available under EOPF and will provide you practical examples to work with the new **EOPF** data format.
+
 :::
