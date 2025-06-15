@@ -3,9 +3,18 @@ title: "The EOPF Available Datasets"
 format: html
 ---
 ::: {.justify}
-Re-engineered datasets as part of ESA's EOPF activity are available for exploration via the [EOPF Sentinel Sample Service's STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
 
-At the moment data from Sentinel-1, Sentinel-2 and Sentinel-3 missions are being re-processed and made available.
+## Introduction<br>
+
+This section introduces the readily available datasets re-engineered as part of the ESA's Earth Observation Processing Framework (EOPF) initiative. 
+Accessible through the [EOPF Sentinel Sample Service's STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en), these datasets are undergoing continuous re-processing from the Sentinel-1, Sentinel-2, and Sentinel-3 missions. This ongoing effort aims to provide users with cloud-optimised versions of crucial Earth Observation data. 
+
+## By the end of this page, we will be able to...
+
+- 🛰️ Identify the re-engineered Sentinel Missions by ESA.
+- 📖 Get an overview to the [EOPF Sentinel Sample Service's STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en)
+
+<hr>
 
 ::: {.callout-important}
 The re-processing from the Sentinel Missions is an ongoing activity as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). This page and our tutorials will continuously be updated as soon as new data products are available.
@@ -54,5 +63,7 @@ Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers
 | Level-2 LST | LST: Land Surface Temperature | The Sentinel-3 SLSTR Level-2 LST product provides land surface temperature. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst) |
 
 
-### What's next?
-In the following chapter, we dive deeper into the advantages of the `Zarr` data format and we start with practically working with EOPF Zarr datasets.
+<hr>
+
+## What's next?
+In the following chapter, we will dive deeper into the advantages of the `zarr` data format and we start with practically working with EOPF Zarr datasets.
