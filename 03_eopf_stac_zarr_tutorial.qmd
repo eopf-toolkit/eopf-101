@@ -1,99 +1,88 @@
 ---
-title: "Explore the EOPF STAC Catalog"
+title: "Explore the EOPF zarr STAC Catalog"
 code-block-background: true
 ---
 
 ### Introduction
-We will introduce
+The [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en) offers and ensures the access to the reingeneered version of the Sentinel 1, Sentinel 2 and Sentinel 3 data missions.<br>
+It allows us to easily explore, locate and retrieve the available `.zarr` Sentinel assets into a user friendly interface. <br>
+This section will guide users through exploring the EOPF Sentinel Zarr Samples Service STAC catalogue.<br>
+We will navigate its interface, inspect the various levels of information, and demonstrate how to access the underlying Sentinel data in Zarr format.
 
 ### What we will learn
-
-- What is the Spatio-Temporal Asset Catalog (STAC)?
-- How does STAC work?
-- How to access EOPF Sentinel Zarr products from the EOPF Sentinel Zarr Samples Service STAC API?
-
-### Resources we will use
-We will start 
+- ⚙️ How does STAC browser interface works
+- 🔦 Explore the available Collencions within the EOPF Sentinel Zarr Samples Service STAC
+- 📡 How to access EOPF Sentinel Zarr products from the EOPF Sentinel Zarr Samples Service STAC API
 
 <hr>
 
-
-## About the Spatio-Temporal Asset Catalog
-The **S**patio-**T**emporal **A**sset **C**atalog is a standardised way to catalog and describe geospatial (raster) data. STAC makes it easier to discover, access, and work with geospatial data, in particular satellite data, as it provides a **common language for describing spatial and temporal characteristics** of the data. This common language improves interoperability between different data providers and software tools.
-
-
 ::: {.callout-important}
-**Key benefit:** Through STAC, you can use the same code and API to access data from different data repositories.
+**Key benefit:** Imagine using the same code and API to access data from completely different data repositories. That's the power of STAC!
 :::
 
-#### STAC Components
+## Our Starting Point
 
+Upon accessing the landing page of the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en)  we access see a comprehensive overview of the available data collections. This serves as our root or initial entry point into the catalogue.
 
-
-#### How to work with the EOPF Sentinel Zarr Samples Service STAC catalog?
-There are two ways how you can t
-*
-
-Below we will be able to 
-The [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en) offers and ensures the access to the re-engineered version of the Sentinel 1, Sentinel 2 and Sentinel 3 data missions.<br>
-It allows us to easily explore, locate and retrieve the available `.zarr` Sentinel assets through a user-friendly interface.
-
-### Home page
-
-Upon accessing the landing page of the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en), a comprehensive overview of the available data collections, curated by the ESA EOPF is presented. This serves as our initial entry point into the catalogue.
+As outlined in detail in our chapter [The EOPF Available Datasets](1_overview_eopf_datasets.qmd) the catalogue is structured to display 11 distinct collections derived from Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br>
+The user interface provides an intuitive way to browse all these collections. <br>
+It is possible to filter them by specific criteria or select them manually, allowing for precise control over the displayed data. This ensures we can select data based on our desired processing level, matching the analysis we need.
 
 ![Home page](img/home.png){fig-align="center"}
 
-As outlined in our chapter [The EOPF Available Datasets](1_overview_eopf_datasets.qmd), the catalogue is structured to display 11 distinct collections derived from Sentinel-1, Sentinel-2, and Sentinel-3 missions. 
+## Sentinel Collections
 
-The user interface provides intuitive mechanisms to interact with these collections. Users can filter them by specific criteria or select them manually, allowing for precise control over the displayed data. This enables the selection of data based on the desired level of processing, ensuring relevance to specific analysis needs.
-
-
-### Sentinel Collections
-
-Navigating into any chosen Collection reveals an interactive map, which visually represents the geographical distribution of the available data samples. Situated on the right-hand side of the page, a list of Items is displayed, corresponding to the selected mission and the geographical area currently shown on the map. This visual correlation between the map and the item list streamlines data discovery.
+Navigating into any chosen Collection reveals an interactive map, which visually represents the geographical distribution of the available data samples.<br>
+On the right-hand side of the page, a list of links for the items contained inside the collection is displayed, corresponding to the selected mission and the geographical area currently shown on the map. This visual correlation between the map and the item list streamlines data discovery.
 
 ![A collection example](img/sentinel2l2a.png){fig-align="center"}
 
-Furthermore, within each Collection's view, comprehensive metadata is provided. This includes crucial details such as the temporal extent (the period over which the data was acquired), spatial coverage, names of the data providers, and general metadata relevant to the collection. <br>
+Furthermore, within each Collection's view, comprehensive metadata is provided. This includes crucial details such as the **temporal extent** (the period over which the data was acquired), **spatial coverage**, names of the data providers, and general metadata relevant to the collection. <br>
 
 ![Metadata and further information](img/sentinel2l2a_meta.png){fig-align="center"}
 
 Additionally, specific information about the bands and instruments used for each mission, along with mission-specific data like backscatter or reflectance information (depending on whether it's a Sentinel-1, Sentinel-2, or Sentinel-3 collection), is readily accessible.
 
-#### Filtering 
+## Filtering 
 
-The Catalogue, allows us to filter the items of our collection of interest by **temporal** and **spatial** extent. Once we select the period, we can sort the items that match the search by ID or Date and Time.
+The Catalogue, allows us to filter the items of our collection of interest by **temporal** and **spatial** extent.<br>
+Once we select the desired period, we can sort the items that match the search by ID or Date and Time.
 
 ![Fields that allow multiple filter parameter](img/filter_1.png){fig-align="center"}
 
-### Item Specifications
+## Item Specifications
 
-When a specific Item is of interest, clicking on it will transition the view to a detailed overview page for that selected item. <br>
-This page typically features another interactive map, highlighting the precise footprint of the data, along with more granular metadata pertinent to that individual Item.
+When a specific item sparks our interest, clicking on it will transition the view to a detailed overview page for that selected item. <br>
+This page typically features another interactive map, highlighting the precise footprint of the data, along with more granular metadata pertinent to that individual item.
 
 ![A selected item inside the collection](img/finland_item.png){fig-align="center"}
 
-### Assets
+## Assets
 
-The Assets menu, prominently displayed on the Item's detailed page, lists all the constituent elements that comprise the selected Item. These are composed by the actual retrieved data and associated resources. <br>
-By expanding the dropdown menu for any given Asset, users can access its specific metadata and, most important its array information. <br>
-The array information provides details about the structure and content of the data, hinting at the actual values contained within the asset. It also contains the chunking grid information and everything that is needed to process the data.
+The **Assets menu**, prominently displayed on the Item's detailed page, lists all the constituent elements that comprise the selected Item. These are composed by the actual retrieved data and associated resources. <br>
+By expanding the dropdown menu for any selected Asset, users can access its specific metadata and, most important its array information. <br>
+The array information provides details about the structure and content of the data, hinting at the actual values contained within the asset. It also contains the chunking grid information and all the crucial metadata needed to process the data.
 
 ![Download and assets information](img/download_img.png){fig-align="center"}
 
-For direct data access, it is possible to download only the information separately in the `zarr` format by clicking the **Download** option associated with an Asset. <br>
-Alternatively, users can copy the direct URL to retrieve the data programmatically, facilitating direct integration into an integrated development environment (IDE) or custom scripts via an API.
+For direct data access, it is possible to download only the information separately in the `.zarr` format by clicking the **Download** option associated with an Asset. <br>
+Alternatively, we can copy the direct URL to retrieve the data programmatically, facilitating direct integration into an integrated development environment (IDE) or custom scripts via an API (in the following tutorial we will introduce this method).
 
-## Now it is your turn
+## 💪 Now it is your turn
 
 We encourage you to explore the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en) on your own. <br>
 
 Try filtering other Collections, besides the [Sentinel-2 Level-2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a?.language=en).<br>
 
-1. Explore the [Sentinel-1 Level-1 GRD Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1&language=en). How many items are available for recent years?
-2. Try filtering by different time periods and compare the results.
-3. Explore the interactive map. List 3 areas where there are available items.
+1. **Discovering Sentinel-1 GRD Data**: Navigate to the [Sentinel-1 Level-1 GRD Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1&language=en). 
+- How many items can you find for the most recent two years available in the catalogue?
+- Try filtering by different time periods and observe how the results change. How many items are available for september 2023?
+2. **Mapping Your Interests**: Explore the interactive map within the  [Sentinel-2 Level-2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a?.language=en).
+- Can you identify and list the names of at least three distinct geographical areas where a significant number of items are available? (Hint: Look for clusters of the displayed items!)
+3. **Unpacking an Asset**: Select an item from any collection that looks interesting to you. Click on it to view its details. Then, expand one of the assets. 
+- What kind of array information is provided?
+- Who is the data provider?
+- How would this information be useful if you were to process this data?
 
 ## Conclusion
 
@@ -102,5 +91,4 @@ We have demonstrated how to navigate its interface, from the initial overview of
 By understanding the catalogue's structure, exploring its filtering options, and identifying key metadata, we can efficiently access the re-engineered `zarr` items. <br>
 The ability to directly download assets or retrieve their cloud storage location enables an efficient retrieval for further analysis.<br>
 <br>
-In the next chapter, we will explore an alternative workflow to retrieve assets based on the API the EOPF Sample Service through `pystac` and the `pystac-client`.
-
+In the next chapter, we will explore an alternative workflow to retrieve assets based on the API the EOPF Sample Service through `pystac` and the `pystac-client`libraries available thorugh python.
