@@ -5,8 +5,17 @@ code-block-background: true
 ---
 ::: {.justify}
 
+## Introduction<br>
+
 The **SpatioTemporal Asset Catalog** [(STAC)](https://stacspec.org/en/) is a community-driven standard designed to organise and present geospatial data in a unified manner using the JSON format. <br>
 Its foundation lies in the GeoJSON layout, which allows geodata to be extended to adapt to various identification needs. This flexibility enables the STAC specification to be highly adaptable.
+
+## By the end of this page, we will be able to...
+
+- 🔍🌳 Identify the STAC environment
+- 🪜📊 Understand STACs hierarchical structure
+
+<hr>
 
 The primary goal of STAC is to allow data providers to share their data globally, making it easier for users to understand the where, when, how, and what of retrieved information. <br>
 By creating a global index and promoting interoperability, data from diverse products and missions can be searched efficiently. This also supports web best practices, making geospatial information more discoverable through traditional search engines.
@@ -33,6 +42,8 @@ A structure allowing the browsing of Items within STAC, along with their associa
 `    "assets": {}`<br>
 `} `<br>
 
+### STAC structure
+
 The key components that establish a STAC in an unified structure are:
 
 - **Catalogue**: serves as the initial entry point within a STAC. Within a Catalogue, a `.json` file provides links to further Collections or Items contained within that Catalogue.
@@ -46,6 +57,8 @@ The key components that establish a STAC in an unified structure are:
 These elements are related to each other as containers. A STAC can be defined as a group of links that lead to Items, smaller Catalogues, and Collections. Items are always composed of Assets. A Collection can be viewed as a group of Catalogues, with additional information that provides deeper insight into the contained data.
 
 ![STAC structure](img/stac_example.png){fig-align="center"}
+
+### An example
 
 To better understand it, imagine the entire **Cafe Drinks** menu as a STAC Catalogue. This catalogue is the top-level entry point, presenting the overall selection of beverages available.
 
@@ -75,12 +88,17 @@ Also, an Item Juice with:
 
 This structure allows us to easily navigate a vast amount of data, just as a well-organised menu helps a customer quickly find their desired drink.
 
-As we've explored, the **SpatioTemporal Asset Catalog** offers a strong and adaptable framework for geographic data organisation. Large volumes of spatiotemporal data may be effectively defined, indexed, and found thanks to STAC's hierarchical structure, which extends from the overall Catalogue to individual Assets.
+## Conclusion
 
+As we have explored, the **SpatioTemporal Asset Catalog** offers a strong and adaptable framework for geographic data organisation. Large volumes of spatiotemporal data may be effectively defined, indexed, and found thanks to STAC's hierarchical structure, which extends from the overall Catalogue to individual Assets.
 
 ::: {.callout-note}
 To explore further resources for STAC and further EOPF developments, stay tuned through the [STAC documentation](https://stacspec.org/en/) updates.
 :::
+
+<hr>
+
+## What's next?
 
 In the following chapters, we will explore how to access the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en), the STAC where the `zarr` samples for Sentinel 1, Sentinel 2 and Sentinel 3 are made available by ESA. <br>
 
