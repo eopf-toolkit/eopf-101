@@ -4,22 +4,27 @@ format: html
 ---
 ::: {.justify}
 
-## Introduction
+### Introduction
 
 <br>
 <br>
 <br>
 <br>
 
-## By the end of this page, we will be able to...
+### What we will learn
 
 - 🚀 Main objective
 - 🔎 Complement ideas
 - 🛰️ Include a related icon / emoji to make it engaging
 
+
+### Resources we will use
+
+List any resources, such as python dependencies or references tu previous tutorials. Something the user should be aware before the introduction to this chapter.
+
 <hr>
 
-### First Concept
+## First Concept
 
 <br>
 <br>
@@ -30,14 +35,14 @@ format: html
 Some notes...
 :::
 
-### Second Concept
+## Second Concept
 
 <br>
 <br>
 <br>
 <br>
 
-#### Another level inside the concept (details)
+### Another level inside the concept (details)
 
 <br>
 <br>
@@ -49,7 +54,7 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 <br>
 <br>
 
-### Third Concept
+## Third Concept
 
 <br>
 <br>
