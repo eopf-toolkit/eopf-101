@@ -4,7 +4,7 @@ code-block-background: true
 ---
 
 ### Introduction
-We will navigate its interface, inspect the various levels of information, and demonstrate how to access the underlying Sentinel data in Zarr format.
+We will introduce
 
 ### What we will learn
 
@@ -13,7 +13,7 @@ We will navigate its interface, inspect the various levels of information, and d
 - How to access EOPF Sentinel Zarr products from the EOPF Sentinel Zarr Samples Service STAC API?
 
 ### Resources we will use
-
+We will start 
 
 <hr>
 
