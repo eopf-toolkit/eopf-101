@@ -1,30 +1,31 @@
 ---
-title: "The SpatioTemporal Asset Catalog (STAC): Introduction"
+title: "Introduction to STAC"
 format: html
 code-block-background: true
 ---
-::: {.justify}
 
 ### Introduction
 
-The **S**patio-**T**emporal **A**sset **C**atalog is a standardised way to catalog and describe geospatial (raster) data. STAC makes it easier to discover, access, and work with geospatial data, in particular satellite data, as it provides a **common language for describing spatial and temporal characteristics** of the data.<br>
+The **S**patio-**T**emporal **A**sset **C**atalog (STAC) is a standardised way to catalog and describe geospatial (raster) data. STAC makes it easier to discover, access, and work with geospatial data, in particular satellite data, as it provides a **common language for describing spatial and temporal characteristics** of the data.<br>
 This common language improves interoperability between different data providers and software tools.
 
 ### What we will learn
 
 - 🔍 What STAC is and why it's important?
 - 🌳 Identify the STAC environment
-- 🪜📊 Understand STACs hierarchical structure
+- 🪜📊 Understand the main components of STAC
 
 <hr>
 
 ## Foundation
 
-The main goal of [STAC](https://stacspec.org/en/) is to allow data providers share their data easily, making it universal for users to understand the where, when, how, and what of the collected data. <br>
-STACs foundation lies in the **GeoJSON** layout, that allows geodata to be extended and adapted to various needs. This flexibility enables the STAC specification to be versatile accross analysis and visualisation workflows.<br>
-By creating a global index and enhancing interoperability, data from diverse products and missions can be searched efficiently. This also supports web best practices, making geospatial information more discoverable through traditional search engines.
+The main goal of [STAC](https://stacspec.org/en/) is to allow data providers share their data easily, making it universal for users to understand the where, when, how, and what of the collected data.
 
-## Available Resources
+STAC uses **JSON** (JavaScript Object Notion) to structure the metadata of geo-referenced datasets. JSON makes it machine-readable. Through it is design, STAC is simple and extensible in its design as it is based on a network of JSON files.
+
+STAC has evolved into a well-recognised community standard. The key benefit supporting its wide adoption is that one can use the same code and API to access data from different data repositories.
+
+## The STAC ecosystem
 
 The STAC standard offers various resources and tools for accessing, managing, and building catalogues that follow the STAC standard. These include:
 
@@ -34,36 +35,23 @@ The STAC standard offers various resources and tools for accessing, managing, an
 - [rstac](https://github.com/brazil-data-cube/rstac) (for R users)
 - [STAC.jl](https://github.com/JuliaClimate/STAC.jl), [STACCube.jl](https://github.com/felixcremer/STACCube.jl) (for Julia users)
 
-## STAC structure
+## STAC components
 
-The structure that enables the identification of each catalogue within STAC (the starting point for a dataset), along with its associated first-level metadata, can be described as follows:
+There are four main components of STAC: (i) Catalog, (ii) Collection, (iii) Item and (iv) Asset. 
 
-`{`<br>
-`    "stac_version": "1.0.0",`<br>
-`    "type": "Feature",`<br>
-`    "id": "20201211_223832_CS2",`<br>
-`    "bbox": [],`<br>
-`    "geometry": {},`<br>
-`    "properties": {},`<br>
-`    "collection": "simple-collection",`<br>
-`    "links": [],`<br>
-`    "assets": {}`<br>
-`} `<br>
-
-The key components that establish a STAC in an unified and structured form are:
+![STAC structure](img/stac_example.png){fig-align="center"}
 
 #### Catalog
-A catalogue serves as the initial entry point in a STAC. Within a Catalogue, a `.json` file provides links to further Collections or Items contained within that Catalogue.<br>
+A catalog serves as the initial entry point in a STAC. Within a Catalog, a `.json` file provides links to further Collections or Items contained within that Catalog.
 When searching for specific data, such as all the observations from a particular instrument or mission, it is usually best to start with STAC collections.
 
 #### Collection
 It expand upon the parent Catalogue's metadata. They allow the identification of the **Items** it contains, addressing their spatial and temporal extent. They also group items based on their origin or topic <br>
 Also, information such as licenses, keywords, and data providers further specify details that allow the particular Items search. <br>
 
-![Catalogue entity](img/catalogue_str.png){fig-align="center"}
-
 ::: {.callout-note}
-Although a catalogue can sometimes serve as a collection, its primary role is to organise and structure data within the overall STAC hierarchy. Collections, on the other hand, are designed to provide a more detailed grouping of related data assets with additional descriptions.<br>
+Although a catalogue can sometimes serve as a collection, its primary role is to organise and structure data within the overall STAC hierarchy. Collections, on the other hand, are designed to provide a more detailed grouping of related data assets with additional descriptions.
+
 Recognising this distinction is essential for effectively navigating the STAC ecosystem, particularly since the terms **catalogue** and **collection** are sometimes used interchangeably in this field.
 :::
 
@@ -78,11 +66,9 @@ At this level, the GeoJSON does not contain the actual information itself; rathe
 
 These elements are related to each other as containers. A STAC can be defined as a group of links that lead to Items, smaller Catalogues, and Collections. Items are always composed of Assets. A Collection can be viewed as a group of Catalogues, with additional information that provides deeper insight into the contained data.
 
-![STAC structure](img/stac_example.png){fig-align="center"}
+## ☕️ STAC analogy: Drinks menu
 
-## ☕️ Cafe Menu
-
-To better understand how the elements are nested within a STAC, imagine a **Cafe Drinks** menu as a STAC. <br>
+To better understand how the elements are nested within a STAC, imagine a **Drinks** menu as a STAC. <br>
 This catalogue is the top-level entry point, presenting the overall selection of beverages available.<br>
 
 Within this Cafe Drinks **catalogue**, we find major sections or categories. These sections represent **collections** in STAC. <br>
@@ -98,7 +84,7 @@ For our distinction, like a group of drinks, we define:
 - Juice 
 - Milk
 
-Each item will have its description, ingredients or type. This example has a similar structure to a STAC with metadata inside, like the date and time of observation, and the geographic area it covers.<br>
+Each item will have its description, ingredients or type. This example has a similar structure to a STAC with metadata inside, like the date and time of observation, and the geographic area it covers.
 
 Finally, at the most granular level, each Item is made up of Assets. These are the individual components or files that constitute the Item. For example:
 
@@ -116,9 +102,6 @@ This structure allows us to easily navigate a vast amount of data, just as a wel
 
 ![Menu as a STAC element](img/menu_ex.png){fig-align="center"}
 
-::: {.callout-note}
-To explore further resources for STAC and further EOPF developments, stay tuned through the [STAC documentation](https://stacspec.org/en/) updates.
-:::
 
 ## Conclusion
 
