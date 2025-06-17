@@ -6,29 +6,27 @@ code-block-background: true
 ### Introduction
 The [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en) offers and ensures the access to the reingeneered version of the Sentinel 1, Sentinel 2 and Sentinel 3 data missions.<br>
 It allows us to easily explore, locate and retrieve the available `.zarr` Sentinel assets into a user friendly interface. <br>
-This section will guide users through exploring the EOPF Sentinel Zarr Samples Service STAC catalogue.<br>
+This section will guide users through exploring the EOPF Sentinel Zarr Samples Service STAC catalog.<br>
 We will navigate its interface, inspect the various levels of information, and demonstrate how to access the underlying Sentinel data in Zarr format.
 
 ### What we will learn
 - ⚙️ How does STAC browser interface works
-- 🔦 Explore the available Collencions within the EOPF Sentinel Zarr Samples Service STAC
-- 📡 How to access EOPF Sentinel Zarr products from the EOPF Sentinel Zarr Samples Service STAC API
+- 🔦 Explore the available Collections within the EOPF Sentinel Zarr Samples Service STAC
+- 📡 How to obtain access to EOPF Sentinel Zarr products from the EOPF Sentinel Zarr Samples Service STAC Catalog
 
 <hr>
 
-::: {.callout-important}
-**Key benefit:** Imagine using the same code and API to access data from completely different data repositories. That's the power of STAC!
-:::
-
 ## Our Starting Point
+The first step is access the main homepage of the EOPF Sentinel Zarr Samples Service STAC API, available at[https://stac.browser.user.eopf.eodc.eu/?.language=en](https://stac.browser.user.eopf.eodc.eu/?.language=en) <br>
+Upon accessing the landing page of the **EOPF Sentinel Zarr Samples Service STAC Catalog** we access see a comprehensive overview of the available data collections. This serves as our **root node** or **initial entry** point into the catalog.
 
-Upon accessing the landing page of the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en)  we access see a comprehensive overview of the available data collections. This serves as our root or initial entry point into the catalogue.
+![Home page](img/home.png){fig-align="center"}
 
 As outlined in detail in our chapter [The EOPF Available Datasets](1_overview_eopf_datasets.qmd) the catalogue is structured to display 11 distinct collections derived from Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br>
 The user interface provides an intuitive way to browse all these collections. <br>
 It is possible to filter them by specific criteria or select them manually, allowing for precise control over the displayed data. This ensures we can select data based on our desired processing level, matching the analysis we need.
 
-![Home page](img/home.png){fig-align="center"}
+
 
 ## Sentinel Collections
 
@@ -45,7 +43,7 @@ Additionally, specific information about the bands and instruments used for each
 
 ## Filtering 
 
-The Catalogue, allows us to filter the items of our collection of interest by **temporal** and **spatial** extent.<br>
+The Catalog, allows us to filter the items of our collection of interest by **temporal** and **spatial** extent.<br>
 Once we select the desired period, we can sort the items that match the search by ID or Date and Time.
 
 ![Fields that allow multiple filter parameter](img/filter_1.png){fig-align="center"}
@@ -75,7 +73,7 @@ We encourage you to explore the [EOPF Sentinel Zarr Samples Service STAC API](ht
 Try filtering other Collections, besides the [Sentinel-2 Level-2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a?.language=en).<br>
 
 1. **Discovering Sentinel-1 GRD Data**: Navigate to the [Sentinel-1 Level-1 GRD Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1&language=en). 
-- How many items can you find for the most recent two years available in the catalogue?
+- How many items can you find for the most recent two years available in the catalog?
 - Try filtering by different time periods and observe how the results change. How many items are available for september 2023?
 2. **Mapping Your Interests**: Explore the interactive map within the  [Sentinel-2 Level-2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a?.language=en).
 - Can you identify and list the names of at least three distinct geographical areas where a significant number of items are available? (Hint: Look for clusters of the displayed items!)
@@ -88,7 +86,7 @@ Try filtering other Collections, besides the [Sentinel-2 Level-2A Collection](ht
 
 This tutorial has provided a comprehensive walkthrough of the [EOPF Sentinel Zarr Samples Service STAC API](https://stac.browser.user.eopf.eodc.eu/?.language=en). <br>
 We have demonstrated how to navigate its interface, from the initial overview of ESA EOPF's selected data collections to the detailed inspection of an individual item. 
-By understanding the catalogue's structure, exploring its filtering options, and identifying key metadata, we can efficiently access the re-engineered `zarr` items. <br>
+By understanding the catalog's structure, exploring its filtering options, and identifying key metadata, we can efficiently access the re-engineered `zarr` items. <br>
 The ability to directly download assets or retrieve their cloud storage location enables an efficient retrieval for further analysis.<br>
 <br>
 In the next chapter, we will explore an alternative workflow to retrieve assets based on the API the EOPF Sample Service through `pystac` and the `pystac-client`libraries available thorugh python.
