@@ -27,13 +27,21 @@ STAC has evolved into a well-recognised community standard. The key benefit supp
 
 ## The STAC ecosystem
 
-The STAC standard offers various resources and tools for accessing, managing, and building catalogues that follow the STAC standard. These include:
+The STAC standard offers various resources and tools for accessing, managing, and building catalogs that follow the STAC standard. These include:
 
-- [STAC Browser](https://github.com/radiantearth/stac-browser)
-- [STAC Server](https://github.com/stac-utils/stac-server)
-- [STAC Validator](https://github.com/stac-utils/stac-validator), [PySTAC](https://github.com/stac-utils/pystac), and [EODAG](https://github.com/CS-SI/eodag) (for Python users)
-- [rstac](https://github.com/brazil-data-cube/rstac) (for R users)
-- [STAC.jl](https://github.com/JuliaClimate/STAC.jl), [STACCube.jl](https://github.com/felixcremer/STACCube.jl) (for Julia users)
+- **STAC Tools**
+  - [STAC Browser](https://github.com/radiantearth/stac-browser): A user-friendly web interface for visually exploring and interacting with various STAC catalogs.
+  - [STAC Server](https://github.com/stac-utils/stac-server): A reference implementation for serving STAC catalogs and collections.
+<br>
+
+
+- **STAC Plug-ins**
+  - [STAC Validator](https://github.com/stac-utils/stac-validator): A tool for programmatically validating STAC Catalogs, Collections, and Items to ensure compliance with the STAC specification.
+  - [PySTAC](https://github.com/stac-utils/pystac): A Python library for reading, writing, and validating STAC objects, facilitating the creation and manipulation of STAC data.
+  - [pystac-client](https://pystac-client.readthedocs.io/en/stable/): A Python library that provides a convenient and powerful interface for searching and accessing STAC data from STAC API servers.
+  - [rstac](https://github.com/brazil-data-cube/rstac): An R package that provides functionalities for interacting with STAC APIs and working with STAC objects within the R environment.
+  - [STAC.jl](https://github.com/JuliaClimate/STAC.jl): A Julia package designed for working with STAC, enabling users to interact with STAC catalogs and process geospatial data.
+  - [STACCube.jl](https://github.com/felixcremer/STACCube.jl):A Julia package that facilitates the creation and management of STAC-compliant data cubes from various geospatial datasets.
 
 ## STAC components
 
@@ -46,32 +54,32 @@ A catalog serves as the initial entry point in a STAC. Within a Catalog, a `.jso
 When searching for specific data, such as all the observations from a particular instrument or mission, it is usually best to start with STAC collections.
 
 #### Collection
-It expand upon the parent Catalogue's metadata. They allow the identification of the **Items** it contains, addressing their spatial and temporal extent. They also group items based on their origin or topic <br>
+It expand upon the parent Catalog's metadata. They allow the identification of the **Items** it contains, addressing their spatial and temporal extent. They also group items based on their origin or topic <br>
 Also, information such as licenses, keywords, and data providers further specify details that allow the particular Items search. <br>
 
 ::: {.callout-note}
-Although a catalogue can sometimes serve as a collection, its primary role is to organise and structure data within the overall STAC hierarchy. Collections, on the other hand, are designed to provide a more detailed grouping of related data assets with additional descriptions.
+Although a catalog can sometimes serve as a collection, its primary role is to organise and structure data within the overall STAC hierarchy. Collections, on the other hand, are designed to provide a more detailed grouping of related data assets with additional descriptions.
 
-Recognising this distinction is essential for effectively navigating the STAC ecosystem, particularly since the terms **catalogue** and **collection** are sometimes used interchangeably in this field.
+Recognising this distinction is essential for effectively navigating the STAC ecosystem, particularly since the terms **catalog** and **collection** are sometimes used interchangeably in this field.
 :::
 
 #### Item
-An item is the fundamental element of STAC. It is a `.GeoJSON` feature supplemented with additional metadata, enabling browsing through catalogues. This allows it to be easily read by any modern Geographic Information System (GIS) or geospatial library.
+An item is the fundamental element of STAC. It is a `.GeoJSON` feature supplemented with additional metadata, enabling browsing through catalogs. This allows it to be easily read by any modern Geographic Information System (GIS) or geospatial library.
 
 ![Item entity](img/item_inf.png){fig-align="center"}
 
 #### Asset
-Composes the most granular element in a STAC: a **SpatioTemporal Asset**. This refers to any file that represents specific geographic information at a specific place and time.<br>
+Composes the most granular element in a STAC: a **Spatio-Temporal Asset**. This refers to any file that represents specific geographic information at a specific place and time.<br>
 At this level, the GeoJSON does not contain the actual information itself; rather, it provides references to these files, functioning similarly to an index for each of the STAC Assets.
 
-These elements are related to each other as containers. A STAC can be defined as a group of links that lead to Items, smaller Catalogues, and Collections. Items are always composed of Assets. A Collection can be viewed as a group of Catalogues, with additional information that provides deeper insight into the contained data.
+These elements are related to each other as containers. A STAC can be defined as a group of links that lead to Items, smaller Catalogs, and Collections. Items are always composed of Assets. A Collection can be viewed as a group of Catalogs, with additional information that provides deeper insight into the contained data.
 
-## ☕️ STAC analogy: Drinks menu
+## STAC analogy: Drinks menu
 
 To better understand how the elements are nested within a STAC, imagine a **Drinks** menu as a STAC. <br>
-This catalogue is the top-level entry point, presenting the overall selection of beverages available.<br>
+This catalog is the top-level entry point, presenting the overall selection of beverages available.<br>
 
-Within this Cafe Drinks **catalogue**, we find major sections or categories. These sections represent **collections** in STAC. <br>
+Within this Drinks **catalog**, we find major sections or categories. These sections represent **collections** in STAC. <br>
 For our analogy, let's say the menu is divided into two main collections:
 
 - **Caffeinated Drinks Collection**: This section groups all beverages that contain caffeine.<br>
@@ -100,12 +108,12 @@ Also, an **Juice item** with:
 
 This structure allows us to easily navigate a vast amount of data, just as a well-organised menu helps a customer quickly find their desired drink.
 
-![Menu as a STAC element](img/menu_ex.png){fig-align="center"}
+![Menu as a STAC element](img/drinks_menu.png){fig-align="center"}
 
 
 ## Conclusion
 
-As we have explored, the **Spatio-Temporal Asset Catalog** offers a strong and adaptable framework for geographic data organisation. Large volumes of spatiotemporal data may be effectively defined, indexed, and found thanks to STAC's hierarchical structure, which extends from the overall Catalogue to individual Assets.
+As we have explored, the **Spatio-Temporal Asset Catalog** offers a strong and adaptable framework for geographic data organisation. Large volumes of spatio-temporal data may be effectively defined, indexed, and found thanks to STAC's hierarchical structure, which extends from the overall Catalog to individual Assets.
 
 ## What's next?
 
