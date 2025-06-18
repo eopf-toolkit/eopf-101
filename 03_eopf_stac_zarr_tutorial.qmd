@@ -31,7 +31,7 @@ This ensures we can select data based on our desired processing level, matching 
 ## Sentinel Collections
 
 It is possible to click on any of the 11 displayed collections.<br>
-Here, we select the [Sentinel 2-Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a). To follow this tutorial, [click here] (https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) to get access to the same collection.
+Here, we select the [Sentinel 2-Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a). To follow this tutorial, [click here](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) and get access to the same collection.
 
 ![Sentinel-2 Level-2A Collection](img/sentinel_2_collection.png){fig-align="center"}
 
@@ -87,7 +87,10 @@ This page is composed of:
 
 ![A, item selected inside the collection Sentinel-2 Level-2A Collection](img/finland_item.png){fig-align="center"}
 
-Note: at this point, we are already diving deep into the STAC structure, and have explored all the prior levels described in the [Introduction to STAC](03_stac_intro.qmd) chapter.
+::: {.callout-important}
+At this level of the STAC structure, we are already diving deep into the STAC levels, and have explored all the prior components described in the [Introduction to STAC](03_stac_intro.qmd) chapter.
+:::
+
 
 ## Assets 
 
