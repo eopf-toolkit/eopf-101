@@ -2,7 +2,7 @@
 ### Your community guide for working with EOPF Sentinel Zarr data in the cloud {.unlisted} 
 
 Explore EOPF 101, an open community resource designed to help Sentinel data users explore EOPF Sentinel Zarr data in the cloud. 
-With our step-by-step and hands-on tutorials, you learn how to effectively use EOPF Sentinel Zarr data and build Earth Observation workflows that scale.
+With our step-by-step and hands-on tutorials, you'll learn how to effectively use EOPF Sentinel Zarr data and build Earth Observation workflows that scale.
 
 ## Ready to explore EOPF 101?
 EOPF 101 is designed for Sentinel data users that are new to cloud-optimised geospatial formats and cloud-based workflows.
