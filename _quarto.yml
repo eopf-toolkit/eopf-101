@@ -2,17 +2,17 @@ project:
   type: book
 
 book:
-  title: "ESA EOPF 101"
+  title: ""
   author: ""
   date: ""
   search: true
-  repo-url: https://github.com/
+  repo-url: https://github.com/eopf-toolkit/eopf-101
   page-navigation: true
   sidebar:
    search: true
-   logo: "img/logos.png"
+   logo: "img/EOPF_FINAL_LOGO.png"
   page-footer: 
-    left: "Development Seed, thriveGEO, SparkGeo"
+    left: "Development Seed, thriveGEO and SparkGeo"
     center: "License: Apache 2.0"
     right:
       - icon: github
@@ -20,39 +20,41 @@ book:
 
   chapters:
     - index.qmd
-    - part: "About EOPF"
+    - part: "**About EOPF**"
       chapters:
-        - 1_about_eopf.qmd
-        - 1_about_cloudoptimized_formats.qmd
-        - 1_overview_eopf_datasets.qmd
-    - part: "About Zarr"
+        - 11_about_eopf.qmd
+        - 12_about_cloudoptimized_formats.qmd
+        - 13_overview_eopf_datasets.qmd
+    - part: "**About EOPF Zarr**"
       chapters:
-       - 2_what_is_zarr.qmd
-      #  - 2_benefits_for_EO.qmd
-      #  - 2_zarr_struct_S2L2A.ipynb
-    - part: "[COMING] EOPF and STAC"
- #     chapters: 
-  #      - 3_subchapter_1.qmd
-  #      - 3_subchapter_2.qmd
-    - part: "[COMING] Tools to work with Zarr"
+       - 21_what_is_zarr.qmd
+       - 22_zarr_struct_S1.ipynb
+       - 23_zarr_struct_S2L2A.ipynb
+    - part: "**EOPF and STAC**"
+      chapters: 
+        - 31_stac_intro.qmd
+        - 32_eopf_stac_zarr_tutorial.qmd
+        - 33_eopf_stac_connection.ipynb
+        - 34_eopf_stac_xarray_tutorial.ipynb
+    - part: "[COMING SOON] Tools to work with EOPF Zarr"
  #     chapters:
   #      - 1_zarr_julia.qmd
   #      - 2_zarr_qgis.qmd
   #      - 3_zarr_R.qmd
   #      - 4_titiler.qmd
-    - part: "[COMING] EOPF in Action"
-  #    chapters:
+    - part: "[COMING SOON] EOPF Zarr in Action"
+  #    chapters:a
   #      - 1_case_study.qmd
   #      - 2_case_study.qmd
   #      - 3_case_study.qmd
     - glossary.qmd
     - references.qmd
 
-bibliography: references.bib
-
 format:
   html:
     number-sections: false
+    execute:
+      eval: false
     theme:
       - cosmo
       - brand

@@ -2,9 +2,16 @@
 title: "Overview of the EOPF Zarr format"
 format: html
 ---
-::: {.justify}
+### Introduction
 
-### What Is Zarr?
+TO DO
+
+### What we will learn
+- TO DO
+
+<hr>
+
+## What Is Zarr?
 
 **Zarr** is an open-source, cloud-native protocol for storing multi-dimensional arrays. It is specifically desgined to work well with cloud storage and larger-scale computing systems and can be seen as a cloud-native alternative to older formats like HDF5 or NetCDF.
 
@@ -18,23 +25,23 @@ In addition, Zarr embeds **metadata** directly alongside the data. This makes Za
 Pro tip: Learn more about Zarr in the official [Zarr Documentation](https://zarr.dev/) and the [Zarr V3 storage specification](https://zarr-specs.readthedocs.io/en/latest/v3/core/index.html)
 :::
 
-### Components of Zarr
+## Components of Zarr
 Zarr is organised in a **human-readable**, **hierarchical** structure using simple JSON metadata files and is composed of `groups and stores`, `chunks` and `metadata`:
 
-#### Groups and Stores
+### Groups and Stores
 **Groups** and **stores** are concepts that allow Zarr to differentiate between (i) where the data is stored (**stores**) and (ii) how it is organised (**groups**). A **group** is a container for logically organising the data, similar to folders in a file system. A **store** defines where the data is stored; it can be e.g. a bucket in the cloud or a directory on a disk.
 
-#### Chunks
+### Chunks
 Zarr divides arrays into smaller, independent pieces (**chunks**). Through chunking it is possible to retrieve and process specific areas without loading the complete dataset. Its organisation into chunks is the main reason Zarr's high performance. Chunks are saved as binary files inside a `/c` directory and are further organised through nested folder paths based on their index, e.g. `c/0/0/0` for the chunk position `[0,0.0]`.
 
-#### Metadata
+### Metadata
 Zarr uses descriptive **metadata** to describe the individual arrays but also the full hierarchy of the dataset. Metadata are stored in `zarr.json` files and are available on the array, group and store level. This structured metadata approach makes Zarr datasets **self-descriptive** and easy to navigate.
 
 The graphic below shows an overview of all relevant Zarr components.
 
 ![Zarr conceptual structure](img/zarr_str.png){fig-align="center"}
 
-### Zarr EOPF Format Structure
+## Zarr EOPF Format Structure
 The ESA Copernicus Earth Observation Processor Framework defines `.zarr` as the encoding format for the EOPF catalogue. The Zarr encoding is well aligned with ESA's objective of enhancing the accessibility of Sentinel Data by modernising the previous `.SAFE` encoding into a flexible, cloud-native structure. The cloud-native nature of `zarr` is expected to broaden the applications of the Sentinel data within the geospatial community while maintaining data quality and established algorithms.
 
 EOPF Zarr products contain of four main groups:
@@ -98,4 +105,5 @@ This EOPF Zarr organisation for Sentinel-2 L2A data allows for efficient access 
 Zarr Deep Dive: Dive deeper into the benefits of Zarr in a blogpost by Lindsey Nield from the Earthmover team: [Fundamentals: What is Zarr? A Cloud-Native Format for Tensor Data](https://earthmover.io/blog/what-is-zarr).
 :::
 
-### What's next?
+## What's next?
+TO DO

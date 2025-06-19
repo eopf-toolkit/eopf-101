@@ -1,4 +1,5 @@
-# References {.unnumbered}
+---
+title: "**References**"
+format: html
+---
 
-::: {#refs}
-:::

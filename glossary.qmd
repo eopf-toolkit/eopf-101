@@ -1,8 +1,7 @@
 ---
-title: "Glossary"
+title: "**Glossary**"
 format: html
 ---
-::: {.justify}
 
 Here we introduce some important terms that are mentioned throughout the present book.
 
@@ -23,5 +22,3 @@ Here we introduce some important terms that are mentioned throughout the present
 **SAFE**: Standard Archive Format for Europe
 
 **STAC**: Spatio Temporal Asset Catalog
-
-:::
