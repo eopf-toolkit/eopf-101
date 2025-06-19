@@ -45,10 +45,4 @@ Is there a plugin or librariy missing and you would like to see it integrated? Y
 
 ## About the ESA EOPF Toolkit project
 EOPF 101 is a community resource developed as part of the [EOPF Toolkit project](https://github.com/eopf-toolkit) funded by the [European Space Agency](https://www.esa.int/). 
-EOPF 101 is brought to you by [Development Seed](https://developmentseed.org/), [thriveGEO](www.thrivegeo.com) and [SparkGeo](https://sparkgeo.com/).
-
-
-
-
-
-
+EOPF 101 is brought to you by [Development Seed](https://developmentseed.org/), [thriveGEO](https://www.thrivegeo.com) and [SparkGeo](https://sparkgeo.com/).
