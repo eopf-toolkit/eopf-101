@@ -29,6 +29,7 @@ book:
       chapters:
        - 2_what_is_zarr.qmd
       #  - 2_benefits_for_EO.qmd
+       - 2_zarr_struct_S1.ipynb
       #  - 2_zarr_struct_S2L2A.ipynb
     - part: "[COMING] EOPF and STAC"
  #     chapters: 
@@ -47,6 +48,9 @@ book:
   #      - 3_case_study.qmd
     - glossary.qmd
     - references.qmd
+
+execute:
+  enabled: true
 
 bibliography: references.bib
 
