@@ -33,7 +33,7 @@ Beyond this browsable version, you can also setup the required environment to ex
 
 
 ## How to get involved
-EOPF 101 is an open community resource under active development. Our activiites are there to engage with Sentinel users and to gather feedback on EOPF Sentinel Zarr products. 
+EOPF 101 is an open community resource under active development. Our activities are designed to engage with Sentinel users and to gather feedback on EOPF Sentinel Zarr products. 
 There are different ways you can get involved and engaged:
 
 ### Join the EOPF Toolkit Notebook Competition
