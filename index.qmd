@@ -37,7 +37,12 @@ EOPF 101 is an open community resource under active development. Our activiites 
 There are different ways you can get involved and engaged:
 
 ### Join the EOPF Toolkit Notebook Competition
-Learn more about the upcoming Notebook Competition and express your interest hear. --> TO DO
+Learn more about the upcoming Notebook Competition and express your interest here.
+
+<!---
+TODO #<issue_number>
+-->
+*More details coming soon.*
 
 ### Ideas & Feedback?
 Is there a plugin or librariy missing and you would like to see it integrated? You have some feedback on EOPF 101? Please submit an [issue](https://github.com/eopf-toolkit/eopf-101/issues) and we will review your request.
