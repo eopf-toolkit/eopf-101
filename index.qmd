@@ -29,7 +29,10 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
 You can use EOPF 101 as reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. 
 Beyond this browsable version, you can also setup the required environment to execute the notebooks. Below, you find instructions how you can setup the required environment locally as well as ... TO DO
 
---> TO DO - Instructions on local setup and / or docker container on CDSE
+<!---
+TODO #<issue_number>
+-->
+*Instructions on local setup and Docker container on CDSE are coming soon.*
 
 
 ## How to get involved
