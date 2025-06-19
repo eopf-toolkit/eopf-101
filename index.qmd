@@ -45,7 +45,7 @@ TODO #<issue_number>
 *More details coming soon.*
 
 ### Ideas & Feedback?
-Is there a plugin or librariy missing and you would like to see it integrated? You have some feedback on EOPF 101? Please submit an [issue](https://github.com/eopf-toolkit/eopf-101/issues) and we will review your request.
+Is there a plugin or library missing that you would like to see integrated? Do you have feedback on EOPF 101? Please submit an [issue](https://github.com/eopf-toolkit/eopf-101/issues) and we will review your request.
 
 
 ## About the ESA EOPF Toolkit project
