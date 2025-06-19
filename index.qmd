@@ -18,6 +18,7 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
 * **Chapter 2 - About Zarr**
   * [Overview of the EOPF Zarr format](./2_what_is_zarr.qmd)
 * **Chapter 3 - EOPF and STAC**
+  * *Coming soon*
 * **Chapter 4 - Tools to work with Zarr**
   * **COMING** - get hands-on with different libraries and tools facilitating the use of EOPF Sentinel Zarr data
 * **Chapter 5 - EOPF in Action**
