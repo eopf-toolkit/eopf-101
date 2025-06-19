@@ -9,8 +9,7 @@ EOPF 101 is designed for Sentinel data users who are new to cloud-optimised geos
 It introduces you to fundamental cloud-native geospatial concepts, the Earth Observation Processing Framework (EOPF) activities by ESA, 
 re-processed EOPF Sentinel Zarr data, as well as tools and libraries to work with EOPF Sentinel Zarr data in the cloud.
 
-
-Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data. 
+Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments, as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data.
 
 * **Chapter 1 - About EOPF**
   * [Introduction to the EOPF](./1_about_eopf.qmd)
