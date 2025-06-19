@@ -4,10 +4,14 @@ format: html
 ---
 ### Introduction
 
-TO DO
+<!---
+TODO
+-->
 
 ### What we will learn
-- TO DO
+<!---
+TODO
+-->
 
 <hr>
 
@@ -39,25 +43,25 @@ Zarr uses descriptive **metadata** to describe the individual arrays but also th
 
 The graphic below shows an overview of all relevant Zarr components.
 
-![Zarr conceptual structure](img/zarr_str.png){fig-align="center"}
+![Zarr conceptual structure and overview of Zarr components](img/zarr_str.png){fig-align="center"}
 
-## Zarr EOPF Format Structure
-The ESA Copernicus Earth Observation Processor Framework defines `.zarr` as the encoding format for the EOPF catalogue. The Zarr encoding is well aligned with ESA's objective of enhancing the accessibility of Sentinel Data by modernising the previous `.SAFE` encoding into a flexible, cloud-native structure. The cloud-native nature of `zarr` is expected to broaden the applications of the Sentinel data within the geospatial community while maintaining data quality and established algorithms.
+## EOPF Zarr Structure
+The ESA EOPF defines `Zarr` as the encoding format for the [EOPF Sentinel Zarr Samples Service](https://zarr.eopf.copernicus.eu/). The Zarr encoding is well aligned with ESA's objective of enhancing the accessibility of Sentinel data by modernising the previous `.SAFE` encoding into a flexible, cloud-native structure. The cloud-native nature of `zarr` is expected to broaden the applications of the Sentinel data within the geospatial community while maintaining data quality and established algorithms.
 
 EOPF Zarr products contain of four main groups:
 
-| Group | Contents |
+| Group | Description |
 |-------|----------|
-| **Attributes** | STAC format metadata for the `.zarr` element |
+| **Attributes** | STAC format metadata for the `Zarr` element |
 | **Measurements** | Main retrieved variables |
 | **Conditions** | Measurement context (geometric angles, meteorological/instrumental data) |
 | **Quality** | Flags and quality information for measurement filtering |
 
-Let us imagine a Sentinel-2 L2A tile. The tile has dimensions of approximately 10,980 by 10,980 pixels, and include 12 spectral bands (B01 to B12, excluding B10) at different resolutions, plus additional data arrays like a Scene Classification Map (SCL) and an Atmospheric Optical Thickness (AOT) array.<br>
+Let us imagine a Sentinel-2 L2A tile. The tile has dimensions of approximately 10,980 by 10,980 pixels, and include 12 spectral bands (B01 to B12, excluding B10) at different resolutions, plus additional data arrays such as a Scene Classification Map (SCL) and Atmospheric Optical Thickness (AOT).
 
-For efficient handling, the data is divided into 1024 by 1024-pixel chunks. This chunking strategy allows for optimal performance when reading specific spatial regions of interest.
+For efficient handling, the data is divided into 1,024 by 1,024-pixel chunks. This chunking strategy allows for optimal performance when reading specific spatial regions of interest.
 
-Following the defined EOPF Zarr product structure, a Sentinel-2 L2A `.zarr` file is organized as follows:
+Following the defined EOPF Zarr product structure, a Sentinel-2 L2A `zarr` file is organized as follows:
 
 - Under `attributes`, you'll find:
   - Processing history metadata
@@ -97,7 +101,7 @@ Following the defined EOPF Zarr product structure, a Sentinel-2 L2A `.zarr` file
     - Water Vapor (WV)
     - Cloud and snow probability
 
-![Overview of EOPF Zarr product structure on the example of Sentinel-2 L2A](img/s2l2a.jpg){fig-align="center"}
+![Overview of the EOPF Zarr product structure on the example of Sentinel-2 L2A](img/s2l2a.jpg){fig-align="center"}
 
 This EOPF Zarr organisation for Sentinel-2 L2A data allows for efficient access to individual bands or specific spatial regions without loading the entire dataset, making it ideal for large-scale geospatial analysis. It also ensures all relevant metadata is co-located with the data it describes, enhancing data discoverability and usability.
 
@@ -105,5 +109,12 @@ This EOPF Zarr organisation for Sentinel-2 L2A data allows for efficient access 
 Zarr Deep Dive: Dive deeper into the benefits of Zarr in a blogpost by Lindsey Nield from the Earthmover team: [Fundamentals: What is Zarr? A Cloud-Native Format for Tensor Data](https://earthmover.io/blog/what-is-zarr).
 :::
 
+## Conclusion
+<!---
+TODO
+-->
+
 ## What's next?
-TO DO
+<!---
+TODO
+-->

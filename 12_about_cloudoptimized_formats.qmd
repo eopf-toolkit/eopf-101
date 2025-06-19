@@ -17,9 +17,8 @@ TODO
 
 <hr>
 
-## Why do we need to cloud-optimise geospatial data formats?
-The volume of EO data has grown exponentially in recent years. The Copernicus programme alone generates ~16TB daily from the Sentinel missions.
-Traditional file formats, like SAFE (where each file can be hundreds of megabytes), are optimised for efficient archiving and distributing data. This means that we often download the data from an entire overpass, even if we only need to access a small part of it, for example, if we want to do an analysis of the area of a single city over a decade.  
+## Why to cloud-optimise geospatial data formats?
+The volume of EO data has grown exponentially in recent years. The Copernicus programme alone generates ~16TB daily from the Sentinel missions. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), are optimised for efficient archiving and distributing data. This means that we often download the data from an entire overpass, even if we only need to access a small part of it. For example, if we want to do an analysis of the area of a single city over a decade.  
 
 With growing data volumes, this becomes a challenge. To picture the different nature of challenges we come across, let us compare a traditional local workflow with a cloud-based workflow:
 
@@ -31,11 +30,12 @@ With growing data volumes, this becomes a challenge. To picture the different na
 **Data latency** refers to the time it takes for data to be transmitted or processed from cloud storage to your computer. In local workflows, data latency is minimal, whereas in cloud-based workflows, data latency needs to be optimised.
 :::
 
-Local workflows are similar to placing an order at the nearby pizzeria. It is quick since the 'data' (pizza) is easily accessible, but we can only choose from what they have on hand and their menu. The local alternatives limit our options.
-On the other hand, cloud-based workflow offers almost limitless choices and access to a wide range of speciality ingredients or distinctive styles. <br>
-This makes it similar to being able to order a pizza from any pizzeria on the globe. While we might have more options to choose from, the time between order and delivery can become a challenge.
+### Analogy: Comparing local and cloud-based workflows with ordering a pizza
+To understand the principal concept, let us compare local and cloud-based workflows with ordering a pizza. Local workflows are similar to placing an order a pizza store in your street. It is quick since the 'data' (pizza) is easily accessible, but we can only choose from what the local pizza store offers.
 
-The overall goal with cloud-based workflows is to minimise **data latency** as much as possible. This is why traditional data formats need to be cloud-optimised.
+On the other hand, cloud-based workflows are comparable to ordering a pizza from a pizza store in a different city or even country. This option allows you to order different types of pizzas, which are not available in pizza store in your street. While we might have more options to choose from, the time between order and delivery can become a challenge. The time until your pizza from a different town or country arrives at your house is called **data latency**.
+
+Hence, the overall goal with cloud-based workflows is to minimise **data latency** as much as possible. This is why traditional data formats need to be cloud-optimised.
 
 ## Characteristics of cloud-optimised formats
 Cloud-optimised formats are optimised to minimise data latency. By allowing for an efficient retrieval of smaller, specific chunks of information rather than downloading an entire file. Accessing a smaller data subset also reduces the costs associated with data transfer and data processing.
@@ -48,28 +48,15 @@ Cloud-optimised geospatial data formats have the following characteristics:
 - **Metadata** can be accessed in one read.
 
 ::: {.callout-note}
-When accessing data over the internet (e.g., cloud storage), latency is high compared to local storage, so it is preferable to fetch lots of data in fewer reads.
+When accessing data over the internet (e.g. through object stores in the cloud), latency is high compared to local storage, so it is recommended to fetch lots of data in fewer reads.
 :::
 
-## Understanding N-dimensional Arrays
-Earth observation data often consists of multiple dimensions - think of a satellite image series that has spatial dimensions (latitude, longitude), spectral bands, and time. This multi-dimensional nature requires specialized data structures and tools.
+## Cloud-Optimised Geospatial Raster Formats
+For satellite data, there are two main cloud-optimised formats being used:
+- **Cloud-Optimized GeoTIFF (COG)**: Optimized for 2D image data and originates from the traditional `GeoTIFF` format, and
+- **Zarr**: Used and designed for complex, n-dimensional data structures and originates from the traditional formats `netCDF` and `HDF5`.
 
-### The xarray Data Model
-[xarray](https://docs.xarray.dev/) provides a powerful data model for working with labeled multi-dimensional arrays. It introduces:
-
-- **Dimensions**: Named axes (e.g., latitude, longitude, time)
-- **Coordinates**: Labels for points along dimensions
-- **Variables**: N-dimensional arrays with corresponding dimensions
-- **Attributes**: Metadata about the arrays
-
-![xarray's data model showing dimensions, coordinates, and variables](img/xarray.png)
-
-### Cloud-Optimised Geospatial Data Formats
-For satellite data, there are two main categories of cloud-optimised formats:
-1. **Raster Formats**: Optimized for 2D image data (like Cloud-Optimised GeoTIFFs)
-2. **Multi-dimensional Array Formats**: Designed for complex, n-dimensional data structures
-
-#### Cloud-optimised GeoTIFF (COG)
+### Cloud-optimised GeoTIFF (COG)
 COGs have widely been used as cloud-native format for satellite imagery and improve the standard GeoTIFF format by:
 - Organising data into **tiles**: Dividing the data into smaller, manageable squares (like 512x512 pixels).
 - Including lower-resolution previews: Having pre-generated, less detailed versions of the data. This allows for fast and efficient data visualisations.
@@ -79,7 +66,7 @@ A key feature of COGs is the **Internal File Directory** (IFD), which acts like 
 ![COG structure. Retrieved from CNG documentation](img/cogtiff.png)
 
 ### Multi-dimensional Array Storage with Zarr
-While xarray provides the data model for working with n-dimensional arrays, Zarr provides the storage format. Zarr is designed specifically for storing and accessing large n-dimensional arrays in the cloud by:
+Zarr is the cloud-optimised version for the traditional formats `netCDF` and `HDF5` and is specifically designed for storing and accessing large n-dimensional arrays in the cloud by:
 
 - **Chunking**: Breaking large arrays into smaller pieces that can be accessed independently
 - **Compression**: Each chunk can be compressed individually for efficient storage
@@ -88,11 +75,11 @@ While xarray provides the data model for working with n-dimensional arrays, Zarr
 - **Parallel I/O**: Multiple chunks can be read or written simultaneously
 - **Self-Description**: Rich metadata is stored alongside the data using JSON
 
-This makes Zarr particularly well-suited for cloud-based Earth observation data, where datasets often combine multiple dimensions like space, time, and spectral bands.
+This makes Zarr particularly well-suited as storage format for processing Earth observation data in the cloud.
 
 ![Zarr's hierarchical organization showing stores, groups, arrays, and chunks](img/zarr-terminology-hierarchy.png)
 
-### When to use COGs versus Zarr?
+### When to use COG versus Zarr?
 The table below compares some features of COG and Zarr:
 
 | Feature | Zarr | COG |
@@ -102,20 +89,21 @@ The table below compares some features of COG and Zarr:
 | Compression | Differently per-chunk | Whole-file |
 | Scales | Multi-scale in single file | Separate, pre-generated lower-resolution files |
 
-Based on the structure and capabilities for each format, COGs are used when:
+<br>
+Based on the structure and capabilities for each format, **COGs** are used when:
 
 - you work with two-dimensional raster data (like satelliteimages or elevation models)
 - you need to easily visualise or access specific geographic areas without loading the entire dataset.
 - interoperability with existing GIS software is important, as COG is a widely adopted standard.
 
-On the other hand, Zarr is more often used when:
+On the other hand, **Zarr** is more often used when:
 
 - you deal with large, multi-dimensional datasets that might be updated or modified.
 - you performing complex analyses that involve accessing different parts of the data in parallel.
 - an efficient handling of different resolutions or variables within a single dataset is required.
 
 ::: {.callout-note}
-Zarr vs COG: Want to learn more about the differences and similarities of COG and Zarr? Then we recommend the following blogpost by Julia Signell and Jarrett Keifer from Element84 where they discuss "[Is Zarr the new COG?](https://element84.com/software-engineering/is-zarr-the-new-cog/)"
+Zarr vs COG: Want to learn more about the differences and similarities of COG and Zarr? Then we recommend the following blog post by Julia Signell and Jarrett Keifer from Element84 where they discuss "[Is Zarr the new COG?](https://element84.com/software-engineering/is-zarr-the-new-cog/)"
 :::
 
 ## Conclusion
@@ -124,4 +112,4 @@ TODO
 -->
 
 ## What's next?
-Now that we have an idea of the available cloud-optimised formats for satellite imagery and the reason why we need to optimised traditional formats for the cloud, in the next [section](./13_overview_eopf_datasets.qmd) we will explore the EOPF data products that are being re-processed as part of the EOPF Zarr Sample Service.
+Now that we have an idea of the available cloud-optimised formats for satellite imagery and the reason why we need to optimise traditional formats for the cloud, in the next [section](./13_overview_eopf_datasets.qmd) we will explore the EOPF data products that are being re-processed as part of the EOPF Zarr Sample Service.

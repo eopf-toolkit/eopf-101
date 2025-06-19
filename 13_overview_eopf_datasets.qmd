@@ -16,13 +16,12 @@ TODO
 
 <hr>
 
-## Available EOPF products
-Re-engineered datasets as part of ESA's EOPF activity are available for exploration via the [EOPF Sentinel Sample Service's STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
-
-At the moment data from Sentinel-1, Sentinel-2 and Sentinel-3 missions are being re-processed and made available.
+## Available EOPF Zarr products
+Re-engineered EOPF Zarr products are available for exploration via the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
+Data from Sentinel-1, Sentinel-2 and Sentinel-3 missions are being re-processed and made available.
 
 ::: {.callout-important}
-The re-processing from the Sentinel Missions is an ongoing activity as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). This page and our tutorials will continuously be updated as soon as new data products are available.
+The re-processing from the Sentinel missions is an ongoing activity as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). This page and our tutorials will continuously be updated as soon as new data products are available.
 :::
 
 An overview of the datasets that are being re-engineered for different processing levels is given below.
@@ -65,5 +64,11 @@ Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers
 | Level-1 RBT | Radiance Brightness Temperature | The Sentinel-3 SLSTR Level-1B RBT product provides radiances and brightness temperatures for each pixel in a regular image grid for each view and SLSTR channel. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l1-rbt) |
 | Level-2 LST | LST: Land Surface Temperature | The Sentinel-3 SLSTR Level-2 LST product provides land surface temperature. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst) |
 
-### What's next?
-In the following chapter, we dive deeper into the advantages of the `Zarr` data format and we start with practically working with EOPF Zarr datasets.
+
+## Conclusion
+<!---
+TODO
+-->
+
+## What's next?
+In the following chapter, we dive deeper into `EOPF Zarr` format and we start with practically working with EOPF Zarr datasets.
