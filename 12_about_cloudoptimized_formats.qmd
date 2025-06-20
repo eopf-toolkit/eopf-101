@@ -12,7 +12,7 @@ In this section, we will dive into **cloud-optimised geospatial formats**. We ex
 
 - ☁️ What do we need to cloud-optimise geospatial data?
 - 🏛️ Differences between traditional and cloud-native workflows
-- 📖 What are the main characteristics of cloud-optimised formats
+- 📖 What are the main characteristics of cloud-optimised formats?
 - 💾 What are **COGs** and **Zarr**, and how do they differ?
 
 

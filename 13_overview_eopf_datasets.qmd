@@ -9,7 +9,7 @@ Now, it is time to discover which data products will be available and where you 
 
 ### What we will learn
 
-- 💾 What Sentinel data will be made available as EOPF Zarr products
+- 💾 What Sentinel data will be available as EOPF Zarr products?
 - 🛰️ A sneak-peak into where you can access EOPF Zarr products
 
 
