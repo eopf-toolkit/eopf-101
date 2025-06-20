@@ -57,62 +57,33 @@ EOPF Zarr products contain of four main groups:
 | **Conditions** | Measurement context (geometric angles, meteorological/instrumental data) |
 | **Quality** | Flags and quality information for measurement filtering |
 
+### EOPF Zarr prodcut example - Sentinel-2 L2A
 Let us imagine a Sentinel-2 L2A tile. The tile has dimensions of approximately 10,980 by 10,980 pixels, and include 12 spectral bands (B01 to B12, excluding B10) at different resolutions, plus additional data arrays such as a Scene Classification Map (SCL) and Atmospheric Optical Thickness (AOT).
 
 For efficient handling, the data is divided into 1,024 by 1,024-pixel chunks. This chunking strategy allows for optimal performance when reading specific spatial regions of interest.
 
-Following the defined EOPF Zarr product structure, a Sentinel-2 L2A `zarr` file is organized as follows:
-
-- Under `attributes`, you'll find:
-  - Processing history metadata
-  - Chunking configuration
-  - Global metadata (acquisition time, sensing time, etc.)
-  - Product-specific metadata
-
-- Under `measurements`, the spectral bands are stored at their native resolutions:
-  - 10m resolution (r10):
-    - B02 (Blue, 490nm)
-    - B03 (Green, 560nm)
-    - B04 (Red, 665nm)
-    - B08 (NIR, 842nm)
-  - 20m resolution (r20):
-    - B05 (Red Edge 1, 705nm)
-    - B06 (Red Edge 2, 740nm)
-    - B07 (Red Edge 3, 783nm)
-    - B8A (Narrow NIR, 865nm)
-    - B11 (SWIR 1, 1610nm)
-    - B12 (SWIR 2, 2190nm)
-  - 60m resolution (r60):
-    - B01 (Coastal aerosol, 443nm)
-    - B09 (Water vapour, 945nm)
-
-- Under `quality`, you'll find quality indicators including:
-  - Scene Classification Layer (SCL)
-  - Quality flags for each band
-  - Detector footprint
-  - Defective pixels masks
-
-- Under `conditions`, there's measurement context information:
-  - Sun angles (zenith, azimuth)
-  - Viewing angles
-  - Mean solar irradiance
-  - Atmospheric parameters like:
-    - Aerosol Optical Thickness (AOT)
-    - Water Vapor (WV)
-    - Cloud and snow probability
-
+The figure below gives a graphical overview of how a EOPF Zarr Sentinel-2 L2A product file is organised.
 ![Overview of the EOPF Zarr product structure on the example of Sentinel-2 L2A](img/s2l2a.jpg){fig-align="center"}
 
-This EOPF Zarr organisation for Sentinel-2 L2A data allows for efficient access to individual bands or specific spatial regions without loading the entire dataset, making it ideal for large-scale geospatial analysis. It also ensures all relevant metadata is co-located with the data it describes, enhancing data discoverability and usability.
+The table below provides a more detailed outline what content is available in the different groups.
+
+| Group | | Content |
+|-------|----|----------|
+| **Attributes** | | Processing history metadata <br> Chunking configuration <br> Global metadata (acquisition time, sensing time, etc.) <br> Product-specific metadata≈|
+| **Measurements** | **10m resolution (r10)**| B02 (Blue, 490nm) <br> B03 (Green, 560nm) <br> B04 (Red, 665nm) <br>B08 (NIR, 842nm) | 
+| |**20m resolution (r20)**  | B05 (Red Edge 1, 705nm) <br>B06 (Red Edge 2, 740nm) <br>B07 (Red Edge 3, 783nm) <br>B8A (Narrow NIR, 865nm) <br>B11 (SWIR 1, 1610nm) <br>B12 (SWIR 2, 2190nm)|
+|  |**60m resolution (r60)**  | B01 (Coastal aerosol, 443nm) <br?B09 (Water vapour, 945nm)|
+| **Conditions** | | Sun angles (zenith, azimuth) <br> Viewing angles <br> Mean solar irradiance <br> Atmospheric parameters such as (i) Aerosol Optical Thickness (AOT), (ii) Water Vapor (WV) and (iii) Cloud and snow probability |
+| **Quality** | |  Scene Classification Layer (SCL) <br> Quality flags for each band <br> Detector footprint <br> Defective pixels masks |
+
+<br>
 
 ::: {.callout-note}
 Zarr Deep Dive: Dive deeper into the benefits of Zarr in a blogpost by Lindsey Nield from the Earthmover team: [Fundamentals: What is Zarr? A Cloud-Native Format for Tensor Data](https://earthmover.io/blog/what-is-zarr).
 :::
 
 ## Conclusion
-<!---
-TODO
--->
+The EOPF Zarr structure allows for efficient access to individual bands or specific spatial regions without loading the entire dataset, making it ideal for large-scale geospatial analysis. It further ensures all relevant metadata is co-located with the data, enhancing data discoverability and usability.
 
 ## What's next?
 <!---

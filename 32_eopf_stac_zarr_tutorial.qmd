@@ -5,39 +5,31 @@ code-block-background: true
 
 ### Introduction
 
-In this tutorial we will guide you through the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).<br>
-We will navigate its interface, inspect the various levels of information, and demonstrate how to access the underlying Sentinel data in Zarr format.
+This section introduces you to the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en), which offers access to the re-engineered Sentinel-1, Sentinel-2 and Sentinel-3 data products. We will guide you through its web interface, inspect the various levels of STAC components, and demonstrate how to access the underlying Sentinel Zarr data.
 
 ### What we will learn
 - ⚙️ How does the STAC browser interface works
-- 🔦 Explore the available Collections within the EOPF Sentinel Zarr Samples Service STAC
+- 🔦 Explore the available Collections within the EOPF Sentinel Zarr Samples Service STAC Catalog
 - 📡 How to obtain access to EOPF Sentinel Zarr products from the EOPF Sentinel Zarr Samples Service STAC Catalog
 
 <hr>
 
-The [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) offers and ensures access to the reingeneered version of the Sentinel-1, Sentinel-2 and Sentinel-3 data missions.<br>
-It allows us to easily explore, locate and retrieve the available `.zarr` Sentinel assets into a user-friendly interface. <br>
-
 ## Our Starting Point
-The first step is to access the main homepage of the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).<br>
-Upon accessing the landing page of the **EOPF Sentinel Zarr Samples Service STAC Catalog**, we get a comprehensive overview of the available data collections. This serves as our **root node** or **initial entry** point into the catalog.
+The first step is to access the main homepage of the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
+The landing page offers you a comprehensive overview of the available data collections. This serves as our **initial entry** point into the catalog.
 
 ![Home page](img/home_page.png){fig-align="center"}
 
-Three main areas can be identified: (i) the **API and URL** display, (ii) **Searching** and (iii) **Collections Display**. <br>
-As outlined in detail in our chapter [The EOPF Available Datasets](1_overview_eopf_datasets.qmd), the catalogue is structured to display the 11 distinct collections derived from Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br>
-The user interface provides an intuitive way to browse all these collections. It is possible to filter them by specific criteria or select them manually, allowing precise control over the displayed data. 
-<br>
-This ensures we can select data based on our desired processing level, matching the analysis we need.
+Three main areas can be identified: (i) the **API and URL** section, (ii) **Search bar** and (iii) **Collections Display**. <br>
+
+As outlined in detail in the book section [The EOPF Available Datasets](13_overview_eopf_datasets.qmd), the catalog displays the 11 distinct collections available from the Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br> The user interface provides an intuitive way to browse through all of these collections. It is possible to filter them by specific criteria or select them manually, allowing precise control over the displayed data. 
 
 ## Sentinel Collections
+Let us now select one of the 11 `Collection` available, e.g. let us select the [Sentinel 2-Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) collection. Once you selected the Collection, you will be directed to the interface of a specific `Collection`.
 
-It is possible to click on any of the 11 displayed collections.<br>
-Here, we select the [Sentinel 2-Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a). To follow this tutorial, [click here](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) and get access to the same collection.
+![Web interface of the Sentinel-2 Level-2A Collection of the EOPF Sentinel Zarr Samples Service STAC Catalog](img/sentinel_2_collection.png){fig-align="center"}
 
-![Sentinel-2 Level-2A Collection](img/sentinel_2_collection.png){fig-align="center"}
-
-On the landing page, we can identify 5 main sections.
+The interface can be divided into five principle sections:
 
 1. **Description**: The name and a brief introduction to the available collection. This includes crucial details such as the **temporal extent** (the period over which the data was acquired)
 2. **API and URL**: for further application.
@@ -49,7 +41,7 @@ On the landing page, we can identify 5 main sections.
 
 ### Filtering
 
-Any selected Collection (in this case Sentinel-2 Level-2A) allows us to filter the items of our interest by **temporal** and **spatial** extent.<br>
+Any selected `Collection` (in this case Sentinel-2 Level-2A) allows us to filter the items of our interest by **temporal** and **spatial** extent.<br>
 We can access this tab by clicking on **Show Filters** on the right side under the **Items** section. 
 
 ![Fiields that allow multiple filter parameter](img/filter_1.png){fig-align="center"}
@@ -139,12 +131,10 @@ Go again to the [EOPF STAC homepage](https://stac.browser.user.eopf.eodc.eu/?.la
 
 ## Conclusion
 
-This tutorial has provided a comprehensive walkthrough of the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en). <br>
-We have demonstrated how to navigate its interface, from the initial overview of ESA EOPF's selected data collections to the detailed inspection of an individual item. 
-By understanding the catalog's structure, exploring its filtering options, and identifying key metadata, we can efficiently access the re-engineered `zarr` items. <br>
-The ability to directly download assets or retrieve their cloud storage location enables an efficient retrieval for further analysis.<br>
-<br>
+This tutorial has provided a comprehensive walkthrough of the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en). We have demonstrated how to navigate its interface, from the initial overview of ESA EOPF's selected data collections to the detailed inspection of an individual item. 
+By understanding the catalog's structure, exploring its filtering options, and identifying key metadata, we can efficiently access the re-engineered `zarr` items.
+The ability to directly download assets or retrieve their cloud storage location enables an efficient retrieval for further analysis.
 
 ## What's next?
 
-In the next chapter, we will explore an alternative workflow to retrieve assets based on the API of the EOPF Sample Service through `pystac` and the `pystac-client` libraries available through python.
+In the next [section](./33_eopf_stac_connection.ipynb), we will explore how to programmatically connect to and search through the EOPF Sentinel Zarr Samples Service STAC API with the help of the `pystac` and the `pystac-client` Python libraries.
