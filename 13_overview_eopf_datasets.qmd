@@ -4,15 +4,16 @@ format: html
 ---
 ### Introduction
 
-<!---
-TODO
--->
+In previous chapters, we introduced the **Earth Observation Processing Framework** (EOPF) initiative and explored the advantages of cloud-optimised formats like Zarr. <br>
+Now, it is time to discover the actual EOPF Zarr products.<br>
+ESA has made available the EOPF STAC Catalog. This catalog acts like a digital library, allowing us to easily find and understand the various EOPF Zarr datasets available.
 
 ### What we will learn
 
-<!---
-TODO
--->
+- 📚 What is the **EOPF STAC Catalog**, and why is it important
+- 💾 How are EOPF Zarr products organised within the **STAC Catalog**.
+- 🛰️ Which specific missions can we find in the  **EOPF STAC Catalog**.
+
 
 <hr>
 
@@ -66,9 +67,11 @@ Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers
 
 
 ## Conclusion
-<!---
-TODO
--->
+
+During this chapter, we took a guided tour of the **EOPF STAC Catalog**, seeing firsthand how it serves as a gateway to the wealth of **EOPF Zarr** products.<br>
+We learned how these cloud-optimised datasets are organised and described, from their general structure to the specific information they include, making them discoverable and usable.
+
 
 ## What's next?
 In the following chapter, we dive deeper into `EOPF Zarr` format and we start with practically working with EOPF Zarr datasets.
+Also, in the [Explore the web interface of the EOPF Zarr STAC Catalog](32_eopf_stac_zarr_tutorial.qmd) we will showcast how to navigate this catalog, and you will be equipped to confidently explore and access a wide range of Sentinel mission data transformed into the efficient EOPF Zarr format.
