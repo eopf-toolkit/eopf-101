@@ -3,7 +3,7 @@ title: "**Glossary**"
 format: html
 ---
 
-Here we introduce some important terms that are mentioned throughout the present book.
+Here we introduce some helpful terms that are mentioned throughout the EOPF 101.
 
 | Acronym | Definition |
 |:---|:---|
