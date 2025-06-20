@@ -5,20 +5,17 @@ format: html
 
 Here we introduce some important terms that are mentioned throughout the present book.
 
-**EOPF**: Earth Observation Processing Framework
+| Acronym | Definition |
+|:---|:---|
+| **EOPF** | Earth Observation Processing Framework |
+| **CDSE** | Copernicus Data Space Ecosystem |
+| **CMP** | Core Python Modules |
+| **HEALPix** | Hierarchical Equal Area isoLatitude Pixelation |
+| **GDR** | Ground Range Detected |
+| **SLC** | Single Look Complex |
+| **NRB** | Normalized Radar Backscatter |
+| **SAFE** | Standard Archive Format for Europe |
+| **STAC** | Spatio Temporal Asset Catalog |
+| **COG** | Cloud Optimised GeoTIFF |
+| **Zarr** | Cloud-optimised version for `netCDF` and `HDF5` formats, specifically designed for storing and accessing large n-dimensional arrays |
 
-**CDSE**: Copernicus Data Space Ecosystem
-
-**CMP**: Core Python Modules
-
-**HEALPix**: Hierarchical Equal Area isoLatitude Pixelation.
-
-**GDR**: Ground Range Detected
-
-**SLC**: Singlme Look Complex
-
-**NRB**: Normalized Radar Backscatter
-
-**SAFE**: Standard Archive Format for Europe
-
-**STAC**: Spatio Temporal Asset Catalog
