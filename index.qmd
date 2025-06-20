@@ -1,5 +1,79 @@
-# Welcome {.unnumbered}
+---
+title: "**ESA EOPF 101**"
+format: html
+---
+<h3> Your community guide for working with EOPF Sentinel Zarr data in the cloud </h3>
 
-This online book is the go-to resource to learn everything about the EOPF Sample Service by ESA.
+Explore EOPF 101, an open community resource designed to help Sentinel data users explore EOPF Sentinel Zarr data in the cloud. 
+With our step-by-step and hands-on tutorials, you'll learn how to effectively use EOPF Sentinel Zarr products and build Earth Observation workflows that scale.
 
-To be continued...
+<h2> 🚀 Ready to explore EOPF 101? </h2>
+EOPF 101 is designed for Sentinel data users who are new to cloud-optimised geospatial formats and cloud-based workflows.
+It introduces you to fundamental cloud-native geospatial concepts, the Earth Observation Processing Framework (EOPF) activities by ESA, 
+re-processed EOPF Sentinel Zarr data, as well as tools and libraries to work with EOPF Sentinel Zarr data in the cloud.
+
+Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments, as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data.
+
+* **Chapter 1 - About EOPF**
+  * [Introduction to the EOPF](./11_about_eopf.qmd)
+  * [About Cloud-Optimised Formats](./12_about_cloudoptimized_formats.qmd)
+  * [EOPF Sentinel Zarr products](./13_overview_eopf_datasets.qmd)
+
+* **Chapter 2 - About EOPF Zarr**
+  * [Overview of the EOPF Zarr format](./21_what_is_zarr.qmd)
+  * [Discover EOPF Zarr - Sentinel-2 L2A](./22_zarr_struct_S2L2A.ipynb)
+
+* **Chapter 3 - EOPF and STAC**
+  * [Introduction to STAC](./31_stac_intro.qmd)
+  * [Explore the web interface of the EOPF Zarr STAC Catalog](./32_eopf_stac_zarr_tutorial.qmd)
+  * [Access the EOPF Zarr STAC API with Python](./33_eopf_stac_connection.ipynb)
+  * [From STAC to Data: Accessing EOPF Zarr with xarray](./34_eopf_stac_xarray_tutorial.ipynb)
+
+* ***[COMING SOON] Chapter 4 - Tools to work with EOPF Zarr***
+  * *Get hands-on with different libraries and tools facilitating the use of EOPF Sentinel Zarr data*
+
+* ***[COMING SOON] Chapter 5 - EOPF Zarr in Action***
+  * *See end-to-end workflows leveraging EOPF Sentinel Zarr data across different application domains*
+
+
+<h2>💡 How best use EOPF 101 </h2>
+You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. 
+Beyond this browsable version, you can also set up the required environment to execute the notebooks. 
+
+*Instructions on local setup and Docker container on CDSE are coming soon.*
+
+<!---
+TODO #<issue_number>
+-->
+
+
+
+<h2>📢 How to get involved </h2>
+EOPF 101 is an open community resource under active development. Our activities are designed to engage with Sentinel users and to gather feedback on EOPF Sentinel Zarr products. 
+There are different ways you can get involved and engaged:
+
+<h3> Join the EOPF Toolkit Notebook Competition </h3>
+Get ready and participate in the EOPF Toolkik Notebook Competition! The competition will kick off in October 2025 and run till January 2026. It is your chance to get hands-on with EOPF Zarr products, get expert input and guidance and show the community the great work you do.
+
+[Express your interest](https://thrivegeo.com/eopf-toolkit-competition/) today and do not miss any updates related to the notebook competition.
+
+<!---
+TODO #<issue_number>
+-->
+*More details coming soon.*
+
+<h3> Ideas & Feedback? </h3>
+Is there a plugin or library missing that you would like to see integrated? Do you have feedback on EOPF 101? Please submit an [issue](https://github.com/eopf-toolkit/eopf-101/issues) and we will review your request.
+
+
+<h2>About the ESA EOPF Toolkit project </h2>
+EOPF 101 is a community resource developed as part of the [EOPF Toolkit project](https://github.com/eopf-toolkit) funded by the [European Space Agency](https://www.esa.int/). 
+EOPF 101 is brought to you by [Development Seed](https://developmentseed.org/), [thriveGEO](https://www.thrivegeo.com) and [SparkGeo](https://sparkgeo.com/).
+<br>
+
+<p align="center"><img title="EOPF Toolkit Logo" alt="Alt text" src="/img/EOPF_FINAL_LOGO.png" class="center" width=40%></p>
+<p align="center"><img title="Consortium logos" alt="Alt text" src="/img/logos.png" class="center" width=80%></p>
+
+
+
+
