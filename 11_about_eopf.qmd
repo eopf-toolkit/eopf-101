@@ -4,16 +4,13 @@ format: html
 ---
 ### Introduction
 
-In this chapter, we will introduce the European Space Agency's (ESA) innovative [Earth Observation Processor Framework](https://eopf.copernicus.eu/) (EOPF) initiative.<br>
-This project marks a significant step towards modernising how we handle satellite data, specifically by moving away from the traditional `.SAFE` data format to a more efficient, cloud-optimised format. <br>
-We will take a closer look at the new structure ESA has developed for this purpose and delve into the essential pieces of information (metadata)  that will make up this new system. This change is all about making valuable satellite data more accessible and easier to use for everyone.
-
+In this chapter, we will introduce the European Space Agency's (ESA) [Earth Observation Processor Framework](https://eopf.copernicus.eu/) (EOPF) initiative. This project marks a significant step towards modernising how we handle satellite data, specifically by moving away from the traditional `.SAFE` data format to a more efficient, cloud-optimised format.
+We will take a closer look at the new structure ESA has developed for this purpose.
 ### What we will learn
 
-- 📡 What exactly is ESA's EOPF initiative and why it is important.
-- 📀 Which metadata is crucial for the EOPF data.
-- ⚙️ Which new encoding format has ESA proposed.
-
+- 📡 What exactly is ESA's EOPF initiative and why it is important?
+- 📀 Which metadata is crucial for the EOPF data?
+- ⚙️ Which new encoding format has ESA proposed?
 
 <hr>
 
@@ -84,9 +81,7 @@ To learn more about the EOPF processor framework, visit [https://eopf.copernicus
 
 ## Conclusion
 
-Throughout this chapter, we explored the EOPF initiative and its adoption of the `.zarr `format. This new approach is set to significantly improve and simplify how we access and work with data from important satellite missions like Sentinel-1, Sentinel-2, and Sentinel-3. <br>
-We also gained a clear understanding of the important metadata that makes up each part of this new system.<br>
-This standardised and optimised structure is designed to provide a much better and more streamlined experience when interacting with Earth Observation (EO) data.
+Throughout this section, we explored the EOPF initiative and its adoption of the `.zarr `format. This new approach is set to significantly improve and simplify how we access and work with data the satellite mission Sentinel-1, Sentinel-2, and Sentinel-3.
 
 ## What's next?
 In the following [section](./12_about_cloudoptimized_formats.qmd), we learn why EO data need to be cloud-optimised, when processed in the cloud.

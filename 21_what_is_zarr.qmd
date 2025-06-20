@@ -4,17 +4,14 @@ format: html
 ---
 ### Introduction
 
-In our journey to understand **cloud-optimised Earth Observation** (EO) data, we have frequently mentioned the **Zarr** format. <br>
-Now, we will take a closer look and truly understand what **Zarr** is and why it is such a game-changer for large datasets like those from ESA's Sentinel missions. <br>
-This chapter will break down the essential building blocks of **Zarr**, explaining how it cleverly organises data to make it incredibly efficient for cloud-based analysis. Think of this as getting to know the internal workings of a powerful, cloud-friendly data container.
+In our journey to understand **cloud-optimised Earth Observation** (EO) data, we have frequently mentioned the **Zarr** format. Now, we will take a closer look and truly understand what **Zarr** is and why it is such a game-changer for large datasets like those from ESA's Sentinel missions. This chapter will break down the essential building blocks of **Zarr**, explaining how it organises data to make it incredibly efficient for cloud-based analysis.
 
 
 ### What we will learn
 
-- 🔗 What exactly is Zarr.
-- 🏛️ What are the main components of a Zarr dataset.
-- 🧱 How does Zarr use "chunks" to organise data efficiently.
-- 🗺️ How does Zarr store important descriptive information (metadata).
+- 🔗 What is Zarr?
+- 🏛️ What are the main components of Zarr?
+- 🧱 How is Zarr organised?
 
 
 <hr>
@@ -91,5 +88,4 @@ The EOPF Zarr structure allows for efficient access to individual bands or speci
 
 ## What's next?
 
-Now that you have a theoretical grasp of the **Zarr** format, the next chapter [Discover EOPF Zarr - Sentinel-2 L2A](22_zarr_struct_S2L2A.ipynb) will provide a crucial hands-on experience. We will transition to our first **Jupyter Notebook** where you will directly interact with a Zarr store.<br>
-This practical application will solidify your understanding and prepare you for advanced work with cloud-optimised Earth observation data.
+Now that you have a theoretical grasp of the **Zarr** format, the next section [Discover EOPF Zarr - Sentinel-2 L2A](./22_zarr_struct_S2L2A.ipynb) will provide a first hands-on experience opening an EOPF Zarr product. We will transition to our first **Jupyter Notebook** where you will directly interact with a Zarr store.
