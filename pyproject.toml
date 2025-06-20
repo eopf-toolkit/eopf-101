@@ -39,7 +39,8 @@ dependencies = [
     "rioxarray>=0.14.1",
     "stackstac>=0.4.4",
     "ipykernel>=6.23.1",
-    "quarto>=0.1.0"
+    "quarto>=0.1.0",
+    "xarray-eopf"
 ]
 
 [tool.setuptools]
