@@ -28,8 +28,7 @@ book:
     - part: "**About EOPF Zarr**"
       chapters:
        - 21_what_is_zarr.qmd
-       - 22_zarr_struct_S1.ipynb
-       - 23_zarr_struct_S2L2A.ipynb
+       - 22_zarr_struct_S2L2A.ipynb
     - part: "**EOPF and STAC**"
       chapters: 
         - 31_stac_intro.qmd

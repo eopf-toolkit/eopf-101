@@ -21,8 +21,7 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
 
 * **Chapter 2 - About EOPF Zarr**
   * [Overview of the EOPF Zarr format](./21_what_is_zarr.qmd)
-  * [Discover EOPF Zarr - Sentinel-1 SLC](./22_zarr_struct_S1.ipynb)
-  * [Discover EOPF Zarr - Sentinel-2 L2A](./23_zarr_struct_S2L2A.ipynb)
+  * [Discover EOPF Zarr - Sentinel-2 L2A](./22_zarr_struct_S2L2A.ipynb)
 
 * **Chapter 3 - EOPF and STAC**
   * [Introduction to STAC](./31_stac_intro.qmd)
