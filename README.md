@@ -1,21 +1,21 @@
 # The Sentinels EOPF Toolkit
 
-![](./img/logos.png)
-
+<p align="center"><img title="EOPF Toolkit Logo" alt="Alt text" src="/img/EOPF_FINAL_LOGO.png" class="center" width=40%></p>
+<p align="center"><img title="Consortium logos" alt="Alt text" src="/img/logos.png" class="center" width=80%></p>
 
 ## About
-EOPF 101 is a community-driven toolkit that facilitates the adoption of the Zarr data format for Copernicus Sentinel data, targeting users who are new to cloud computing. The Sentinels EOPF Toolkit is developed by [Development Seed](https://developmentseed.org/), [thriveGEO](https://thrivegeo.com/) and [Sparkgeo](https://sparkgeo.com/), together with a group of champion users. Together they are creating EOPF 101, a user-friendly resource consisting of documentation, Jupyter Notebooks and plug-ins that showcase the use of Zarr format Sentinel data for applications across multiple domains.
+EOPF 101 is a community-driven toolkit that facilitates the adoption of the Zarr data format for Copernicus Sentinel data, targeting users who are new to cloud computing. The [EOPF Toolkit project](https://github.com/eopf-toolkit) is developed by [Development Seed](https://developmentseed.org/), [thriveGEO](https://thrivegeo.com/) and [Sparkgeo](https://sparkgeo.com/), together with a group of champion users. Together they are creating EOPF 101, a user-friendly resource consisting of documentation, Jupyter Notebooks and plug-ins that showcase the use of Zarr format Sentinel data for applications across multiple domains.
 
 The Sentinels EOPF Toolkit is a project funded by the [European Space Agency](https://www.esa.int/).
 
 The toolkit consists of a set of community resources, including an online book, community libraries and plugins, thematic case studies and a notebook competition:
 
 ### EOPF 101 - Outline
-* Chapter 1 - Introduction to EOPF
-* Chapter 2 - Introduction to Zarr
-* Chapter 3 - Introduction to EOPF STAC
-* Chapter 4 - Tools to work with Zarr
-* Chapter 5 - EOPF in Action
+* Chapter 1 - About EOPF
+* Chapter 2 - About EOPF Zarr
+* Chapter 3 - EOPF and STAC
+* Chapter 4 - Tools to work with EOPF Zarr
+* Chapter 5 - EOPF Zarr in Action
 * Glossary
 * References
 
@@ -44,7 +44,7 @@ Together with a group of champion users, we will developed and publish technical
 ### Notebook competition
 Between October 2025 and January 2026, we will run a notebook competition. During this time, we will invite Sentinel data users to work with the live sample data reprocessed as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). 
 
-Stay tuned for more information soon.
+[Express your interest](https://thrivegeo.com/eopf-toolkit-competition/) today and do not miss any updates related to the notebook competition.
 
 
 ## Development timeline
@@ -58,4 +58,4 @@ By March 2026, we will have develped a community resource where you can learn ho
 ## Get involved
 We welcome to join you in this community effort in the following ways:
 * Follow us here on [Github](https://github.com/eopf-toolkit)
-* Participate in the upcoming notebook competition (Oct 2025 to Jan 2026) (`Stay tuned for more information soon!`)
+* Participate in the upcoming notebook competition (Oct 2025 to Jan 2026) ([Express your interest](https://thrivegeo.com/eopf-toolkit-competition/))
