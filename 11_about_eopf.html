@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Glossary</title>
+<title>Introduction to the EOPF</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./34_eopf_stac_xarray_tutorial.html" rel="prev">
+<link href="./12_about_cloudoptimized_formats.html" rel="next">
+<link href="./index.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glossary.html"><span class="chapter-title"><strong>Glossary</strong></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11_about_eopf.html"><strong>About EOPF</strong></a></li><li class="breadcrumb-item"><a href="./11_about_eopf.html"><span class="chapter-title">Introduction to the EOPF</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -126,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./11_about_eopf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the EOPF</span></a>
+  <a href="./11_about_eopf.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Introduction to the EOPF</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -203,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,15 +216,31 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-is-eopf" id="toc-what-is-eopf" class="nav-link" data-scroll-target="#what-is-eopf">What is EOPF?</a></li>
+  <li><a href="#the-eopf-data-model" id="toc-the-eopf-data-model" class="nav-link" data-scroll-target="#the-eopf-data-model">The EOPF Data Model</a>
+  <ul class="collapse">
+  <li><a href="#eopf-product-structure" id="toc-eopf-product-structure" class="nav-link" data-scroll-target="#eopf-product-structure">EOPF product structure</a></li>
+  <li><a href="#eopf-metadata-structure" id="toc-eopf-metadata-structure" class="nav-link" data-scroll-target="#eopf-metadata-structure">EOPF metadata structure</a></li>
+  <li><a href="#eopf-encoding-structure" id="toc-eopf-encoding-structure" class="nav-link" data-scroll-target="#eopf-encoding-structure">EOPF encoding structure</a></li>
+  <li><a href="#eopf-processor-framework" id="toc-eopf-processor-framework" class="nav-link" data-scroll-target="#eopf-processor-framework">EOPF processor framework</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11_about_eopf.html"><strong>About EOPF</strong></a></li><li class="breadcrumb-item"><a href="./11_about_eopf.html"><span class="chapter-title">Introduction to the EOPF</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title"><strong>Glossary</strong></span></h1>
+<h1 class="title"><span class="chapter-title">Introduction to the EOPF</span></h1>
 </div>
 
 
@@ -241,67 +257,130 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Here we introduce some helpful terms that are mentioned throughout the EOPF 101.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Acronym</th>
-<th style="text-align: left;">Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>EOPF</strong></td>
-<td style="text-align: left;">Earth Observation Processing Framework</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>CDSE</strong></td>
-<td style="text-align: left;">Copernicus Data Space Ecosystem</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>CMP</strong></td>
-<td style="text-align: left;">Core Python Modules</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>HEALPix</strong></td>
-<td style="text-align: left;">Hierarchical Equal Area isoLatitude Pixelation</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>GDR</strong></td>
-<td style="text-align: left;">Ground Range Detected</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>SLC</strong></td>
-<td style="text-align: left;">Single Look Complex</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>NRB</strong></td>
-<td style="text-align: left;">Normalized Radar Backscatter</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>SAFE</strong></td>
-<td style="text-align: left;">Standard Archive Format for Europe</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>STAC</strong></td>
-<td style="text-align: left;">Spatio Temporal Asset Catalog</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>COG</strong></td>
-<td style="text-align: left;">Cloud Optimised GeoTIFF</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Zarr</strong></td>
-<td style="text-align: left;">Cloud-optimised version for <code>netCDF</code> and <code>HDF5</code> formats, specifically designed for storing and accessing large n-dimensional arrays</td>
-</tr>
-</tbody>
-</table>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>In this chapter, we will introduce the European Space Agency’s (ESA) <a href="https://eopf.copernicus.eu/">Earth Observation Processor Framework</a> (EOPF) initiative. This project marks a significant step towards modernising how we handle satellite data, specifically by moving away from the traditional <code>.SAFE</code> data format to a more efficient, cloud-optimised format. We will take a closer look at the new structure ESA has developed for this purpose. ### What we will learn</p>
+<ul>
+<li>📡 What exactly is ESA’s EOPF initiative and why it is important?</li>
+<li>📀 Which metadata is crucial for the EOPF data?</li>
+<li>⚙️ Which new encoding format has ESA proposed?</li>
+</ul>
+<hr>
+</section>
+<section id="what-is-eopf" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-eopf">What is EOPF?</h2>
+<p>The <a href="https://eopf.copernicus.eu/">Earth Observation Processor Framework</a> (EOPF) is an initiative led by the European Space Agency (ESA) designed to modernise and harmonise data from the Copernicus Sentinel Missions.</p>
+<p>With the upcoming Copernicus Expansion missions in 2028, the amount of data produced daily will significantly increase. EOPF is ESA’s solution to organise Sentinel data in a way that works seamlessly with modern cloud technology. This will make it easier to find, access, and process the information you need. The new approach provides user-friendly access, simplifies maintenance, and helps keep costs down, guaranteeing reliable access to Sentinel data in the long run.</p>
+<p>The <a href="https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-1">Sentinel-1</a>, <a href="https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2">Sentinel-2</a>, and <a href="https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-3">Sentinel-3</a> missions are the first to be updated with this new system.</p>
+</section>
+<section id="the-eopf-data-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-eopf-data-model">The EOPF Data Model</h2>
+<p>The EOPF data model has been defined by following a set of principles:</p>
+<ul>
+<li><strong>Open standards:</strong> Following common and community approved data standards ensure sustainability and user uptake.</li>
+<li><strong>Interoperability:</strong> Harmonised with a clear and organised structure that describes the data itself.</li>
+<li><strong>Cloud optimisation:</strong> Designed for efficient access and handling in cloud environments.</li>
+<li><strong>Conversion flexibility:</strong> Providing tools to adjust the data for different applications.</li>
+</ul>
+<p>Under EOPF, there are four key areas of activities: (i) EOPF product structure, (ii) EOPF metadata structure, (iii) EOPF encoding structure and (iv) the EOPF Processor Framework:</p>
+<section id="eopf-product-structure" class="level3">
+<h3 class="anchored" data-anchor-id="eopf-product-structure">EOPF product structure</h3>
+<p>As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used across all Sentinel and other EO missions. This approach ensures that data from several missions is consistent.</p>
+<p>The EOPF product structure consists of the following components:</p>
+<ul>
+<li><strong>Measurements:</strong> The actual sensor readings (like how much light is reflected or the temperature), at different levels of detail.</li>
+<li><strong>Quality indicators:</strong> Details that help understand how reliable the measurements are.</li>
+<li><strong>Conditions:</strong> Information about the environment or technical aspects when the data was collected.</li>
+<li><strong>Attributes:</strong> Global metadata, such as when it was acquired and the sensor’s orbit.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/EOProduct-structure.png" class="img-fluid figure-img"></p>
+<figcaption>EOPF product structure</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Learn more about the EOPF Zarr product structure <a href="./21_what_is_zarr.html">here</a>.</p>
+</div>
+</div>
+</section>
+<section id="eopf-metadata-structure" class="level3">
+<h3 class="anchored" data-anchor-id="eopf-metadata-structure">EOPF metadata structure</h3>
+<p>Metadata provide all relevant information required to uniquely describing each Sentinel product. The EOPF metadata structure is organised as follows:</p>
+<ul>
+<li><strong>Discovery Metadata</strong>: Following the metadata structure defined by the SpatioTemporal Asset Catalogue (<a href="https://stacspec.org/en/">STAC</a>), which helps to keep things consistent across different missions.</li>
+<li><strong>Processing History Metadata</strong>: Keeping a record of how the data has been processed.</li>
+<li><strong>Other Metadata</strong>: Information like the status of the sensor and details about the satellite’s orbit.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>EOPF and STAC: Learn more about EOPF and STAC <a href="./31_stac_intro.html">here</a>.</p>
+</div>
+</div>
+</section>
+<section id="eopf-encoding-structure" class="level3">
+<h3 class="anchored" data-anchor-id="eopf-encoding-structure">EOPF encoding structure</h3>
+<p>An encoding structure can be seen as the specific method used to package and store data and its associated metadata in a digital format. Building on the consistent data structure and clear metadata, the new storage system must be capable of handling various aspects of current Sentinel data (such as manifest files and tile structures from the SAFE format) while remaining fully compatible with cloud environments.</p>
+<p>ESA chose <code>.zarr</code> as encoding format as it allows for instant access to data, efficient processing of massive amounts of data, and seamless integration with other datasets. The EOPF Sentinel Zarr data encoding allows you to work with data from multiple missions more effectively.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Learn more about the EOPF Sentinel Zarr format <a href="https://zarr.eopf.copernicus.eu/">here</a>. And learn more about cloud-optimised geospatial data formats in general in the <a href="https://guide.cloudnativegeo.org/">Cloud-Optimised Geospatial Data Formats Guide</a></p>
+</div>
+</div>
+</section>
+<section id="eopf-processor-framework" class="level3">
+<h3 class="anchored" data-anchor-id="eopf-processor-framework">EOPF processor framework</h3>
+<p>The way Sentinel data is processed is being updated to take advantage of modern cloud computing. This will make the processing faster and more efficient and at the same time ensuring the scientific quality and accuracy of the Sentinel data remains the same.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To learn more about the EOPF processor framework, visit <a href="https://eopf.copernicus.eu/eopf/">https://eopf.copernicus.eu/eopf/</a></p>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Throughout this section, we explored the EOPF initiative and its adoption of the <code>.zarr</code>format. This new approach is set to significantly improve and simplify how we access and work with data the satellite mission Sentinel-1, Sentinel-2, and Sentinel-3.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
+<p>In the following <a href="./12_about_cloudoptimized_formats.html">section</a>, we learn why EO data need to be cloud-optimised, when processed in the cloud.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -705,13 +784,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./34_eopf_stac_xarray_tutorial.html" class="pagination-link" aria-label="From STAC to Data: Accessing EOPF Zarr with xarray">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></span>
+      <a href="./index.html" class="pagination-link" aria-label="**ESA EOPF 101**">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="**References**">
-        <span class="nav-page-text"><span class="chapter-title"><strong>References</strong></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./12_about_cloudoptimized_formats.html" class="pagination-link" aria-label="About cloud-optimised formats">
+        <span class="nav-page-text"><span class="chapter-title">About cloud-optimised formats</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

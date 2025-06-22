@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Glossary</title>
+<title>Discover EOPF Zarr - Sentinel-2 L2A</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./34_eopf_stac_xarray_tutorial.html" rel="prev">
+<link href="./31_stac_intro.html" rel="next">
+<link href="./21_what_is_zarr.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glossary.html"><span class="chapter-title"><strong>Glossary</strong></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./21_what_is_zarr.html"><strong>About EOPF Zarr</strong></a></li><li class="breadcrumb-item"><a href="./22_zarr_struct_S2L2A.html"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -157,7 +192,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./22_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
+  <a href="./22_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
   </div>
 </li>
       </ul>
@@ -203,7 +238,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,15 +251,29 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#open-a-zarr-store" id="toc-open-a-zarr-store" class="nav-link" data-scroll-target="#open-a-zarr-store">Open a Zarr Store</a></li>
+  <li><a href="#extract-information-from-zarr-groups" id="toc-extract-information-from-zarr-groups" class="nav-link" data-scroll-target="#extract-information-from-zarr-groups">Extract information from Zarr groups</a></li>
+  <li><a href="#extract-zarr-metadata-on-different-levels" id="toc-extract-zarr-metadata-on-different-levels" class="nav-link" data-scroll-target="#extract-zarr-metadata-on-different-levels">Extract Zarr metadata on different levels</a></li>
+  <li><a href="#now-it-is-your-turn" id="toc-now-it-is-your-turn" class="nav-link" data-scroll-target="#now-it-is-your-turn">💪 Now it is your turn</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./21_what_is_zarr.html"><strong>About EOPF Zarr</strong></a></li><li class="breadcrumb-item"><a href="./22_zarr_struct_S2L2A.html"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title"><strong>Glossary</strong></span></h1>
+<h1 class="title"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></h1>
 </div>
 
 
@@ -241,67 +290,168 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Here we introduce some helpful terms that are mentioned throughout the EOPF 101.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Acronym</th>
-<th style="text-align: left;">Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>EOPF</strong></td>
-<td style="text-align: left;">Earth Observation Processing Framework</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>CDSE</strong></td>
-<td style="text-align: left;">Copernicus Data Space Ecosystem</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>CMP</strong></td>
-<td style="text-align: left;">Core Python Modules</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>HEALPix</strong></td>
-<td style="text-align: left;">Hierarchical Equal Area isoLatitude Pixelation</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>GDR</strong></td>
-<td style="text-align: left;">Ground Range Detected</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>SLC</strong></td>
-<td style="text-align: left;">Single Look Complex</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>NRB</strong></td>
-<td style="text-align: left;">Normalized Radar Backscatter</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>SAFE</strong></td>
-<td style="text-align: left;">Standard Archive Format for Europe</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>STAC</strong></td>
-<td style="text-align: left;">Spatio Temporal Asset Catalog</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>COG</strong></td>
-<td style="text-align: left;">Cloud Optimised GeoTIFF</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Zarr</strong></td>
-<td style="text-align: left;">Cloud-optimised version for <code>netCDF</code> and <code>HDF5</code> formats, specifically designed for storing and accessing large n-dimensional arrays</td>
-</tr>
-</tbody>
-</table>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>This tutorial introduces you to the structure of a an EOPF Zarr product sample for <strong>Sentinel-2 L2A</strong> data. We will demonstrate how to access and open a Zarr product sample with <code>xarray</code>, how to visualise the <code>zarr</code> encoding structure, explore embedded information, and retrieve relevant metadata for further processing.</p>
+</section>
+<section id="what-we-will-learn" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
+<ul>
+<li>⚙️ How to open a <code>.zarr</code> file using <code>xarray</code>?</li>
+<li>🛰️ The general structure of a Sentinel-2 L-2A item</li>
+<li>🔎 How to access metadata that describes the <code>.zarr</code> encoding?</li>
+</ul>
+</section>
+<section id="prerequisites" class="level3">
+<h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
+<p>This tutorial uses a re-processed sample dataset from the <a href="https://stac.browser.user.eopf.eodc.eu/">EOPF Sentinel Zarr Samples Service STAC API</a> that is available for direct access <a href="https://objects.eodc.eu/e05ab01a9d56408d82ac32d69a5aae2a:202506-s02msil2a/10/products/cpm_v256/S2C_MSIL2A_20250610T103641_N0511_R008_T32UMD_20250610T132001.zarr">here</a>.</p>
+<p>The selected <code>zarr</code> product is a Sentinel-2 L2A tile from the 10th of June 2025: * File name: <code>S2C_MSIL2A_20250610T103641_N0511_R008_T32UMD_20250610T132001.zarr.</code>).</p>
+<hr>
+<section id="import-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
+<div id="53a09ced" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="helper-functions" class="level4">
+<h4 class="anchored" data-anchor-id="helper-functions">Helper functions</h4>
+<section id="print_gen_structure" class="level5">
+<h5 class="anchored" data-anchor-id="print_gen_structure"><code>print_gen_structure</code></h5>
+<p>This function helps us to retrieve an visualise the names for each of the stored groups inside a <code>zarr</code>. As an output, it will print a general overview of elements inside the <code>zarr</code>.</p>
+<div id="cc4d7bd4" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_gen_structure(node, indent<span class="op">=</span><span class="st">""</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>indent<span class="sc">}{</span>node<span class="sc">.</span>name<span class="sc">}</span><span class="ss">"</span>)     <span class="co">#allows us access each node</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> child_name, child_node <span class="kw">in</span> node.children.items(): <span class="co">#loops inside the selected nodes to extract naming</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        print_gen_structure(child_node, indent <span class="op">+</span> <span class="st">"  "</span>) <span class="co"># prints the name of the selected nodes</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="open-a-zarr-store" class="level2">
+<h2 class="anchored" data-anchor-id="open-a-zarr-store">Open a Zarr Store</h2>
+<p>In a first step, we use the function <code>open_datatree()</code> from the <code>xarray</code> library to open a Zarr store as a DataTree.<br> Inside, we ned to define the following key word arguments:<br></p>
+<ul>
+<li><code>filename_or_obj</code>: path leading to a <code>zarr</code> store</li>
+<li><code>engine</code>: <code>'eopf-zarr'</code>, designed for the EOPF <code>zarr</code> by ESA.</li>
+<li><code>op_mode</code>: extension by the <code>xarray-eopf</code> development for allowing an analysis or native mode. For more information visit the <a href="https://eopf-sample-service.github.io/xarray-eopf/">xarray-eopf</a> documentation.</li>
+<li><code>chunks</code>: loads the data with dask using the engine’s preferred chunk size, generally identical to the format’s chunk size</li>
+</ul>
+<p>The final print of the <code>DataTree</code> object is commented out, as the display can be quite extensive, showing the entire content within the Zarr. An alternative is to apply a helper function that only displays the higher level structure as shown in the next code cell.</p>
+<div id="906ae601" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://objects.eodc.eu/e05ab01a9d56408d82ac32d69a5aae2a:202506-s02msil2a/10/products/cpm_v256/S2C_MSIL2A_20250610T103641_N0511_R008_T32UMD_20250610T132001.zarr'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>s2l2a_zarr_sample<span class="op">=</span> xr.open_datatree(url,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    engine<span class="op">=</span><span class="st">"eopf-zarr"</span>, <span class="co"># storage format</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    op_mode<span class="op">=</span><span class="st">"native"</span>, <span class="co"># no analysis mode</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    chunks<span class="op">=</span>{}, <span class="co"># allows to open the default chunking</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we apply the helper function <code>print_gen_structure</code> on the root of the DataTree object, we will get a listing of the tree-like structure of the object. We can see all Zarr groups, such as <code>measurements</code>, <code>quality</code> and <code>conditions</code>, their sub-groups and content.</p>
+<div id="5708498b" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Zarr Sentinel 2 L2A Structure"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>print_gen_structure(s2l2a_zarr_sample.root) </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Zarr Sentinel 2 L2A Structure
+None
+  conditions
+    geometry
+    mask
+      detector_footprint
+        r10m
+        r20m
+        r60m
+      l1c_classification
+        r60m
+      l2a_classification
+        r20m
+        r60m
+    meteorology
+      cams
+      ecmwf
+  measurements
+    reflectance
+      r10m
+      r20m
+      r60m
+  quality
+    atmosphere
+      r10m
+      r20m
+      r60m
+    l2a_quicklook
+      r10m
+      r20m
+      r60m
+    mask
+      r10m
+      r20m
+      r60m
+    probability
+      r20m
+------------------------------</code></pre>
+</div>
+</div>
+</section>
+<section id="extract-information-from-zarr-groups" class="level2">
+<h2 class="anchored" data-anchor-id="extract-information-from-zarr-groups">Extract information from Zarr groups</h2>
+<p>In a next step, we can explore the content of individual Zarr groups. By specifying the name of the group and subgroup and adding it into square brackets, we can extract the content of the relevant group. Let us for example extract the content of the subgroup <code>reflectance</code> under <code>measurements</code>.</p>
+<p>As a result, it is visible that there are three subgroups of the parent node <code>measurements/reflectance</code>: <code>r10</code>, <code>r20</code> and <code>r60</code>, which are the DataArrays with the three different resolutions of the Sentinel-2 L2A data.</p>
+<p>The <code>xarray.DataTree</code> structure allows the exploration of additional group-related metadata and information. For example, we can find the <code>chunksize</code> of each array and the coordinates.</p>
+<div id="d4b8ce93" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieving the reflectance groups:</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># s2l2a_zarr_sample["measurements/reflectance"] # Run it yourself for an inteactive overview</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="extract-zarr-metadata-on-different-levels" class="level2">
+<h2 class="anchored" data-anchor-id="extract-zarr-metadata-on-different-levels">Extract Zarr metadata on different levels</h2>
+<p>Through <code>s2l2a_zarr_sample.attrs[]</code> we are able to visualise both the <code>stac_discovery</code> and <code>other_metadata</code> included in the <code>zarr</code> store. <br> <br> For the properties inside <code>stac_discovery</code> for example we can get the parameters included:</p>
+<div id="fed5c3b1" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># STAC metadata style:</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(s2l2a_zarr_sample.attrs[<span class="st">"stac_discovery"</span>].keys()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['assets', 'bbox', 'geometry', 'id', 'links', 'properties', 'stac_extensions', 'stac_version', 'type']</code></pre>
+</div>
+</div>
+<p>We are also, able to retrieve specific information by diving deep into the <code>stac_discovery</code> metadata, such as:</p>
+<div id="7015ec63" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Date of Item Creation: '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'created'</span>])</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Item Bounding Box    : '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'bbox'</span>])</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Item ESPG            : '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'proj:epsg'</span>])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Sentinel Platform    : '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'platform'</span>])</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Item Processing Level: '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'processing:level'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Date of Item Creation:  2025-06-10T13:20:01+00:00
+Item Bounding Box    :  [9.146276872400831, 52.25344953517325, 7.500940412097549, 53.24953673463324]
+Item ESPG            :  32632
+Sentinel Platform    :  sentinel-2c
+Item Processing Level:  L2A</code></pre>
+</div>
+</div>
+<p>And from <code>other_metadata</code>, we are able to retrieve the information specific to the instrument variables.</p>
+<div id="d33407ec" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complementing metadata:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(s2l2a_zarr_sample.attrs[<span class="st">"other_metadata"</span>].keys()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['AOT_retrieval_model', 'L0_ancillary_data_quality', 'L0_ephemeris_data_quality', 'NUC_table_ID', 'SWIR_rearrangement_flag', 'UTM_zone_identification', 'absolute_location_assessment_from_AOCS', 'band_description', 'declared_accuracy_of_AOT_model', 'declared_accuracy_of_radiative_transfer_model', 'declared_accuracy_of_water_vapour_model', 'electronic_crosstalk_correction_flag', 'eopf_category', 'geometric_refinement', 'history', 'horizontal_CRS_code', 'horizontal_CRS_name', 'mean_sensing_time', 'mean_sun_azimuth_angle_in_deg_for_all_bands_all_detectors', 'mean_sun_zenith_angle_in_deg_for_all_bands_all_detectors', 'mean_value_of_aerosol_optical_thickness', 'mean_value_of_total_water_vapour_content', 'meteo', 'multispectral_registration_assessment', 'onboard_compression_flag', 'onboard_equalization_flag', 'optical_crosstalk_correction_flag', 'ozone_source', 'ozone_value', 'percentage_of_degraded_MSI_data', 'planimetric_stability_assessment_from_AOCS', 'product_quality_status', 'reflectance_correction_factor_from_the_Sun-Earth_distance_variation_computed_using_the_acquisition_date', 'spectral_band_of_reference']</code></pre>
+</div>
+</div>
+</section>
+<section id="now-it-is-your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="now-it-is-your-turn">💪 Now it is your turn</h2>
+<p>As we are able to retrieve several items from the <a href="https://stac.browser.user.eopf.eodc.eu/">EOPF Sentinel Zarr Samples Service STAC API</a>, let us try the following: <br> ### Task Go to the <a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a">Sentinel-2 Level-2A collection</a> and: - Choose an item of interest. - Replicate the workflow and explore the item’s metadata. When was it retrieved? - What are the dimensions? - What is the detailed location of the item?</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This tutorial provides an initial understanding of the <code>zarr</code> structure for a Sentinel-2 L2A product sample. By using the <code>xarray</code> library, we can effectively navigate and inspect the different components within the <code>zarr</code> format, including its metadata and array organisation.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
+<p>Now that you’ve been introduced to the <code>zarr</code> format, learned its core concepts, and understood the basics of how to explore it, you are prepared for the next step. In the following <a href="./31_stac_intro.html">chapter</a> we will introduce you to <strong>STAC</strong> and the <strong>EOPF Zarr STAC Catalog</strong>. As we go along, we are more and more transition from theory to practice, providing you with hands-on tutorials working with EOPF Zarr products.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -705,13 +855,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./34_eopf_stac_xarray_tutorial.html" class="pagination-link" aria-label="From STAC to Data: Accessing EOPF Zarr with xarray">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></span>
+      <a href="./21_what_is_zarr.html" class="pagination-link" aria-label="Overview of the EOPF Zarr format">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Overview of the EOPF Zarr format</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="**References**">
-        <span class="nav-page-text"><span class="chapter-title"><strong>References</strong></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./31_stac_intro.html" class="pagination-link" aria-label="Introduction to STAC">
+        <span class="nav-page-text"><span class="chapter-title">Introduction to STAC</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

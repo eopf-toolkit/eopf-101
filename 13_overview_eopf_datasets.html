@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Glossary</title>
+<title>Overview of EOPF Zarr Products</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./34_eopf_stac_xarray_tutorial.html" rel="prev">
+<link href="./21_what_is_zarr.html" rel="next">
+<link href="./12_about_cloudoptimized_formats.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glossary.html"><span class="chapter-title"><strong>Glossary</strong></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11_about_eopf.html"><strong>About EOPF</strong></a></li><li class="breadcrumb-item"><a href="./13_overview_eopf_datasets.html"><span class="chapter-title">Overview of EOPF Zarr Products</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -136,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
+  <a href="./13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
   </div>
 </li>
       </ul>
@@ -203,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,15 +216,30 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
+  <li><a href="#available-eopf-zarr-products" id="toc-available-eopf-zarr-products" class="nav-link" data-scroll-target="#available-eopf-zarr-products">Available EOPF Zarr products</a>
+  <ul class="collapse">
+  <li><a href="#sentinel-1" id="toc-sentinel-1" class="nav-link" data-scroll-target="#sentinel-1">Sentinel-1</a></li>
+  <li><a href="#sentinel-2" id="toc-sentinel-2" class="nav-link" data-scroll-target="#sentinel-2">Sentinel-2</a></li>
+  <li><a href="#sentinel-3" id="toc-sentinel-3" class="nav-link" data-scroll-target="#sentinel-3">Sentinel-3</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11_about_eopf.html"><strong>About EOPF</strong></a></li><li class="breadcrumb-item"><a href="./13_overview_eopf_datasets.html"><span class="chapter-title">Overview of EOPF Zarr Products</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title"><strong>Glossary</strong></span></h1>
+<h1 class="title"><span class="chapter-title">Overview of EOPF Zarr Products</span></h1>
 </div>
 
 
@@ -241,67 +256,178 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Here we introduce some helpful terms that are mentioned throughout the EOPF 101.</p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>In previous section, we introduced the <strong>Earth Observation Processing Framework</strong> (EOPF) initiative and explored the advantages of cloud-optimised formats like Zarr. Now, it is time to discover which data products will be available and where you can access those.</p>
+</section>
+<section id="what-we-will-learn" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
+<ul>
+<li>💾 What Sentinel data will be available as EOPF Zarr products?</li>
+<li>🛰️ A sneak-peak into where you can access EOPF Zarr products</li>
+</ul>
+<hr>
+</section>
+<section id="available-eopf-zarr-products" class="level2">
+<h2 class="anchored" data-anchor-id="available-eopf-zarr-products">Available EOPF Zarr products</h2>
+<p>Re-engineered EOPF Zarr products are available for exploration via the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Sample Service STAC Catalog</a>. Data from Sentinel-1, Sentinel-2 and Sentinel-3 missions are being re-processed and made available.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The re-processing from the Sentinel missions is an ongoing activity as part of the <a href="https://zarr.eopf.copernicus.eu/">EOPF Sentinel Zarr Sample Service</a>. This page and our tutorials will continuously be updated as soon as new data products are available.</p>
+</div>
+</div>
+<p>An overview of the datasets that are being re-engineered for different processing levels is given below.</p>
+<section id="sentinel-1" class="level3">
+<h3 class="anchored" data-anchor-id="sentinel-1">Sentinel-1</h3>
+<p>Sentinel-1 is a radar imaging mission that is composed of a constellation of two polar-orbiting satellites providing continuous all-weather, day and night imagery.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Acronym</th>
-<th style="text-align: left;">Definition</th>
+<th style="text-align: left;">Product</th>
+<th style="text-align: left;">Instrument</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Available at</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>EOPF</strong></td>
-<td style="text-align: left;">Earth Observation Processing Framework</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>CDSE</strong></td>
-<td style="text-align: left;">Copernicus Data Space Ecosystem</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>CMP</strong></td>
-<td style="text-align: left;">Core Python Modules</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>HEALPix</strong></td>
-<td style="text-align: left;">Hierarchical Equal Area isoLatitude Pixelation</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>GDR</strong></td>
+<td style="text-align: left;">Level-1 GRD</td>
 <td style="text-align: left;">Ground Range Detected</td>
+<td style="text-align: left;">The Sentinel-1 Level-1 GDR products consist of focused SAR data that has been detected, multi-looked and projected to ground range using the Earth ellipsoid model WGS84.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.language=en">this link</a></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>SLC</strong></td>
-<td style="text-align: left;">Single Look Complex</td>
+<td style="text-align: left;">Level-1 SLC</td>
+<td style="text-align: left;">Single Look Complex (</td>
+<td style="text-align: left;">The Sentinel-1 Level-1 SLC products consist of focused SAR data, geo-referenced using orbit and attitude data from the satellite, and provided in slant-range geometry.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-slc?.language=en">this link</a></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>NRB</strong></td>
-<td style="text-align: left;">Normalized Radar Backscatter</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>SAFE</strong></td>
-<td style="text-align: left;">Standard Archive Format for Europe</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>STAC</strong></td>
-<td style="text-align: left;">Spatio Temporal Asset Catalog</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>COG</strong></td>
-<td style="text-align: left;">Cloud Optimised GeoTIFF</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Zarr</strong></td>
-<td style="text-align: left;">Cloud-optimised version for <code>netCDF</code> and <code>HDF5</code> formats, specifically designed for storing and accessing large n-dimensional arrays</td>
+<td style="text-align: left;">Level-2 OCN</td>
+<td style="text-align: left;">Ocean</td>
+<td style="text-align: left;">The Sentinel-1 Level-2 OCN products for wind, wave and currents applications may contain the following geophysical components derived from the SAR data: Ocean Wind field (OWI), Ocean Swell spectra (OSW), Surface Radial Velocity (RVL).</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l2-ocn?.language=en">this link</a></td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="sentinel-2" class="level3">
+<h3 class="anchored" data-anchor-id="sentinel-2">Sentinel-2</h3>
+<p>Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over land and coastal waters. The mission supports applications such as agricultural monitoring, emergency management, land cover classifications, and water quality.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Product</th>
+<th style="text-align: left;">Instrument</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Available at</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Level-1C</td>
+<td style="text-align: left;">Multi-Spectral Instrument</td>
+<td style="text-align: left;">The Sentinel-2 Level-1C product is composed of 110x110 km2 tiles (ortho-images in UTM/WGS84 projection). Earth is subdivided on a predefined set of tiles, defined in UTM/WGS84 projection and using a 100 km step.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l1c">this link</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Level-2A</td>
+<td style="text-align: left;">Multi-Spectral Instrument</td>
+<td style="text-align: left;">The Sentinel-2 Level-2A Collection 1 product provides orthorectified Surface Reflectance (Bottom-Of-Atmosphere: BOA), with sub-pixel multispectral and multitemporal registration accuracy.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a">this link</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sentinel-3" class="level3">
+<h3 class="anchored" data-anchor-id="sentinel-3">Sentinel-3</h3>
+<p>Sentinel-3 is a mission that regularly measures our Earth’s oceans, land, rivers, lakes, ice on land, sea ice, and the atmosphere. Its goal is to keep track of and help us understand how these large parts of our planet change over long periods.</p>
+<section id="ocean-and-land-colour-instrument" class="level4">
+<h4 class="anchored" data-anchor-id="ocean-and-land-colour-instrument">Ocean and Land Colour Instrument</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Product</th>
+<th style="text-align: left;">Product</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Available at</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Level-1 EFR</td>
+<td style="text-align: left;">Earth Full Resolution</td>
+<td style="text-align: left;">Provides TOA radiances at full resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-efr">this link</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Level-1 ERR</td>
+<td style="text-align: left;">Earth Reduced Resolution</td>
+<td style="text-align: left;">The Sentinel-3 OLCI L1 ERR product provides TOA radiances at reduced resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-err">this link</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Level-2 LFR</td>
+<td style="text-align: left;">Land Full Resolution</td>
+<td style="text-align: left;">The Sentinel-3 OLCI L2 LFR product provides land and atmospheric geophysical parameters computed for full resolution.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr">this link</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Level-2 LRR</td>
+<td style="text-align: left;">Land Reduced Resolution</td>
+<td style="text-align: left;">The Sentinel-3 OLCI L2 LRR product provides land and atmospheric geophysical parameters computed for reduced resolution.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lrr">this link</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sea-and-land-surface-temperature-radiometer" class="level4">
+<h4 class="anchored" data-anchor-id="sea-and-land-surface-temperature-radiometer">Sea and Land Surface Temperature Radiometer</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Product</th>
+<th style="text-align: left;">Data</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Available at</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Level-1 RBT</td>
+<td style="text-align: left;">Radiance Brightness Temperature</td>
+<td style="text-align: left;">The Sentinel-3 SLSTR Level-1B RBT product provides radiances and brightness temperatures for each pixel in a regular image grid for each view and SLSTR channel.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l1-rbt">this link</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Level-2 LST</td>
+<td style="text-align: left;">LST: Land Surface Temperature</td>
+<td style="text-align: left;">The Sentinel-3 SLSTR Level-2 LST product provides land surface temperature.</td>
+<td style="text-align: left;"><a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst">this link</a></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In this section we provide an overview of the the available <strong>Sentinel Missions</strong> that will be re-processed and made available as EOPF Zarr products.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
+<p>In the following <a href="./21_what_is_zarr.html">chapter</a>, we will dive deep into <code>EOPF Zarr</code> format and understand why it can provide an optimal and efficient application.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -705,13 +831,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./34_eopf_stac_xarray_tutorial.html" class="pagination-link" aria-label="From STAC to Data: Accessing EOPF Zarr with xarray">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></span>
+      <a href="./12_about_cloudoptimized_formats.html" class="pagination-link" aria-label="About cloud-optimised formats">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">About cloud-optimised formats</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="**References**">
-        <span class="nav-page-text"><span class="chapter-title"><strong>References</strong></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./21_what_is_zarr.html" class="pagination-link" aria-label="Overview of the EOPF Zarr format">
+        <span class="nav-page-text"><span class="chapter-title">Overview of the EOPF Zarr format</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

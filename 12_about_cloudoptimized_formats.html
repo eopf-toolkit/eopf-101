@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Glossary</title>
+<title>About cloud-optimised formats</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./34_eopf_stac_xarray_tutorial.html" rel="prev">
+<link href="./13_overview_eopf_datasets.html" rel="next">
+<link href="./11_about_eopf.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./glossary.html"><span class="chapter-title"><strong>Glossary</strong></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11_about_eopf.html"><strong>About EOPF</strong></a></li><li class="breadcrumb-item"><a href="./12_about_cloudoptimized_formats.html"><span class="chapter-title">About cloud-optimised formats</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -131,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About cloud-optimised formats</span></a>
+  <a href="./12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">About cloud-optimised formats</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -203,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,15 +216,35 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
+  <li><a href="#why-to-cloud-optimise-geospatial-data-formats" id="toc-why-to-cloud-optimise-geospatial-data-formats" class="nav-link" data-scroll-target="#why-to-cloud-optimise-geospatial-data-formats">Why to cloud-optimise geospatial data formats?</a>
+  <ul class="collapse">
+  <li><a href="#analogy-comparing-local-and-cloud-based-workflows-with-ordering-a-pizza" id="toc-analogy-comparing-local-and-cloud-based-workflows-with-ordering-a-pizza" class="nav-link" data-scroll-target="#analogy-comparing-local-and-cloud-based-workflows-with-ordering-a-pizza">Analogy: Comparing local and cloud-based workflows with ordering a pizza</a></li>
+  </ul></li>
+  <li><a href="#characteristics-of-cloud-optimised-formats" id="toc-characteristics-of-cloud-optimised-formats" class="nav-link" data-scroll-target="#characteristics-of-cloud-optimised-formats">Characteristics of cloud-optimised formats</a></li>
+  <li><a href="#cloud-optimised-geospatial-raster-formats" id="toc-cloud-optimised-geospatial-raster-formats" class="nav-link" data-scroll-target="#cloud-optimised-geospatial-raster-formats">Cloud-Optimised Geospatial Raster Formats</a>
+  <ul class="collapse">
+  <li><a href="#cloud-optimised-geotiff-cog" id="toc-cloud-optimised-geotiff-cog" class="nav-link" data-scroll-target="#cloud-optimised-geotiff-cog">Cloud-optimised GeoTIFF (COG)</a></li>
+  <li><a href="#multi-dimensional-array-storage-with-zarr" id="toc-multi-dimensional-array-storage-with-zarr" class="nav-link" data-scroll-target="#multi-dimensional-array-storage-with-zarr">Multi-dimensional Array Storage with Zarr</a></li>
+  <li><a href="#when-to-use-cog-versus-zarr" id="toc-when-to-use-cog-versus-zarr" class="nav-link" data-scroll-target="#when-to-use-cog-versus-zarr">When to use COG versus Zarr?</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./11_about_eopf.html"><strong>About EOPF</strong></a></li><li class="breadcrumb-item"><a href="./12_about_cloudoptimized_formats.html"><span class="chapter-title">About cloud-optimised formats</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title"><strong>Glossary</strong></span></h1>
+<h1 class="title"><span class="chapter-title">About cloud-optimised formats</span></h1>
 </div>
 
 
@@ -241,67 +261,181 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Here we introduce some helpful terms that are mentioned throughout the EOPF 101.</p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>In this section, we will dive into <strong>cloud-optimised geospatial formats</strong>. We explore why these new formats are important and will introduce you two common cloud-optimised data formats specifcially for raster files.</p>
+</section>
+<section id="what-we-will-learn" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
+<ul>
+<li>☁️ What do we need to cloud-optimise geospatial data?</li>
+<li>🏛️ Differences between traditional and cloud-native workflows</li>
+<li>📖 What are the main characteristics of cloud-optimised formats?</li>
+<li>💾 What are <strong>COGs</strong> and <strong>Zarr</strong>, and how do they differ?</li>
+</ul>
+<hr>
+</section>
+<section id="why-to-cloud-optimise-geospatial-data-formats" class="level2">
+<h2 class="anchored" data-anchor-id="why-to-cloud-optimise-geospatial-data-formats">Why to cloud-optimise geospatial data formats?</h2>
+<p>The volume of EO data has grown exponentially in recent years. The Copernicus programme alone generates ~16TB daily from the Sentinel missions. Traditional file formats, like SAFE (where each file can be hundreds of megabytes), are optimised for efficient archiving and distributing data. This means that we often download the data from an entire overpass, even if we only need to access a small part of it. For example, if we want to do an analysis of the area of a single city over a decade.</p>
+<p>With growing data volumes, this becomes a challenge. To picture the different nature of challenges we come across, let us compare a traditional local workflow with a cloud-based workflow:</p>
+<ul>
+<li><p><strong>Traditional local workflow</strong>: When working locally, we download much more data than we need, and we are constrained by the compute and storage capacity of the local system. However, an advantage working locally is that data and compute are close together, meaning that there is not much delay in accessing the data.</p></li>
+<li><p><strong>Cloud-based workflow</strong>: Cloud environments overcome limitations local workflows have. A cloud environment offers limitless storage and compute capacity. On the contrary, data storage, compute, and you the destination are far apart. There is an additional time for data to travel between the storage location, processing resources and us. This time is referred to as <strong>data latency</strong>.</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Data latency</strong> refers to the time it takes for data to be transmitted or processed from cloud storage to your computer. In local workflows, data latency is minimal, whereas in cloud-based workflows, data latency needs to be optimised.</p>
+</div>
+</div>
+<section id="analogy-comparing-local-and-cloud-based-workflows-with-ordering-a-pizza" class="level3">
+<h3 class="anchored" data-anchor-id="analogy-comparing-local-and-cloud-based-workflows-with-ordering-a-pizza">Analogy: Comparing local and cloud-based workflows with ordering a pizza</h3>
+<p>To understand the principal concept, let us compare local and cloud-based workflows with ordering a pizza. Local workflows are similar to placing an order a pizza store in your street. It is quick since the ‘data’ (pizza) is easily accessible, but we can only choose from what the local pizza store offers.</p>
+<p>On the other hand, cloud-based workflows are comparable to ordering a pizza from a pizza store in a different city or even country. This option allows you to order different types of pizzas, which are not available in pizza store in your street. While we might have more options to choose from, the time between order and delivery can become a challenge. The time until your pizza from a different town or country arrives at your house is called <strong>data latency</strong>.</p>
+<p>Hence, the overall goal with cloud-based workflows is to minimise <strong>data latency</strong> as much as possible. This is why traditional data formats need to be cloud-optimised.</p>
+</section>
+</section>
+<section id="characteristics-of-cloud-optimised-formats" class="level2">
+<h2 class="anchored" data-anchor-id="characteristics-of-cloud-optimised-formats">Characteristics of cloud-optimised formats</h2>
+<p>Cloud-optimised formats are optimised to minimise data latency. By allowing for an efficient retrieval of smaller, specific chunks of information rather than downloading an entire file. Accessing a smaller data subset also reduces the costs associated with data transfer and data processing.</p>
+<p>Cloud-optimised geospatial data formats have the following characteristics:</p>
+<ul>
+<li>Data is <strong>accessible over an HTTP protocol</strong>.</li>
+<li><strong>Read-Oriented</strong>, as it supports partial and parallel reads.</li>
+<li>Data is <strong>organised in internal groupings (such as chunks, tiles, shards)</strong> for efficient subsetting, distributed processing and data access in memory.</li>
+<li><strong>Metadata</strong> can be accessed in one read.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When accessing data over the internet (e.g.&nbsp;through object stores in the cloud), latency is high compared to local storage, so it is recommended to fetch lots of data in fewer reads.</p>
+</div>
+</div>
+</section>
+<section id="cloud-optimised-geospatial-raster-formats" class="level2">
+<h2 class="anchored" data-anchor-id="cloud-optimised-geospatial-raster-formats">Cloud-Optimised Geospatial Raster Formats</h2>
+<p>For satellite data, there are two main cloud-optimised formats being used: - <strong>Cloud-Optimized GeoTIFF (COG)</strong>: Optimized for 2D image data and originates from the traditional <code>GeoTIFF</code> format, and - <strong>Zarr</strong>: Used and designed for complex, n-dimensional data structures and originates from the traditional formats <code>netCDF</code> and <code>HDF5</code>.</p>
+<section id="cloud-optimised-geotiff-cog" class="level3">
+<h3 class="anchored" data-anchor-id="cloud-optimised-geotiff-cog">Cloud-optimised GeoTIFF (COG)</h3>
+<p>COGs have widely been used as cloud-native format for satellite imagery and improve the standard GeoTIFF format by: - Organising data into <strong>tiles</strong>: Dividing the data into smaller, manageable squares (like 512x512 pixels). - Including lower-resolution previews: Having pre-generated, less detailed versions of the data. This allows for fast and efficient data visualisations.</p>
+<p>A key feature of COGs is the <strong>Internal File Directory</strong> (IFD), which acts like an internal index. This allows for retrieving only the parts of the data needed using simple web requests. For example, it is possible to access just the tiles covering Paris from a large Sentinel-2 image of Europe.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/cogtiff.png" class="img-fluid figure-img"></p>
+<figcaption>COG structure. Retrieved from CNG documentation</figcaption>
+</figure>
+</div>
+</section>
+<section id="multi-dimensional-array-storage-with-zarr" class="level3">
+<h3 class="anchored" data-anchor-id="multi-dimensional-array-storage-with-zarr">Multi-dimensional Array Storage with Zarr</h3>
+<p>Zarr is the cloud-optimised version for the traditional formats <code>netCDF</code> and <code>HDF5</code> and is specifically designed for storing and accessing large n-dimensional arrays in the cloud by:</p>
+<ul>
+<li><strong>Chunking</strong>: Breaking large arrays into smaller pieces that can be accessed independently</li>
+<li><strong>Compression</strong>: Each chunk can be compressed individually for efficient storage</li>
+<li><strong>Hierarchical Organization</strong>: Arrays are organized in groups, similar to folders in a filesystem</li>
+<li><strong>Cloud-Native Access</strong>: Optimized for reading partial data over HTTP</li>
+<li><strong>Parallel I/O</strong>: Multiple chunks can be read or written simultaneously</li>
+<li><strong>Self-Description</strong>: Rich metadata is stored alongside the data using JSON</li>
+</ul>
+<p>This makes Zarr particularly well-suited as storage format for processing Earth observation data in the cloud.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/zarr-terminology-hierarchy.png" class="img-fluid figure-img"></p>
+<figcaption>Zarr’s hierarchical organization showing stores, groups, arrays, and chunks</figcaption>
+</figure>
+</div>
+</section>
+<section id="when-to-use-cog-versus-zarr" class="level3">
+<h3 class="anchored" data-anchor-id="when-to-use-cog-versus-zarr">When to use COG versus Zarr?</h3>
+<p>The table below compares some features of COG and Zarr:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Acronym</th>
-<th style="text-align: left;">Definition</th>
+<th>Feature</th>
+<th>Zarr</th>
+<th>COG</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>EOPF</strong></td>
-<td style="text-align: left;">Earth Observation Processing Framework</td>
+<td>Structure</td>
+<td>Multi-file chunks</td>
+<td>Single file</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>CDSE</strong></td>
-<td style="text-align: left;">Copernicus Data Space Ecosystem</td>
+<td>Access</td>
+<td>Parallel</td>
+<td>Sequential</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>CMP</strong></td>
-<td style="text-align: left;">Core Python Modules</td>
+<td>Compression</td>
+<td>Differently per-chunk</td>
+<td>Whole-file</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>HEALPix</strong></td>
-<td style="text-align: left;">Hierarchical Equal Area isoLatitude Pixelation</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>GDR</strong></td>
-<td style="text-align: left;">Ground Range Detected</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>SLC</strong></td>
-<td style="text-align: left;">Single Look Complex</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>NRB</strong></td>
-<td style="text-align: left;">Normalized Radar Backscatter</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>SAFE</strong></td>
-<td style="text-align: left;">Standard Archive Format for Europe</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>STAC</strong></td>
-<td style="text-align: left;">Spatio Temporal Asset Catalog</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>COG</strong></td>
-<td style="text-align: left;">Cloud Optimised GeoTIFF</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Zarr</strong></td>
-<td style="text-align: left;">Cloud-optimised version for <code>netCDF</code> and <code>HDF5</code> formats, specifically designed for storing and accessing large n-dimensional arrays</td>
+<td>Scales</td>
+<td>Multi-scale in single file</td>
+<td>Separate, pre-generated lower-resolution files</td>
 </tr>
 </tbody>
 </table>
+<p><br> Based on the structure and capabilities for each format, <strong>COGs</strong> are used when:</p>
+<ul>
+<li>you work with two-dimensional raster data (like satelliteimages or elevation models)</li>
+<li>you need to easily visualise or access specific geographic areas without loading the entire dataset.</li>
+<li>interoperability with existing GIS software is important, as COG is a widely adopted standard.</li>
+</ul>
+<p>On the other hand, <strong>Zarr</strong> is more often used when:</p>
+<ul>
+<li>you deal with large, multi-dimensional datasets that might be updated or modified.</li>
+<li>you performing complex analyses that involve accessing different parts of the data in parallel.</li>
+<li>an efficient handling of different resolutions or variables within a single dataset is required.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Zarr vs COG: Want to learn more about the differences and similarities of COG and Zarr? Then we recommend the following blog post by Julia Signell and Jarrett Keifer from Element84 where they discuss “<a href="https://element84.com/software-engineering/is-zarr-the-new-cog/">Is Zarr the new COG?</a>”</p>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In this section, we explored the fundamental concepts of <strong>cloud-optimised geospatial formats</strong>. By understanding the core characteristics of these formats and by looking at specific examples like <strong>Zarr</strong>, you now have a solid foundation for appreciating how these innovations are making geospatial data more accessible, efficient, and powerful in the cloud.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
+<p>Now that we have an idea of the available cloud-optimised formats for satellite imagery and the reason why we need to optimise traditional formats for the cloud, in the next <a href="./13_overview_eopf_datasets.html">section</a>, we will explore the EOPF data products that are being re-processed as part of the EOPF Zarr Sample Service.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -705,13 +839,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./34_eopf_stac_xarray_tutorial.html" class="pagination-link" aria-label="From STAC to Data: Accessing EOPF Zarr with xarray">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></span>
+      <a href="./11_about_eopf.html" class="pagination-link" aria-label="Introduction to the EOPF">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Introduction to the EOPF</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link" aria-label="**References**">
-        <span class="nav-page-text"><span class="chapter-title"><strong>References</strong></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./13_overview_eopf_datasets.html" class="pagination-link" aria-label="Overview of EOPF Zarr Products">
+        <span class="nav-page-text"><span class="chapter-title">Overview of EOPF Zarr Products</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
