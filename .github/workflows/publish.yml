@@ -1,18 +1,51 @@
+name: Quarto Publish
+
 on:
   workflow_dispatch:
   release:
     types: [published]
 
-name: Quarto Publish
-
 jobs:
-  build-deploy:
+  prepare-docker-image:
     runs-on: ubuntu-latest
+    steps:
+      - name: Login to OVH Harbor docker registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.OVH_HARBOR_REGISTRY }}
+          username: ${{ secrets.OVH_HARBOR_USERNAME }}
+          password: ${{ secrets.OVH_HARBOR_PASSWORD }}
+
+  build-deploy:
+    needs: prepare-docker-image
+    runs-on: ubuntu-latest
+    if: needs.prepare-docker-image.result == 'success'
+    container:
+      image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev:latest
+      credentials:
+        username: ${{ secrets.OVH_HARBOR_USERNAME }}
+        password: ${{ secrets.OVH_HARBOR_PASSWORD }}
+      options: --entrypoint "" --user root
     permissions:
       contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Install quarto dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+          gh \
+          curl \
+          jq \
+          libfontconfig1 \
+          libfreetype6 \
+          libx11-6 \
+          libxrender1 \
+          libxext6 \
+          ghostscript \
+          zlib1g
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
