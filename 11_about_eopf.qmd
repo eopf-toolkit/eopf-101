@@ -6,6 +6,7 @@ format: html
 
 In this chapter, we will introduce the European Space Agency's (ESA) [Earth Observation Processor Framework](https://eopf.copernicus.eu/) (EOPF) initiative. This project marks a significant step towards modernising how we handle satellite data, specifically by moving away from the traditional `.SAFE` data format to a more efficient, cloud-optimised format.
 We will take a closer look at the new structure ESA has developed for this purpose.
+
 ### What we will learn
 
 - 📡 What exactly is ESA's EOPF initiative and why it is important?
