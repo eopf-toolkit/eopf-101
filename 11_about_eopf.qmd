@@ -9,7 +9,7 @@ We will take a closer look at the new structure ESA has developed for this purpo
 
 ### What we will learn
 
-- 📡 What exactly is ESA's EOPF initiative and why it is important?
+- 📡 What exactly is ESA's EOPF initiative, and why is it important?
 - 📀 Which metadata is crucial for the EOPF data?
 - ⚙️ Which new encoding format has ESA proposed?
 
@@ -27,7 +27,7 @@ The [Sentinel-1](https://www.esa.int/Applications/Observing_the_Earth/Copernicus
 
 The EOPF data model has been defined by following a set of principles:
 
-- **Open standards:** Following common and community approved data standards ensure sustainability and user uptake.
+- **Open standards:** Following common and community-approved data standards ensures sustainability and user uptake.
 - **Interoperability:** Harmonised with a clear and organised structure that describes the data itself.
 - **Cloud optimisation:** Designed for efficient access and handling in cloud environments.
 - **Conversion flexibility:** Providing tools to adjust the data for different applications.
@@ -35,7 +35,7 @@ The EOPF data model has been defined by following a set of principles:
 Under EOPF, there are four key areas of activities: (i) EOPF product structure, (ii) EOPF metadata structure, (iii) EOPF encoding structure and (iv) the EOPF Processor Framework:
 
 ### EOPF product structure
-As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used across all Sentinel and other EO missions. This approach ensures that data from several missions is consistent.
+As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products to define a common meta-model that can be used across all Sentinel and other EO missions. This approach ensures that data from several missions is consistent.
 
 The EOPF product structure consists of the following components:
 
@@ -52,7 +52,7 @@ Learn more about the EOPF Zarr product structure [here](./21_what_is_zarr.qmd).
 
 ### EOPF metadata structure
 
-Metadata provide all relevant information required to uniquely describing each Sentinel product. The EOPF metadata structure is organised as follows:
+Metadata provides all relevant information required to uniquely describe each Sentinel product. The EOPF metadata structure is organised as follows:
 
 - **Discovery Metadata**: Following the metadata structure defined by the SpatioTemporal Asset Catalogue ([STAC](https://stacspec.org/en/)), which helps to keep things consistent across different missions.
 - **Processing History Metadata**: Keeping a record of how the data has been processed.
@@ -74,7 +74,7 @@ Learn more about the EOPF Sentinel Zarr format [here](https://zarr.eopf.copernic
 :::
 
 ### EOPF processor framework
-The way Sentinel data is processed is being updated to take advantage of modern cloud computing. This will make the processing faster and more efficient and at the same time ensuring the scientific quality and accuracy of the Sentinel data remains the same.
+The way Sentinel data is processed is being updated to take advantage of modern cloud computing. This will make the processing faster and more efficient, and at the same time ensure the scientific quality and accuracy of the Sentinel data remains the same.
 
 ::: {.callout-note}
 To learn more about the EOPF processor framework, visit [https://eopf.copernicus.eu/eopf/](https://eopf.copernicus.eu/eopf/)
@@ -82,7 +82,7 @@ To learn more about the EOPF processor framework, visit [https://eopf.copernicus
 
 ## Conclusion
 
-Throughout this section, we explored the EOPF initiative and its adoption of the `.zarr `format. This new approach is set to significantly improve and simplify how we access and work with data the satellite mission Sentinel-1, Sentinel-2, and Sentinel-3.
+Throughout this section, we explored the EOPF initiative and its adoption of the `.zarr `format. This new approach is set to significantly improve and simplify how we access and work with data from the satellite missions Sentinel-1, Sentinel-2, and Sentinel-3.
 
 ## What's next?
-In the following [section](./12_about_cloudoptimized_formats.qmd), we learn why EO data need to be cloud-optimised, when processed in the cloud.
+In the following [section] (./12_about_cloudoptimized_formats.qmd), we learn why EO data needs to be cloud-optimised when processed in the cloud.

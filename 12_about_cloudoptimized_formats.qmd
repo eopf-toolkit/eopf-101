@@ -5,7 +5,7 @@ format: html
 
 ### Introduction
 
-In this section, we will dive into **cloud-optimised geospatial formats**. We explore why these new formats are important and will introduce you two common cloud-optimised data formats specifcially for raster files.
+In this section, we will dive into **cloud-optimised geospatial formats**. We explore why these new formats are important and will introduce you to two common cloud-optimised data formats specifically for raster files.
 
 
 ### What we will learn
@@ -23,18 +23,18 @@ The volume of EO data has grown exponentially in recent years. The Copernicus pr
 
 With growing data volumes, this becomes a challenge. To picture the different nature of challenges we come across, let us compare a traditional local workflow with a cloud-based workflow:
 
-- **Traditional local workflow**: When working locally, we download much more data than we need, and we are constrained by the compute and storage capacity of the local system. However, an advantage working locally is that data and compute are close together, meaning that there is not much delay in accessing the data.
+- **Traditional local workflow**: When working locally, we download much more data than we need, and we are constrained by the compute and storage capacity of the local system. However, an advantage of working locally is that data and compute are close together, meaning that there is not much delay in accessing the data.
 
-- **Cloud-based workflow**: Cloud environments overcome limitations local workflows have. A cloud environment offers limitless storage and compute capacity. On the contrary, data storage, compute, and you the destination are far apart. There is an additional time for data to travel between the storage location, processing resources and us. This time is referred to as **data latency**.
+- **Cloud-based workflow**: Cloud environments overcome the limitations local workflows have. A cloud environment offers limitless storage and compute capacity. On the contrary, data storage, compute, and you the destination are far apart. There is an additional time for data to travel between the storage location, processing resources and us. This time is referred to as **data latency**.
 
 ::: {.callout-note}
 **Data latency** refers to the time it takes for data to be transmitted or processed from cloud storage to your computer. In local workflows, data latency is minimal, whereas in cloud-based workflows, data latency needs to be optimised.
 :::
 
 ### Analogy: Comparing local and cloud-based workflows with ordering a pizza
-To understand the principal concept, let us compare local and cloud-based workflows with ordering a pizza. Local workflows are similar to placing an order a pizza store in your street. It is quick since the 'data' (pizza) is easily accessible, but we can only choose from what the local pizza store offers.
+To understand the principal concept, let us compare local and cloud-based workflows with ordering a pizza. Local workflows are similar to placing an order at a pizza store on your street. It is quick since the 'data' (pizza) is easily accessible, but we can only choose from what the local pizza store offers.
 
-On the other hand, cloud-based workflows are comparable to ordering a pizza from a pizza store in a different city or even country. This option allows you to order different types of pizzas, which are not available in pizza store in your street. While we might have more options to choose from, the time between order and delivery can become a challenge. The time until your pizza from a different town or country arrives at your house is called **data latency**.
+On the other hand, cloud-based workflows are comparable to ordering a pizza from a pizza store in a different city or even country. This option allows you to order different types of pizzas, which are not available in the pizza store on your street. While we might have more options to choose from, the time between order and delivery can become a challenge. The time until your pizza from a different town or country arrives at your house is called **data latency**.
 
 Hence, the overall goal with cloud-based workflows is to minimise **data latency** as much as possible. This is why traditional data formats need to be cloud-optimised.
 
@@ -53,12 +53,12 @@ When accessing data over the internet (e.g. through object stores in the cloud),
 :::
 
 ## Cloud-Optimised Geospatial Raster Formats
-For satellite data, there are two main cloud-optimised formats being used:
-- **Cloud-Optimized GeoTIFF (COG)**: Optimized for 2D image data and originates from the traditional `GeoTIFF` format, and
+For satellite data, two main cloud-optimised formats are being used:
+- **Cloud-Optimised GeoTIFF (COG)**: Optimised for 2D image data and originates from the traditional `GeoTIFF` format, and
 - **Zarr**: Used and designed for complex, n-dimensional data structures and originates from the traditional formats `netCDF` and `HDF5`.
 
 ### Cloud-optimised GeoTIFF (COG)
-COGs have widely been used as cloud-native format for satellite imagery and improve the standard GeoTIFF format by:
+COGs have been widely used as a cloud-native format for satellite imagery and improve the standard GeoTIFF format by:
 - Organising data into **tiles**: Dividing the data into smaller, manageable squares (like 512x512 pixels).
 - Including lower-resolution previews: Having pre-generated, less detailed versions of the data. This allows for fast and efficient data visualisations.
 
@@ -67,16 +67,16 @@ A key feature of COGs is the **Internal File Directory** (IFD), which acts like 
 ![COG structure. Retrieved from CNG documentation](img/cogtiff.png)
 
 ### Multi-dimensional Array Storage with Zarr
-Zarr is the cloud-optimised version for the traditional formats `netCDF` and `HDF5` and is specifically designed for storing and accessing large n-dimensional arrays in the cloud by:
+Zarr is the cloud-optimised version for the traditional formats `netCDF` and `HDF5`, and is specifically designed for storing and accessing large n-dimensional arrays in the cloud by:
 
 - **Chunking**: Breaking large arrays into smaller pieces that can be accessed independently
 - **Compression**: Each chunk can be compressed individually for efficient storage
-- **Hierarchical Organization**: Arrays are organized in groups, similar to folders in a filesystem
-- **Cloud-Native Access**: Optimized for reading partial data over HTTP
+- **Hierarchical Organisation**: Arrays are organised in groups, similar to folders in a filesystem
+- **Cloud-Native Access**: Optimised for reading partial data over HTTP
 - **Parallel I/O**: Multiple chunks can be read or written simultaneously
 - **Self-Description**: Rich metadata is stored alongside the data using JSON
 
-This makes Zarr particularly well-suited as storage format for processing Earth observation data in the cloud.
+This makes Zarr particularly well-suited as a storage format for processing Earth observation data in the cloud.
 
 ![Zarr's hierarchical organization showing stores, groups, arrays, and chunks](img/zarr-terminology-hierarchy.png)
 
@@ -93,18 +93,18 @@ The table below compares some features of COG and Zarr:
 <br>
 Based on the structure and capabilities for each format, **COGs** are used when:
 
-- you work with two-dimensional raster data (like satelliteimages or elevation models)
-- you need to easily visualise or access specific geographic areas without loading the entire dataset.
-- interoperability with existing GIS software is important, as COG is a widely adopted standard.
+- You work with two-dimensional raster data (like satellite images or elevation models)
+- You need to easily visualise or access specific geographic areas without loading the entire dataset.
+- Interoperability with existing GIS software is important, as COG is a widely adopted standard.
 
 On the other hand, **Zarr** is more often used when:
 
-- you deal with large, multi-dimensional datasets that might be updated or modified.
-- you performing complex analyses that involve accessing different parts of the data in parallel.
-- an efficient handling of different resolutions or variables within a single dataset is required.
+- You deal with large, multi-dimensional datasets that might be updated or modified.
+- You are performing complex analyses that involve accessing different parts of the data in parallel.
+- An efficient handling of different resolutions or variables within a single dataset is required.
 
 ::: {.callout-note}
-Zarr vs COG: Want to learn more about the differences and similarities of COG and Zarr? Then we recommend the following blog post by Julia Signell and Jarrett Keifer from Element84 where they discuss "[Is Zarr the new COG?](https://element84.com/software-engineering/is-zarr-the-new-cog/)"
+Zarr vs COG: Want to learn more about the differences and similarities of COG and Zarr? Then we recommend the following blog post by Julia Signell and Jarrett Keifer from Element84, where they discuss "[Is Zarr the new COG?](https://element84.com/software-engineering/is-zarr-the-new-cog/)"
 :::
 
 ## Conclusion

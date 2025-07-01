@@ -8,7 +8,7 @@ code-block-background: true
 This section introduces you to the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en), which offers access to the re-engineered Sentinel-1, Sentinel-2 and Sentinel-3 data products. We will guide you through its web interface, inspect the various levels of STAC components, and demonstrate how to access the underlying Sentinel Zarr data.
 
 ### What we will learn
-- ⚙️ How does the STAC browser interface works
+- ⚙️ How does the STAC browser interface work
 - 🔦 Explore the available Collections within the EOPF Sentinel Zarr Samples Service STAC Catalog
 - 📡 How to obtain access to EOPF Sentinel Zarr products from the EOPF Sentinel Zarr Samples Service STAC Catalog
 
@@ -22,22 +22,22 @@ The landing page offers you a comprehensive overview of the available data colle
 
 Three main areas can be identified: (i) the **API and URL** section, (ii) **Search bar** and (iii) **Collections Display**. <br>
 
-As outlined in detail in the book section [The EOPF Available Datasets](13_overview_eopf_datasets.qmd), the catalog displays the 11 distinct collections available from the Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br> The user interface provides an intuitive way to browse through all of these collections. It is possible to filter them by specific criteria or select them manually, allowing precise control over the displayed data. 
+As outlined in detail in the book section [The EOPF Available Datasets](13_overview_eopf_datasets.qmd), the catalog displays the 11 distinct collections available from the Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br> The user interface provides an intuitive way to browse through all of these collections. It is possible to filter them by specific criteria or select them manually, allowing precise control over the displayed data. 
 
 ## Exploring Sentinel Collections
-Let us now select one of the 11 `Collection` available, e.g. let us select the [Sentinel 2-Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) collection. Once you selected the Collection, you will be directed to the interface of a specific `Collection`.
+Let us now select one of the 11 `Collection` available, e.g. let us select the [Sentinel 2-Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) collection. Once you have selected the Collection, you will be directed to the interface of a specific `Collection`.
 
 ![Web interface of the Sentinel-2 Level-2A Collection of the EOPF Sentinel Zarr Samples Service STAC Catalog](img/sentinel_2_collection.png){fig-align="center"}
 
-The interface can be divided into five principle sections:
+The interface can be divided into five principal sections:
 
 1. **Description**: The name and a brief introduction to the available collection. This includes crucial details such as the **temporal extent** (the period over which the data was acquired)
 2. **API and URL**: for further application.
 3. **Spatial Extent**:  The geographical area of the displayed items is shown on the map. 
 4. **Available Items**: On the right-hand side of the page, a list of links for the items contained within the collection corresponds to the selected collection.
 5. **Collection Metadata**: A general overview of the Collection’s metadata, its providers, instruments, and the corresponding DOIs for research.
-6. **Metadata**: Specific information about the bands and instruments such as backscatter or reflectance information.
-7. **Assets in Items**: The Assets structure available for the Items available in the Collection.
+6. **Metadata**: Specific information about the bands and instruments, such as backscatter or reflectance information.
+7. **Assets in Items**: The Assets structure is available for the Items available in the Collection.
 
 ### Filtering Collections
 
@@ -45,8 +45,8 @@ Any selected `Collection` (in this case Sentinel-2 Level-2A) allows us to filter
 
 ![Overview of interface that opens when clicking in *Show Filters*](img/filter_1.png){fig-align="center"}
 
-The interface the opens allows us to select on the calendar a specific period we are interested in. This is particularly useful when we are interested in a temporal analysis.
-Let us search over available items captured between May 1st and May 5th 2024.<br>
+The interface that opens allows us to select on the calendar a specific period we are interested in. This is particularly useful when we are interested in a temporal analysis.
+Let us search over the available items captured between May 1st and May 5th 2024.<br>
 
 ![Filtering over time](img/temporal_filter.png){fig-align="center"}
 
@@ -55,19 +55,19 @@ Once you tick the box, a map activates and allows us to draw a bounding box that
 
 ![Filtering over spatial extent](img/spatial_filter.png){fig-align="center"}
 
-Once we select the desired time period and area via the filters, we can sort the items that match our search by ID, Date and Time, or select the number of resulting items we are interested in per page
+Once we select the desired period and area via the filters, we can sort the items that match our search by ID, Date and Time, or select the number of resulting items we are interested in per page.
 In this case, we select 2, so the overview is digestible. Then, we click **Submit**.
 
 ![Resulting Items](img/filtered_results.png){fig-align="center"}
 
-Under the window, we can see now that two items appear. For example:<br>
+Under the window, we can now see that two items appear. For example:<br>
 `S2B_MSIL2A_20250504T131719_N0511_R124_T27VVL_20250504T165710`<br>
 
 We can select any of the resulting items, and this will enable us to access an `Item` inside the `Collection`.
 
 ## Exploring Items
 
-When a specific `Item` sparks our interest, clicking on it will bring us to detailed overview page for that selected `Item`. <br>
+When a specific `Item` sparks our interest, clicking on it will bring us to a detailed overview page for that selected `Item`. <br>
 
 This `Item` interface is composed of:
 
@@ -85,7 +85,7 @@ At this level of the STAC structure, we are already diving deep into the STAC le
 
 ## Assets 
 Inside the selected `Item`, we will get an overview of the available `Assets` that belong to the `Item`.
-By expanding the **dropdown menu** for any `Asset` of interest, you can access its specific metadata and most importantly, the actual data. <br>
+By expanding the **dropdown menu** for any `Asset` of interest, you can access its specific metadata and, most importantly, the actual data. <br>
 
 ![Overview of the web interface on Asset level](img/drop_down.png){fig-align="center"}
 
@@ -95,7 +95,7 @@ In the case of the **Sentinel-2 Level-2A** collection, each asset corresponds to
 
 For direct data access of `Assetz` and therefore the actual data, there are two options provided via the web interface:
 * **Download**: It is possible to download only one asset separately in `.zarr` format by clicking the *Download* option associated with an Asset, and
-* **Copy URL**: We can also retrieve the the unique URL of the specified `Asset`, which allows us directly integrating the link into programmatic workflows, wihthout the need to download the `Asset`. We can get it by simply clicking on the *Copy URL* option under the `Asset` of our interest.
+* **Copy URL**: We can also retrieve the unique URL of the specified `Asset`, which allows us to directly integrate the link into programmatic workflows, without the need to download the `Asset`. We can get it by simply clicking on the *Copy URL* option under the `Asset` of our interest.
 
 ![Data access options via the web interface](img/download_img.png){fig-align="center"}
 
@@ -107,8 +107,8 @@ Your task now is to explore the web interface of the [EOPF Sentinel Zarr Samples
 ### Task 1: Discover Sentinel-1 GRD Data
 Navigate to the [Sentinel-1 Level-1 GRD Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1&language=en).
 
-- How many items can you find for the most recent two years available in the catalog?
-- Try filtering by different time periods and observe how the results change. How many items are available for September 2023?
+- How many items can you find for the most recent two years available in the catalogue?
+- Try filtering by different periods and observe how the results change. How many items are available for September 2023?
 
 ### Task 2: Mapping Your Interests
 Explore the interactive map within the  [Sentinel-1 Level-1 GRD](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1&language=en) and the [Sentinel-2 Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a?.language=en) collections.
@@ -123,7 +123,7 @@ Select an item from any collection that looks interesting to you. Click on it to
 - How would this information be useful if you were to process this data?
 
 ## Conclusion
-This section walked you through the web interface of the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en). We have demonstrated how to navigate its interface, from the initial overview of the available `Collections` to the detailed inspection of specific `Items` and `Asset`. 
+This section walked you through the web interface of the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en). We have demonstrated how to navigate its interface, from the initial overview of the available `Collections` to the detailed inspection of specific `Items` and `Assets`. 
 By understanding the structure and components of a STAC catalog, we are able to efficiently access re-engineered EOPF Zarr assets.
 
 ## What's next?
