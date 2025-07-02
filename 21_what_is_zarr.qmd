@@ -18,11 +18,11 @@ In our journey to understand **cloud-optimised Earth Observation** (EO) data, we
 
 ## What Is Zarr?
 
-**Zarr** is an open-source, cloud-native protocol for storing multi-dimensional arrays. It is specifically desgined to work well with cloud storage and larger-scale computing systems and can be seen as a cloud-native alternative to older formats like HDF5 or NetCDF.
+**Zarr** is an open-source, cloud-native protocol for storing multi-dimensional arrays. It is specifically designed to work well with cloud storage and larger-scale computing systems and can be seen as a cloud-native alternative to older formats like HDF5 or NetCDF.
 
-Key advantage to traditional formats is that the Zarr specification stores large multi-dimensional arrays in **chunks**, which are smaller pieces of the larger array. Chunks can be accessed individually or multiple chunks can be read and written in parallel, making data access highly **efficient**.
+Key advantage to traditional formats is that the Zarr specification stores large multi-dimensional arrays in **chunks**, which are smaller pieces of the larger array. Chunks can be accessed individually, or multiple chunks can be read and written in parallel, making data access highly **efficient**.
 
-Zarr works across different storage systems, including local file systems, cloud object storage as well as distributed file systems; offering a greater **flexibility** compared to traditional file formats.
+Zarr works across different storage systems, including local file systems, cloud object storage, as well as distributed file systems, offering a greater **flexibility** compared to traditional file formats.
 
 In addition, Zarr embeds **metadata** directly alongside the data. This makes Zarr **self-descriptive**, as each data array contains descriptive information about itself, such as data type, dimensions or additional attributes.
 
@@ -34,13 +34,13 @@ Pro tip: Learn more about Zarr in the official [Zarr Documentation](https://zarr
 Zarr is organised in a **human-readable**, **hierarchical** structure using simple JSON metadata files and is composed of `groups and stores`, `chunks` and `metadata`:
 
 ### Groups and Stores
-**Groups** and **stores** are concepts that allow Zarr to differentiate between (i) where the data is stored (**stores**) and (ii) how it is organised (**groups**). A **group** is a container for logically organising the data, similar to folders in a file system. A **store** defines where the data is stored; it can be e.g. a bucket in the cloud or a directory on a disk.
+**Groups** and **stores** are concepts that allow Zarr to differentiate between (i) where the data is stored (**stores**) and (ii) how it is organised (**groups**). A **group** is a container for logically organising the data, similar to folders in a file system. A **store** defines where the data is stored; it can be, e.g. a bucket in the cloud or a directory on a disk.
 
 ### Chunks
-Zarr divides arrays into smaller, independent pieces (**chunks**). Through chunking it is possible to retrieve and process specific areas without loading the complete dataset. Its organisation into chunks is the main reason Zarr's high performance. Chunks are saved as binary files inside a `/c` directory and are further organised through nested folder paths based on their index, e.g. `c/0/0/0` for the chunk position `[0,0.0]`.
+Zarr divides arrays into smaller, independent pieces (**chunks**). Through chunking, it is possible to retrieve and process specific areas without loading the complete dataset. Its organisation into chunks is the main reason for Zarr's high performance. Chunks are saved as binary files inside a `/c` directory and are further organised through nested folder paths based on their index, e.g. `c/0/0/0` for the chunk position `[0,0.0]`.
 
 ### Metadata
-Zarr uses descriptive **metadata** to describe the individual arrays but also the full hierarchy of the dataset. Metadata are stored in `zarr.json` files and are available on the array, group and store level. This structured metadata approach makes Zarr datasets **self-descriptive** and easy to navigate.
+Zarr uses descriptive **metadata** to describe the individual arrays but also the full hierarchy of the dataset. Metadata is stored in `zarr.json` files and is available on the array, group and store levels. This structured metadata approach makes Zarr datasets **self-descriptive** and easy to navigate.
 
 The graphic below shows an overview of all relevant Zarr components.
 
@@ -49,7 +49,7 @@ The graphic below shows an overview of all relevant Zarr components.
 ## EOPF Zarr Structure
 The ESA EOPF defines `Zarr` as the encoding format for the [EOPF Sentinel Zarr Samples Service](https://zarr.eopf.copernicus.eu/). The Zarr encoding is well aligned with ESA's objective of enhancing the accessibility of Sentinel data by modernising the previous `.SAFE` encoding into a flexible, cloud-native structure. The cloud-native nature of `zarr` is expected to broaden the applications of the Sentinel data within the geospatial community while maintaining data quality and established algorithms.
 
-EOPF Zarr products contain of four main groups:
+EOPF Zarr products consist of four main groups:
 
 | Group | Description |
 |-------|----------|
@@ -58,15 +58,15 @@ EOPF Zarr products contain of four main groups:
 | **Conditions** | Measurement context (geometric angles, meteorological/instrumental data) |
 | **Quality** | Flags and quality information for measurement filtering |
 
-### EOPF Zarr prodcut example - Sentinel-2 L2A
-Let us imagine a Sentinel-2 L2A tile. The tile has dimensions of approximately 10,980 by 10,980 pixels, and include 12 spectral bands (B01 to B12, excluding B10) at different resolutions, plus additional data arrays such as a Scene Classification Map (SCL) and Atmospheric Optical Thickness (AOT).
+### EOPF Zarr product example - Sentinel-2 L2A
+Let us imagine a Sentinel-2 L2A tile. The tile has dimensions of approximately 10,980 by 10,980 pixels, and includes 12 spectral bands (B01 to B12, excluding B10) at different resolutions, plus additional data arrays such as a **Scene Classification Map** (SCL) and **Atmospheric Optical Thickness** (AOT).
 
 For efficient handling, the data is divided into 1,024 by 1,024-pixel chunks. This chunking strategy allows for optimal performance when reading specific spatial regions of interest.
 
-The figure below gives a graphical overview of how a EOPF Zarr Sentinel-2 L2A product file is organised.
+The figure below gives a graphical overview of how an EOPF Zarr Sentinel-2 L2A product file is organised.
 ![Overview of the EOPF Zarr product structure on the example of Sentinel-2 L2A](img/s2l2a.jpg){fig-align="center"}
 
-The table below provides a more detailed outline what content is available in the different groups.
+The table below provides a more detailed outline of what content is available in the different groups.
 
 | Group | | Content |
 |-------|----|----------|
@@ -74,13 +74,13 @@ The table below provides a more detailed outline what content is available in th
 | **Measurements** | **10m resolution (r10)**| B02 (Blue, 490nm) <br> B03 (Green, 560nm) <br> B04 (Red, 665nm) <br>B08 (NIR, 842nm) | 
 | |**20m resolution (r20)**  | B05 (Red Edge 1, 705nm) <br>B06 (Red Edge 2, 740nm) <br>B07 (Red Edge 3, 783nm) <br>B8A (Narrow NIR, 865nm) <br>B11 (SWIR 1, 1610nm) <br>B12 (SWIR 2, 2190nm)|
 |  |**60m resolution (r60)**  | B01 (Coastal aerosol, 443nm) <br?B09 (Water vapour, 945nm)|
-| **Conditions** | | Sun angles (zenith, azimuth) <br> Viewing angles <br> Mean solar irradiance <br> Atmospheric parameters such as (i) Aerosol Optical Thickness (AOT), (ii) Water Vapor (WV) and (iii) Cloud and snow probability |
+| **Conditions** | | Sun angles (zenith, azimuth) <br> Viewing angles <br> Mean solar irradiance <br> Atmospheric parameters such as (i) Aerosol Optical Thickness (AOT), (ii) Water Vapour (WV) and (iii) Cloud and snow probability |
 | **Quality** | |  Scene Classification Layer (SCL) <br> Quality flags for each band <br> Detector footprint <br> Defective pixels masks |
 
 <br>
 
 ::: {.callout-note}
-Zarr Deep Dive: Dive deeper into the benefits of Zarr in a blogpost by Lindsey Nield from the Earthmover team: [Fundamentals: What is Zarr? A Cloud-Native Format for Tensor Data](https://earthmover.io/blog/what-is-zarr).
+Zarr Deep Dive: Dive deeper into the benefits of Zarr in a blog post by Lindsey Nield from the Earthmover team: [Fundamentals: What is Zarr? A Cloud-Native Format for Tensor Data](https://earthmover.io/blog/what-is-zarr).
 :::
 
 ## Conclusion

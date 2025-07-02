@@ -4,20 +4,20 @@ format: html
 ---
 ### Introduction
 
-In previous section, we introduced the **Earth Observation Processing Framework** (EOPF) initiative and explored the advantages of cloud-optimised formats like Zarr.
-Now, it is time to discover which data products will be available and where you can access those.
+In the previous section, we introduced the **Earth Observation Processing Framework** (EOPF) initiative and explored the advantages of cloud-optimised formats like Zarr.
+Now, it is time to discover which data products will be available and where you can access them.
 
 ### What we will learn
 
 - 💾 What Sentinel data will be available as EOPF Zarr products?
-- 🛰️ A sneak-peak into where you can access EOPF Zarr products
+- 🛰️ A sneak peek into where you can access EOPF Zarr products
 
 
 <hr>
 
 ## Available EOPF Zarr products
 Re-engineered EOPF Zarr products are available for exploration via the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
-Data from Sentinel-1, Sentinel-2 and Sentinel-3 missions are being re-processed and made available.
+Data from Sentinel-1, Sentinel-2 and Sentinel-3 missions are being reprocessed and made available.
 
 ::: {.callout-important}
 The re-processing from the Sentinel missions is an ongoing activity as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). This page and our tutorials will continuously be updated as soon as new data products are available.
@@ -40,7 +40,7 @@ Sentinel-2 acquires optical imagery at high spatial resolution (10m to 60m) over
 
 | Product | Instrument | Description | Available at |
 |:---------|:---------|:---------|:---------|
-| Level-1C | Multi-Spectral Instrument | The Sentinel-2 Level-1C product is composed of 110x110 km2 tiles (ortho-images in UTM/WGS84 projection). Earth is subdivided on a predefined set of tiles, defined in UTM/WGS84 projection and using a 100 km step. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l1c) |
+| Level-1C | Multi-Spectral Instrument | The Sentinel-2 Level-1C product is composed of 110x110 km2 tiles (ortho-images in UTM/WGS84 projection). Earth is subdivided into a predefined set of tiles, defined in UTM/WGS84 projection and using a 100 km step. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l1c) |
 | Level-2A | Multi-Spectral Instrument | The Sentinel-2 Level-2A Collection 1 product provides orthorectified Surface Reflectance (Bottom-Of-Atmosphere: BOA), with sub-pixel multispectral and multitemporal registration accuracy. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) |
 
 ### Sentinel-3
@@ -51,8 +51,8 @@ Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers
 
 | Product | Product | Description | Available at |
 |:---------|:---------|:---------|:---------|
-| Level-1 EFR | Earth Full Resolution | Provides TOA radiances at full resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-efr) |
-| Level-1 ERR | Earth Reduced Resolution | The Sentinel-3 OLCI L1 ERR product provides TOA radiances at reduced resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated to OLCI pixels. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-err) |
+| Level-1 EFR | Earth Full Resolution | Provides TOA radiances at full resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated with OLCI pixels. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-efr) |
+| Level-1 ERR | Earth Reduced Resolution | The Sentinel-3 OLCI L1 ERR product provides TOA radiances at reduced resolution for each pixel in the instrument grid, each view and each OLCI channel, plus annotation data associated with OLCI pixels. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l1-err) |
 | Level-2 LFR | Land Full Resolution | The Sentinel-3 OLCI L2 LFR product provides land and atmospheric geophysical parameters computed for full resolution. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr) |
 | Level-2 LRR | Land Reduced Resolution | The Sentinel-3 OLCI L2 LRR product provides land and atmospheric geophysical parameters computed for reduced resolution. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lrr) |
 
@@ -66,7 +66,7 @@ Sentinel-3 is a mission that regularly measures our Earth's oceans, land, rivers
 
 ## Conclusion
 
-In this section we provide an overview of the the available **Sentinel Missions** that will be re-processed and made available as EOPF Zarr products.
+In this section, we provide an overview of the available **Sentinel Missions** that will be re-processed and made available as EOPF Zarr products.
 
 
 ## What's next?
