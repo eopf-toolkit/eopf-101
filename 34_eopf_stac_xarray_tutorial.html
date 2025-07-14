@@ -267,6 +267,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#simple-data-analysis-calculating-ndvi" id="toc-simple-data-analysis-calculating-ndvi" class="nav-link" data-scroll-target="#simple-data-analysis-calculating-ndvi">Simple Data Analysis: Calculating NDVI</a></li>
   <li><a href="#now-it-is-your-turn" id="toc-now-it-is-your-turn" class="nav-link" data-scroll-target="#now-it-is-your-turn">💪 Now it is your turn</a>
   <ul class="collapse">
+  <li><a href="#task-1-explore-five-additional-sentinel-2-items-for-innsbruck" id="toc-task-1-explore-five-additional-sentinel-2-items-for-innsbruck" class="nav-link" data-scroll-target="#task-1-explore-five-additional-sentinel-2-items-for-innsbruck">Task 1: Explore five additional Sentinel-2 Items for Innsbruck</a></li>
   <li><a href="#task-2-calculate-ndvi" id="toc-task-2-calculate-ndvi" class="nav-link" data-scroll-target="#task-2-calculate-ndvi">Task 2: Calculate NDVI</a></li>
   <li><a href="#task-3-applying-more-advanced-analysis-techniques" id="toc-task-3-applying-more-advanced-analysis-techniques" class="nav-link" data-scroll-target="#task-3-applying-more-advanced-analysis-techniques">Task 3: Applying more advanced analysis techniques</a></li>
   </ul></li>
@@ -297,6 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/34_eopf_stac_xarray_tutorial.ipynb" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>In this tutorial we will demonstrate how to access <code>EOPF Zarr</code> products directly from the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Sample Service STAC Catalog</a>.</p>
@@ -304,8 +306,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-we-will-learn" class="level3">
 <h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
 <ul>
-<li>☁️ How to open cloud-optimised datasets from the EOPF Zarr STAC Catalog with xarray</li>
-<li>🔎 Examing loaded datasets</li>
+<li>☁️ How to open cloud-optimised datasets from the EOPF Zarr STAC Catalog with <code>xarray</code></li>
+<li>🔎 Examine loaded datasets</li>
 <li>📊 Perform simple data analyses with the loaded data</li>
 </ul>
 </section>
@@ -347,8 +349,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="establish-a-connection-to-the-eopf-zarr-stac-catalog" class="level2">
 <h2 class="anchored" data-anchor-id="establish-a-connection-to-the-eopf-zarr-stac-catalog">Establish a connection to the EOPF Zarr STAC Catalog</h2>
-<p>Our first step is to a connection to the EOPF Zarr STAC Catalog. This involves defining the url of the STAC endpoint. See the previous <a href="./33_eopf_stac_connection.html">section</a> for a more detailed explanation how to retrieve the enpoint URL.</p>
-<p>Through the <code>Client.open()</code> function, we can establish the connection to the EOPF Zarr STAC catalog by providing the specific url.</p>
+<p>Our first step is to a connection to the EOPF Zarr STAC Catalog. This involves defining the <code>url</code> of the STAC endpoint. See the previous <a href="./33_eopf_stac_connection.html">section</a> for a more detailed explanation how to retrieve the end point <code>url</code>.</p>
+<p>Through the <code>Client.open()</code> function, we can establish the connection to the EOPF Zarr STAC catalog by providing the specific <code>url</code>.</p>
 <div id="9c5c23a7" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>max_description_length <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -359,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="filtering-for-items-of-interest" class="level2">
 <h2 class="anchored" data-anchor-id="filtering-for-items-of-interest">Filtering for items of interest</h2>
-<p>For this tutorial, we will focus on the Sentinel-2 L2A Collection. The EOPF STAC Catalog corresponding id is: <code>sentinel-2-l2a</code>.</p>
+<p>For this tutorial, we will focus on the Sentinel-2 L2A Collection. The EOPF STAC Catalog corresponding <code>id</code> is: <code>sentinel-2-l2a</code>.</p>
 <p>As we are interested in retrieving and exploring an Item from the collection, we will focus again over the Innsbruck area we have defined in the <a href="./33_eopf_stac_connection.html">previous tutorial</a>.</p>
 <div id="e48e977a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>innsbruck_s2 <span class="op">=</span> eopf_catalog.search( <span class="co"># searching in the Catalog</span></span>
@@ -386,7 +388,7 @@ Total Items Found for Sentinel-2 L-2A over Innsbruck:   27</code></pre>
 <pre><code>S2B_MSIL2A_20250530T101559_N0511_R065_T32TPT_20250530T130924</code></pre>
 </div>
 </div>
-<p>In a next step, we retrieve the URL of the cloud location for the specific item. We will need the url to access and load the selected Item with the help of <code>xarray</code>.</p>
+<p>In a next step, we retrieve the <code>url</code> of the cloud location for the specific item. We will need the <code>url</code> to access and load the selected Item with the help of <code>xarray</code>.</p>
 <div id="fa85df3d" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>c_sentinel2 <span class="op">=</span> eopf_catalog.get_collection(<span class="st">'sentinel-2-l2a'</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Choosing the first item available to be opened:</span></span>
@@ -491,11 +493,11 @@ Data Variables: ['b01', 'b02', 'b03', 'b04', 'b05', 'b06', 'b07', 'b11', 'b12', 
 Coordinates: ['x', 'y']</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_1128780/1451209294.py:7: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+<pre><code>/tmp/ipykernel_301242/1451209294.py:7: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
   print(f"Dimensions: {dict(group_ds.dims)}")</code></pre>
 </div>
 </div>
-<p>In a next step, we inspect the attributes of the root dataset within the DataTree. Attributes often contain important high-level metadata about the entire product, such as processing details, STAC discovery information, and more. We print the first few attributes to get an idea of the available metadata.</p>
+<p>In a next step, we inspect the attributes of the root dataset within the <code>DataTree</code>. Attributes often contain important high-level metadata about the entire product, such as processing details, STAC discovery information, and more. We print the first few attributes to get an idea of the available metadata.</p>
 <div id="a1c13b21" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Examine the root dataset</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>root_dataset <span class="op">=</span> dt.ds</span>
@@ -517,9 +519,9 @@ Attributes (first 3):
 </section>
 <section id="visualising-the-rgb-quicklook-composite" class="level2">
 <h2 class="anchored" data-anchor-id="visualising-the-rgb-quicklook-composite">Visualising the RGB quicklook composite</h2>
-<p>EOPF Zarr Assets include a quicklook RGB composite, which we now want to open and visuliase. We open the Zarr dataset again, but this time, we specifically target the <code>quality/l2a_quicklook/r20m group</code> and its variables.</p>
-<p>This group typically contains a true-colour (RGB) quicklook composite, which is a readily viewable representation of the satellite image.</p>
-<p>We use <code>xr.open_dataset()</code> and specify the following set of arguments in order to load the quicklook.</p>
+<p>EOPF Zarr Assets include a quick-look RGB composite, which we now want to open and visuliase. We open the Zarr dataset again, but this time, we specifically target the <code>quality/l2a_quicklook/r20m group</code> and its variables.</p>
+<p>This group typically contains a true colour (RGB) quick-look composite, which is a readily viewable representation of the satellite image.</p>
+<p>We use <code>xr.open_dataset()</code> and specify the following set of arguments in order to load the quick-look.</p>
 <div id="899c3f0c" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Visualising the RGB quicklook composite:</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> xr.open_dataset(</span>
@@ -531,7 +533,7 @@ Attributes (first 3):
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    variables<span class="op">=</span><span class="st">"quality/l2a_quicklook/r20m/*"</span>,</span>
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>As soon as we loaded it, we can create a simple plot with <code>imshow()</code> to see the quicklook.</p>
+<p>As soon as we loaded it, we can create a simple plot with <code>imshow()</code> to see the quick-look.</p>
 <div id="20f6b7a9" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ds[<span class="st">"quality/l2a_quicklook/r20m/tci"</span>].plot.imshow()</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'RGB Quicklook'</span>)</span>
@@ -551,7 +553,7 @@ Attributes (first 3):
 <section id="simple-data-analysis-calculating-ndvi" class="level2">
 <h2 class="anchored" data-anchor-id="simple-data-analysis-calculating-ndvi">Simple Data Analysis: Calculating NDVI</h2>
 <p>Let us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).</p>
-<p>First, we open the Zarr dataset specifically for the <strong>red</strong> (B04) and <strong>Near-Infrared</strong> (B08) bands, which are crucial for the calculation of the NDVI. We also specify <code>resolution=20</code> to ensure we are working with the 20-meter resolution bands.</p>
+<p>First, we open the <code>.zarr</code> dataset specifically for the <strong>red</strong> (B04) and <strong>Near-Infrared</strong> (B08) bands, which are crucial for the calculation of the NDVI. We also specify <code>resolution=20</code> to ensure we are working with the 20-meter resolution bands.</p>
 <div id="8c8dc3b7" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>red_nir <span class="op">=</span> xr.open_dataset(</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    cloud_storage,</span>
@@ -573,7 +575,7 @@ Attributes (first 3):
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>diff_bands <span class="op">=</span> nir_f <span class="op">-</span> red_f</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>ndvi <span class="op">=</span> diff_bands <span class="op">/</span> sum_bands</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To prevent division by zero errors in areas where both red and NIR bands might be zero (e.g., water bodies or clouds), this line replaces any <strong>NaN</strong> values resulting from division by zero with 0. This ensures a clean and robust NDVI product.</p>
+<p>To prevent division by zero errors in areas where both red and NIR bands might be zero (e.g., water bodies or clouds), this line replaces any <strong>NaN</strong> values resulting from division by zero with the 0 value. This ensures a clean and robust NDVI product.</p>
 <div id="d7cbc4ae" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ndvi <span class="op">=</span> ndvi.where(sum_bands <span class="op">!=</span> <span class="dv">0</span>, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -599,7 +601,11 @@ Attributes (first 3):
 </section>
 <section id="now-it-is-your-turn" class="level2">
 <h2 class="anchored" data-anchor-id="now-it-is-your-turn">💪 Now it is your turn</h2>
-<p>With the foundations learned so far, you are now equipped to access products from the EOPF Zarr STAC catalog. These are your tasks: ### Task 1: Explore five additional Sentinel-2 Items for Innsbruck Replicate the RGB quicklook and have an overview of the spatial changes.</p>
+<p>With the foundations learned so far, you are now equipped to access products from the EOPF Zarr STAC catalog. These are your tasks:</p>
+<section id="task-1-explore-five-additional-sentinel-2-items-for-innsbruck" class="level3">
+<h3 class="anchored" data-anchor-id="task-1-explore-five-additional-sentinel-2-items-for-innsbruck">Task 1: Explore five additional Sentinel-2 Items for Innsbruck</h3>
+<p>Replicate the RGB quick-look and have an overview of the spatial changes.</p>
+</section>
 <section id="task-2-calculate-ndvi" class="level3">
 <h3 class="anchored" data-anchor-id="task-2-calculate-ndvi">Task 2: Calculate NDVI</h3>
 <p>Replicate the NDVI calculation for the additional Innsbruck items.</p>

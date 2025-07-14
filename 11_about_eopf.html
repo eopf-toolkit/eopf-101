@@ -222,6 +222,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
   <li><a href="#what-is-eopf" id="toc-what-is-eopf" class="nav-link" data-scroll-target="#what-is-eopf">What is EOPF?</a></li>
   <li><a href="#the-eopf-data-model" id="toc-the-eopf-data-model" class="nav-link" data-scroll-target="#the-eopf-data-model">The EOPF Data Model</a>
   <ul class="collapse">
@@ -259,9 +260,12 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>In this chapter, we will introduce the European Space Agency’s (ESA) <a href="https://eopf.copernicus.eu/">Earth Observation Processor Framework</a> (EOPF) initiative. This project marks a significant step towards modernising how we handle satellite data, specifically by moving away from the traditional <code>.SAFE</code> data format to a more efficient, cloud-optimised format. We will take a closer look at the new structure ESA has developed for this purpose. ### What we will learn</p>
+<p>In this chapter, we will introduce the European Space Agency’s (ESA) <a href="https://eopf.copernicus.eu/">Earth Observation Processor Framework</a> (EOPF) initiative. This project marks a significant step towards modernising how we handle satellite data, specifically by moving away from the traditional <code>.SAFE</code> data format to a more efficient, cloud-optimised format. We will take a closer look at the new structure ESA has developed for this purpose.</p>
+</section>
+<section id="what-we-will-learn" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
 <ul>
-<li>📡 What exactly is ESA’s EOPF initiative and why it is important?</li>
+<li>📡 What exactly is ESA’s EOPF initiative, and why is it important?</li>
 <li>📀 Which metadata is crucial for the EOPF data?</li>
 <li>⚙️ Which new encoding format has ESA proposed?</li>
 </ul>
@@ -277,7 +281,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="the-eopf-data-model">The EOPF Data Model</h2>
 <p>The EOPF data model has been defined by following a set of principles:</p>
 <ul>
-<li><strong>Open standards:</strong> Following common and community approved data standards ensure sustainability and user uptake.</li>
+<li><strong>Open standards:</strong> Following common and community-approved data standards ensures sustainability and user uptake.</li>
 <li><strong>Interoperability:</strong> Harmonised with a clear and organised structure that describes the data itself.</li>
 <li><strong>Cloud optimisation:</strong> Designed for efficient access and handling in cloud environments.</li>
 <li><strong>Conversion flexibility:</strong> Providing tools to adjust the data for different applications.</li>
@@ -285,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Under EOPF, there are four key areas of activities: (i) EOPF product structure, (ii) EOPF metadata structure, (iii) EOPF encoding structure and (iv) the EOPF Processor Framework:</p>
 <section id="eopf-product-structure" class="level3">
 <h3 class="anchored" data-anchor-id="eopf-product-structure">EOPF product structure</h3>
-<p>As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products, with the aim to define a common meta-model that can be used across all Sentinel and other EO missions. This approach ensures that data from several missions is consistent.</p>
+<p>As part of the EOPF, ESA is actively working on a common data structure for Sentinel data products to define a common meta-model that can be used across all Sentinel and other EO missions. This approach ensures that data from several missions is consistent.</p>
 <p>The EOPF product structure consists of the following components:</p>
 <ul>
 <li><strong>Measurements:</strong> The actual sensor readings (like how much light is reflected or the temperature), at different levels of detail.</li>
@@ -315,7 +319,7 @@ Note
 </section>
 <section id="eopf-metadata-structure" class="level3">
 <h3 class="anchored" data-anchor-id="eopf-metadata-structure">EOPF metadata structure</h3>
-<p>Metadata provide all relevant information required to uniquely describing each Sentinel product. The EOPF metadata structure is organised as follows:</p>
+<p>Metadata provides all relevant information required to uniquely describe each Sentinel product. The EOPF metadata structure is organised as follows:</p>
 <ul>
 <li><strong>Discovery Metadata</strong>: Following the metadata structure defined by the SpatioTemporal Asset Catalogue (<a href="https://stacspec.org/en/">STAC</a>), which helps to keep things consistent across different missions.</li>
 <li><strong>Processing History Metadata</strong>: Keeping a record of how the data has been processed.</li>
@@ -355,7 +359,7 @@ Note
 </section>
 <section id="eopf-processor-framework" class="level3">
 <h3 class="anchored" data-anchor-id="eopf-processor-framework">EOPF processor framework</h3>
-<p>The way Sentinel data is processed is being updated to take advantage of modern cloud computing. This will make the processing faster and more efficient and at the same time ensuring the scientific quality and accuracy of the Sentinel data remains the same.</p>
+<p>The way Sentinel data is processed is being updated to take advantage of modern cloud computing. This will make the processing faster and more efficient, and at the same time ensure the scientific quality and accuracy of the Sentinel data remains the same.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -373,11 +377,11 @@ Note
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Throughout this section, we explored the EOPF initiative and its adoption of the <code>.zarr</code>format. This new approach is set to significantly improve and simplify how we access and work with data the satellite mission Sentinel-1, Sentinel-2, and Sentinel-3.</p>
+<p>Throughout this section, we explored the EOPF initiative and its adoption of the <code>.zarr</code>format. This new approach is set to significantly improve and simplify how we access and work with data from the satellite missions Sentinel-1, Sentinel-2, and Sentinel-3.</p>
 </section>
 <section id="whats-next" class="level2">
 <h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
-<p>In the following <a href="./12_about_cloudoptimized_formats.html">section</a>, we learn why EO data need to be cloud-optimised, when processed in the cloud.</p>
+<p>In the following [section] (./12_about_cloudoptimized_formats.qmd), we learn why EO data needs to be cloud-optimised when processed in the cloud.</p>
 
 
 </section>

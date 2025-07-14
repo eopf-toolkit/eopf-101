@@ -290,9 +290,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/22_zarr_struct_S2L2A.ipynb" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>This tutorial introduces you to the structure of a an EOPF Zarr product sample for <strong>Sentinel-2 L2A</strong> data. We will demonstrate how to access and open a Zarr product sample with <code>xarray</code>, how to visualise the <code>zarr</code> encoding structure, explore embedded information, and retrieve relevant metadata for further processing.</p>
+<p>This tutorial introduces you to the structure of an <strong>EOPF Zarr</strong> product sample for <strong>Sentinel-2 L2A</strong> data. We will demonstrate how to access and open a <code>.zarr</code> product sample with <code>xarray</code>, how to visualise the <code>zarr</code> encoding structure, explore embedded information, and retrieve relevant metadata for further processing.</p>
 </section>
 <section id="what-we-will-learn" class="level3">
 <h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
@@ -318,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="helper-functions">Helper functions</h4>
 <section id="print_gen_structure" class="level5">
 <h5 class="anchored" data-anchor-id="print_gen_structure"><code>print_gen_structure</code></h5>
-<p>This function helps us to retrieve an visualise the names for each of the stored groups inside a <code>zarr</code>. As an output, it will print a general overview of elements inside the <code>zarr</code>.</p>
+<p>This function helps us to retrieve and visualise the names for each of the stored groups inside a <code>.zarr</code> product. As an output, it will print a general overview of elements inside the <code>zarr</code>.</p>
 <div id="cc4d7bd4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_gen_structure(node, indent<span class="op">=</span><span class="st">""</span>):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>indent<span class="sc">}{</span>node<span class="sc">.</span>name<span class="sc">}</span><span class="ss">"</span>)     <span class="co">#allows us access each node</span></span>
@@ -331,14 +332,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="open-a-zarr-store" class="level2">
 <h2 class="anchored" data-anchor-id="open-a-zarr-store">Open a Zarr Store</h2>
-<p>In a first step, we use the function <code>open_datatree()</code> from the <code>xarray</code> library to open a Zarr store as a DataTree.<br> Inside, we ned to define the following key word arguments:<br></p>
+<p>In a first step, we use the function <code>open_datatree()</code> from the <code>xarray</code> library to open a <code>.zarr</code> store as a <code>DataTree</code>.<br> Inside, we need to define the following key word arguments:<br></p>
 <ul>
 <li><code>filename_or_obj</code>: path leading to a <code>zarr</code> store</li>
 <li><code>engine</code>: <code>'eopf-zarr'</code>, designed for the EOPF <code>zarr</code> by ESA.</li>
 <li><code>op_mode</code>: extension by the <code>xarray-eopf</code> development for allowing an analysis or native mode. For more information visit the <a href="https://eopf-sample-service.github.io/xarray-eopf/">xarray-eopf</a> documentation.</li>
 <li><code>chunks</code>: loads the data with dask using the engine’s preferred chunk size, generally identical to the format’s chunk size</li>
 </ul>
-<p>The final print of the <code>DataTree</code> object is commented out, as the display can be quite extensive, showing the entire content within the Zarr. An alternative is to apply a helper function that only displays the higher level structure as shown in the next code cell.</p>
+<p>The final print of the <code>DataTree</code> object is commented out, as the display can be quite extensive, showing the entire content within the <code>.zarr</code>. An alternative is to apply a helper function that only displays the higher level structure as shown in the next code cell.</p>
 <div id="906ae601" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://objects.eodc.eu/e05ab01a9d56408d82ac32d69a5aae2a:202506-s02msil2a/10/products/cpm_v256/S2C_MSIL2A_20250610T103641_N0511_R008_T32UMD_20250610T132001.zarr'</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>s2l2a_zarr_sample<span class="op">=</span> xr.open_datatree(url,</span>
@@ -347,7 +348,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    chunks<span class="op">=</span>{}, <span class="co"># allows to open the default chunking</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>If we apply the helper function <code>print_gen_structure</code> on the root of the DataTree object, we will get a listing of the tree-like structure of the object. We can see all Zarr groups, such as <code>measurements</code>, <code>quality</code> and <code>conditions</code>, their sub-groups and content.</p>
+<p>If we apply the helper function <code>print_gen_structure</code> on the root of the <code>DataTree</code> object, we will get a listing of the tree-like structure of the object. We can see all Zarr groups, such as <code>measurements</code>, <code>quality</code> and <code>conditions</code>, their sub-groups and content.</p>
 <div id="5708498b" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Zarr Sentinel 2 L2A Structure"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>print_gen_structure(s2l2a_zarr_sample.root) </span>
@@ -396,8 +397,8 @@ None
 </section>
 <section id="extract-information-from-zarr-groups" class="level2">
 <h2 class="anchored" data-anchor-id="extract-information-from-zarr-groups">Extract information from Zarr groups</h2>
-<p>In a next step, we can explore the content of individual Zarr groups. By specifying the name of the group and subgroup and adding it into square brackets, we can extract the content of the relevant group. Let us for example extract the content of the subgroup <code>reflectance</code> under <code>measurements</code>.</p>
-<p>As a result, it is visible that there are three subgroups of the parent node <code>measurements/reflectance</code>: <code>r10</code>, <code>r20</code> and <code>r60</code>, which are the DataArrays with the three different resolutions of the Sentinel-2 L2A data.</p>
+<p>In a next step, we can explore the content of individually contained <code>.zarr</code> groups. By specifying the name of the group and subgroup and adding it into square brackets, we can extract the content of the relevant group. Let us for example extract the content of the subgroup <code>reflectance</code> under <code>measurements</code>.</p>
+<p>As a result, it is visible that there are three subgroups of the parent node <code>measurements/reflectance</code>: <code>r10</code>, <code>r20</code> and <code>r60</code>, which are the <code>DataArrays</code> with the three different resolutions of the Sentinel-2 L2A data.</p>
 <p>The <code>xarray.DataTree</code> structure allows the exploration of additional group-related metadata and information. For example, we can find the <code>chunksize</code> of each array and the coordinates.</p>
 <div id="d4b8ce93" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieving the reflectance groups:</span></span>
@@ -448,7 +449,7 @@ Item Processing Level:  L2A</code></pre>
 </section>
 <section id="whats-next" class="level2">
 <h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
-<p>Now that you’ve been introduced to the <code>zarr</code> format, learned its core concepts, and understood the basics of how to explore it, you are prepared for the next step. In the following <a href="./31_stac_intro.html">chapter</a> we will introduce you to <strong>STAC</strong> and the <strong>EOPF Zarr STAC Catalog</strong>. As we go along, we are more and more transition from theory to practice, providing you with hands-on tutorials working with EOPF Zarr products.</p>
+<p>Now that you’ve been introduced to the <code>.zarr</code> encoding format, learned its core concepts, and understood the basics of how to explore it, you are prepared for the next step. In the following <a href="./31_stac_intro.html">chapter</a> we will introduce you to <strong>STAC</strong> and the <strong>EOPF Zarr STAC Catalog</strong>. As we go along, we are more and more transition from theory to practice, providing you with hands-on tutorials working with EOPF <code>.zarr</code> products.</p>
 
 
 </section>

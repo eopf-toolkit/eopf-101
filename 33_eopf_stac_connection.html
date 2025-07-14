@@ -305,14 +305,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/33_eopf_stac_connection.ipynb" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>In this section, we will dive into the programmatic access of EOPF Zarr Collections available in the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Sample Service STAC Catalog</a>. We will introduce Python libraries enable us to effectively access and search through STAC catalogs.</p>
+<p>In this section, we will dive into the programmatic access of EOPF Zarr Collections available in the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Sample Service STAC Catalog</a>. We will introduce Python libraries that enable us to effectively access and search through STAC catalogs.</p>
 </section>
 <section id="what-we-will-learn" class="level3">
 <h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
 <ul>
-<li>🔍 How to <strong>programmatically browse</strong> through available collections availalbe via the EOPF Zarr STAC API</li>
+<li>🔍 How to <strong>programmatically browse</strong> through available collections available via the EOPF Zarr STAC Catalog</li>
 <li>📊 Understanding <strong>collection metadata</strong> in user-friendly terms</li>
 <li>🎯 <strong>Searching for specific data</strong> with help of the <code>pystac</code> and <code>pystac-client</code> libraries.</li>
 </ul>
@@ -351,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="establish-a-connection-to-the-eopf-zarr-stac-catalog" class="level2">
 <h2 class="anchored" data-anchor-id="establish-a-connection-to-the-eopf-zarr-stac-catalog">Establish a connection to the EOPF Zarr STAC Catalog</h2>
-<p>Our first step is to establish a connection to the EOPF Sentinel Zarr Sample Service STAC Catalog. For this, you need the Catalog’s base URL, which you can find on the web interface under the <strong>API &amp; URL</strong> tab. By clicking on 🔗<strong>Source</strong>, you will get the address of the STAC metadata file - which is availabl <a href="https://stac.core.eopf.eodc.eu/">here</a>.</p>
+<p>Our first step is to establish a connection to the EOPF Sentinel Zarr Sample Service STAC Catalog. For this, you need the Catalog’s base URL, which you can find on the web interface under the <strong>API &amp; URL</strong> tab. By clicking on 🔗<strong>Source</strong>, you will get the address of the STAC metadata file - which is available <a href="https://stac.core.eopf.eodc.eu/">here</a>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img/api_connection.png" class="img-fluid figure-img"></p>
@@ -1767,7 +1768,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Congratulations. We successfully connected to the EOPF Zarr STAC Catalog and we can now start exploring its content.</p>
+<p>Congratulations. We successfully connected to the EOPF Zarr STAC Catalog, and we can now start exploring its content.</p>
 </section>
 <section id="explore-available-collections" class="level2">
 <h2 class="anchored" data-anchor-id="explore-available-collections">Explore available collections</h2>
@@ -1829,7 +1830,7 @@ Available Links:  [&lt;Link rel=items target=https://stac.core.eopf.eodc.eu/coll
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Search Results:"</span>)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:  '</span>,<span class="bu">len</span>(time_items[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pystac_client.item_search.ItemSearch object at 0x73f66d5c3610&gt;
+<pre><code>&lt;pystac_client.item_search.ItemSearch object at 0x7fc91ead3670&gt;
 Search Results:
 Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   196</code></pre>
 </div>
@@ -1838,7 +1839,7 @@ Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   1
 <section id="filter-for-spatial-extent" class="level3">
 <h3 class="anchored" data-anchor-id="filter-for-spatial-extent">Filter for spatial extent</h3>
 <p>Now, let us filter based on a specific area of interest. We can use the <code>bbox</code> argument, which is composed by providing the top-left and bottom-right corner coordinates. It is similar to drawing the extent in the interactive map of the EOPF browser interface.</p>
-<p>For example, we defined a bounding box of the outskirts of Innsbruck, Austria. We then again apply the helper funnction <code>list_found_elements</code> and see that for the defined area, only 39 items are available.</p>
+<p>For example, we defined a bounding box of the outskirts of Innsbruck, Austria. We then again apply the helper function <code>list_found_elements</code> and see that for the defined area, only 39 items are available.</p>
 <div id="f518251e" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bbox_search <span class="op">=</span>  eopf_catalog.search(  <span class="co">#searching the catalog</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    collections<span class="op">=</span><span class="st">'sentinel-2-l2a'</span>,</span>
@@ -1855,14 +1856,14 @@ Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   1
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found:  '</span>,<span class="bu">len</span>(innsbruck_sets[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Search Result:
-Total Items Found:   39</code></pre>
+Total Items Found:   50</code></pre>
 </div>
 </div>
 </section>
 <section id="combined-filtering-collection-temporal-extent-spatial-extent" class="level3">
 <h3 class="anchored" data-anchor-id="combined-filtering-collection-temporal-extent-spatial-extent">Combined filtering: Collection + temporal extent + spatial extent</h3>
-<p>As a usual workflow, we often look for datasets within an AOI and a specific period of time time. The <code>search()</code> function allows us also to combine the <code>collection</code>, <code>bbox</code> and <code>datetime</code> arguments in one search request.</p>
-<p>Let us now search for Items available for the AOI aroudn Innsbruck within the previously defined timeframe for the <strong>Sentinel-2 Level-2A</strong> collection. As a result, we get 27 Items that are available for our selection.</p>
+<p>As a usual workflow, we often look for datasets within an AOI and a specific period of time. The <code>search()</code> function allows us also to combine the <code>collection</code>, <code>bbox</code> and <code>datetime</code> arguments in one search request.</p>
+<p>Let us now search for Items available for the AOI around Innsbruck within the previously defined timeframe for the <strong>Sentinel-2 Level-2A</strong> collection. As a result, we get 27 Items that are available for our selection.</p>
 <div id="432bb0e3" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>innsbruck_s2 <span class="op">=</span> eopf_catalog.search( </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    collections<span class="op">=</span> <span class="st">'sentinel-2-l2a'</span>, <span class="co"># interest Collection,</span></span>
@@ -1895,7 +1896,7 @@ Total Items Found for Sentinel-2 L-2A over Innsbruck:   27</code></pre>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found for Sentinel-3 SLSTR-L2 over Rostock Coast:  '</span>,<span class="bu">len</span>(combined_ros[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Search Results:
-Total Items Found for Sentinel-3 SLSTR-L2 over Rostock Coast:   14</code></pre>
+Total Items Found for Sentinel-3 SLSTR-L2 over Rostock Coast:   18</code></pre>
 </div>
 </div>
 </section>
@@ -1903,7 +1904,7 @@ Total Items Found for Sentinel-3 SLSTR-L2 over Rostock Coast:   14</code></pre>
 <h3 class="anchored" data-anchor-id="retrieve-asset-urls-for-accessing-the-data">Retrieve Asset URLs for accessing the data</h3>
 <p>So far, we have made a search among the STAC catalog and browsed over the general metadata of the collections. To access the actual EOPF Zarr <code>Items</code>, we need to get their storage location in the cloud.</p>
 <p>The relevant information we can find inside the <code>.items</code> argument by the <code>.get_assets()</code> function. Inside, it allows us to specify the <code>.MediaType</code> we are interested in. In our example, we want to obtain the location of the <code>.zarr</code> file.</p>
-<p>Let us retrieve the url of the 27 available items over Innsbruck. The resulting URL we can then use to directly access an asset in our workflow.</p>
+<p>Let us retrieve the <code>url</code> of the 27 available items over Innsbruck. The resulting URL we can then use to directly access an asset in our workflow.</p>
 <div id="89051b46" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>assets_loc<span class="op">=</span>[] <span class="co"># a list with the ids of the items we are interested in</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(combined_ins[<span class="dv">0</span>])): <span class="co"># We retrieve only the first asset in the Innsbruck list combined_ins</span></span>

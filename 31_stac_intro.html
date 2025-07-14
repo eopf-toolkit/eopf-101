@@ -262,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
-<p>Welcome to the chapter on EOPF and STAC. In the following section, we will introduce you to the the <strong>S</strong>patio-<strong>T</strong>emporal <strong>A</strong>sset <strong>C</strong>atalog (STAC). We will explain its fundamental principles and, most importantly, we will explore its structure and core components. Understanding the fundamentals of STAC is key in order to be able effectively discover and access data from STAC catalogs.</p>
+<p>Welcome to the chapter on EOPF and STAC. In the following section, we will introduce you to the <strong>S</strong>patio-<strong>T</strong>emporal <strong>A</strong>sset <strong>C</strong>atalog (STAC). We will explain its fundamental principles and, most importantly, we will explore its structure and core components. Understanding the fundamentals of STAC is key in order to be able to effectively discover and access data from STAC catalogs.</p>
 </section>
 <section id="what-we-will-learn" class="level3">
 <h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
@@ -276,13 +276,13 @@ ul.task-list li input[type="checkbox"] {
 <section id="about-stac" class="level2">
 <h2 class="anchored" data-anchor-id="about-stac">About STAC</h2>
 <p>The <strong>S</strong>patio-<strong>T</strong>emporal <strong>A</strong>sset <strong>C</strong>atalog (STAC) is a standardised way to catalog and describe geospatial (raster) data. STAC makes it easier to discover, access, and work with geospatial data, in particular satellite data, as it provides a <strong>common language for describing spatial and temporal characteristics</strong> of the data.<br> This common language improves interoperability between different data providers and software tools.</p>
-<p>The main goal of <a href="https://stacspec.org/en/">STAC</a> is to allow data providers share their data easily, making it universal for users to understand the where, when, how, and what of the collected data.</p>
-<p>STAC uses <strong>JSON</strong> (JavaScript Object Notion) to structure the metadata of geo-referenced datasets. JSON makes it machine-readable. Through it is design, STAC is simple and extensible in its design as it is based on a network of JSON files.</p>
+<p>The main goal of <a href="https://stacspec.org/en/">STAC</a> is to allow data providers to share their data easily, making it universal for users to understand the where, when, how, and what of the collected data.</p>
+<p>STAC uses <strong>JSON</strong> (JavaScript Object Notation) to structure the metadata of geo-referenced datasets. JSON makes it machine-readable. Through its design, STAC is simple and extensible in its design as it is based on a network of JSON files.</p>
 <p>STAC has evolved into a well-recognised community standard. The key benefit supporting its wide adoption is that one can use the same code and API to access data from different data repositories.</p>
 </section>
 <section id="the-stac-ecosystem" class="level2">
 <h2 class="anchored" data-anchor-id="the-stac-ecosystem">The STAC ecosystem</h2>
-<p>STAC has evolved in a vast ecosystem offering various resources and tools for accessing, managing, and building STAC catalogs. Below is a non-exclusive list of tools and plug-ins that will help to explore the STAC ecosystem:</p>
+<p>STAC has evolved into a vast ecosystem offering various resources and tools for accessing, managing, and building STAC catalogs. Below is a non-exclusive list of tools and plug-ins that will help to explore the STAC ecosystem:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -346,7 +346,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="stac-components" class="level2">
 <h2 class="anchored" data-anchor-id="stac-components">STAC components</h2>
-<p>Now, let us start exploring the structure of STAC. STAC consists of four main components: (i) <code>Catalog</code>, (ii) <code>Collection</code>, (iii) <code>Item</code> and (iv) <code>Asset</code>. See figure below for a principle organisation of the STAC components.</p>
+<p>Now, let us start exploring the structure of STAC. STAC consists of four main components: (i) <code>Catalog</code>, (ii) <code>Collection</code>, (iii) <code>Item</code> and (iv) <code>Asset</code>. See the figure below for the principal organisation of the STAC components.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img/stac_example.png" class="img-fluid figure-img"></p>
@@ -354,14 +354,14 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p><br></p>
-<p>Let us now explore more in detail the individual components:</p>
+<p>Let us now explore in more detail the individual components:</p>
 <section id="catalog" class="level3">
 <h3 class="anchored" data-anchor-id="catalog">Catalog</h3>
-<p>A <code>Catalog</code> serves as the initial entry point of a STAC. A catalog is a very simple construct, it simply provides links to <code>Collections</code> or <code>Items</code>. The closest analog is a folder on your computer. A <code>Catalog</code> can be a <em>folder</em> for <code>Items</code>, but it can also be a <code>folder</code> for <code>Collections</code> or other <code>Catalogs</code>. When searching for specific data, you first establish a connection to a valid STAC catalog.</p>
+<p>A <code>Catalog</code> serves as the initial entry point of a STAC. A catalog is a very simple construct; it simply provides links to <code>Collections</code> or <code>Items</code>. The closest analogue is a folder on your computer. A <code>Catalog</code> can be a <em>folder</em> for <code>Items</code>, but it can also be a <code>folder</code> for <code>Collections</code> or other <code>Catalogs</code>. When searching for specific data, you first establish a connection to a valid STAC catalog.</p>
 </section>
 <section id="collection" class="level3">
 <h3 class="anchored" data-anchor-id="collection">Collection</h3>
-<p>Collections are containers that support the grouping of <code>Items</code>. The <code>Collection</code> entity shares most fields with the <code>Catalog</code> entity but has a number of additional fields, such as license, extent (spatial and temporal), providers, keywords and summaries. Every <code>Item</code> in a <code>Collection</code> links back to its <code>Collection</code>. <code>Collection</code> are often used to provide additional structure in a STAC catalog.</p>
+<p>Collections are containers that support the grouping of <code>Items</code>. The <code>Collection</code> entity shares most fields with the <code>Catalog</code> entity but has several additional fields, such as license, extent (spatial and temporal), providers, keywords and summaries. Every <code>Item</code> in a <code>Collection</code> links back to its <code>Collection</code>. <code>Collection</code> is often used to provide additional structure in a STAC catalog.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -372,15 +372,15 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>But when to use a <code>Collection</code> versus a <code>Catalog</code>? A <code>Collection</code> generally consist of a set of assets that share the same properties and share higher level metadata. For example data from the same satellite sensor or constellation would typically be in on <code>Collection</code>.</p>
-<p><code>Catalogs</code> in turn are used to plit overly large <code>Collections</code> into groups and to group collections into a catalog of Collections (e.g.&nbsp;as entry point for navigation to several Collections).</p>
+<p>But when to use a <code>Collection</code> versus a <code>Catalog</code>? A <code>Collection</code> generally consists of a set of assets that share the same properties and share higher-level metadata. For example, data from the same satellite sensor or constellation would typically be in one <code>Collection</code>.</p>
+<p><code>Catalogs</code>, in turn, are used to split overly large <code>Collections</code> into groups and to group collections into a catalog of Collections (e.g.&nbsp;as an entry point for navigation to several Collections).</p>
 <p>It is recommended to use <code>Collections</code> for what you want users to find and <code>Catalogs</code> for structuring and grouping <code>Collections</code>.</p>
 </div>
 </div>
 </section>
 <section id="item" class="level3">
 <h3 class="anchored" data-anchor-id="item">Item</h3>
-<p>An <code>Item</code> is the fundamental element of STAC and typically represents a single scene at one place and time. It is a <code>.GeoJSON</code> supplemented with additional metadata, which serves as an index to <code>Assets</code>.</p>
+<p>An <code>Item</code> is the fundamental element of STAC and typically represents a single scene at one place and time. It is a <code>GeoJSON</code> supplemented with additional metadata, which serves as an index to <code>Assets</code>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="img/item_inf.png" class="img-fluid figure-img"></p>
@@ -390,18 +390,18 @@ Note
 </section>
 <section id="asset" class="level3">
 <h3 class="anchored" data-anchor-id="asset">Asset</h3>
-<p>An <code>Asset</code> is the smallest element inside a STAC and represent the individual data file that is linked in a STAC <code>Item</code>.</p>
+<p>An <code>Asset</code> is the smallest element inside a STAC and represents the individual data file that is linked in a STAC <code>Item</code>.</p>
 </section>
 <section id="analogy-organising-a-drinks-menu-as-a-stac" class="level3">
 <h3 class="anchored" data-anchor-id="analogy-organising-a-drinks-menu-as-a-stac">Analogy: Organising a drinks menu as a STAC</h3>
 <p>To better understand the relation of STAC components, let us imagine a <strong>Drinks</strong> menu as a STAC. How would you structure <em>Drinks</em> as a STAC?</p>
-<p>Let us start with the <em>Drinks</em> a category themselves. The menu is analog to a STAC <code>Catalog</code>, as it serves as the top-level entry point, providing an overview of all beverages available.<br></p>
+<p>Let us start with the <em>Drinks</em> category itself. The menu is analogous to a STAC <code>Catalog</code>, as it serves as the top-level entry point, providing an overview of all beverages available.<br></p>
 <p>Within this Drinks <strong>catalog</strong>, we can group the <em>Drinks</em> further in There are hot and cold beverages, caffeinated and non-caffeinated drinks. These categories represent <strong>Collections</strong> in STAC. <br> For our analogy, let us say the menu is divided into two main collections:</p>
 <ul>
 <li><strong>Caffeinated Drinks Collection</strong>: This section groups all beverages that contain caffeine.<br></li>
 <li><strong>Non-Caffeinated Drinks Collection</strong>: This section groups all beverages that do not contain caffeine.<br></li>
 </ul>
-<p>Each of these collections contains specific drinks, which are analog to STAC <strong>Items</strong>. Drink <code>Items</code> could be e.g.&nbsp;Juices or Milks. Both represent again a group of specific juices and milks, which are analog of <code>Assets</code> in STAC. For the Drink <code>Items</code> defined, their <code>Assets</code> might include:</p>
+<p>Each of these collections contains specific drinks, which are analogous to STAC <strong>Items</strong>. Drink <code>Items</code> could be, e.g.&nbsp;Juices or Milks. Both represent again a group of specific juices and milks, which are analogous to <code>Assets</code> in STAC. For the Drink <code>Items defined, their</code>Assets` might include:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -431,7 +431,7 @@ Note
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>In this section you got an introduction to the <strong>Spatio-Temporal Asset Catalog</strong> (STAC) and learned what STAC is and explored the main components of a STAC. Understanding the distinction between <code>Catalog</code>, <code>Collection</code>, <code>Items</code> and <code>Assets</code> is important to effectively navigating through STAC APIs.</p>
+<p>In this section, you got an introduction to the <strong>Spatio-Temporal Asset Catalog</strong> (STAC) and learned what STAC is and explored the main components of a STAC. Understanding the distinction between <code>Catalog</code>, <code>Collection</code>, <code>Items</code> and <code>Assets</code> is important to effectively navigating through STAC APIs.</p>
 </section>
 <section id="whats-next" class="level2">
 <h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
