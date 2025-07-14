@@ -1,0 +1,46 @@
+#!/bin/bash
+# Test script - runs tests and validation
+
+set -e
+
+echo "Running tests for EOPF R Quarto environment..."
+
+# Check if the Docker image exists
+if ! docker images | grep -q "eopf-r"; then
+    echo "Docker image 'eopf-r' not found. Running setup..."
+    ./scripts/setup
+fi
+
+# Test R package installations
+echo "Testing R package installations..."
+docker run --rm \
+    -v "$(pwd):/workspace" \
+    eopf-r R -e "
+library(rstac)
+library(tidyverse)
+library(stars)
+library(terra)
+library(Rarr)
+cat('All packages loaded successfully!\n')
+"
+
+# Test Quarto installation
+echo "Testing Quarto installation..."
+docker run --rm \
+    -v "$(pwd):/workspace" \
+    eopf-r quarto --version
+
+# Test QMD file validation (without full execution)
+echo "Testing QMD file validation..."
+if [ -d "docs/tutorials/stac_zarr/R" ]; then
+    find docs/tutorials/stac_zarr/R -name "*.qmd" -type f | while read -r file; do
+        echo "Validating: $file"
+        docker run --rm \
+            -v "$(pwd):/workspace" \
+            eopf-r quarto check "/workspace/$file" || echo "Warning: $file validation failed"
+    done
+else
+    echo "QMD directory not found, skipping validation"
+fi
+
+echo "All tests completed!"

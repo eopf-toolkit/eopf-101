@@ -1,0 +1,40 @@
+#!/bin/bash
+# Render script - processes QMD files and generates output
+
+set -e
+
+# Check if the Docker image exists
+if ! docker images | grep -q "eopf-r"; then
+    echo "Docker image 'eopf-r' not found. Running setup..."
+    ./scripts/setup
+fi
+
+QMD_PATH="${1:-docs/tutorials/stac_zarr/R}"
+FORMAT="${2:-md}"
+
+echo "Processing QMD files from: $QMD_PATH"
+echo "Output format: $FORMAT"
+
+# If specific file is provided, render it
+if [[ "$QMD_PATH" == *.qmd ]]; then
+    echo "Rendering specific file: $QMD_PATH"
+    docker run --rm \
+        -v "$(pwd):/workspace" \
+        eopf-r quarto render "/workspace/$QMD_PATH" --to "$FORMAT"
+else
+    # Find and render all QMD files in the directory
+    if [ -d "$QMD_PATH" ]; then
+        find "$QMD_PATH" -name "*.qmd" -type f | while read -r file; do
+            echo "Rendering: $file"
+            docker run --rm \
+                -v "$(pwd):/workspace" \
+                eopf-r quarto render "/workspace/$file" --to "$FORMAT"
+        done
+        echo "All QMD files processed successfully!"
+    else
+        echo "Directory '$QMD_PATH' not found."
+        echo "Usage: ./scripts/render [path] [format]"
+        echo "  path   - Directory containing QMD files or specific .qmd file"
+        echo "  format - Output format: html, md, pdf (default: md)"
+    fi
+fi
