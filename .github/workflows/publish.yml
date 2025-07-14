@@ -5,6 +5,10 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+  pages: write
+
 jobs:
   prepare-docker-image:
     runs-on: ubuntu-latest
