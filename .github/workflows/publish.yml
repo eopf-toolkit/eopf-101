@@ -45,7 +45,8 @@ jobs:
           libxrender1 \
           libxext6 \
           ghostscript \
-          zlib1g
+          zlib1g \
+          git-all
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
