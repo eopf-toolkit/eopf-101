@@ -1,0 +1,56 @@
+#!/bin/bash
+# Console script - starts interactive R console or Quarto preview server
+
+set -e
+
+# Check if the Docker image exists
+if ! docker images | grep -q "eopf-r"; then
+    echo "Docker image 'eopf-r' not found. Running setup..."
+    ./scripts/setup
+fi
+
+MODE=${1:-"console"}
+FILE=${2:-""}
+
+case "$MODE" in
+    "console" | "r")
+        echo "Starting interactive R console..."
+        docker run -it --rm \
+            -v "$(pwd):/workspace" \
+            eopf-r R
+        ;;
+    "bash" | "shell")
+        echo "Starting interactive bash shell..."
+        docker run -it --rm \
+            -v "$(pwd):/workspace" \
+            eopf-r bash
+        ;;
+    "preview" | "server")
+        if [ -z "$FILE" ]; then
+            echo "Starting Quarto preview server for all files..."
+            docker run -it --rm \
+                -v "$(pwd):/workspace" \
+                -p 3000:3000 \
+                eopf-r quarto preview docs/tutorials/stac_zarr/R --host 0.0.0.0 --port 3000 --no-browser
+        else
+            echo "Starting Quarto preview for: $FILE"
+            docker run -it --rm \
+                -v "$(pwd):/workspace" \
+                -p 3000:3000 \
+                eopf-r quarto preview "/workspace/$FILE" --host 0.0.0.0 --port 3000 --no-browser
+        fi
+        ;;
+    *)
+        echo "Usage: ./scripts/console [mode] [file]"
+        echo ""
+        echo "Modes:"
+        echo "  console  - Start interactive R console (default)"
+        echo "  bash     - Start interactive bash shell"
+        echo "  preview  - Start Quarto preview server"
+        echo ""
+        echo "For preview mode, optionally specify a file:"
+        echo "  ./scripts/console preview docs/tutorials/stac_zarr/R/eopf_zarr.qmd"
+        echo ""
+        echo "Preview server will be available at http://localhost:3000"
+        ;;
+esac

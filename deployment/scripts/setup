@@ -1,0 +1,29 @@
+#!/bin/bash
+# Setup script - builds the Docker environment
+
+set -e
+
+echo "Setting up EOPF R Quarto environment..."
+
+# Check if Docker is available
+if ! command -v docker &> /dev/null; then
+    echo "Error: Docker is not installed or not in PATH"
+    exit 1
+fi
+
+# Build the Docker image
+echo "Building Docker image..."
+docker build -f R.dockerfile -t eopf-r .
+
+# Verify the build
+echo "Verifying build..."
+docker run --rm eopf-r R --version
+docker run --rm eopf-r quarto --version
+
+echo "Setup complete! Docker image 'eopf-r' is ready to use."
+echo ""
+echo "Available scripts:"
+echo "  ./scripts/test      - Run tests and validation"
+echo "  ./scripts/render    - Process QMD files"
+echo "  ./scripts/console   - Start interactive R console"
+echo "  ./scripts/server    - Start Quarto preview server"
