@@ -1,0 +1,109 @@
+---
+title: "Title of the page"
+format: html
+---
+::: {.justify}
+
+### Introduction
+
+<br>
+<br>
+<br>
+<br>
+
+### What we will learn
+
+- 🚀 Main objective
+- 🔎 Complement ideas
+- 🛰️ Include a related icon / emoji to make it engaging
+
+
+### Resources we will use
+
+List any resources, such as python dependencies or references tu previous tutorials. Something the user should be aware before the introduction to this chapter.
+
+<hr>
+
+## First Concept
+
+<br>
+<br>
+<br>
+<br>
+
+::: {.callout-note}
+Some notes...
+:::
+
+## Second Concept
+
+<br>
+<br>
+<br>
+<br>
+
+### Another level inside the concept (details)
+
+<br>
+<br>
+<br>
+<br>
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+<br>
+<br>
+<br>
+<br>
+
+## Third Concept
+
+<br>
+<br>
+<br>
+<br>
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+<br>
+<br>
+<br>
+<br>
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+- Levels inside: 
+  - Level inside level 1
+  - Level inside level 2
+  - Level inside level 3
+
+
+::: {.callout-note}
+Another note with some [embedded links]().
+:::
+
+<br>
+<br>
+<br>
+<br>
+
+<hr>
+
+## Now it is your turn
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<hr>
+
+
+## Conclusion
+
+<br>
+<br>
+<br>
+<br>
+
+
+## What's next?
