@@ -2,7 +2,6 @@
 title: "Title of the page"
 format: html
 ---
-::: {.justify}
 
 ### Introduction
 
@@ -13,19 +12,18 @@ format: html
 
 ### What we will learn
 
-- 🚀 Main objective
-- 🔎 Complement ideas
+- 🚀 Learning objective 1
+- 🔎 Learning objective 2
 - 🛰️ Include a related icon / emoji to make it engaging
 
 
-### Resources we will use
+### [OPTIONAL] Prerequisites
 
-List any resources, such as python dependencies or references tu previous tutorials. Something the user should be aware before the introduction to this chapter.
+List any resources, such as python dependencies or references to previous tutorials. Something the learner should be aware before the introduction to this chapter.
 
 <hr>
 
-## First Concept
-
+## Heading 1
 <br>
 <br>
 <br>
@@ -35,37 +33,24 @@ List any resources, such as python dependencies or references tu previous tutori
 Some notes...
 :::
 
-## Second Concept
-
+## Heading 2
 <br>
 <br>
 <br>
 <br>
 
-### Another level inside the concept (details)
-
+### Subheading 1
 <br>
-<br>
-<br>
-<br>
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 <br>
 <br>
 <br>
 <br>
 
-## Third Concept
-
+## Heading 3
 <br>
 <br>
 <br>
 <br>
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-<br>
-<br>
-<br>
-<br>
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 - Levels inside: 
   - Level inside level 1
@@ -85,25 +70,16 @@ Another note with some [embedded links]().
 <hr>
 
 ## Now it is your turn
-
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<hr>
-
+<br
 
 ## Conclusion
-
 <br>
 <br>
 <br>
 <br>
-
 
 ## What's next?
+<br>
+<br>
