@@ -61,11 +61,12 @@ We welcome to join you in this community effort in the following ways:
 * Participate in the upcoming notebook competition (Oct 2025 to Jan 2026) ([Express your interest](https://thrivegeo.com/eopf-toolkit-competition/))
 
 ## Install dependencies
-We use uv to install the packages and dependencies. If you want to recreatre this environment run the fill
+We use uv to install the packages and dependencies. If you want to recreatre this environment run the following command.
 ```bash
 uv sync 
 ```
 
+In case you're working on the Sentinel-1 notebooks or any other specific user case, run the following command to install extra dependencies.
 ```bash
 uv sync --all-extras
 ```
