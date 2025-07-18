@@ -59,3 +59,14 @@ By March 2026, we will have develped a community resource where you can learn ho
 We welcome to join you in this community effort in the following ways:
 * Follow us here on [Github](https://github.com/eopf-toolkit)
 * Participate in the upcoming notebook competition (Oct 2025 to Jan 2026) ([Express your interest](https://thrivegeo.com/eopf-toolkit-competition/))
+
+## Install dependencies
+We use uv to install the packages and dependencies. If you want to recreatre this environment run the fill
+```bash
+uv sync 
+```
+
+```bash
+uv sync --all-extras
+```
+ 
