@@ -1,0 +1,85 @@
+---
+title: "Title of the page"
+format: html
+---
+
+### Introduction
+
+<br>
+<br>
+<br>
+<br>
+
+### What we will learn
+
+- 🚀 Learning objective 1
+- 🔎 Learning objective 2
+- 🛰️ Include a related icon / emoji to make it engaging
+
+
+### [OPTIONAL] Prerequisites
+
+List any resources, such as python dependencies or references to previous tutorials. Something the learner should be aware before the introduction to this chapter.
+
+<hr>
+
+## Heading 1
+<br>
+<br>
+<br>
+<br>
+
+::: {.callout-note}
+Some notes...
+:::
+
+## Heading 2
+<br>
+<br>
+<br>
+<br>
+
+### Subheading 1
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## Heading 3
+<br>
+<br>
+<br>
+<br>
+
+- Levels inside: 
+  - Level inside level 1
+  - Level inside level 2
+  - Level inside level 3
+
+
+::: {.callout-note}
+Another note with some [embedded links]().
+:::
+
+<br>
+<br>
+<br>
+<br>
+
+<hr>
+
+## Now it is your turn
+<br>
+<br>
+<br
+
+## Conclusion
+<br>
+<br>
+<br>
+<br>
+
+## What's next?
+<br>
+<br>
