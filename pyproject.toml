@@ -52,6 +52,7 @@ dependencies = [
 sentinel1 = [
     "sarsen",
     "xarray_sentinel",
+    "earthpy",
 ]
 
 [tool.setuptools]
