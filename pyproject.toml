@@ -53,6 +53,7 @@ sentinel1 = [
     "sarsen",
     "xarray_sentinel",
     "earthpy",
+    "dask[distributed]"
 ]
 
 [tool.setuptools]
