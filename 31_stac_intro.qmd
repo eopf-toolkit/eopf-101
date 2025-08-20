@@ -80,7 +80,7 @@ To better understand the relation of STAC components, let us imagine a **Drinks*
 
 Let us start with the *Drinks* category itself. The menu is analogous to a STAC `Catalog`, as it serves as the top-level entry point, providing an overview of all beverages available.<br>
 
-Within this Drinks **catalog**, we can group the *Drinks* further in There are hot and cold beverages, caffeinated and non-caffeinated drinks. These categories represent **Collections** in STAC. <br>
+Within this Drinks **catalog**, we can create different *categories*, such as hot and cold beverages, and caffeinated and non-caffeinated drinks. These categories represent **Collections** in STAC.<br>
 For our analogy, let us say the menu is divided into two main collections:
 
 - **Caffeinated Drinks Collection**: This section groups all beverages that contain caffeine.<br>

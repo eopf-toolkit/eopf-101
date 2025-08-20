@@ -58,7 +58,7 @@ EOPF Zarr products consist of four main groups:
 | **Conditions** | Measurement context (geometric angles, meteorological/instrumental data) |
 | **Quality** | Flags and quality information for measurement filtering |
 
-### EOPF Zarr product example - Sentinel-2 L2A
+### EOPF Zarr product example: Sentinel-2 L2A
 Let us imagine a Sentinel-2 L2A tile. The tile has dimensions of approximately 10,980 by 10,980 pixels, and includes 12 spectral bands (B01 to B12, excluding B10) at different resolutions, plus additional data arrays such as a **Scene Classification Map** (SCL) and **Atmospheric Optical Thickness** (AOT).
 
 For efficient handling, the data is divided into 1,024 by 1,024-pixel chunks. This chunking strategy allows for optimal performance when reading specific spatial regions of interest.
