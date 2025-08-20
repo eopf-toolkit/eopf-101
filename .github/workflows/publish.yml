@@ -51,6 +51,8 @@ jobs:
           ghostscript \
           zlib1g \
           git-all
+          pip install uv
+          uv sync
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
