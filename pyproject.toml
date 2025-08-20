@@ -43,6 +43,8 @@ dependencies = [
     "numba>=0.61.2",
     "llvmlite>=0.44.0",
     "pystac_client",
+    "requests",
+    "aiohttp",
     "dask[distributed]"
 ]
 
