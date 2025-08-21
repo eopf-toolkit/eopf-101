@@ -1,90 +1,29 @@
 ---
-title: "Zarr Chunking Mastery for EOPF Datasets"
+title: "Mastering Sentinel-2's multi-resolution complexity"
 format: html
 ---
 
-Chunking is the secret sauce that makes Zarr format incredibly efficient for Earth Observation data processing. **Understanding chunking transforms how you work with massive satellite datasets** — turning memory-crushing, slow operations into fast, scalable analysis workflows. This tutorial takes you from chunking basics to advanced optimization strategies specifically tailored for EOPF (Earth Observation Processing Framework) datasets.
-
-## Understanding the fundamentals of Zarr chunking
-
-Zarr revolutionizes how we store and access large multidimensional arrays by breaking them into smaller, manageable pieces called **chunks**. Think of chunks as rectangular tiles that together compose your complete dataset, but with a crucial difference: you can access and process these tiles independently.
-
-### What chunks actually are
-
-<div style="float: left; margin-right: 25px; margin-bottom: 25px;">
-<img src="img/zarr_chunk_data.png" style="width: 200px; align: center;" alt="Zarr chunked data">
-<figcaption>Zarr Chunked Data. Source [earthmover.io](https://earthmover.io/blog/what-is-zarr)</figcaption>
-</div>
-
-A chunk is Zarr's fundamental storage unit — an equally-sized block of array data that gets compressed and stored as a separate object. When you have a massive 10,000 × 10,000 pixel satellite image, Zarr might divide it into 100 chunks of 1,000 × 1,000 pixels each. Each chunk becomes a separate compressed file or object in your storage system.
-
-<br/>
-<br/>
-<br/>
-<br/>
-
-```python
-import zarr
-import numpy as np
-
-# Create a large array with chunking
-z = zarr.zeros((10000, 10000), chunks=(1000, 1000), dtype='float32')
-print(f"Array shape: {z.shape}")
-print(f"Chunk shape: {z.chunks}")
-print(f"Number of chunks: {z.nchunks}")  # 100 chunks total
-```
-
-The magic happens in how chunks are stored and accessed. Each chunk gets its own storage key (like `c/0/1` for the chunk at row 0, column 1 of the chunk grid) and is compressed individually using algorithms like Blosc or Zstandard. This design enables several powerful capabilities that traditional array storage can't match.
-
-### Why chunks transform performance
-
-Chunking addresses three critical performance bottlenecks in large-scale data processing:
-
-**Memory efficiency**: Instead of loading entire datasets into RAM, you only load the chunks containing data you actually need. This lets you work with datasets much larger than your available memory — a 100 GB satellite time series can be processed on a machine with just 8 GB of RAM.
-
-**I/O optimization**: Chunking minimizes data transfer by reading only relevant sections. When you need data from one geographic region, Zarr loads only those chunks covering that area. For cloud storage, this translates to fewer, more efficient HTTP range requests instead of downloading massive files.
-
-**Parallel processing**: Different chunks can be processed simultaneously by multiple CPU cores or distributed workers. This transforms compute-intensive operations from sequential bottlenecks into scalable parallel workflows.
-
-Research demonstrates that properly chunked Zarr stores can achieve **5-20 GB/s sustained read speeds** from cloud storage with appropriate parallelization — performance impossible with traditional monolithic file formats.
-
-## How EOPF structures Earth Observation datasets
-
-::: {.callout-tip}
-If you have not already, please review the [Overview of EOPF Zarr Products](13_overview_eopf_datasets.qmd) to better understand the EOPF Dataset structure before diving deeper into chunking strategies.
-:::
-
-### What makes EO data unique for chunking
-
-Earth Observation datasets exhibit characteristics that significantly influence optimal chunking strategies:
-
-**Multi-dimensional complexity**: Satellite data combines spatial dimensions (often tens of thousands of pixels per side), spectral dimensions (multiple wavelength bands), and temporal dimensions (time series spanning years or decades). Each dimension has different access patterns and computational requirements.
-
-**Scale characteristics**: Modern satellites generate massive data volumes. Sentinel-2 alone produces approximately 1.6 TB per orbit, with the full archive exceeding 25 petabytes and growing rapidly. Processing workflows must handle this scale efficiently.
-
-**Access patterns**: Unlike general-purpose arrays, EO data has predictable access patterns. Spatial analysis typically accesses rectangular geographic regions. Spectral analysis needs multiple bands for the same locations. Time series analysis follows individual pixels or regions through time.
-
-**Heterogeneous resolutions**: Many instruments capture data at multiple spatial resolutions simultaneously. Sentinel-2's 10m, 20m, and 60m bands require coordinated chunking strategies that balance storage efficiency with processing convenience.
+In the [previous section](251_zarr_chunking_intro.qmd), we explored the fundamentals of Zarr chunking and its significance for Earth Observation data. Now, let's delve into the specific challenges posed by multi-resolution datasets, using Sentinel-2 as a case study.
 
 ## Mastering Sentinel-2's multi-resolution complexity
 
 Sentinel-2's Multi-Spectral Instrument exemplifies the chunking challenges in modern Earth Observation missions. The instrument captures **13 spectral bands across three spatial resolutions**, each optimized for different applications but requiring coordinated access for comprehensive analysis.
 
-| Sentinel-2 bands | Central wavelength (nm) | Spatial resolution (m) |
-|-------------------|-------------------------|------------------------|
-| B01 (Aerosol)     | 443                     | 60                     |
-| B02 (Blue)        | 490                     | 10                     |
-| B03 (Green)      | 560                     | 10                     |
-| B04 (Red)        | 665                     | 10                     |
-| B05 (Red Edge 1) | 705                     | 20                     |
-| B06 (Red Edge 2) | 740                     | 20                     |
-| B07 (Red Edge 3) | 783                     | 20                     |
-| B08 (NIR)        | 842                     | 10                     |
-| B8A (Narrow NIR) | 865                     | 20                     |
-| B09 (Water Vapour)| 945                     | 60                     |
-| B10 (Cirrus)     | 1375                    | 60                     |
-| B11 (SWIR 1)     | 1610                    | 20                     |
-| B12 (SWIR 2)     | 2190                    | 20                     |
+| Sentinel-2 bands   | Central wavelength (nm) | Spatial resolution (m) |
+| ------------------ | ----------------------- | ---------------------- |
+| B01 (Aerosol)      | 443                     | 60                     |
+| B02 (Blue)         | 490                     | 10                     |
+| B03 (Green)        | 560                     | 10                     |
+| B04 (Red)          | 665                     | 10                     |
+| B05 (Red Edge 1)   | 705                     | 20                     |
+| B06 (Red Edge 2)   | 740                     | 20                     |
+| B07 (Red Edge 3)   | 783                     | 20                     |
+| B08 (NIR)          | 842                     | 10                     |
+| B8A (Narrow NIR)   | 865                     | 20                     |
+| B09 (Water Vapour) | 945                     | 60                     |
+| B10 (Cirrus)       | 1375                    | 60                     |
+| B11 (SWIR 1)       | 1610                    | 20                     |
+| B12 (SWIR 2)       | 2190                    | 20                     |
 
 ### The multi-resolution band architecture
 
@@ -138,67 +77,7 @@ Consider **computational overhead** relative to chunk processing time. Each chun
 
 **Compression interactions** significantly affect optimal chunk sizes. Larger chunks generally achieve better compression ratios — particularly important for spectral data with high spatial correlation. However, compressed chunks must be fully decompressed when accessed, potentially increasing memory usage beyond the nominal chunk size. Balance compression benefits with memory requirements for your specific workflows.
 
-## Leveraging cloud-native access patterns
 
-Cloud computing fundamentally changes how we think about data access and storage optimization. Traditional file-based approaches that worked well on local storage systems often perform poorly in cloud environments, where network latency and bandwidth characteristics dominate performance.
-
-### How Zarr enables cloud-native processing
-
-Zarr's architecture aligns perfectly with cloud storage systems through several key design principles:
-
-**HTTP range request optimization**: Each chunk becomes a separate object or uses byte-range requests within larger objects. This enables accessing specific data portions without downloading entire files — crucial for cloud storage where data transfer costs can be substantial.
-
-**Parallel access patterns**: Multiple chunks can be read simultaneously through concurrent HTTP requests, saturating available bandwidth and dramatically improving throughput. Properly configured Zarr stores routinely achieve 5-20 GB/s sustained read speeds from cloud object storage.
-
-**Serverless compatibility**: Individual chunks can be processed by serverless functions (AWS Lambda, Google Cloud Functions), enabling cost-effective processing that scales automatically with workload demands. Each function processes one or more chunks independently, making workflows naturally fault-tolerant.
-
-### Consolidated metadata performance benefits
-
-Consolidated metadata represents one of Zarr's most important cloud optimization features. Without consolidation, opening a complex Zarr store requires separate HTTP requests to read metadata from every array and group — potentially hundreds of requests for typical EOPF datasets.
-
-The **`.zmetadata` file** combines all structural metadata into a single JSON document at the store root. This reduces store opening time from multiple seconds to milliseconds, dramatically improving user experience and reducing cloud API request costs. For Earth Observation applications with complex hierarchical structures, consolidated metadata is essential rather than optional.
-
-Modern tools like Xarray automatically detect missing consolidated metadata and display performance warnings. Always regenerate consolidated metadata after structural changes to your Zarr stores to maintain optimal performance.
-
-### Object storage optimization strategies
-
-Different cloud providers have distinct characteristics that influence optimal chunking strategies:
-
-**AWS S3** performs best with chunk sizes in the 8-16 MB range for byte-range requests. Use S3 Transfer Acceleration for global access patterns and consider S3 Intelligent Tiering for datasets with varying access frequency. Minimize small object proliferation — thousands of tiny chunks can impact both performance and billing.
-
-**Google Cloud Storage** and **Azure Blob Storage** follow similar principles but benefit from regional bucket placement to minimize latency. Leverage provider-specific features like Google's composite objects or Azure's CDN integration when appropriate for your access patterns.
-
-**Multi-cloud strategies** benefit from Zarr's storage-agnostic design through fsspec backends. The same Zarr store can be accessed identically regardless of whether it's stored on S3, GCS, or Azure, simplifying workflow development and enabling cloud portability.
-
-## Integrating with rio-tiler for efficient tiling
-
-Rio-tiler provides the bridge between Zarr's chunked storage and web mapping applications, enabling dynamic tile generation from multidimensional Earth Observation datasets. The integration between Zarr chunking and rio-tiler's tiling engine creates opportunities for significant performance optimization.
-
-### Tiling-optimized chunking strategies
-
-Web mapping applications have specific access patterns that influence optimal chunking. **Tile requests** typically cover small geographic areas at specific zoom levels, creating predictable spatial access patterns. Align your chunks with common tile boundaries to minimize the number of chunks that must be read for each tile request.
-
-For **multi-scale applications**, consider different chunk sizes for different zoom levels. High zoom levels (detailed views) benefit from smaller chunks aligned with tile boundaries. Low zoom levels (continental or global views) may perform better with larger chunks that reduce the mosaicking overhead when combining many chunks into overview tiles.
-
-**Temporal tiling** adds another optimization dimension. For time-series datasets, organize chunks to optimize both spatial tiling and temporal access. Consider use cases — animated visualizations may benefit from temporal chunking, while static maps at specific dates benefit from spatial chunking.
-
-### Performance optimization techniques
-
-Rio-tiler performance depends heavily on chunk organization and access patterns:
-
-**Chunk alignment** with tile grids minimizes partial chunk reads. When a tile request requires reading portions of many chunks, performance degrades significantly. Design your chunking strategy so that typical tile requests align with chunk boundaries.
-
-**Caching strategies** become crucial for interactive applications. Cache generated tiles at the application level, but also consider caching frequently accessed chunks at the storage level. Cloud storage providers offer various caching options that can dramatically improve repeated access performance.
-
-**Pyramid generation** creates pre-computed overviews at different resolutions, enabling efficient low-zoom-level tile generation. While this increases storage requirements, the performance benefits often justify the cost for frequently accessed datasets.
-
-### Advanced tiling workflows
-
-Modern Earth Observation applications often require sophisticated tiling capabilities beyond simple RGB visualization:
-
-**Multi-band tiling** enables false-color composites, vegetation indices, and other derived products through dynamic band combinations. Design your chunking to co-locate bands frequently used together — RGB bands should be in the same chunks, vegetation index components should be co-located.
-
-**Temporal compositing** creates cloud-free mosaics by combining multiple observations over time. This requires efficient access to the same spatial regions across multiple time steps, favoring spatial chunking strategies over temporal chunking for these applications.
 
 ## Understanding compression and network tradeoffs
 
@@ -265,21 +144,7 @@ Follow a systematic approach to chunking optimization:
 
 **Frequent rechunking** operations are expensive and should be avoided through careful initial chunk selection. Plan your chunking strategy around your complete workflow rather than optimizing individual operations in isolation.
 
-### Production deployment considerations
 
-**Monitor resource utilization** continuously in production environments. Set up alerts for memory pressure, poor parallel efficiency, and excessive task duration. Earth Observation workloads can vary dramatically in resource requirements.
-
-**Plan for data growth** — chunking strategies that work for pilot projects may not scale to production data volumes. Consider how your approach will perform with 10× or 100× more data.
-
-**Consider operational requirements** including backup strategies, disaster recovery, and data migration capabilities. Chunking decisions affect these operational aspects significantly.
-
-**Document your rationale** for specific chunking choices to enable future optimization efforts. Include information about data characteristics, access patterns, and performance measurements that influenced your decisions.
-
-**Test failure scenarios** — how does your system behave when individual chunks are unavailable, when memory is exhausted, or when network connectivity is poor? Robust chunking strategies should degrade gracefully under failure conditions.
-
-This comprehensive understanding of Zarr chunking principles, combined with specific knowledge of EOPF datasets and Earth Observation applications, enables you to design efficient, scalable data processing workflows that can handle the massive scale of modern satellite missions while maintaining excellent performance across diverse analysis requirements.
-
-Here's a comprehensive list of all the sources referenced in creating this tutorial, organized by category for easier navigation:
 
 ## Further Reading and Sources
 

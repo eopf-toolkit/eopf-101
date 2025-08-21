@@ -29,6 +29,8 @@ book:
       chapters:
        - 21_what_is_zarr.qmd
        - 22_zarr_struct_S2L2A.ipynb
+       - sections/2x_about_eopf_zarr/251_zarr_chunking_intro.qmd
+      #  - sections/2x_about_eopf_zarr/252_zarr_chunking_sentinel2.qmd
        #- 23_eopf_size_comp_tutorial.ipynb
     - part: "**EOPF and STAC**"
       chapters: 
@@ -54,7 +56,7 @@ format:
   html:
     number-sections: false
     execute:
-      eval: true
+      eval: false
     theme:
       - cosmo
       - brand

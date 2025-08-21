@@ -44,6 +44,9 @@ dependencies = [
     "llvmlite>=0.44.0",
     "xarray-eopf",
     "pystac_client",
+    "seaborn",
+    "dask[distributed]",
+    "bokeh"
 ]
 
 [tool.setuptools]
