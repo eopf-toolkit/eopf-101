@@ -29,6 +29,8 @@ book:
       chapters:
        - 21_what_is_zarr.qmd
        - 22_zarr_struct_S2L2A.ipynb
+       - 23_zarr_structure_S1GRD.ipynb
+       - 24_S1_basic_operations.ipynb
        #- 23_eopf_size_comp_tutorial.ipynb
     - part: "**EOPF and STAC**"
       chapters:
@@ -42,8 +44,9 @@ book:
   #      - 2_zarr_qgis.qmd
   #      - 3_zarr_R.qmd
   #      - 4_titiler.qmd
-    - part: "[COMING SOON] EOPF Zarr in Action"
-  #    chapters:a
+    - part: "EOPF Zarr in Action"
+      chapters:
+        - 52_flood_mapping_valencia.ipynb
   #      - 1_case_study.qmd
   #      - 2_case_study.qmd
   #      - 3_case_study.qmd
