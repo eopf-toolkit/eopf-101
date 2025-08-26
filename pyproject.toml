@@ -44,7 +44,8 @@ dependencies = [
     "pystac_client",
     "requests",
     "aiohttp",
-    "nbstripout"
+    "nbstripout",
+    "dask[distributed]"
 ]
 
 [tool.setuptools]
