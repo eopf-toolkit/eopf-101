@@ -11,7 +11,7 @@ book:
   sidebar:
    search: true
    logo: "img/EOPF_FINAL_LOGO.png"
-  page-footer: 
+  page-footer:
     left: "Development Seed, thriveGEO and SparkGeo"
     center: "License: Apache 2.0"
     right:
@@ -31,11 +31,11 @@ book:
        - 22_zarr_struct_S2L2A.ipynb
        #- 23_eopf_size_comp_tutorial.ipynb
     - part: "**EOPF and STAC**"
-      chapters: 
+      chapters:
         - 31_stac_intro.qmd
         - 32_eopf_stac_zarr_tutorial.qmd
-        - 33_eopf_stac_connection.ipynb
-        - 34_eopf_stac_xarray_tutorial.ipynb
+        #- 33_eopf_stac_connection.ipynb
+        #- 34_eopf_stac_xarray_tutorial.ipynb
     - part: "[COMING SOON] Tools to work with EOPF Zarr"
  #     chapters:
   #      - 1_zarr_julia.qmd

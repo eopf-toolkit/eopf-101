@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "eopf-101"
 version = "0.1.0"
 description = "EOPF 101 - A toolkit for working with Sentinel data in Zarr format"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 readme = "README.md"
 authors = [
     { name = "Emmanuel Mathot", email = "emmanuel@developmentseed.com" },
@@ -31,19 +31,19 @@ keywords = [
 
 dependencies = [
     "jupyter>=1.1.1",
-    "zarr>=2.18.0",
+    "zarr>=3.1.1",
     "pystac>=1.13.0",
-    "numpy>=2.2.6",
+    "numpy>=2.3.1",
     "pandas>=2.0.2",
-    "matplotlib>=3.7.1",
+    "matplotlib >=3.10.3",
     "rioxarray>=0.14.1",
     "stackstac>=0.4.4",
     "ipykernel>=6.23.1",
     "quarto>=0.1.0",
-    "numba>=0.61.2",
     "llvmlite>=0.44.0",
-    "xarray-eopf",
     "pystac_client",
+    "requests",
+    "aiohttp"
 ]
 
 [tool.setuptools]
