@@ -32,7 +32,7 @@ With growing data volumes, this becomes a challenge. To picture the different na
 :::
 
 ### Analogy: Comparing local and cloud-based workflows with ordering a pizza
-To understand the principal concept, let us compare local and cloud-based workflows with ordering a pizza. Local workflows are similar to placing an order at a pizza store on your street. It is quick since the 'data' (pizza) is easily accessible, but we can only choose from what the local pizza store offers.
+To understand the principal concept, let us compare local and cloud-based workflows with ordering a pizza. Local workflows are similar to placing an order at a pizza store on your street. It is quick since the **data** (pizza) is easily accessible, but we can only choose from what the local pizza store offers.
 
 On the other hand, cloud-based workflows are comparable to ordering a pizza from a pizza store in a different city or even country. This option allows you to order different types of pizzas, which are not available in the pizza store on your street. While we might have more options to choose from, the time between order and delivery can become a challenge. The time until your pizza from a different town or country arrives at your house is called **data latency**.
 
@@ -54,11 +54,13 @@ When accessing data over the internet (e.g. through object stores in the cloud),
 
 ## Cloud-Optimised Geospatial Raster Formats
 For satellite data, two main cloud-optimised formats are being used:
+
 - **Cloud-Optimised GeoTIFF (COG)**: Optimised for 2D image data and originates from the traditional `GeoTIFF` format, and
 - **Zarr**: Used and designed for complex, n-dimensional data structures and originates from the traditional formats `netCDF` and `HDF5`.
 
 ### Cloud-optimised GeoTIFF (COG)
 COGs have been widely used as a cloud-native format for satellite imagery and improve the standard GeoTIFF format by:
+
 - Organising data into **tiles**: Dividing the data into smaller, manageable squares (like 512x512 pixels).
 - Including lower-resolution previews: Having pre-generated, less detailed versions of the data. This allows for fast and efficient data visualisations.
 

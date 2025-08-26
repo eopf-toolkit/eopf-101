@@ -64,7 +64,7 @@ EOPF and STAC: Learn more about EOPF and STAC [here](./31_stac_intro.qmd).
 
 ### EOPF encoding structure
 An encoding structure can be seen as the specific method used to package and store data and its associated metadata in a digital format.
-Building on the consistent data structure and clear metadata, the new storage system must be capable of handling various aspects of current Sentinel data (such as manifest files and tile structures from the SAFE format) while remaining fully compatible with cloud environments.
+Building on the consistent data structure and clear metadata, the new storage system must be capable of handling various aspects of current Sentinel data (such as manifest files and tile structures from the `.SAFE` format) while remaining fully compatible with cloud environments.
 
 ESA chose `.zarr` as encoding format as it allows for instant access to data, efficient processing of massive amounts of data, and seamless integration with other datasets. The EOPF Sentinel Zarr data encoding allows you to work with data from multiple missions more effectively.
 
@@ -85,4 +85,4 @@ To learn more about the EOPF processor framework, visit [https://eopf.copernicus
 Throughout this section, we explored the EOPF initiative and its adoption of the `.zarr `format. This new approach is set to significantly improve and simplify how we access and work with data from the satellite missions Sentinel-1, Sentinel-2, and Sentinel-3.
 
 ## What's next?
-In the following [section] (./12_about_cloudoptimized_formats.qmd), we learn why EO data needs to be cloud-optimised when processed in the cloud.
+In the following [section](./12_about_cloudoptimized_formats.qmd), we learn why EO data needs to be cloud-optimised when processed in the cloud.
