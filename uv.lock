@@ -769,6 +769,8 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },
+    { name = "dask", extra = ["distributed"] },
+    { name = "earthpy" },
     { name = "ipykernel" },
     { name = "jupyter" },
     { name = "llvmlite" },
@@ -781,23 +783,17 @@ dependencies = [
     { name = "requests" },
     { name = "rioxarray" },
     { name = "s3fs" },
-    { name = "stackstac" },
-    { name = "zarr" },
-]
-
-[package.optional-dependencies]
-sentinel1 = [
-    { name = "dask", extra = ["distributed"] },
-    { name = "earthpy" },
     { name = "sarsen" },
+    { name = "stackstac" },
     { name = "xarray-sentinel" },
+    { name = "zarr" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "aiohttp" },
-    { name = "dask", extras = ["distributed"], marker = "extra == 'sentinel1'" },
-    { name = "earthpy", marker = "extra == 'sentinel1'" },
+    { name = "dask", extras = ["distributed"] },
+    { name = "earthpy" },
     { name = "ipykernel", specifier = ">=6.23.1" },
     { name = "jupyter", specifier = ">=1.1.1" },
     { name = "llvmlite", specifier = ">=0.44.0" },
@@ -810,9 +806,9 @@ requires-dist = [
     { name = "requests" },
     { name = "rioxarray", specifier = ">=0.14.1" },
     { name = "s3fs" },
-    { name = "sarsen", marker = "extra == 'sentinel1'" },
+    { name = "sarsen" },
     { name = "stackstac", specifier = ">=0.4.4" },
-    { name = "xarray-sentinel", marker = "extra == 'sentinel1'" },
+    { name = "xarray-sentinel" },
     { name = "zarr", specifier = ">=3.1.1" },
 ]
 
@@ -1076,7 +1072,7 @@ name = "importlib-metadata"
 version = "8.7.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "zipp" },
+    { name = "zipp", marker = "python_full_version < '3.12'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/76/66/650a33bd90f786193e4de4b3ad86ea60b53c89b669a5c7be931fac31cdb0/importlib_metadata-8.7.0.tar.gz", hash = "sha256:d13b81ad223b890aa16c5471f2ac3056cf76c5f10f82d6f9292f0b415f389000", size = 56641 }
 wheels = [

@@ -44,11 +44,7 @@ dependencies = [
     "pystac_client",
     "requests",
     "aiohttp",
-    "s3fs"
-]
-
-[project.optional-dependencies]
-sentinel1 = [
+    "s3fs",
     "sarsen",
     "xarray_sentinel",
     "earthpy",

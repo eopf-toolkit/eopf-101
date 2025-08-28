@@ -9,7 +9,7 @@ RUN chown -R ${NB_UID}:${NB_GID} /home/${NB_USER}/deps
 
 USER ${NB_UID}
 
-WORKDIR /home/${NB_USER}/deps 
+WORKDIR /home/${NB_USER}/deps
 
 RUN pdm config python.use_venv false && \
     pdm lock && \

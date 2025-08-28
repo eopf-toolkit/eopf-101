@@ -65,8 +65,3 @@ We use uv to install the packages and dependencies. If you want to recreatre thi
 ```bash
 uv sync
 ```
-
-In case you're working on the Sentinel-1 notebooks or any other specific user case, run the following command to install extra dependencies.
-```bash
-uv sync --all-extras
-```

@@ -65,6 +65,11 @@ jobs:
         password: ${{ secrets.OVH_HARBOR_PASSWORD }}
       options: --entrypoint "" --user root
 
+    env:
+      # Increase Deno memory limit to handle large Zarr datasets
+      DENO_V8_FLAGS: --max-old-space-size=8192
+      V8_FLAGS: --max-old-space-size=8192
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
