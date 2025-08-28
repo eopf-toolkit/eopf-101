@@ -46,6 +46,44 @@ Between October 2025 and January 2026, we will run a notebook competition. Durin
 
 [Express your interest](https://thrivegeo.com/eopf-toolkit-competition/) today and do not miss any updates related to the notebook competition.
 
+## Clean notebooks
+
+To ensure smooth CI/CD operations and prevent build failures, all Jupyter notebooks in this repository must be kept "clean" (without outputs or execution counts). Large notebooks with embedded images or outputs can cause buffer overflow errors during the build process.
+
+### How to Clean Notebooks
+
+#### Method 1: Using nbstripout (Recommended)
+
+```bash
+# Install nbstripout
+pip install nbstripout
+
+# Clean a single notebook
+nbstripout notebook.ipynb
+
+# Clean all notebooks
+nbstripout *.ipynb
+
+# Check if notebooks are clean (exits with error if not clean)
+nbstripout --verify *.ipynb
+```
+
+#### Method 2: Using Jupyter Interface
+
+1. Open the notebook in Jupyter Lab/Notebook
+2. Go to `Kernel` → `Restart & Clear Output`
+3. Save the notebook
+4. Commit the changes
+
+#### Method 3: Command Line Alternative
+```bash
+# Single notebook
+jupyter nbconvert --clear-output --inplace notebook.ipynb
+
+# All notebooks
+find . -name '*.ipynb' -not -path './_book/*' \
+  -exec nbstripout {} +
+```
 
 ## Development timeline
 By March 2026, we will have develped a community resource where you can learn how to use the EOPF Sentinel Zarr Samples Service by ESA. It is designed for Sentinel data users who are new to cloud computing.
