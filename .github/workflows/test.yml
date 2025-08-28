@@ -86,6 +86,34 @@ jobs:
           zlib1g
           pip install uv
           uv sync
+          pip install nbstripout
+
+      - name: Validate notebooks are clean
+        run: |
+          echo "🔍 Checking that all notebooks are clean (no outputs)..."
+          # Find all notebooks excluding backups and build artifacts
+          notebooks=$(find . -name "*.ipynb" -not -path "./_book/*" -not -name "*backup*.ipynb" -not -path "./.git/*")
+          if [ -z "$notebooks" ]; then
+            echo "ℹ️  No notebooks found to validate"
+            exit 0
+          fi
+          echo "Found notebooks: $notebooks"
+          # Use nbstripout --verify which exits with non-zero if notebooks have outputs
+          if nbstripout --verify $notebooks; then
+            echo "✅ All notebooks are clean!"
+          else
+            echo ""
+            echo "❌ Some notebooks contain outputs or execution counts!"
+            echo ""
+            echo "🔧 To fix this:"
+            echo "  1. Install nbstripout: pip install nbstripout"
+            echo "  2. Clean notebooks: nbstripout *.ipynb"
+            echo "  3. Commit the changes"
+            echo ""
+            echo "💡 For automatic cleaning, set up git hooks: nbstripout --install"
+            exit 1
+          fi
+        shell: bash
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
