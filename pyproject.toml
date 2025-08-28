@@ -43,7 +43,8 @@ dependencies = [
     "llvmlite>=0.44.0",
     "pystac_client",
     "requests",
-    "aiohttp"
+    "aiohttp",
+    "nbstripout"
 ]
 
 [tool.setuptools]
