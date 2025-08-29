@@ -69,6 +69,11 @@ jobs:
       # Increase Deno memory limit to handle large Zarr datasets
       DENO_V8_FLAGS: --max-old-space-size=8192
       V8_FLAGS: --max-old-space-size=8192
+      # Enable verbose debugging output
+      QUARTO_LOG_LEVEL: DEBUG
+      QUARTO_DENO_LOG: DEBUG
+      JUPYTER_LOG_LEVEL: DEBUG
+      PYTHONUNBUFFERED: 1
 
     steps:
       - name: Check out repository

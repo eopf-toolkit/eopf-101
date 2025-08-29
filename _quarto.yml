@@ -28,16 +28,16 @@ book:
     - part: "**About EOPF Zarr**"
       chapters:
        - 21_what_is_zarr.qmd
-       - 22_zarr_struct_S2L2A.ipynb
-       - 23_zarr_structure_S1GRD.ipynb
+       # - 22_zarr_struct_S2L2A.ipynb
+       # - 23_zarr_structure_S1GRD.ipynb
        - 24_S1_basic_operations.ipynb
        #- 23_eopf_size_comp_tutorial.ipynb
     - part: "**EOPF and STAC**"
       chapters:
         - 31_stac_intro.qmd
-        - 32_eopf_stac_zarr_tutorial.qmd
-        #- 33_eopf_stac_connection.ipynb
-        #- 34_eopf_stac_xarray_tutorial.ipynb
+        # - 32_eopf_stac_zarr_tutorial.qmd
+        # - 33_eopf_stac_connection.ipynb
+        # - 34_eopf_stac_xarray_tutorial.ipynb
     - part: "[COMING SOON] Tools to work with EOPF Zarr"
  #     chapters:
   #      - 1_zarr_julia.qmd
@@ -45,8 +45,8 @@ book:
   #      - 3_zarr_R.qmd
   #      - 4_titiler.qmd
     - part: "EOPF Zarr in Action"
-      chapters:
-        - 52_flood_mapping_valencia.ipynb
+      # chapters:
+        # - 52_flood_mapping_valencia.ipynb
   #      - 1_case_study.qmd
   #      - 2_case_study.qmd
   #      - 3_case_study.qmd
@@ -58,6 +58,12 @@ format:
     number-sections: false
     execute:
       eval: true
+      echo: true
+      warning: true
+      error: true
+      output: true
+      cache: false
+      freeze: false
     theme:
       - cosmo
       - brand
