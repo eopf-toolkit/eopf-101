@@ -45,6 +45,11 @@ dependencies = [
     "requests",
     "aiohttp",
     "nbstripout"
+    "s3fs",
+    "sarsen",
+    "xarray_sentinel",
+    "earthpy",
+    "dask[distributed]",
 ]
 
 [tool.setuptools]
