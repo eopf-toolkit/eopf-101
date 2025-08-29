@@ -44,7 +44,12 @@ dependencies = [
     "pystac_client",
     "requests",
     "aiohttp",
-    "nbstripout"
+    "nbstripout",
+    "s3fs",
+    "sarsen",
+    "xarray_sentinel",
+    "earthpy",
+    "dask[distributed]",
 ]
 
 [tool.setuptools]
