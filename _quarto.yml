@@ -55,9 +55,9 @@ book:
             # - 61_sardinia
             # - 62_sardinia
             # - 63_sardinia
-        # - part: "Flooding in Valencia 2024"
-        #   chapters:
-            # - 64_valencia
+      #  - part: "Flooding in Valencia 2024"
+      chapters:
+      - 64_flood_mapping_valencia.ipynb
     - glossary.qmd
     - references.qmd
 format:
