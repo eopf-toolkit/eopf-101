@@ -34,7 +34,7 @@ book:
       chapters:
         - 31_stac_intro.qmd
         - 32_eopf_stac_zarr_tutorial.qmd
-        #- 33_eopf_stac_connection.ipynb
+        - 33_eopf_stac_connection.ipynb
         #- 34_eopf_stac_xarray_tutorial.ipynb
     - part: "[COMING SOON] Tools to work with EOPF Zarr"
  #     chapters:
