@@ -65,6 +65,9 @@ format:
     number-sections: false
     execute:
       eval: true
+      timeout: 300
+      error: true
+      warning: false
     theme:
       - cosmo
       - brand
