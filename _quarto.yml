@@ -29,6 +29,7 @@ book:
       chapters:
        - 21_what_is_zarr.qmd
        - 22_zarr_struct_S2L2A.ipynb
+       - 23_zarr_structure_S1GRD.ipynb
        #- 23_eopf_size_comp_tutorial.ipynb
     - part: "**EOPF and STAC**"
       chapters:
