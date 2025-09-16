@@ -93,4 +93,5 @@ jobs:
           tinytex: true
 
       - name: Render Quarto Project
-        uses: quarto-dev/quarto-actions/render@v2
+        run: |
+          quarto render . --log-level debug --execute-debug
