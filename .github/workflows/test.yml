@@ -56,7 +56,7 @@ jobs:
 
   test-render:
     needs: [check-diff, prepare-docker-image]
-    runs-on: ubuntu-latest
+    runs-on: eopf-large
     if: needs.check-diff.result == 'success' && (needs.prepare-docker-image.result == 'success' || needs.prepare-docker-image.result == 'skipped')
     container:
       image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev:${{ needs.check-diff.outputs.tag }}
