@@ -23,6 +23,12 @@ def validate_scl(scl):
 
     """ 
     Creates a boolean mask to identify valid pixels in a Sentinel-2 Scene Classification (SCL) dataset by excluding invalid land cover types.
+    0: No Data
+    1: Saturated / Defective Pixel 
+    3: Cloud Shadows
+    7: Low probability Cloud
+    8: Medium probability Cloud
+    9: High probability Cloud
 
     Recieves:
     scl (xarray.DataArray): Representing the Scene Classification (SCL) band from a Sentinel-2 image.
@@ -40,7 +46,13 @@ def validate_scl(scl):
 def validate_scl_w(scl):
     """ 
     Creates a boolean mask to identify valid pixels in a Sentinel-2 Scene Classification (SCL) dataset by excluding invalid land cover types.
-
+    0: No Data
+    1: Saturated / Defective Pixel 
+    3: Cloud Shadows
+    6: Water
+    7: Low probability Cloud
+    8: Medium probability Cloud
+    9: High probability Cloud
     Recieves:
     scl (xarray.DataArray): Representing the Scene Classification (SCL) band from a Sentinel-2 image.
 
