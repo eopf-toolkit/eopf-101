@@ -83,6 +83,7 @@ jobs:
           libxrender1 \
           libxext6 \
           ghostscript \
+          pandoc \
           zlib1g
           pip install uv
           uv sync
