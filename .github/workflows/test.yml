@@ -123,14 +123,11 @@ jobs:
 
       - name: Quarto & Pandoc sanity check
         run: |
+          which quarto
+          which pandoc
           quarto --version
-          # If pandoc fails to start, this is where we'll see it
-          quarto pandoc -- --version || echo "pandoc failed to start"
-          # Also show dynamic libs (helps spot missing libgmp/tinfo/numa)
-          PANDOC_BIN="$(dirname "$(which quarto)")/tools/$(uname -m)/pandoc"
-          [ -x "$PANDOC_BIN" ] || PANDOC_BIN="$(dirname "$(which quarto)")/tools/x86_64/pandoc"
-          echo "Using pandoc at: $PANDOC_BIN"
-          ldd "$PANDOC_BIN" || true
+          pandoc --version             # <— proves system pandoc works
+          quarto check --quiet || true # shows what Quarto sees
 
 
       - name: Render Quarto Project
