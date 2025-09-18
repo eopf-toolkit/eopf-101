@@ -61,8 +61,8 @@ We can explore chunking with a simple 2D raster dataset example. Imagine we have
 
 
 | **1×1 Chunks** | **2×2 Chunks** | **3×3 Chunks** |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| - Each pixel is a chunk<br>- Maximum flexibility but high overhead<br>- 36 total chunks<br>- Good for random access to individual cells<br>- Poor for operations that need adjacent cells                 | - Each chunk contains 4 cells<br>- Balanced approach<br>- 9 total chunks<br>- Good for small region operations<br>- Reasonable compression potential                              | - Each chunk contains 9 cells<br>- More efficient storage<br>- 4 total chunks<br>- Better compression<br>- Less granular access                                                          |
+| :--- | :--- | :--- |
+| - Each pixel is a chunk<br>- Maximum flexibility but high overhead<br>- 36 total chunks<br>- Good for random access to individual cells<br>- Poor for operations that need adjacent cells                 | - Each chunk contains 4 cells<br>- Balanced approach<br>- 9 total chunks<br>- Good for small region operations<br>- Reasonable compression potential                              | - Each chunk contains 9 cells<br>- More efficient storage<br>- 4 total chunks<br>- Better compression<br>- Less granular access |
 
 ### Compression of chunks
 

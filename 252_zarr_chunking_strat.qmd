@@ -41,9 +41,16 @@ Follow a systematic approach to chunking optimisation:
 
 ## Default EOPF Chunking Structure
 
-### Sentinel-1 (GRD and _ )
-TBD
-#### Chunking organisation of L-1C
+### Sentinel-1 Level-1 GRD
+
+The `grd` variable in the EOPF **Sentinel-1 GRD** dataset structure is particularly relevant for chunking.<br>
+It is contained inside each of the `VH` and `VV` groups `measurements` respectiveley storing the  variable as multidimensional arrays.
+
+#### Chunking organisation
+
+Each contained `grd` array is chunked along both:
+- **azimuth_time** : 7 - 9 chunks (depends on the item).
+- **ground_range** : No chunking along the dimension.
 
 ### Sentinel-2
 
