@@ -3,26 +3,25 @@ title: "About Chunking"
 format: html
 ---
 
-## Introduction
+### Introduction
 
 **Chunking** is the secret sauce that makes `.zarr` format incredibly efficient for **Earth Observation** data processing.<br>
 Understanding chunking allows us to transform the way we work with massive satellite datasets. This means somehow, turning memory-crushing, slow operations into fast, scalable analysis workflows.<br>
 
 This introduction takes you from chunking basics to advanced optimisation strategies specifically tailored for [EOPF (Earth Observation Processing Framework)]() datasets.
 
-## What we will learn
+### What we will learn
 
-- 🧱 What a chunk is
+- 🧱 What a *chunk* is
 - ⏳ Recognise the relationship between chunk and optimisation
 - 📚 The relevant considerations for chunking size, compression and transfer
 
 <hr>
 
+## What are chunks?
+
 Zarr revolutionises how we store and access large multidimensional arrays by breaking them into smaller, manageable pieces called **chunks**.
-
-## What chunks actually are
-
-Think of chunks as rectangular tiles that together compose a complete dataset, but with a **crucial difference**: they allow us to access and process each of the components independently.
+Think of chunks as rectangular tiles that together compose a complete dataset, but with a **significant difference**: they allow us to access and process each of the components independently.
 
 <div style="text-align: center;">
 
@@ -44,9 +43,9 @@ Chunking addresses **three critical performance bottlenecks** in large-scale dat
 
 ### Chunk sizes for performance
 
-Chunk size selection fundamentally determines the performance characteristics over our dataset. The choice affects memory usage, I/O efficiency, parallel scaling, and network transfer costs. That is the reason, it is one of the most critical optimisation decisions in Earth Observation data processing.
+Chunk size selection fundamentally determines the performance characteristics over our dataset. The choice of chunking size affects memory usage, I/O efficiency, parallel scaling, and network transfer costs. That is the reason, it is one of the most critical optimisation decisions in Earth Observation data processing.
 
-We can observe in the application three levels of chunk sizes:
+There are three levels of chunk sizes:
 
 | **Chunk size** | **Advantages** | **Disadvantages** |
 | :--- | :--- | :--- |
@@ -65,7 +64,7 @@ We can explore chunking with a simple 2D raster dataset example. Imagine we have
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | - Each pixel is a chunk<br>- Maximum flexibility but high overhead<br>- 36 total chunks<br>- Good for random access to individual cells<br>- Poor for operations that need adjacent cells                 | - Each chunk contains 4 cells<br>- Balanced approach<br>- 9 total chunks<br>- Good for small region operations<br>- Reasonable compression potential                              | - Each chunk contains 9 cells<br>- More efficient storage<br>- 4 total chunks<br>- Better compression<br>- Less granular access                                                          |
 
-### Chunks compression
+### Compression of chunks
 
 **Compression interactions** significantly affect optimal chunk sizes. Larger chunks generally achieve better compression ratios, which are important for spectral data with high spatial correlation. However, compressed chunks must be fully decompressed when accessed, potentially increasing memory usage beyond the nominal chunk size. Balance compression benefits with memory requirements for your specific workflows.
 
@@ -77,7 +76,6 @@ The available compression algorithms for `zarr` are the following.
 | **Zstandard (Zstd)** | Offers an exceptional balance between compression ratio and speed, making it the preferred choice for many Earth Observation applications. Zstd often achieves 3-8× compression on spectral data while maintaining reasonable decompression performance. |
 | **Specialised algorithms** | Such as JPEG 2000, provide excellent compression for certain data types but may not integrate well with general-purpose array processing workflows. Consider format compatibility when selecting compression approaches. |
 
-### Network transfer
 
 Compression effectiveness depends heavily on network characteristics:
 
@@ -112,11 +110,9 @@ For a **deep dive** into the chunking theory and further technical resources, we
 
 ## Conclusion
 
-This chapter introduced the logic behind data chunking and its relevance for scalable analysis workflows. We explored how optimising the size, compression and considering the transfer of these chunks significantly enhances the efficiency of data retrieval.<br>
-
-We also emphasised the importance of applying chunking strategies to large datasets, such as those found in Earth Observation. An optimal approach to chunking enables the creation of a clean, repeatable EO workflow that ensures we access only the necessary data.
+This chapter introduced the logic behind data chunking and its relevance for scalable analysis workflows. We explored how optimising the size, compression and considering the transfer of these chunks significantly enhances the efficiency of data retrieval.
 
 
 ## What's next?
 
-In the next page, we will go over the specific **optimal chunking strategies** and **considerations** that enable an **efficient workflow** for Earth Observation data applications, much more specifically over the EOPF STAC Catalog Collections.
+In the following [section](./252_zarr_chunking_strat.qmd) , we will go over **optimal chunking strategies** and relevant **considerations** when aiming for making Earth Observation workflows more **efficient**.
