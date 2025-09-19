@@ -67,9 +67,10 @@ This chunking ensures the three resolutions are chunked into 36 pieces (6×6) ch
 
 
 ### Sentinel-3  (LST)
-TBD
+This section is under development 🛰️
+
 #### Chunking organisation of SLSTR
-TBD
+This section is under development 🛰️
 
 
 ## Use case-specific optimisation
