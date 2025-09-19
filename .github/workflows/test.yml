@@ -68,6 +68,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       # Quarto uses these but we probably don't want them baked into our image
       - name: Install quarto dependencies
@@ -89,6 +91,7 @@ jobs:
           pip install nbstripout
 
       - name: Validate notebooks are clean
+        shell: bash
         run: |
           echo "🔍 Checking that all notebooks are clean (no outputs)..."
           # Find all notebooks excluding backups and build artifacts
@@ -113,13 +116,41 @@ jobs:
             echo "💡 For automatic cleaning, set up git hooks: nbstripout --install"
             exit 1
           fi
-        shell: bash
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
           tinytex: true
 
-      - name: Render Quarto Project
+      - name: Identify new/modified .ipynb and .qmd files
+        id: changed
+        shell: bash
         run: |
-          stdbuf -oL -eL quarto render . --log-level debug --execute-debug
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
+            BASE="origin/${{ github.event.pull_request.base.ref }}"
+            HEAD="HEAD"
+          else
+            BASE="${{ github.event.before }}"
+            HEAD="${{ github.sha }}"
+          fi
+
+          git diff -z --name-only --diff-filter=AMR "$BASE" "$HEAD" -- '**/*.qmd' '**/*.ipynb' > changed.lst
+          if [[ ! -s changed.lst ]]; then
+            echo "none=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build CI overlay profile (only render changed files)
+        if: steps.changed.outputs.none != 'true'
+        shell: bash
+        run: |
+          mapfile -d '' files < changed.lst
+          json='[]'; for f in "${files[@]}"; do json=$(jq -c --arg f "$f" '. + [$f]' <<<"$json"); done
+          jq -r --argjson arr "$json" \
+            '. as $in | "project:\n  render:\n" + ( $arr | map("  - \"" + . + "\"\n") | add )' \
+            <<< '{}' > _quarto-ci.yml
+          echo "==== _quarto-ci.yml ====" && cat _quarto-ci.yml
+
+      - name: Render (only changed files)
+        if: steps.changed.outputs.none != 'true'
+        run: QUARTO_PROFILE=ci quarto render
