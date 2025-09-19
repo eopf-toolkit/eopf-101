@@ -175,6 +175,5 @@ jobs:
           set -euo pipefail
           while IFS= read -r -d '' f; do
             echo "Rendering (standalone): $f"
-            # NOTE: input first, then options; no --no-project flag
             quarto render "$f" --to html
           done < changed.lst
