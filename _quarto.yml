@@ -27,15 +27,9 @@ book:
         - 13_overview_eopf_datasets.qmd
     - part: "**About EOPF Zarr**"
       chapters:
-      #  - 21_what_is_zarr.qmd
-      #  - 22_sentinel1_p1.ipynb
-      #  - 23_sentinel1_p2.ipynb 
-       - 24_zarr_struct_S2L2A.ipynb
-      #  - 25_sentinel3.ipynb
-    - part: "**About Chunking**"
-      # chapters:
-      #  - 31_
-      #  - 32_
+       - 21_what_is_zarr.qmd
+       - 22_zarr_struct_S2L2A.ipynb
+       #- 23_eopf_size_comp_tutorial.ipynb
     - part: "**EOPF and STAC**"
       chapters:
         - 41_stac_intro.qmd
@@ -68,5 +62,3 @@ format:
     theme:
       - cosmo
       - brand
-  pdf:
-    documentclass: scrreprt
