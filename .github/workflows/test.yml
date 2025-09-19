@@ -168,24 +168,46 @@ jobs:
           fi
 
 
-      - name: Build CI overlay profile (only render changed files)
+      # Install yq once (tiny static binary)
+      - name: Install yq
+        run: |
+          wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/v4.44.3/yq_linux_amd64
+          chmod +x /usr/local/bin/yq
+
+      # Build a strict CI overlay that limits the book to changed files only
+      - name: Build strict CI overlay (render + chapters)
         if: steps.changed.outputs.none != 'true'
         shell: bash
+        working-directory: ${{ github.workspace }}
         run: |
+          set -euo pipefail
+
+          # Read null-delimited list produced earlier
           mapfile -d '' files < changed.lst
+
+          # Create JSON arrays for yq
           json='[]'; for f in "${files[@]}"; do json=$(jq -c --arg f "$f" '. + [$f]' <<<"$json"); done
-          # project.render list
-          jq -r --argjson arr "$json" \
-            '. as $in | "project:\n  render:\n" + ( $arr | map("  - \"" + . + "\"\n") | add )' \
-            <<< '{}' > _quarto-ci.yml
-          # ensure other chapters won't re-exec
-          printf "\nexecute:\n  freeze: auto\n" >> _quarto-ci.yml
-          # optional: force single format to avoid double kernel runs
-          printf "\nformat:\n  html: {}\n" >> _quarto-ci.yml
+          full=$(jq -c --argjson arr "$json" '["index.qmd"] + $arr + ["glossary.qmd","references.qmd"]' <<< '{}')
 
-          echo "==== _quarto-ci.yml ====" && cat _quarto-ci.yml
+          # Start minimal overlay file
+          cat > _quarto-ci.yml <<'YAML'
+      project: {}
+      book: {}
+      YAML
 
+          # 1) Limit targets that Quarto will build
+          yq -i --argjson arr "$json" '.project.render = $arr' _quarto-ci.yml
 
-      - name: Render (only changed files)
+          # 2) Replace the visible/actual chapter list for the book
+          yq -i --argjson arr "$full" '.book.chapters = $arr' _quarto-ci.yml
+
+          # 3) Optional: avoid double kernels & prevent stray re-exec
+          yq -i '.execute.freeze = "auto" | .format.html = {}' _quarto-ci.yml
+
+          echo "==== _quarto-ci.yml ===="
+          cat _quarto-ci.yml
+
+      # Render using the overlay profile
+      - name: Render (ONLY changed files)
         if: steps.changed.outputs.none != 'true'
         run: QUARTO_PROFILE=ci quarto render
