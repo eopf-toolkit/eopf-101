@@ -133,20 +133,40 @@ jobs:
       - name: Identify new/modified .ipynb and .qmd files
         id: changed
         shell: bash
+        working-directory: ${{ github.workspace }}
         run: |
+          set -euo pipefail
+
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            git fetch origin ${{ github.event.pull_request.base.ref }} --depth=1
-            BASE="origin/${{ github.event.pull_request.base.ref }}"
-            HEAD="HEAD"
+            BASE="${{ github.event.pull_request.base.sha }}"
+            HEAD="${{ github.event.pull_request.head.sha }}"
           else
             BASE="${{ github.event.before }}"
             HEAD="${{ github.sha }}"
           fi
 
-          git diff -z --name-only --diff-filter=AMR "$BASE" "$HEAD" -- '**/*.qmd' '**/*.ipynb' > changed.lst
-          if [[ ! -s changed.lst ]]; then
+          echo "Diffing range: $BASE..$HEAD"
+          git --no-pager show --name-only --pretty=oneline "$BASE..$HEAD" | sed 's/^/  /' || true
+
+          # 1) Get ALL changed paths (null-delimited)
+          git -c core.quotepath=off diff -z --name-only --diff-filter=AMR "$BASE" "$HEAD" -- > all.lst
+
+          # 2) Filter to *.qmd / *.ipynb safely (null-aware)
+          : > changed.lst
+          while IFS= read -r -d '' f; do
+            case "$f" in
+              *.qmd|*.ipynb) printf '%s\0' "$f" >> changed.lst ;;
+            esac
+          done < all.lst
+
+          if [[ -s changed.lst ]]; then
+            echo "Changed notebooks/files:"
+            tr '\0' '\n' < changed.lst | sed 's/^/  /'
+          else
             echo "none=true" >> "$GITHUB_OUTPUT"
+            echo "No matching files changed."
           fi
+
 
       - name: Build CI overlay profile (only render changed files)
         if: steps.changed.outputs.none != 'true'
