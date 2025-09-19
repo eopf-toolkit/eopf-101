@@ -30,7 +30,7 @@ book:
        - 21_what_is_zarr.qmd
        - 24_zarr_struct_S2L2A.ipynb
     - part: "**About Chunking**"
-
+      chapters:
     - part: "**EOPF and STAC**"
       chapters:
         - 41_stac_intro.qmd
@@ -43,15 +43,16 @@ book:
   #      - 2_zarr_qgis.qmd
   #      - 3_zarr_R.qmd
   #      - 4_titiler.qmd
-    - part: "[COMING SOON] EOPF Zarr in Action"
-  #    Wildfire in Sardinia 2025
+    - part: "EOPF Zarr in Action"
+       - part: Wildfire in Sardinia 2025
+         chapters:
   #      - 1_case_study.qmd
   #      - 2_case_study.qmd
   #      - 3_case_study.qmd
-  #    Flooding in Valencia 2024
+      - part: "Flooding in Valencia 2024"
+         chapters:
     - glossary.qmd
     - references.qmd
-
 format:
   html:
     number-sections: false
