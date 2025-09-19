@@ -174,10 +174,17 @@ jobs:
         run: |
           mapfile -d '' files < changed.lst
           json='[]'; for f in "${files[@]}"; do json=$(jq -c --arg f "$f" '. + [$f]' <<<"$json"); done
+          # project.render list
           jq -r --argjson arr "$json" \
             '. as $in | "project:\n  render:\n" + ( $arr | map("  - \"" + . + "\"\n") | add )' \
             <<< '{}' > _quarto-ci.yml
+          # ensure other chapters won't re-exec
+          printf "\nexecute:\n  freeze: auto\n" >> _quarto-ci.yml
+          # optional: force single format to avoid double kernel runs
+          printf "\nformat:\n  html: {}\n" >> _quarto-ci.yml
+
           echo "==== _quarto-ci.yml ====" && cat _quarto-ci.yml
+
 
       - name: Render (only changed files)
         if: steps.changed.outputs.none != 'true'
