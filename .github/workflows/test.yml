@@ -126,6 +126,10 @@ jobs:
         with:
           tinytex: true
 
+      - name: Trust git repo
+        run: |
+          git config --global --add safe.directory /__w/eopf-101/eopf-101
+
       - name: Identify new/modified .ipynb and .qmd files
         id: changed
         shell: bash
