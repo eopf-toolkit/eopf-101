@@ -167,14 +167,14 @@ jobs:
             echo "No matching files changed."
           fi
 
-      - name: Generate CI Quarto profile (strict)
+      - name: Render changed files (standalone)
         if: steps.changed.outputs.none != 'true'
         shell: bash
+        working-directory: ${{ github.workspace }}
         run: |
-          .github/scripts/make_quarto_ci_profile.sh changed.lst _quarto-ci.yml --strict
-          echo "==== _quarto-ci.yml ====" && cat _quarto-ci.yml
-
-      # Render using the overlay profile
-      - name: Render (ONLY changed files)
-        if: steps.changed.outputs.none != 'true'
-        run: QUARTO_PROFILE=ci quarto render
+          set -euo pipefail
+          while IFS= read -r -d '' f; do
+            echo "Rendering (standalone): $f"
+            # NOTE: input first, then options; no --no-project flag
+            quarto render "$f" --to html
+          done < changed.lst

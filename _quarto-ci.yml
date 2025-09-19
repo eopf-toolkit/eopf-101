@@ -1,0 +1,8 @@
+format:
+  html:
+    number-sections: false
+    execute:
+      eval: true
+    theme:
+      - cosmo
+      - brand
