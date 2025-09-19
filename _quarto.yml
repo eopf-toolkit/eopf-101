@@ -33,8 +33,11 @@ book:
        - 25_zarr_struct_S3.ipynb
     - part: "**About Chunking**"
       chapters:
+<<<<<<< HEAD
        - 31_chunk_intro.qmd
        - 32_chunk_strat.qmd
+=======
+>>>>>>> b789074 (Update _quarto.yml)
     - part: "**EOPF and STAC**"
       chapters:
         - 41_stac_intro.qmd
@@ -43,6 +46,7 @@ book:
         # - 44_eopf_stac_xarray_tutorial.ipynb
     - part: "[COMING SOON] Tools to work with EOPF Zarr"
  #     chapters:
+<<<<<<< HEAD
   #      - 51_zarr_julia.qmd
   #      - 52_zarr_qgis.qmd
   #      - 53_zarr_R.qmd
@@ -57,6 +61,20 @@ book:
         # - part: "Flooding in Valencia 2024"
         #   chapters:
             # - 64_valencia
+=======
+  #      - 1_zarr_julia.qmd
+  #      - 2_zarr_qgis.qmd
+  #      - 3_zarr_R.qmd
+  #      - 4_titiler.qmd
+    - part: "EOPF Zarr in Action"
+       - part: Wildfire in Sardinia 2025
+         chapters:
+  #      - 1_case_study.qmd
+  #      - 2_case_study.qmd
+  #      - 3_case_study.qmd
+      - part: "Flooding in Valencia 2024"
+         chapters:
+>>>>>>> b789074 (Update _quarto.yml)
     - glossary.qmd
     - references.qmd
 format:
