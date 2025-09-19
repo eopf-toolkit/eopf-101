@@ -11,7 +11,7 @@ We will take a closer look at the new structure ESA has developed for this purpo
 
 - 📡 What exactly is ESA's EOPF initiative, and why is it important?
 - 📀 Which metadata is crucial for the EOPF data?
-- ⚙️ Which new encoding format has ESA proposed?
+- ⚙️ Which new encoding format has ESA proposed? WOW!
 
 <hr>
 
