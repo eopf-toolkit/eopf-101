@@ -48,12 +48,12 @@ book:
   #      - 53_zarr_R.qmd
   #      - 54_titiler.qmd
     - part: "EOPF Zarr in Action"
-      # chapters:
-      #   - part: "Wildfire in Sardinia 2025"
-      #     chapters:
-            # - 61_sardinia
-            # - 62_sardinia
-            # - 63_sardinia
+      chapters:
+        - part: "Wildfire in Sardinia 2025"
+          chapters:
+            - 61_sardinia_s2_tfci.ipynb
+            - 62_sardinia_s3_lst.ipynb
+            - 63_sardinia_dNBR.ipynb
         # - part: "Flooding in Valencia 2024"
         #   chapters:
             # - 64_valencia
