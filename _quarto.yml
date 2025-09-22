@@ -28,28 +28,37 @@ book:
     - part: "**About EOPF Zarr**"
       chapters:
        - 21_what_is_zarr.qmd
-       - 22_zarr_struct_S2L2A.ipynb
-       #- 23_eopf_size_comp_tutorial.ipynb
+       - 22_zarr_structure_S1GRD.ipynb
+       - 24_zarr_struct_S2L2A.ipynb
+    # - 25_zarr_struct_S3.ipynb
+    # - part: "**About Chunking**"
+    #   chapters:
+    #    - 31_chunk_intro.qmd
+    #    - 32_chunk_strat.qmd
     - part: "**EOPF and STAC**"
       chapters:
-        - 31_stac_intro.qmd
-        - 32_eopf_stac_zarr_tutorial.qmd
-        - 33_eopf_stac_connection.ipynb
-        #- 34_eopf_stac_xarray_tutorial.ipynb
+        - 41_stac_intro.qmd
+        - 42_eopf_stac_zarr_tutorial.qmd
+        - 43_eopf_stac_connection.ipynb
+        # - 44_eopf_stac_xarray_tutorial.ipynb
     - part: "[COMING SOON] Tools to work with EOPF Zarr"
  #     chapters:
-  #      - 1_zarr_julia.qmd
-  #      - 2_zarr_qgis.qmd
-  #      - 3_zarr_R.qmd
-  #      - 4_titiler.qmd
-    - part: "[COMING SOON] EOPF Zarr in Action"
-  #    chapters:a
-  #      - 1_case_study.qmd
-  #      - 2_case_study.qmd
-  #      - 3_case_study.qmd
+  #      - 51_zarr_julia.qmd
+  #      - 52_zarr_qgis.qmd
+  #      - 53_zarr_R.qmd
+  #      - 54_titiler.qmd
+    - part: "EOPF Zarr in Action"
+      # chapters:
+      #   - part: "Wildfire in Sardinia 2025"
+      #     chapters:
+            # - 61_sardinia
+            # - 62_sardinia
+            # - 63_sardinia
+        # - part: "Flooding in Valencia 2024"
+        #   chapters:
+            # - 64_valencia
     - glossary.qmd
     - references.qmd
-
 format:
   html:
     number-sections: false
@@ -58,5 +67,3 @@ format:
     theme:
       - cosmo
       - brand
-  pdf:
-    documentclass: scrreprt
