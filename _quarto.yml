@@ -60,9 +60,14 @@ book:
 =======
     # - part: "**About Chunking**"
     #   chapters:
+<<<<<<< HEAD
     #    - 31_chunk_intro.qmd
     #    - 32_chunk_strat.qmd
 >>>>>>> 32b99b8 (outline upd)
+=======
+       - 31_zarr_chunking_intro.qmd
+       - 32_zarr_chunking_strat.qmd
+>>>>>>> 56a0f22 (activate_chapter)
     - part: "**EOPF and STAC**"
       chapters:
         - 41_stac_intro.qmd
