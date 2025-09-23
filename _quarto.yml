@@ -27,47 +27,14 @@ book:
         - 13_overview_eopf_datasets.qmd
     - part: "**About EOPF Zarr**"
       chapters:
-<<<<<<< HEAD
        - 21_what_is_zarr.qmd
        - 22_zarr_structure_S1GRD.ipynb
        - 24_zarr_struct_S2L2A.ipynb
-<<<<<<< HEAD
        - 25_zarr_struct_S3.ipynb
-=======
-      #  - 21_what_is_zarr.qmd
-      #  - 22_sentinel1_p1.ipynb
-      #  - 23_sentinel1_p2.ipynb 
-       - 24_zarr_struct_S2L2A.ipynb
-      #  - 25_sentinel3.ipynb
->>>>>>> dd19f58 (update_outline)
     - part: "**About Chunking**"
-<<<<<<< HEAD
       chapters:
-<<<<<<< HEAD
-       - 31_chunk_intro.qmd
-       - 32_chunk_strat.qmd
-=======
->>>>>>> b789074 (Update _quarto.yml)
-=======
-      # chapters:
-      #  - 31_
-      #  - 32_
->>>>>>> bc2ab6e (outline_update)
-=======
-    # - 25_zarr_struct_S3.ipynb
-<<<<<<< HEAD
->>>>>>> 0287c45 (outline update)
-=======
-    # - part: "**About Chunking**"
-    #   chapters:
-<<<<<<< HEAD
-    #    - 31_chunk_intro.qmd
-    #    - 32_chunk_strat.qmd
->>>>>>> 32b99b8 (outline upd)
-=======
        - 31_zarr_chunking_intro.qmd
        - 32_zarr_chunking_strat.qmd
->>>>>>> 56a0f22 (activate_chapter)
     - part: "**EOPF and STAC**"
       chapters:
         - 41_stac_intro.qmd
@@ -76,15 +43,10 @@ book:
         # - 44_eopf_stac_xarray_tutorial.ipynb
     - part: "[COMING SOON] Tools to work with EOPF Zarr"
  #     chapters:
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bc2ab6e (outline_update)
   #      - 51_zarr_julia.qmd
   #      - 52_zarr_qgis.qmd
   #      - 53_zarr_R.qmd
   #      - 54_titiler.qmd
-<<<<<<< HEAD
     - part: "EOPF Zarr in Action"
       # chapters:
       #   - part: "Wildfire in Sardinia 2025"
@@ -95,32 +57,6 @@ book:
         # - part: "Flooding in Valencia 2024"
         #   chapters:
             # - 64_valencia
-=======
-  #      - 1_zarr_julia.qmd
-  #      - 2_zarr_qgis.qmd
-  #      - 3_zarr_R.qmd
-  #      - 4_titiler.qmd
-    - part: "EOPF Zarr in Action"
-       - part: Wildfire in Sardinia 2025
-         chapters:
-  #      - 1_case_study.qmd
-  #      - 2_case_study.qmd
-  #      - 3_case_study.qmd
-      - part: "Flooding in Valencia 2024"
-         chapters:
->>>>>>> b789074 (Update _quarto.yml)
-=======
-    - part: "EOPF Zarr in Action"
-      # chapters:
-      #   - part: "Wildfire in Sardinia 2025"
-      #     chapters:
-            # - 61_sardinia
-            # - 62_sardinia
-            # - 63_sardinia
-        # - part: "Flooding in Valencia 2024"
-        #   chapters:
-            # - 64_valencia
->>>>>>> bc2ab6e (outline_update)
     - glossary.qmd
     - references.qmd
 format:
