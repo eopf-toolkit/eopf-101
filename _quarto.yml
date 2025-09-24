@@ -32,10 +32,10 @@ book:
        - 23_S1_basic_operations.ipynb
        - 24_zarr_struct_S2L2A.ipynb
        - 25_zarr_struct_S3.ipynb
-    # - part: "**About Chunking**"
-    #   chapters:
-    #    - 31_chunk_intro.qmd
-    #    - 32_chunk_strat.qmd
+    - part: "**About Chunking**"
+      chapters:
+       - 31_zarr_chunking_intro.qmd
+       - 32_zarr_chunking_strat.qmd
     - part: "**EOPF and STAC**"
       chapters:
         - 41_stac_intro.qmd

@@ -1,0 +1,105 @@
+---
+title: "Best practices and Chunking optimisation in EOPF"
+format: html
+---
+
+## Introduction
+
+In the [previous section](./251_zarr_chunking_intro.qmd), we explored the fundamentals of Zarr chunking and its significance for Earth Observation data.<br>
+Now we will delve into the specifications and challenges that address geospatial multi-resolution datasets.
+
+## What we will learn
+
+- 🚀 The workflow for choosing an optimal chunking strategy for EO
+- 🔎 The EOPF Sentinel's missions chunking structure
+- 💪 How to choose the optimal chunk size depending on a data application
+
+<hr>
+
+
+## Fundamental optimisation principles
+Successful Zarr chunking for Earth Observation applications requires balancing multiple competing factors while understanding the specific characteristics of the data, access patterns, and computational environment. 
+
+* **Principle 1: Start with proven defaults** and optimize based on measured performance. Most defaults consider 100MB target chunk sizes for initial implementations, employ consolidated metadata, and enable compression with balanced algorithms. These defaults work well for most Earth Observation applications and provide a solid foundation for further optimisation.
+
+* **Principle 2: Measure actual performance** rather than relying on theoretical expectations. Use monitoring tools to track memory usage, I/O throughput, task duration, and parallel efficiency. The Dask dashboard provides excellent visualisation of performance characteristics, including task streams, memory usage patterns, and worker utilisation.
+
+* **Principle 3: Align with access patterns** by designing chunks around how your applications actually use the data. Spatial analysis applications should use large spatial chunks. Time series analysis should favour temporal chunking. Visualisation applications should align with tile boundaries and zoom levels.
+
+* **Principle 4: Consider computational overhead** relative to chunk processing time. Each chunk access involves ~1ms of scheduling overhead, so chunks should require significantly more computation time to maintain efficiency. For most Earth Observation algorithms, this translates to a minimum 10-100ms processing per chunk, supporting the 10-100 MB chunk size recommendation.
+
+## Implementation workflow
+
+Follow a systematic approach to chunking optimisation:
+
+1. **Assess your data and analysis objectives**: total size, dimensionality optimisation, access patterns, and storage environment
+2. **Identify computational requirements**: available memory, processing power, and network bandwidth
+3. **Start with conservative defaults**: 100MB chunks, consolidated metadata, moderate compression
+4. **Implement monitoring**: track key performance metrics throughout your workflow
+5. **Optimise iteratively**: adjust chunk sizes and strategies based on measured performance
+6. **Validate improvements**: ensure optimizations actually improve real-world performance
+
+## Default EOPF Chunking Structure
+
+### Sentinel-1 Level-1 GRD
+
+The `grd` variable in the EOPF **Sentinel-1 GRD** dataset structure is particularly relevant for chunking.<br>
+It is contained inside each of the `VH` and `VV` groups `measurements` respectiveley storing the  variable as multidimensional arrays.
+
+#### Chunking organisation
+
+Each contained `grd` array is chunked along both:
+- **azimuth_time** : 7 - 9 chunks (depends on the item).
+- **ground_range** : No chunking along the dimension.
+
+### Sentinel-2
+
+The `measurements` group in the EOPF **Sentinel-2** dataset structure is particularly relevant for chunking.<br>
+It contains the `reflectance` group, which is further divided into three different spatial resolutions: 10m, 20m, and 60m, respectively, containing spectral bands (e.g., B02, B03, B04) stored as multidimensional arrays.
+
+#### Chunking organisation of Level-2A:
+
+- **r10m**: Variables like B02, B03, and B04 are chunked into 1830×1830 pixel blocks, optimizing for high-resolution spatial analysis.
+- **r20m**: Variables such as B05, B06, and B07 use 915×915 pixel chunks, balancing storage efficiency and processing convenience for medium-resolution data.
+- **r60m**: Variables like B01 and B09 are chunked into 305×305 pixel blocks, aligning with the coarser resolution requirements of atmospheric correction bands.
+
+This chunking ensures the three resolutions are chunked into 36 pieces (6×6) chunks each. This strategy provides efficient access and processing across different resolutions, tailored to the specific structure of Sentinel-2 data.
+
+
+### Sentinel-3  (LST)
+This section is under development 🛰️
+
+#### Chunking organisation of SLSTR
+This section is under development 🛰️
+
+
+## Use case-specific optimisation
+
+Different Earth Observation applications have dramatically different optimal chunking strategies:
+
+* **Scientific analysis workflows** should align chunks with computational patterns.
+* For **time series analysis**, the recommendation relies on **large spatial chunks** but small temporal chunks to optimize pixel-by-pixel processing.
+* For **spatial analysis** algorithms, reverse this pattern with **large temporal chunks** and smaller spatial chunks. Consider algorithm-specific requirements.
+* **Visualisation and display applications** benefit from tile-aligned chunking that matches web mapping standards. The usual sizes are 256×256 or 512×512 pixel chunks aligned with standard tile pyramid levels. This enables efficient zoom and pan operations by loading only visible tiles. Progressive loading with smaller chunks (1-10 MB) creates responsive user interfaces.
+* **Tiling and map service workflows** require careful alignment with tile boundaries and zoom levels. Web Mercator tiling works best with chunks that are multiples of 256×256 pixels. Consider different chunk sizes for different zoom levels to optimise both overview generation and detail rendering.
+
+## Do not forget to consider...
+
+* **Over-chunking**: too many small chunks create scheduler overhead and poor parallel efficiency.<br>
+Symptoms include excessive white space in task streams and slow computation startup. **Solution**: increase chunk sizes to reduce task graph complexity.
+
+* **Under-chunking**: too few large chunks causes memory exhaustion and poor parallelisation.<br>
+Watch for memory spilling indicators and idle workers. **Solution**: decrease chunk sizes to better utilise available parallelism.
+
+* **Ignoring storage alignment**: creates poor I/O performance when Zarr chunks don't align with underlying storage chunk boundaries. Always ensure your chunk dimensions are multiples of storage format chunks.
+
+* **Frequent rechunking**: Some operations are expensive and should be avoided through careful initial chunk selection. Plan your chunking strategy around your complete workflow rather than optimising individual operations in isolation.
+
+
+## Conclusion
+
+This chapter presented the specific workflow for setting up an optimal data chunking strategy for EO applications. We reviewed the **default chunking strategies** available in the EOPF STAC Catalog for Sentinel missions as well as discussing key considerations required based on the type of application and use case. We also presented some considerations that, if overlooked, could lead to a loss of optimisation.
+
+## What's next?
+
+In the next section, we will explore a programmatic example of how chunks ... $$$
