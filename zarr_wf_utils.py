@@ -106,6 +106,7 @@ def normalisation_str_gm(band_array, p_min, p_max, gamma_val):
     - gamma_val (int): gamma correction
 
     Returns:
+    - 2d array with the normalised input values
     """
 
     # Calculate min and max values based on percentiles for stretching
@@ -141,7 +142,8 @@ def lat_lon_to_utm_box(bot_left,top_right,transformer):
     - top_right (tuple) : A tuple or list containing the longitude and latitude of the top-right corner.
     - transformer: The 
 
-    Returns: 
+    Returns:
+    tuple with resulting utm values
     """
     t = transformer
     # Longitude and latitude of the bottom-left corner
@@ -164,6 +166,7 @@ def zarr_mask_utm ( bounding_box, zarr):
     - zarr (xarray): The input Zarr dataset, expected to have 'x' and 'y' dimensions corresponding to longitude and latitude/UTM coordinates.
     
     Returns: 
+    boolean mask for utm bbox defined pixels
     """
 # Unpack the bounding box coordinates for clarity
     min_lon, min_lat, max_lon, max_lat = bounding_box
@@ -188,7 +191,8 @@ def mask_sub_latlon(zarr_asset, rows, cols):
     - rows (list/array): A list or array of row indices defining the vertical extent.
     - cols (list/array): A list or array of column indices defining the horizontal extent.
     
-    Returns: 
+    Returns:
+    boolean mask for lat and lon bbox defined pixels
     """
 # Calculates the minimum and maximum row and column indices
     row_min, row_max = rows.min(), rows.max()
@@ -210,7 +214,8 @@ def zarr_mask_latlon ( bounding_box, zarr):
     - bounding_box (tuple): A tuple or list containing (min_longitude, min_latitude, max_longitude, max_latitude).
     - zarr (xarray): The input Zarr dataset, expected to have 'longitude' and 'latitude' dimensions.
     
-    Returns: 
+    Returns:
+    boolean mask for lat lon bbox defined pixels 
     """
 # Unpack the bounding box coordinates for clarity
     min_lon, min_lat, max_lon, max_lat = bounding_box
