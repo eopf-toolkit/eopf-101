@@ -29,18 +29,19 @@ book:
       chapters:
        - 21_what_is_zarr.qmd
        - 22_zarr_structure_S1GRD.ipynb
+       - 23_S1_basic_operations.ipynb
        - 24_zarr_struct_S2L2A.ipynb
-    # - 25_zarr_struct_S3.ipynb
-    # - part: "**About Chunking**"
-    #   chapters:
-    #    - 31_chunk_intro.qmd
-    #    - 32_chunk_strat.qmd
+       - 25_zarr_struct_S3.ipynb
+    - part: "**About Chunking**"
+      chapters:
+       - 31_zarr_chunking_intro.qmd
+       - 32_zarr_chunking_strat.qmd
     - part: "**EOPF and STAC**"
       chapters:
         - 41_stac_intro.qmd
         - 42_eopf_stac_zarr_tutorial.qmd
         - 43_eopf_stac_connection.ipynb
-        # - 44_eopf_stac_xarray_tutorial.ipynb
+        - 44_eopf_stac_xarray_tutorial.ipynb
     - part: "[COMING SOON] Tools to work with EOPF Zarr"
  #     chapters:
   #      - 51_zarr_julia.qmd
@@ -52,7 +53,7 @@ book:
         - 61_sardinia_s2_tfci.ipynb
         - 62_sardinia_s3_lst.ipynb
         - 63_sardinia_dNBR.ipynb
-          # - 64_valencia
+        - 64_flood_mapping_valencia.ipynb
     - glossary.qmd
     - references.qmd
 format:
@@ -60,6 +61,9 @@ format:
     number-sections: false
     execute:
       eval: true
+      timeout: 300
+      error: true
+      warning: false
     theme:
       - cosmo
       - brand

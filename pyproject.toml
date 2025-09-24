@@ -52,6 +52,11 @@ dependencies = [
     "scikit-image>=0.21.0",  # Added
     "shapely>=2.0.1",        # Added
     "quarto>=0.1.0"
+    "s3fs",
+    "sarsen",
+    "xarray_sentinel",
+    "earthpy",
+    "dask[distributed]",
 ]
 
 [tool.setuptools]
