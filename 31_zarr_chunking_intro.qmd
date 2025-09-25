@@ -1,5 +1,5 @@
 ---
-title: "About Chunking"
+title: "An introduction to Chunking"
 format: html
 ---
 
@@ -115,4 +115,4 @@ This chapter introduced the logic behind data chunking and its relevance for sca
 
 ## What's next?
 
-In the following [section](./252_zarr_chunking_strat.qmd) , we will go over **optimal chunking strategies** and relevant **considerations** when aiming for making Earth Observation workflows more **efficient**.
+In the following [section](./32_zarr_chunking_strat.qmd) , we will go over **optimal chunking strategies** and relevant **considerations** when aiming for making Earth Observation workflows more **efficient**.

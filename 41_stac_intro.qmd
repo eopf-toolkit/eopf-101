@@ -104,4 +104,4 @@ In this section, you got an introduction to the **Spatio-Temporal Asset Catalog*
 
 ## What's next?
 
-In the following [section](./32_eopf_stac_zarr_tutorial.qmd), we will explore the web interface of the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
+In the following [section](./42_eopf_stac_zarr_tutorial.qmd), we will explore the web interface of the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
