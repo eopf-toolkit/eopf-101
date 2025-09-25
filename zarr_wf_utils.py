@@ -178,7 +178,7 @@ def zarr_mask_utm ( bounding_box, zarr):
 # Find the columns and row indices where the combined mask is True
     cols, rows  = np.where(bbox_mask)
 
-    return rows, cols
+    return cols, rows
 
 
 def mask_sub_latlon(zarr_asset, rows, cols):

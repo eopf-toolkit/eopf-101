@@ -8,7 +8,7 @@ format: html
 **Chunking** is the secret sauce that makes `.zarr` format incredibly efficient for **Earth Observation** data processing.<br>
 Understanding chunking allows us to transform the way we work with massive satellite datasets. This means somehow, turning memory-crushing, slow operations into fast, scalable analysis workflows.<br>
 
-This introduction takes you from chunking basics to advanced optimisation strategies specifically tailored for [EOPF (Earth Observation Processing Framework)]() datasets.
+This introduction takes you from chunking basics to advanced optimisation strategies specifically tailored for [EOPF (Earth Observation Processing Framework)](https://eopf.copernicus.eu/) datasets.
 
 ### What we will learn
 
