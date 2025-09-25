@@ -5,7 +5,7 @@ format: html
 
 ## Introduction
 
-In the [previous section](./251_zarr_chunking_intro.qmd), we explored the fundamentals of Zarr chunking and its significance for Earth Observation data.<br>
+In the [previous section](./32_zarr_chunking_intro.qmd), we explored the fundamentals of Zarr chunking and its significance for Earth Observation data.<br>
 Now we will delve into the specifications and challenges that address geospatial multi-resolution datasets.
 
 ## What we will learn
@@ -48,7 +48,8 @@ It is contained inside each of the `VH` and `VV` groups `measurements` respectiv
 
 #### Chunking organisation
 
-Each contained `grd` array is chunked along both:
+Each contained `grd` array is chunked along both:<br>
+
 - **azimuth_time** : 7 - 9 chunks (depends on the item).
 - **ground_range** : No chunking along the dimension.
 
@@ -102,4 +103,5 @@ This chapter presented the specific workflow for setting up an optimal data chun
 
 ## What's next?
 
-Now that you have been introduced to the `.zarr` chunking reasoning and strategies, you are prepared for the next step. In the following [chapter](./41_stac_intro.qmd) we will introduce you to **STAC** and the **EOPF Zarr STAC Catalog**. As we go along, we are more and more transitioning from theory to practice, providing you with hands-on tutorials working with EOPF `.zarr` products.
+Now that you have been introduced to the `.zarr` chunking reasoning and strategies, you are prepared for the next step. In the following [chapter](./41_stac_intro.qmd) we will introduce you to **STAC** and the **EOPF Zarr STAC Catalog**.<br>
+As we go along, we are more and more transitioning from theory to practice, providing you with hands-on tutorials working with EOPF `.zarr` products.
