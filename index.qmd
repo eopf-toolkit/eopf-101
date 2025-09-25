@@ -21,19 +21,29 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
 
 * **Chapter 2 - About EOPF Zarr**
   * [Overview of the EOPF Zarr format](./21_what_is_zarr.qmd)
-  * [Discover EOPF Zarr - Sentinel-2 L2A](./22_zarr_struct_S2L2A.ipynb)
+  * [Discover EOPF Zarr - Sentinel-1 GRD](./22_zarr_structure_S1GRD.ipynb)
+  * [Operations with EOPF Zarr - Sentinel-1 GRD](./23_S1_basic_operations.ipynb)
+  * [Discover EOPF Zarr - Sentinel-2 L2A](./24_zarr_struct_S2L2A.ipynb)
+  * [Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST](./25_zarr_struct_S3.ipynb)
+
+* **Chapter 3 - About Chunking**
+  * [An introduction to Chunking](./31_zarr_chunking_intro.qmd)
+  * [Best practices and Chunking optimisation in EOPF](./32_zarr_chunking_strat.qmd)
 
 * **Chapter 3 - EOPF and STAC**
-  * [Introduction to STAC](./31_stac_intro.qmd)
-  * [Explore the web interface of the EOPF Zarr STAC Catalog](./32_eopf_stac_zarr_tutorial.qmd)
-  * [Access the EOPF Zarr STAC API with Python](./33_eopf_stac_connection.ipynb)
-  * [From STAC to Data: Accessing EOPF Zarr with xarray](./34_eopf_stac_xarray_tutorial.ipynb)
+  * [Introduction to STAC](./41_stac_intro.qmd)
+  * [Explore the web interface of the EOPF Zarr STAC Catalog](./42_eopf_stac_zarr_tutorial.qmd)
+  * [Access the EOPF Zarr STAC API with Python](./43_eopf_stac_connection.ipynb)
+  * [From STAC to Data: Accessing EOPF Zarr with xarray](./44_eopf_stac_xarray_tutorial.ipynb)
 
 * ***[COMING SOON] Chapter 4 - Tools to work with EOPF Zarr***
   * *Get hands-on with different libraries and tools facilitating the use of EOPF Sentinel Zarr data*
 
-* ***[COMING SOON] Chapter 5 - EOPF Zarr in Action***
-  * *See end-to-end workflows leveraging EOPF Sentinel Zarr data across different application domains*
+* **Chapter 5 - EOPF Zarr in Action**
+  * [Fire in Sardinia 2025 - Part 1](./61_sardinia_s2_tfci.ipynb)
+  * [Fire in Sardinia 2025 - Part 2](./62_sardinia_s3_lst.ipynb)
+  * [Fire in Sardinia 2025 - Part 3](./63_sardinia_dNBR.ipynb)
+  * [Flood Mapping - Time Series Analysis in Valencia](./64_flood_mapping_valencia.ipynb)
 
 
 <h2>💡 How best use EOPF 101 </h2>

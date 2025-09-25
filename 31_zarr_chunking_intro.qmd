@@ -1,5 +1,5 @@
 ---
-title: "About Chunking"
+title: "An introduction to Chunking"
 format: html
 ---
 
