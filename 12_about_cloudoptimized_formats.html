@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,14 +34,15 @@ ul.task-list li input[type="checkbox"] {
 <link href="./11_about_eopf.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b1079383b8ceaf058e3302de5102a758.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -97,7 +98,8 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
       <a href="./index.html" class="sidebar-logo-link">
-      <img src="./img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="./img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main">
     <a href="https://github.com/eopf-toolkit/eopf-101" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
@@ -157,7 +159,22 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./22_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
+  <a href="./22_zarr_structure_S1GRD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23_S1_basic_operations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operations with EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./25_zarr_struct_S3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></a>
   </div>
 </li>
       </ul>
@@ -165,7 +182,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>EOPF and STAC</strong></span></a>
+ <span class="menu-text"><strong>About Chunking</strong></span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -173,22 +190,43 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./31_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
+  <a href="./31_zarr_chunking_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">An introduction to Chunking</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./32_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
+  <a href="./32_zarr_chunking_strat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>EOPF and STAC</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./41_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./33_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
+  <a href="./42_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./34_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
+  <a href="./43_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./44_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
   </div>
 </li>
       </ul>
@@ -198,8 +236,35 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">[COMING SOON] Tools to work with EOPF Zarr</span></span>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">[COMING SOON] EOPF Zarr in Action</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">EOPF Zarr in Action</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -298,7 +363,7 @@ Note
 </div>
 <section id="analogy-comparing-local-and-cloud-based-workflows-with-ordering-a-pizza" class="level3">
 <h3 class="anchored" data-anchor-id="analogy-comparing-local-and-cloud-based-workflows-with-ordering-a-pizza">Analogy: Comparing local and cloud-based workflows with ordering a pizza</h3>
-<p>To understand the principal concept, let us compare local and cloud-based workflows with ordering a pizza. Local workflows are similar to placing an order at a pizza store on your street. It is quick since the ‘data’ (pizza) is easily accessible, but we can only choose from what the local pizza store offers.</p>
+<p>To understand the principal concept, let us compare local and cloud-based workflows with ordering a pizza. Local workflows are similar to placing an order at a pizza store on your street. It is quick since the <strong>data</strong> (pizza) is easily accessible, but we can only choose from what the local pizza store offers.</p>
 <p>On the other hand, cloud-based workflows are comparable to ordering a pizza from a pizza store in a different city or even country. This option allows you to order different types of pizzas, which are not available in the pizza store on your street. While we might have more options to choose from, the time between order and delivery can become a challenge. The time until your pizza from a different town or country arrives at your house is called <strong>data latency</strong>.</p>
 <p>Hence, the overall goal with cloud-based workflows is to minimise <strong>data latency</strong> as much as possible. This is why traditional data formats need to be cloud-optimised.</p>
 </section>
@@ -329,10 +394,18 @@ Note
 </section>
 <section id="cloud-optimised-geospatial-raster-formats" class="level2">
 <h2 class="anchored" data-anchor-id="cloud-optimised-geospatial-raster-formats">Cloud-Optimised Geospatial Raster Formats</h2>
-<p>For satellite data, two main cloud-optimised formats are being used: - <strong>Cloud-Optimised GeoTIFF (COG)</strong>: Optimised for 2D image data and originates from the traditional <code>GeoTIFF</code> format, and - <strong>Zarr</strong>: Used and designed for complex, n-dimensional data structures and originates from the traditional formats <code>netCDF</code> and <code>HDF5</code>.</p>
+<p>For satellite data, two main cloud-optimised formats are being used:</p>
+<ul>
+<li><strong>Cloud-Optimised GeoTIFF (COG)</strong>: Optimised for 2D image data and originates from the traditional <code>GeoTIFF</code> format, and</li>
+<li><strong>Zarr</strong>: Used and designed for complex, n-dimensional data structures and originates from the traditional formats <code>netCDF</code> and <code>HDF5</code>.</li>
+</ul>
 <section id="cloud-optimised-geotiff-cog" class="level3">
 <h3 class="anchored" data-anchor-id="cloud-optimised-geotiff-cog">Cloud-optimised GeoTIFF (COG)</h3>
-<p>COGs have been widely used as a cloud-native format for satellite imagery and improve the standard GeoTIFF format by: - Organising data into <strong>tiles</strong>: Dividing the data into smaller, manageable squares (like 512x512 pixels). - Including lower-resolution previews: Having pre-generated, less detailed versions of the data. This allows for fast and efficient data visualisations.</p>
+<p>COGs have been widely used as a cloud-native format for satellite imagery and improve the standard GeoTIFF format by:</p>
+<ul>
+<li>Organising data into <strong>tiles</strong>: Dividing the data into smaller, manageable squares (like 512x512 pixels).</li>
+<li>Including lower-resolution previews: Having pre-generated, less detailed versions of the data. This allows for fast and efficient data visualisations.</li>
+</ul>
 <p>A key feature of COGs is the <strong>Internal File Directory</strong> (IFD), which acts like an internal index. This allows for retrieving only the parts of the data needed using simple web requests. For example, it is possible to access just the tiles covering Paris from a large Sentinel-2 image of Europe.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -489,13 +562,14 @@ Note
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
