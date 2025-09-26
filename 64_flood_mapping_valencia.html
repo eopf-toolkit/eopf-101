@@ -1,0 +1,2603 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.24">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Flood Mapping - Time Series Analysis in Valencia</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./glossary.html" rel="next">
+<link href="./63_sardinia_dNBR.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./61_sardinia_s2_tfci.html">EOPF Zarr in Action</a></li><li class="breadcrumb-item"><a href="./64_flood_mapping_valencia.html"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/eopf-toolkit/eopf-101" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About EOPF</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_about_eopf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the EOPF</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About cloud-optimised formats</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About EOPF Zarr</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./21_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./22_zarr_structure_S1GRD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./23_S1_basic_operations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operations with EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./24_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./25_zarr_struct_S3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About Chunking</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./31_zarr_chunking_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">An introduction to Chunking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./32_zarr_chunking_strat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>EOPF and STAC</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./41_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./42_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./43_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./44_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">[COMING SOON] Tools to work with EOPF Zarr</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">EOPF Zarr in Action</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>References</strong></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#data-pre-processing" id="toc-data-pre-processing" class="nav-link" data-scroll-target="#data-pre-processing">Data pre-processing</a>
+  <ul class="collapse">
+  <li><a href="#loading-the-datatree" id="toc-loading-the-datatree" class="nav-link" data-scroll-target="#loading-the-datatree">Loading the datatree</a></li>
+  <li><a href="#defining-variables" id="toc-defining-variables" class="nav-link" data-scroll-target="#defining-variables">Defining variables</a></li>
+  </ul></li>
+  <li><a href="#extracting-information-from-the-.zarr" id="toc-extracting-information-from-the-.zarr" class="nav-link" data-scroll-target="#extracting-information-from-the-.zarr">Extracting information from the <code>.zarr</code></a>
+  <ul class="collapse">
+  <li><a href="#slicing-and-decimating-grd-variable" id="toc-slicing-and-decimating-grd-variable" class="nav-link" data-scroll-target="#slicing-and-decimating-grd-variable">Slicing and decimating GRD variable</a></li>
+  <li><a href="#assigning-latitude-and-longitude-coordinates" id="toc-assigning-latitude-and-longitude-coordinates" class="nav-link" data-scroll-target="#assigning-latitude-and-longitude-coordinates">Assigning latitude and longitude coordinates</a></li>
+  <li><a href="#computing-backscatter" id="toc-computing-backscatter" class="nav-link" data-scroll-target="#computing-backscatter">Computing backscatter</a></li>
+  <li><a href="#create-a-datacube-to-prepare-for-time-series-analysis" id="toc-create-a-datacube-to-prepare-for-time-series-analysis" class="nav-link" data-scroll-target="#create-a-datacube-to-prepare-for-time-series-analysis">Create a datacube to prepare for time series analysis</a></li>
+  <li><a href="#coregistration" id="toc-coregistration" class="nav-link" data-scroll-target="#coregistration">Coregistration</a></li>
+  </ul></li>
+  <li><a href="#flood-mapping-and-time-series-analysis" id="toc-flood-mapping-and-time-series-analysis" class="nav-link" data-scroll-target="#flood-mapping-and-time-series-analysis">Flood mapping and time series analysis</a>
+  <ul class="collapse">
+  <li><a href="#simple-visualisation-of-all-datasets-selected" id="toc-simple-visualisation-of-all-datasets-selected" class="nav-link" data-scroll-target="#simple-visualisation-of-all-datasets-selected">Simple visualisation of all datasets selected</a></li>
+  <li><a href="#create-a-flood-map-based-on-threshold-values" id="toc-create-a-flood-map-based-on-threshold-values" class="nav-link" data-scroll-target="#create-a-flood-map-based-on-threshold-values">Create a flood map based on threshold values</a></li>
+  <li><a href="#create-a-map-showing-differences-between-two-images" id="toc-create-a-map-showing-differences-between-two-images" class="nav-link" data-scroll-target="#create-a-map-showing-differences-between-two-images">Create a map showing differences between two images</a></li>
+  <li><a href="#create-a-time-series-plot-of-one-location-within-the-flood" id="toc-create-a-time-series-plot-of-one-location-within-the-flood" class="nav-link" data-scroll-target="#create-a-time-series-plot-of-one-location-within-the-flood">Create a time-series plot of one location within the flood</a></li>
+  </ul></li>
+  <li><a href="#challenges" id="toc-challenges" class="nav-link" data-scroll-target="#challenges">Challenges</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./61_sardinia_s2_tfci.html">EOPF Zarr in Action</a></li><li class="breadcrumb-item"><a href="./64_flood_mapping_valencia.html"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p><strong>Sentinel-1 GDR</strong> data is particularly valuable to detect water and underwater areas. Synthetic Aperture Radar (SAR) can capture images day and night, in any weather, a feature especially important for flooding events, where cloudy and rainy weather can persist for weeks. This makes it far more reliable than optical sensors during storms.</p>
+<p>With its frequent revisits, wide coverage, and free high-resolution data, <strong>Sentinel-1</strong> enables the rapid mapping of flood extents, as will be demonstrated in this workflow. <strong>VV</strong> polarization is preferred for flood mapping due to its sensitivity to water surfaces, which typically appear darker in the images compared to land surfaces.</p>
+<section id="the-flooding-event" class="level4">
+<h4 class="anchored" data-anchor-id="the-flooding-event">The Flooding Event</h4>
+<p>On October 29, 2024, the city of Valencia (Spain) was hit by catastrophic flooding caused by intense storms, leaving over 230 deaths and billions in damages. This disaster was part of Europe’s worst flood year in over a decade, with hundreds of thousands affected continent-wide. Such events highlight the urgent need for reliable flood monitoring to support <strong>emergency response</strong>, damage assessment and long-term resilience planning.</p>
+<p>With respect to this event, we will demonstrate how to use <strong>Sentinel-1 GDR</strong> data to map flood extents. We will use 14 <strong>Sentinel-1 GRD</strong> images from the <strong>IW</strong> swath, covering the city and metropolitan area of Valencia from October 7, 2024 to March 24, 2025. This includes 2 images captured before, 1 immediately after the heavy rains, and 11 images taken after the flooding event, until the water levels got back to normal: - October 7, 2424 (before) - October 19, 2024 (before) - October 31, 2024 (right after the event) - November 12, 2024 (after) - November 24, 2024 (after) - December 6, 2024 (after) - December 18, 2024 (after) - December 30, 2024 (after) - January 11, 2025 (after) - January 23, 2025 (after) - February 4, 2025 (after) - February 16, 2025 (after) - March 12, 2025 (after) - March 24, 2025 (after)</p>
+</section>
+<section id="what-we-will-learn" class="level4">
+<h4 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h4>
+<ul>
+<li>🌊 How to create a workflow to map flood events.</li>
+<li>⚒️ Basic SAR processing tools.</li>
+<li>📊 How to create a data cube to perform time series analysis.</li>
+</ul>
+<hr>
+</section>
+<section id="import-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
+<div id="10" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray_sentinel </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask                             <span class="co"># these last two libraries are imported to open the datasets faster</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.distributed <span class="im">import</span> Client     <span class="co"># and in the end take advantage of the optimized .zarr format</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="data-pre-processing" class="level2">
+<h2 class="anchored" data-anchor-id="data-pre-processing">Data pre-processing</h2>
+<p>To search and load the data needed for the analysis, we will follow the processes we presented in <a href="./23_zarr_structure_S1GRD.ipynb">Sentinel-1 GRD structure tutorial</a> and <a href="./24_S1_basic_operations.ipynb">S1 basic operations tutorial</a>.</p>
+<p>Once we defined our interest Sentinel-1 GRD items, we can see that they contain both <strong>VH</strong> and <strong>VV</strong> polarizations.<br> For this flood mapping context, <strong>VV</strong> polarization is the choice of interest, as water backscatter is much more visible with it, rather than with VH.</p>
+<section id="loading-the-datatree" class="level3">
+<h3 class="anchored" data-anchor-id="loading-the-datatree">Loading the datatree</h3>
+<p>The list below shows the names of the products we will use for the flood mapping and time series analysis.<br> As we have seen in previous chapters, these names already contain valuable information that can be used to search for specific products within the <a href="">EOPF STAC catalogue</a>.</p>
+<div id="16" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>scenes <span class="op">=</span> [<span class="st">"S1A_IW_GRDH_1SDV_20241007T180256_20241007T180321_056000_06D943_D46B"</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20241019T180256_20241019T180321_056175_06E02E_2D52"</span>, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20241031T180256_20241031T180321_056350_06E71E_479F"</span>, </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20241112T180255_20241112T180320_056525_06EE16_DC29"</span>, </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20241124T180254_20241124T180319_056700_06F516_BA27"</span>, </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20241206T180253_20241206T180318_056875_06FBFD_25AD"</span>, </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20241218T180252_20241218T180317_057050_0702F2_0BC2"</span>, </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20241230T180251_20241230T180316_057225_0709DD_15AC"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20250111T180250_20250111T180315_057400_0710C7_ADBB"</span>, </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20250123T180249_20250123T180314_057575_0717B9_A784"</span>, </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20250204T180249_20250204T180314_057750_071EA2_4373"</span>, </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20250216T180248_20250216T180313_057925_0725AE_8AC7"</span>, </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20250312T180248_20250312T180313_058275_0733E6_4F5B"</span>, </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>          <span class="st">"S1A_IW_GRDH_1SDV_20250324T180248_20250324T180313_058450_073AD0_04B7"</span>, </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>          ]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>zarr_paths <span class="op">=</span> []</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> scene <span class="kw">in</span> scenes:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    zarr_paths.append(<span class="ss">f"https://objects.eodc.eu/e05ab01a9d56408d82ac32d69a5aae2a:notebook-data/tutorial_data/cpm_v260/</span><span class="sc">{</span>scene<span class="sc">}</span><span class="ss">.zarr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Next, we will load all <code>zarr</code> datasets as xarray.Datatrees. Here <strong>we are not reading</strong> the entire dataset from the store; but, creating a set of references to the data, which enables us to access it efficiently later in the analysis.</p>
+<div id="18" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client()  <span class="co"># Set up local cluster on your laptop</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>client</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">@dask.delayed</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_datatree_delayed(path):</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xr.open_datatree(path, consolidated<span class="op">=</span><span class="va">True</span>, chunks<span class="op">=</span><span class="st">"auto"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create delayed objects</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>delayed_datatrees <span class="op">=</span> [load_datatree_delayed(path) <span class="cf">for</span> path <span class="kw">in</span> zarr_paths]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute in parallel</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>datatrees <span class="op">=</span> dask.compute(<span class="op">*</span>delayed_datatrees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Each element inside the <code>datatree</code> list is a datatree and corresponds to a Sentinel-1 GRD scene datatree present on the list above.</p>
+<div id="20" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Each element inside the datatree list is a datatree and corresponds to a Sentinel-1 GRD scene datatree present on the list above</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(datatrees[<span class="dv">0</span>]) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>xarray.core.datatree.DataTree</code></pre>
+</div>
+</div>
+</section>
+<section id="defining-variables" class="level3">
+<h3 class="anchored" data-anchor-id="defining-variables">Defining variables</h3>
+<div id="22" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of scenes we are working with for the time series analysis</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>DATASET_NUMBER <span class="op">=</span> <span class="bu">len</span>(datatrees) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>If we run the following commented out code line we will be able to see how each datatree is organized within its groups and subgroups (as explained in this <a href="./23_zarr_structure_S1GRD.ipynb">section</a>). From this datatree, we took the groups and subgroups constant <code>ID</code> numbers used to open specific grouos and variables such as: - Measurements group = 7 so, in order to open this group, on the first element of our list of scenes, over the first polarization <code>VV</code>, we do <code>datatrees[0][datatrees[0].groups[7]]</code> - Calibration group = 33 so, in order to open this group, on the first element of our list of scenes, over the first polarization <code>VV</code>, we do <code>datatrees[0][datatrees[0].groups[33]]</code></p>
+<p>Over the course of this notebook these <code>IDs</code> will be used to call variables and compute some other functions.</p>
+<div id="24" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Opening the measurements group from the datatree</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>datatrees[<span class="dv">0</span>][datatrees[<span class="dv">0</span>].groups[<span class="dv">7</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base rgba(0, 0, 0, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, white)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 15))
+  );
+}
+
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
+body.vscode-dark {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base, rgba(255, 255, 255, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, #111111)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 15))
+  );
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: inline-block;
+  opacity: 0;
+  height: 0;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+  border: 2px solid transparent !important;
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:focus + label {
+  border: 2px solid var(--xr-font-color0) !important;
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: "►";
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: "▼";
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: "(";
+}
+
+.xr-dim-list:after {
+  content: ")";
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ",";
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  border-color: var(--xr-background-color-row-odd);
+  margin-bottom: 0;
+  padding-top: 2px;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+  border-color: var(--xr-background-color-row-even);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  border-top: 2px dotted var(--xr-background-color);
+  padding-bottom: 20px !important;
+  padding-top: 10px !important;
+}
+
+.xr-var-attrs-in + label,
+.xr-var-data-in + label,
+.xr-index-data-in + label {
+  padding: 0 1px;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-data > pre,
+.xr-index-data > pre,
+.xr-var-data > table > tbody > tr {
+  background-color: transparent !important;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.xr-var-attrs-in:checked + label > .xr-icon-file-text2,
+.xr-var-data-in:checked + label > .xr-icon-database,
+.xr-index-data-in:checked + label > .xr-icon-database {
+  color: var(--xr-font-color0);
+  filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
+  stroke-width: 0.8px;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DatasetView&gt; Size: 870MB
+Dimensions:       (azimuth_time: 16677, ground_range: 26061)
+Coordinates:
+  * azimuth_time  (azimuth_time) datetime64[ns] 133kB 2024-10-07T18:02:56.455...
+  * ground_range  (ground_range) float64 208kB 0.0 10.0 ... 2.606e+05 2.606e+05
+    line          (azimuth_time) int64 133kB dask.array&lt;chunksize=(16677,), meta=np.ndarray&gt;
+    pixel         (ground_range) int64 208kB dask.array&lt;chunksize=(26061,), meta=np.ndarray&gt;
+Data variables:
+    grd           (azimuth_time, ground_range) uint16 869MB dask.array&lt;chunksize=(4096, 8192), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataTree</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-d69037ca-dfc1-4604-80a8-ddd57e1786ad" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-d69037ca-dfc1-4604-80a8-ddd57e1786ad" class="xr-section-summary" title="Expand/collapse section">Groups: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><div style="display: inline-grid; grid-template-columns: 100%; grid-column: 1 / -1"></div></div></li><li class="xr-section-item"><input id="section-2a3b86f8-fafc-4e91-9891-58b425919a20" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-2a3b86f8-fafc-4e91-9891-58b425919a20" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 16677</li><li><span class="xr-has-index">ground_range</span>: 26061</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-9e8c7b20-84af-4676-9824-ee7c77c658d2" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-9e8c7b20-84af-4676-9824-ee7c77c658d2" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2024-10-07T18:02:56.455660 ... 2...</div><input id="attrs-4dfe0fc5-9cc1-4041-9ac2-90ab68770e0e" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-4dfe0fc5-9cc1-4041-9ac2-90ab68770e0e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-675808c6-63c8-4e35-8b51-a6b551d92eed" class="xr-var-data-in" type="checkbox"><label for="data-675808c6-63c8-4e35-8b51-a6b551d92eed" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-10-07T18:02:56.455660000', '2024-10-07T18:02:56.457159057',
+       '2024-10-07T18:02:56.458658115', ..., '2024-10-07T18:03:21.450952884',
+       '2024-10-07T18:03:21.452451942', '2024-10-07T18:03:21.453951000'],
+      shape=(16677,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 10.0 ... 2.606e+05 2.606e+05</div><input id="attrs-30d43725-0fda-427d-8e02-d81925994539" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-30d43725-0fda-427d-8e02-d81925994539" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7729af8b-2e69-4f25-8e57-5647fe672399" class="xr-var-data-in" type="checkbox"><label for="data-7729af8b-2e69-4f25-8e57-5647fe672399" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([0.0000e+00, 1.0000e+01, 2.0000e+01, ..., 2.6058e+05, 2.6059e+05,
+       2.6060e+05], shape=(26061,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(16677,), meta=np.ndarray&gt;</div><input id="attrs-0bb67901-75d4-467d-82aa-c402b4cc5050" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-0bb67901-75d4-467d-82aa-c402b4cc5050" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fad00c89-326d-4fed-84d8-fd498bde1ff5" class="xr-var-data-in" type="checkbox"><label for="data-fad00c89-326d-4fed-84d8-fd498bde1ff5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<td></td>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bytes</th>
+<td>130.29 kiB</td>
+<td>130.29 kiB</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shape</th>
+<td>(16677,)</td>
+<td>(16677,)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dask graph</th>
+<td colspan="2">1 chunks in 2 graph layers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data type</th>
+<td colspan="2">int64 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">16677</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(26061,), meta=np.ndarray&gt;</div><input id="attrs-a8c3faf2-0de1-4ee2-adfe-9a4e96e63abf" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-a8c3faf2-0de1-4ee2-adfe-9a4e96e63abf" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4772653c-b621-43bd-a91f-b03f82570026" class="xr-var-data-in" type="checkbox"><label for="data-4772653c-b621-43bd-a91f-b03f82570026" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<td></td>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bytes</th>
+<td>203.60 kiB</td>
+<td>203.60 kiB</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shape</th>
+<td>(26061,)</td>
+<td>(26061,)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dask graph</th>
+<td colspan="2">1 chunks in 2 graph layers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data type</th>
+<td colspan="2">int64 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">26061</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-99519709-d43a-4e27-88e8-2dd69a8bfadf" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-99519709-d43a-4e27-88e8-2dd69a8bfadf" class="xr-section-summary" title="Expand/collapse section">Inherited coordinates: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"></ul></div></li><li class="xr-section-item"><input id="section-83f8b90f-4a81-4ba4-8b1f-13d70180f626" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-83f8b90f-4a81-4ba4-8b1f-13d70180f626" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>grd</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(4096, 8192), meta=np.ndarray&gt;</div><input id="attrs-3f031ff6-3992-403a-a9a4-2d69af5ef767" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3f031ff6-3992-403a-a9a4-2d69af5ef767" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d94d628b-a394-4af7-927f-7e453f8a0c1c" class="xr-var-data-in" type="checkbox"><label for="data-d94d628b-a394-4af7-927f-7e453f8a0c1c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;u2', 'long_name': 'measurement data set for GRD IW'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>measurement data set for GRD IW</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<td></td>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bytes</th>
+<td>828.97 MiB</td>
+<td>81.01 MiB</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shape</th>
+<td>(16677, 26061)</td>
+<td>(4389, 9677)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dask graph</th>
+<td colspan="2">12 chunks in 2 graph layers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data type</th>
+<td colspan="2">uint16 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="170" height="126" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="18" x2="120" y2="18"></line> <line x1="0" y1="37" x2="120" y2="37"></line> <line x1="0" y1="56" x2="120" y2="56"></line> <line x1="0" y1="76" x2="120" y2="76" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="76" style="stroke-width:2"></line> <line x1="37" y1="0" x2="37" y2="76"></line> <line x1="75" y1="0" x2="75" y2="76"></line> <line x1="120" y1="0" x2="120" y2="76" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,76.79060665362034 0.0,76.79060665362034" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="96.790607" font-size="1.0rem" font-weight="100" text-anchor="middle">26061</text> <text x="140.000000" y="38.395303" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,140.000000,38.395303)">16677</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-04b4a952-b333-4976-a635-bc0231331707" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-04b4a952-b333-4976-a635-bc0231331707" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+</div>
+</div>
+<div id="25" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Some other important constant ID numbers </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>MEASUREMENTS_GROUP_ID <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>GCP_GROUP_ID <span class="op">=</span> <span class="dv">28</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>CALIBRATION_GROUP_ID <span class="op">=</span> <span class="dv">33</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We now define the thresholds that will be used for the flood mapping analysis. These values are not fixed and they can be calibrated and adjusted to achieve a better fit for different regions or flood events.<br></p>
+<p>In SAR imagery, open water surfaces typically appear very dark because they reflect the radar signal away from the sensor. This results in low backscatter values. In our case, pixels with a backscatter lower than approximately –15 dB are likely to correspond to water.</p>
+<div id="27" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>WATER_THRESHOLD_DB <span class="op">=</span> <span class="op">-</span><span class="dv">15</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It is interesting to study the flood event over a specific point within the area of interest.<br> Therefore, we are storing the coordinates of an anchor point inside the area which is not usually covered by water. After the heavy rain, it became flooded for a few weeks.</p>
+<div id="29" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>TARGET_LAT <span class="op">=</span> <span class="fl">39.28</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>TARGET_LONG <span class="op">=</span> <span class="op">-</span><span class="fl">0.30</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="extracting-information-from-the-.zarr" class="level2">
+<h2 class="anchored" data-anchor-id="extracting-information-from-the-.zarr">Extracting information from the <code>.zarr</code></h2>
+<p>As explained in the <a href="24_S1_basic_operations.ipynb">S1 basic operations tutorial</a>, we will perform over all the selected data the following operations:</p>
+<ul>
+<li>Slicing the data to meet our area of interest and decimate it</li>
+<li>Assigning latitude and longitude coordinates to the dataset</li>
+<li>Computing the backscatter</li>
+</ul>
+<section id="slicing-and-decimating-grd-variable" class="level3">
+<h3 class="anchored" data-anchor-id="slicing-and-decimating-grd-variable">Slicing and decimating GRD variable</h3>
+<p>To begin with, we access all our <code>.zarr</code> items <code>measurements</code> groups by creating a list storing all of them.</p>
+<div id="34" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>measurements <span class="op">=</span> []</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the measurements list with only the measurements groups of each dataset on the datatree list</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    measurements.append(datatrees[i][datatrees[i].groups[MEASUREMENTS_GROUP_ID]].to_dataset())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We continue by decimating <code>gdr</code>’s data. As we are only interested into a specific area (Valencia).</p>
+<p>Because we haven’t assigned latitude and longitude coordinates yet, we can not crop the data acording to coordinates. On top of this, even though different products have the same shape and dimensions (<code>azimuth_time</code> and <code>ground_range</code>), the values for the same indexes number don’t match so either ways, it wouldn’t be doable to slice the data acording to coordinate values (which would always be different for different products).</p>
+<div id="36" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the first decimated GRD product from our list, corresponding to the whole scene</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>measurements[<span class="dv">0</span>].grd.isel(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        azimuth_time<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">20</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        ground_range<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">20</span>)).plot(vmax<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-12-output-1.png" width="636" height="429" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="37" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Azimuth time has"</span>, measurements[<span class="dv">0</span>].grd.shape[<span class="dv">0</span>], <span class="st">"values."</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ground range has"</span>, measurements[<span class="dv">0</span>].grd.shape[<span class="dv">1</span>], <span class="st">"values."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Azimuth time has 16677 values.
+Ground range has 26061 values.</code></pre>
+</div>
+</div>
+<p>The solution found is to slice the data by the coordinates index positon using <code>isel()</code> function. Just before, a rought plotting was done in order to visualize the whole image. it was also plotted the <code>azimuth_time</code> and <code>ground_range</code> shape. Considering the are we are interested, and after a few tests and direct proportion calculations, we see that we need: - for <code>azimuth_time</code>, more or less from the last 10000 positions to the last 4500; - for <code>ground_range</code>, more or less from the last 7000 positions to the last 2000;</p>
+<div id="39" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>grd <span class="op">=</span> []</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the grd list with only the grd subgroups of each dataset on the </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># datatree list while simultaneaously slicing the data to match our AOI and decimating it</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    grd_group <span class="op">=</span> measurements[i].grd</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    azimuth_time_len <span class="op">=</span> grd_group.sizes[<span class="st">'azimuth_time'</span>]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    ground_range_len <span class="op">=</span> grd_group.sizes[<span class="st">'ground_range'</span>]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    grd.append(grd_group.isel(</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        azimuth_time<span class="op">=</span><span class="bu">slice</span>((azimuth_time_len <span class="op">-</span> <span class="dv">10000</span>),    <span class="co"># beginning of the slice</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                           (azimuth_time_len <span class="op">-</span> <span class="dv">4500</span>),     <span class="co"># end of the slice</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                           <span class="dv">10</span>),                           <span class="co"># interval of the slice/decimation</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        ground_range<span class="op">=</span><span class="bu">slice</span>((ground_range_len <span class="op">-</span> <span class="dv">7000</span>), </span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                           (ground_range_len <span class="op">-</span> <span class="dv">2000</span>), </span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                           <span class="dv">10</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="40" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>grd[<span class="dv">1</span>].shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>(550, 500)</code></pre>
+</div>
+</div>
+<div id="41" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the second sliced and decimated GRD product from our list </span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>grd[<span class="dv">1</span>].plot(vmax<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Sliced GRD product for the area of interest"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-16-output-1.png" width="636" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="assigning-latitude-and-longitude-coordinates" class="level3">
+<h3 class="anchored" data-anchor-id="assigning-latitude-and-longitude-coordinates">Assigning latitude and longitude coordinates</h3>
+<p>We will execute the following step to assign latitude and longitude coordinates to our datasets: 1. Creating a <code>gcp</code> dataset interpolated with the <code>grd</code> dataset; 2. Assigning the latitude and longitude coordinates to the <code>grd</code> dataset;</p>
+<p>These steps are very important because we are computing a georeferenced image, which allows direct comparison with other spatial datasets. Until now, the image coordinates were expressed in <code>azimuth_time</code> and <code>ground_range</code>, which makes sense in a SAR context but not for geographical analyses.</p>
+<div id="44" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>gcp <span class="op">=</span> []</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the gcp list with only the gcp subgroups of each dataset on the datatree list</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    gcp.append(datatrees[i][datatrees[i].groups[GCP_GROUP_ID]].to_dataset())</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    gcp[i] <span class="op">=</span> gcp[i].interp_like(grd[i]) <span class="co"># interpolate gcp to match the decimation done before</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="45" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to assign the latitude and longitude coordinates to grd </span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    grd[i] <span class="op">=</span> grd[i].assign_coords({<span class="st">"latitude"</span>: gcp[i].latitude, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"longitude"</span>: gcp[i].longitude})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="46" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the third sliced and decimated GRD product from our list with latitude and longitude coordinates</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>grd[<span class="dv">2</span>].plot(x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>, vmax<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"GRD product with latitude and longitude coordinates"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-19-output-1.png" width="606" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="computing-backscatter" class="level3">
+<h3 class="anchored" data-anchor-id="computing-backscatter">Computing backscatter</h3>
+<p>Again, the following steps are just recreating what was done before, but this time over more datasets. For further detailed information, take a look at this <a href="./24_S1_basic_operations.ipynb">chapter</a>.</p>
+<p>Firstly we access the variables concerning the <code>calibration</code> values. These are the values that are going to be used for the backscatter computation. Because we´ve decimated the <code>gdr</code> dataset, we also need to decimate the <code>calibration</code> variables in the same way.</p>
+<p>After it, using the <code>xarray_sentinel</code> library, we compute the backscatter for each dataset. As input varialbes, we use the <code>gdr</code> dataset and the <code>calibration</code> variables we´ve just accessed.</p>
+<div id="49" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>calibration <span class="op">=</span> []</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the calibration list with only the calibration groups of each dataset on the datatree list</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    calibration.append(datatrees[i][datatrees[i].groups[CALIBRATION_GROUP_ID]].to_dataset())</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    calibration[i] <span class="op">=</span> calibration[i].interp_like(grd[i]) <span class="co"># interpolate calibration to match the decimation done before</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="50" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>intensity <span class="op">=</span> []</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the intensity list with the calibrated intensity array originated from xarray_sentinel.calibrate_intensity function</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    intensity.append(xarray_sentinel.calibrate_intensity(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        grd[i], </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        calibration[i].beta_nought, </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        as_db<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="51" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the backscatter intensity for the second dataset on the list</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>intensity[<span class="dv">1</span>].plot(x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>, vmin<span class="op">=-</span><span class="dv">25</span>, vmax<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Computed backscatter intensity"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-22-output-1.png" width="669" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="create-a-datacube-to-prepare-for-time-series-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-datacube-to-prepare-for-time-series-analysis">Create a datacube to prepare for time series analysis</h3>
+<p>Since we are performing a time series with <code>.zarr</code>, instead of analysing individual items stored in a list, we can create a combined dataset, containing all the data, stacked together by a new dimension <code>time</code>. Through the stacking, we are building a three-dimensional datacube.</p>
+<p>To get values for the new dimension <code>time</code>, we need to extract the acquisiton dates for each product.</p>
+<div id="54" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> []</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the data list with all the acquisition dates from the datatree</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    data.append(intensity[i].azimuth_time.values[<span class="dv">1</span>].astype(<span class="st">'datetime64[D]'</span>))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>[np.datetime64('2024-10-07'),
+ np.datetime64('2024-10-19'),
+ np.datetime64('2024-10-31'),
+ np.datetime64('2024-11-12'),
+ np.datetime64('2024-11-24'),
+ np.datetime64('2024-12-06'),
+ np.datetime64('2024-12-18'),
+ np.datetime64('2024-12-30'),
+ np.datetime64('2025-01-11'),
+ np.datetime64('2025-01-23'),
+ np.datetime64('2025-02-04'),
+ np.datetime64('2025-02-16'),
+ np.datetime64('2025-03-12'),
+ np.datetime64('2025-03-24')]</code></pre>
+</div>
+</div>
+</section>
+<section id="coregistration" class="level3">
+<h3 class="anchored" data-anchor-id="coregistration">Coregistration</h3>
+<p>The next step is sensitive. In order to stack data into an array, the dimension values need to match perfectly, which is not the case (Sentinel-1 GRD data dimension values differ from one product to the other).<br></p>
+<p>This problem resembles the <strong>coregistrations</strong> problem. This refers to the process of aligning two or more images, in a way that each pixel in one image corresponds to the exact same ground location in the others. To have a deeper overview of this process you can take a look <a href="https://elisecolin.medium.com/what-is-coregistration-in-remote-sensing-7d76d48d337d">here</a>.</p>
+<p>There are only a few software programmes and packages that can perform coregistration, and most of the time, these processes are very time-consuming and resource-intensive.</p>
+<p>Since the GRD images we are working with already have the same dimensions (cropped during the initial steps of the tutorial), we can perform our own coregistration. Such process involves: - Keeping the coordinates of one <code>intensity</code> dataset as the reference - Resetting the coordinates of the other ones - Reassigning the coordinates to match the reference dataset and that they can all overlay perfectly.</p>
+<p>To do so we will use the function <code>reset_coords()</code> to reset the original coordinates and then use the <code>assign_coords</code> function after.</p>
+<div id="57" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>reference_coords <span class="op">=</span> intensity[<span class="dv">0</span>].coords <span class="co"># setting the first coordinate values as reference</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>datasets_aligned <span class="op">=</span> []</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the datasets_aligned list with the newly assigned coordinate values</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ds <span class="kw">in</span> intensity:</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    ds_no_coords <span class="op">=</span> ds.reset_coords(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    datasets_aligned.append(ds_no_coords.assign_coords(reference_coords))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, the data is fully prepared to be stacked into a new array that contains all the datasets. They share the same coordinate values and everything is aligned along a third dimension, <code>time</code>. To stack all the datasets into only one we will use the <code>concat()</code> function from the <code>xarray</code> library.</p>
+<div id="59" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the data cube, stacking all the datasets over a new time dimension</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>intensity_data_cube <span class="op">=</span> xr.concat(datasets_aligned, dim<span class="op">=</span>xr.DataArray(data, dims<span class="op">=</span><span class="st">"time"</span>))</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># There is a new dimension coordinate (time) </span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>intensity_data_cube</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
+ *
+ */
+
+:root {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base rgba(0, 0, 0, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, white)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 15))
+  );
+}
+
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
+body.vscode-dark {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base, rgba(255, 255, 255, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, #111111)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 15))
+  );
+}
+
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+}
+
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
+
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  margin-bottom: 4px;
+  border-bottom: solid 1px var(--xr-border-color);
+}
+
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.xr-obj-type,
+.xr-array-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
+
+.xr-obj-type {
+  color: var(--xr-font-color2);
+}
+
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+}
+
+.xr-section-item {
+  display: contents;
+}
+
+.xr-section-item input {
+  display: inline-block;
+  opacity: 0;
+  height: 0;
+}
+
+.xr-section-item input + label {
+  color: var(--xr-disabled-color);
+  border: 2px solid transparent !important;
+}
+
+.xr-section-item input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
+
+.xr-section-item input:focus + label {
+  border: 2px solid var(--xr-font-color0) !important;
+}
+
+.xr-section-item input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
+
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.5em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: "►";
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: "▼";
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  display: none;
+  grid-column: 1 / -1;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: "(";
+}
+
+.xr-dim-list:after {
+  content: ")";
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ",";
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  border-color: var(--xr-background-color-row-odd);
+  margin-bottom: 0;
+  padding-top: 2px;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+  border-color: var(--xr-background-color-row-even);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  border-top: 2px dotted var(--xr-background-color);
+  padding-bottom: 20px !important;
+  padding-top: 10px !important;
+}
+
+.xr-var-attrs-in + label,
+.xr-var-data-in + label,
+.xr-index-data-in + label {
+  padding: 0 1px;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-data > pre,
+.xr-index-data > pre,
+.xr-var-data > table > tbody > tr {
+  background-color: transparent !important;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.xr-var-attrs-in:checked + label > .xr-icon-file-text2,
+.xr-var-data-in:checked + label > .xr-icon-database,
+.xr-index-data-in:checked + label > .xr-icon-database {
+  color: var(--xr-font-color0);
+  filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
+  stroke-width: 0.8px;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray (time: 14, azimuth_time: 550, ground_range: 500)&gt; Size: 15MB
+dask.array&lt;concatenate, shape=(14, 550, 500), dtype=float32, chunksize=(1, 398, 500), chunktype=numpy.ndarray&gt;
+Coordinates:
+  * azimuth_time  (azimuth_time) datetime64[ns] 4kB 2024-10-07T18:03:06.46487...
+  * ground_range  (ground_range) float64 4kB 1.906e+05 1.907e+05 ... 2.405e+05
+    line          (azimuth_time) float64 4kB dask.array&lt;chunksize=(550,), meta=np.ndarray&gt;
+    pixel         (ground_range) float64 4kB dask.array&lt;chunksize=(500,), meta=np.ndarray&gt;
+    latitude      (azimuth_time, ground_range) float64 2MB dask.array&lt;chunksize=(550, 500), meta=np.ndarray&gt;
+    longitude     (azimuth_time, ground_range) float64 2MB dask.array&lt;chunksize=(550, 500), meta=np.ndarray&gt;
+  * time          (time) datetime64[s] 112B 2024-10-07 2024-10-19 ... 2025-03-24
+Attributes:
+    _eopf_attrs:  {'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_r...
+    dtype:        &lt;u2
+    long_name:    beta nought calibration vector (this array contains the cou...
+    units:        dB</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-array-name"></div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 14</li><li><span class="xr-has-index">azimuth_time</span>: 550</li><li><span class="xr-has-index">ground_range</span>: 500</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-52b1af87-c412-419b-ba3e-c24a1bf538f1" class="xr-array-in" type="checkbox" checked=""><label for="section-52b1af87-c412-419b-ba3e-c24a1bf538f1" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 152, 500), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<td></td>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bytes</th>
+<td>14.69 MiB</td>
+<td>777.34 kiB</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shape</th>
+<td>(14, 550, 500)</td>
+<td>(1, 398, 500)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dask graph</th>
+<td colspan="2">28 chunks in 451 graph layers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data type</th>
+<td colspan="2">float32 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="186" height="187" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="10" y1="0" x2="27" y2="17" style="stroke-width:2"></line> <line x1="10" y1="33" x2="27" y2="51"></line> <line x1="10" y1="120" x2="27" y2="137" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line> <line x1="11" y1="1" x2="11" y2="121"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="13" y1="3" x2="13" y2="123"></line> <line x1="15" y1="5" x2="15" y2="125"></line> <line x1="16" y1="6" x2="16" y2="126"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="18" y1="8" x2="18" y2="128"></line> <line x1="20" y1="10" x2="20" y2="130"></line> <line x1="21" y1="11" x2="21" y2="131"></line> <line x1="22" y1="12" x2="22" y2="132"></line> <line x1="24" y1="14" x2="24" y2="134"></line> <line x1="25" y1="15" x2="25" y2="135"></line> <line x1="26" y1="16" x2="26" y2="136"></line> <line x1="27" y1="17" x2="27" y2="137" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 27.8922659592756,17.8922659592756 27.8922659592756,137.8922659592756 10.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="119" y2="0" style="stroke-width:2"></line> <line x1="11" y1="1" x2="120" y2="1"></line> <line x1="12" y1="2" x2="121" y2="2"></line> <line x1="13" y1="3" x2="122" y2="3"></line> <line x1="15" y1="5" x2="124" y2="5"></line> <line x1="16" y1="6" x2="125" y2="6"></line> <line x1="17" y1="7" x2="126" y2="7"></line> <line x1="18" y1="8" x2="128" y2="8"></line> <line x1="20" y1="10" x2="129" y2="10"></line> <line x1="21" y1="11" x2="130" y2="11"></line> <line x1="22" y1="12" x2="131" y2="12"></line> <line x1="24" y1="14" x2="133" y2="14"></line> <line x1="25" y1="15" x2="134" y2="15"></line> <line x1="26" y1="16" x2="135" y2="16"></line> <line x1="27" y1="17" x2="136" y2="17" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="27" y2="17" style="stroke-width:2"></line> <line x1="119" y1="0" x2="136" y2="17" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 119.09090909090908,0.0 136.98317505018468,17.8922659592756 27.8922659592756,17.8922659592756" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="27" y1="17" x2="136" y2="17" style="stroke-width:2"></line> <line x1="27" y1="51" x2="136" y2="51"></line> <line x1="27" y1="137" x2="136" y2="137" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="27" y1="17" x2="27" y2="137" style="stroke-width:2"></line> <line x1="136" y1="17" x2="136" y2="137" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="27.8922659592756,17.8922659592756 136.98317505018468,17.8922659592756 136.98317505018468,137.8922659592756 27.8922659592756,137.8922659592756" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="82.437721" y="157.892266" font-size="1.0rem" font-weight="100" text-anchor="middle">500</text> <text x="156.983175" y="77.892266" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,156.983175,77.892266)">550</text> <text x="8.946133" y="148.946133" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,8.946133,148.946133)">14</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></div></li><li class="xr-section-item"><input id="section-28c95c06-bd19-4acd-af80-4cffbec29a76" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-28c95c06-bd19-4acd-af80-4cffbec29a76" class="xr-section-summary">Coordinates: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2024-10-07T18:03:06.464870182 .....</div><input id="attrs-6e7ce73e-dc7f-45af-91fb-d2cfc8689c42" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-6e7ce73e-dc7f-45af-91fb-d2cfc8689c42" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b987f97f-a459-4151-90fe-6219c1df2cbf" class="xr-var-data-in" type="checkbox"><label for="data-b987f97f-a459-4151-90fe-6219c1df2cbf" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-10-07T18:03:06.464870182', '2024-10-07T18:03:06.479860762',
+       '2024-10-07T18:03:06.494851342', ..., '2024-10-07T18:03:14.664717374',
+       '2024-10-07T18:03:14.679707954', '2024-10-07T18:03:14.694698534'],
+      shape=(550,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">1.906e+05 1.907e+05 ... 2.405e+05</div><input id="attrs-c9bade78-ccd3-471d-9463-6229b39296a4" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c9bade78-ccd3-471d-9463-6229b39296a4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b2ed3faf-7d66-4b67-8062-cf8814404a9c" class="xr-var-data-in" type="checkbox"><label for="data-b2ed3faf-7d66-4b67-8062-cf8814404a9c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([190610., 190710., 190810., ..., 240310., 240410., 240510.], shape=(500,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(550,), meta=np.ndarray&gt;</div><input id="attrs-475c538f-47e0-462e-88de-74ce942d8a86" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-475c538f-47e0-462e-88de-74ce942d8a86" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f9a40937-3561-481c-8708-e4a64f2ccad9" class="xr-var-data-in" type="checkbox"><label for="data-f9a40937-3561-481c-8708-e4a64f2ccad9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<td></td>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bytes</th>
+<td>4.30 kiB</td>
+<td>4.30 kiB</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shape</th>
+<td>(550,)</td>
+<td>(550,)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dask graph</th>
+<td colspan="2">1 chunks in 11 graph layers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data type</th>
+<td colspan="2">float64 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">550</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(500,), meta=np.ndarray&gt;</div><input id="attrs-8c45626c-6890-45df-a494-722630f2236e" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-8c45626c-6890-45df-a494-722630f2236e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-26b049c3-3f82-4035-8edc-a9167a6bb597" class="xr-var-data-in" type="checkbox"><label for="data-26b049c3-3f82-4035-8edc-a9167a6bb597" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<td></td>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bytes</th>
+<td>3.91 kiB</td>
+<td>3.91 kiB</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shape</th>
+<td>(500,)</td>
+<td>(500,)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dask graph</th>
+<td colspan="2">1 chunks in 11 graph layers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data type</th>
+<td colspan="2">float64 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.000000" y="45.412617" font-size="1.0rem" font-weight="100" text-anchor="middle">500</text> <text x="140.000000" y="12.706308" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.000000,12.706308)">1</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(550, 500), meta=np.ndarray&gt;</div><input id="attrs-1c0636c8-4b2d-465b-a0a4-76fa472a78f8" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1c0636c8-4b2d-465b-a0a4-76fa472a78f8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f8095849-77f0-43a9-b4f0-d713542ef468" class="xr-var-data-in" type="checkbox"><label for="data-f8095849-77f0-43a9-b4f0-d713542ef468" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<td></td>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bytes</th>
+<td>2.10 MiB</td>
+<td>2.10 MiB</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shape</th>
+<td>(550, 500)</td>
+<td>(550, 500)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dask graph</th>
+<td colspan="2">1 chunks in 22 graph layers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data type</th>
+<td colspan="2">float64 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="159" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="109" y2="0" style="stroke-width:2"></line> <line x1="0" y1="120" x2="109" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="109" y1="0" x2="109" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 109.09090909090908,0.0 109.09090909090908,120.0 0.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="54.545455" y="140.000000" font-size="1.0rem" font-weight="100" text-anchor="middle">500</text> <text x="129.090909" y="60.000000" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.090909,60.000000)">550</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(550, 500), meta=np.ndarray&gt;</div><input id="attrs-e74eef5d-58d4-4c9d-ba8f-b03cbcd1e2dd" class="xr-var-attrs-in" type="checkbox"><label for="attrs-e74eef5d-58d4-4c9d-ba8f-b03cbcd1e2dd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-13cf5105-1a84-4579-8f23-20bdfe1cb409" class="xr-var-data-in" type="checkbox"><label for="data-13cf5105-1a84-4579-8f23-20bdfe1cb409" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<td></td>
+<th data-quarto-table-cell-role="th">Array</th>
+<th data-quarto-table-cell-role="th">Chunk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Bytes</th>
+<td>2.10 MiB</td>
+<td>2.10 MiB</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Shape</th>
+<td>(550, 500)</td>
+<td>(550, 500)</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Dask graph</th>
+<td colspan="2">1 chunks in 22 graph layers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Data type</th>
+<td colspan="2">float64 numpy.ndarray</td>
+</tr>
+</tbody>
+</table></td>
+<td><svg width="159" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
+<!-- Horizontal lines --> <line x1="0" y1="0" x2="109" y2="0" style="stroke-width:2"></line> <line x1="0" y1="120" x2="109" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="109" y1="0" x2="109" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 109.09090909090908,0.0 109.09090909090908,120.0 0.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="54.545455" y="140.000000" font-size="1.0rem" font-weight="100" text-anchor="middle">500</text> <text x="129.090909" y="60.000000" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.090909,60.000000)">550</text>
+</svg></td>
+</tr>
+</tbody>
+</table>
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[s]</div><div class="xr-var-preview xr-preview">2024-10-07 ... 2025-03-24</div><input id="attrs-5adc5f83-0920-4c14-8072-dad96a375829" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-5adc5f83-0920-4c14-8072-dad96a375829" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1d5e6005-1a0e-49dc-9393-649cdeaea0ab" class="xr-var-data-in" type="checkbox"><label for="data-1d5e6005-1a0e-49dc-9393-649cdeaea0ab" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-10-07T00:00:00', '2024-10-19T00:00:00', '2024-10-31T00:00:00',
+       '2024-11-12T00:00:00', '2024-11-24T00:00:00', '2024-12-06T00:00:00',
+       '2024-12-18T00:00:00', '2024-12-30T00:00:00', '2025-01-11T00:00:00',
+       '2025-01-23T00:00:00', '2025-02-04T00:00:00', '2025-02-16T00:00:00',
+       '2025-03-12T00:00:00', '2025-03-24T00:00:00'], dtype='datetime64[s]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-e69baaae-934b-49e9-9721-d84314d30e90" class="xr-section-summary-in" type="checkbox"><label for="section-e69baaae-934b-49e9-9721-d84314d30e90" class="xr-section-summary">Indexes: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>azimuth_time</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-08cec266-1bf0-4135-9845-1152c650e43b" class="xr-index-data-in" type="checkbox"><label for="index-08cec266-1bf0-4135-9845-1152c650e43b" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2024-10-07 18:03:06.464870182',
+               '2024-10-07 18:03:06.479860762',
+               '2024-10-07 18:03:06.494851342',
+               '2024-10-07 18:03:06.509841922',
+               '2024-10-07 18:03:06.524832502',
+               '2024-10-07 18:03:06.539823082',
+               '2024-10-07 18:03:06.554813661',
+               '2024-10-07 18:03:06.569804241',
+               '2024-10-07 18:03:06.584794821',
+               '2024-10-07 18:03:06.599785401',
+               ...
+               '2024-10-07 18:03:14.559783315',
+               '2024-10-07 18:03:14.574773895',
+               '2024-10-07 18:03:14.589764475',
+               '2024-10-07 18:03:14.604755054',
+               '2024-10-07 18:03:14.619745634',
+               '2024-10-07 18:03:14.634736214',
+               '2024-10-07 18:03:14.649726794',
+               '2024-10-07 18:03:14.664717374',
+               '2024-10-07 18:03:14.679707954',
+               '2024-10-07 18:03:14.694698534'],
+              dtype='datetime64[ns]', name='azimuth_time', length=550, freq=None))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>ground_range</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-92555b10-ac8d-42db-ae87-02e00a053dcd" class="xr-index-data-in" type="checkbox"><label for="index-92555b10-ac8d-42db-ae87-02e00a053dcd" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([190610.0, 190710.0, 190810.0, 190910.0, 191010.0, 191110.0, 191210.0,
+       191310.0, 191410.0, 191510.0,
+       ...
+       239610.0, 239710.0, 239810.0, 239910.0, 240010.0, 240110.0, 240210.0,
+       240310.0, 240410.0, 240510.0],
+      dtype='float64', name='ground_range', length=500))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>time</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-0359d424-c921-4192-a9dc-15d6a9092190" class="xr-index-data-in" type="checkbox"><label for="index-0359d424-c921-4192-a9dc-15d6a9092190" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2024-10-07', '2024-10-19', '2024-10-31', '2024-11-12',
+               '2024-11-24', '2024-12-06', '2024-12-18', '2024-12-30',
+               '2025-01-11', '2025-01-23', '2025-02-04', '2025-02-16',
+               '2025-03-12', '2025-03-24'],
+              dtype='datetime64[s]', name='time', freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-42bde4d9-da8f-45d6-b5c3-77bea52f6311" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-42bde4d9-da8f-45d6-b5c3-77bea52f6311" class="xr-section-summary">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;u2', 'long_name': 'measurement data set for GRD IW'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>beta nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd><dt><span>units :</span></dt><dd>dB</dd></dl></div></li></ul></div></div>
+</div>
+</div>
+</section>
+</section>
+<section id="flood-mapping-and-time-series-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="flood-mapping-and-time-series-analysis">Flood mapping and time series analysis</h2>
+<p>The last step is to perform the time series and flood mapping analysis.</p>
+<section id="simple-visualisation-of-all-datasets-selected" class="level3">
+<h3 class="anchored" data-anchor-id="simple-visualisation-of-all-datasets-selected">Simple visualisation of all datasets selected</h3>
+<p>First, we can plot all the datasets simply to create a visualisation of the flood. In addition to these plots, we are also plotting a chosen latitude and longitude point (as defined at beginning of this tutorial). The coordinate serves as a measure of comparison between all the datasets and from within different analysis methods.</p>
+<p>When we look over all the items plotted, we can clearly see that the significant flood event happened between the 19th and the 31st of October (it occurred on the 29th of October 2024).</p>
+<p>Additionally, we can see that the backscatter displaying the water presence was only going back to normal ranges around mid-February 2025.</p>
+<div id="64" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> <span class="dv">4</span>    <span class="co"># setting up column number</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> <span class="bu">int</span>(np.ceil(DATASET_NUMBER <span class="op">/</span> cols))  <span class="co"># setting up row number according to clumn number</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(rows, cols, figsize<span class="op">=</span>(<span class="dv">4</span><span class="op">*</span>cols, <span class="dv">4</span><span class="op">*</span>rows))  </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()  </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    intensity_data_cube[i].plot(    <span class="co"># plotting all the datasets stored in the data cube</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        vmin<span class="op">=-</span><span class="dv">25</span>, vmax<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax,  </span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        add_colorbar<span class="op">=</span><span class="va">False</span>  </span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    ax.scatter(TARGET_LONG, TARGET_LAT, color<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"o"</span>, s<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">"Selected Point"</span>)  <span class="co"># also plotting the known point defined before</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(axes)):</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    axes[j].axis(<span class="st">'off'</span>)     <span class="co"># to avoid having empty cells</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-26-output-1.png" width="1525" height="1526" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="create-a-flood-map-based-on-threshold-values" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-flood-map-based-on-threshold-values">Create a flood map based on threshold values</h3>
+<p>It is known through <a href="https://www.researchgate.net/figure/VV-and-VH-threshold-statistics-1-obtained-via-graphical-interpretation-and-2_tbl4_360412209">literature</a> and other <a href="https://mbonnema.github.io/GoogleEarthEngine/07-SAR-Water-Classification/?utm_source=chatgpt.com">sources</a> that water appears as darker pixels, typically with values lower than <strong>-15 dB</strong>. This is a very good method for identifying water because separating the pixels within this threshold value will give us almost a <code>True</code> and <code>False</code> map for pixels which are greater or smaller than the defined threshold.</p>
+<p>In the plots below, we classify the pixels with backscatter values equal to or lower than -15 in yellow. Conversely, in purple, we see the pixels that have backscatter values greater than -15.</p>
+<p>This type of visualisation allows us to easily identify flooded and non-flooded areas.</p>
+<div id="67" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(rows, cols, figsize<span class="op">=</span>(<span class="dv">4</span><span class="op">*</span>cols, <span class="dv">4</span><span class="op">*</span>rows))  </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()  </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    water_mask <span class="op">=</span> (intensity_data_cube[i] <span class="op">&lt;=</span> WATER_THRESHOLD_DB)     <span class="co"># defining the water mask from the threshold</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    water_mask.plot(        <span class="co"># plotting all the water masks </span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>,</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax,  </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        add_colorbar<span class="op">=</span><span class="va">False</span>  </span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    ax.scatter(TARGET_LONG, TARGET_LAT, color<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"o"</span>, s<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">"Selected Point"</span>) <span class="co"># again plotting the known point defined before</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(axes)):</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    axes[j].axis(<span class="st">'off'</span>)</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-27-output-1.png" width="1525" height="1526" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="create-a-map-showing-differences-between-two-images" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-map-showing-differences-between-two-images">Create a map showing differences between two images</h3>
+<p>Knowing the exact flood date, which we have, and from the images plotted previously, we can easily see that the second image is the one right before the flood event and that the third image is the one directly after it. These two images show significant differences in the flooded areas and backscatter values, ranging from <strong>-5 dB</strong> (in the image before the event) to <strong>-20 dB</strong> (in the image directly after the event).</p>
+<p>For this reason, when we compute the difference between the two images, we will mostly get: - Values around 0 dB for areas that did not change - Values ranging from -15 dB to -20 dB in the precise flooded areas.</p>
+<p>This is an excellent way to determine precisely which areas were flooded. As we are comparing an image from before the event with another one taken at the highest possible flooding point, the differences between them will be extreme.</p>
+<div id="70" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dif <span class="op">=</span> (intensity_data_cube[<span class="dv">1</span>]<span class="op">-</span>intensity_data_cube[<span class="dv">2</span>])   <span class="co"># computing the difference between third and second dataset</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>dif.plot(x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>, vmin<span class="op">=-</span><span class="dv">10</span>, vmax<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Flooded area right after the heavy rains"</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-28-output-1.png" width="575" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="create-a-time-series-plot-of-one-location-within-the-flood" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-time-series-plot-of-one-location-within-the-flood">Create a time-series plot of one location within the flood</h3>
+<p>Taking advantage of the data cube we have created over a new <code>time</code> dimension, it is much easier to plot the data over this new dimension, as in a time series plot.<br> As our data now shares same dimensions and shape, we can choose to plot a backscatter analysis over the specific latitude and longitude point we defined earlier.<br></p>
+<p>As these coordinates might not be exactly the ones shown on the dimension values, we need to perform some operations to find the closest values to the desired coordinates.<br> We will now change the latitude and longitude coordinate values and see how the corresponding <code>azimuth_time</code> and <code>ground_range</code> values and indexes change.</p>
+<div id="73" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find how far each pixel's latitude and longitude is from the target point</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>abs_error <span class="op">=</span> np.<span class="bu">abs</span>(intensity_data_cube.latitude <span class="op">-</span> TARGET_LAT) <span class="op">+</span> np.<span class="bu">abs</span>(intensity_data_cube.longitude <span class="op">-</span> TARGET_LONG)  </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the indexes of the closest point</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>i, j <span class="op">=</span> np.unravel_index(np.argmin(abs_error.values), abs_error.shape)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>azimuth_time_index <span class="op">=</span> i</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>ground_range_index <span class="op">=</span> j</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the coordinate values of the closest point</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>azimuth_time_value <span class="op">=</span> intensity_data_cube.azimuth_time[i].values</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>ground_range_value <span class="op">=</span> intensity_data_cube.ground_range[j].values</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nearest azimuth_time:"</span>, azimuth_time_value, <span class="st">", with index:"</span>, azimuth_time_index)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nearest ground_range:"</span>, ground_range_value, <span class="st">", with index:"</span>, ground_range_index)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Slice the data cube in order to get only the pixel that corresponds to the target point</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>target_point <span class="op">=</span> intensity_data_cube.isel(ground_range<span class="op">=</span>ground_range_index, </span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>                                        azimuth_time<span class="op">=</span>azimuth_time_index)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Nearest azimuth_time: 2024-10-07T18:03:10.977034725 , with index: 301
+Nearest ground_range: 217810.0 , with index: 272</code></pre>
+</div>
+</div>
+<p>Now we can plot the data cube, showing the backscatter intensity over the target point we defined earlier. Since the datasets are stacked along the time dimension, it becomes much easier to plot the evolution of water backscatter at a specific location. This provides an effective way to monitor the flooding status at that point.</p>
+<p>We can also add a line representing the water threshold we defined. Any point with a backscatter value below this threshold will be classified as water, thus flooded.</p>
+<div id="75" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the sliced data cube</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>target_point.plot(label<span class="op">=</span><span class="st">'Time series backscatter'</span>) </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> target_point[target_point.dims[<span class="dv">0</span>]].values   <span class="co"># getting the x axis values (time)</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> target_point.values                         <span class="co"># getting the y axis values (backscatter intensity)</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the trend line</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>x_num <span class="op">=</span> np.arange(<span class="bu">len</span>(x))   </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.polyfit(x_num, y, <span class="dv">6</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.poly1d(z)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>plt.plot(x, p(x_num), <span class="st">'r--'</span>, label<span class="op">=</span><span class="st">'Trend line'</span>)</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>plt.plot(x, [<span class="op">-</span><span class="dv">15</span>] <span class="op">*</span> <span class="bu">len</span>(x), <span class="st">'g--'</span>, label<span class="op">=</span><span class="st">'Flood threshold'</span>)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-30-output-1.png" width="694" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="challenges" class="level2">
+<h2 class="anchored" data-anchor-id="challenges">Challenges</h2>
+<p>While using the optimised <code>.zarr</code> format saves a lot of time and makes creating workflows relatively simple and achievable, there are still a few challenges to handle and to keep in mind:</p>
+<ul>
+<li><p>Sentinel-1 GRD Data Availability: For <strong>Sentinel-1 GRD</strong>, most of the datasets are not yet available on the STAC catalogue. This makes searching and data handling harder because, in the end, only a few products are correctly converted.</p></li>
+<li><p>Backscatter Computation Libraries: There are only a few working Python libraries that handle backscatter computation. When considering the <code>.zarr</code> format, the list becomes even smaller. <code>xarray_sentinel</code> is a very good library that handles intensity backscatter computation with <code>.zarr</code>.</p></li>
+<li><p>Terrain Correction: With the available libraries, it is very difficult to perform geometric and radiometric terrain correction. The existing tools that support the .<code>zarr</code> format are not yet fully operational and do not accept the format as it is.</p></li>
+<li><p>Image Coregistration: As discussed previously, the .<code>zarr</code> format is perfect for handling multiple datasets simultaneously and, thus, for time series analysis. The problem is that there is no library or package that performs <strong>coregistration</strong> of Sentinel images, especially with the <code>.zarr</code> format. And it remains a significant problem because <strong>coregistering</strong> multiple Sentinel images is an important step for most SAR workflows.</p></li>
+</ul>
+<hr>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The <code>.zarr</code> format is particularly well suited for hazard analysis because it enables multiple datasets to be combined into a single structure, either as a data cube or as a list of datatrees. This makes it ideal for rapid, multi-temporal, and multi-spatial monitoring. Unlike the <code>.SAFE</code> format, which required downloading entire products, <code>.zarr</code> only loads the specific groups needed, while the rest is accessed on the fly. As a result, both data handling and subsequent operations are much faster and more efficient.</p>
+<p>Although the ecosystem for <code>.zarr</code> is still evolving, there are already promising developments. In the past, <code>.SAFE</code> products could be fully processed on applications like SNAP, but similar completeness has not yet been reached for <code>.zarr</code>. Nevertheless, libraries such as <code>xarray_sentinel</code> and are beginning to cover essential SAR operations. This potential is illustrated in the Valencia flood case study, where Sentinel-1 backscatter sensitivity to water enabled clear mapping of flood extent and duration. The same workflow can be adapted to other flood events by adjusting the relevant thresholds and parameters to match local conditions.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
+<p>This online resource is under active development. So stay tuned for regular updates 🛰️.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./63_sardinia_dNBR.html" class="pagination-link" aria-label="Fire in Sardinia 2025 - Part 3">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./glossary.html" class="pagination-link" aria-label="**Glossary**">
+        <span class="nav-page-text"><span class="chapter-title"><strong>Glossary</strong></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Development Seed, thriveGEO and SparkGeo</p>
+</div>   
+    <div class="nav-footer-center">
+<p>License: Apache 2.0</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link active" href="https://github.com/eopf-toolkit/eopf-101" aria-current="page">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
