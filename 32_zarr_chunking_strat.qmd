@@ -5,7 +5,7 @@ format: html
 
 ## Introduction
 
-In the [previous section](./32_zarr_chunking_intro.qmd), we explored the fundamentals of Zarr chunking and its significance for Earth Observation data.<br>
+In the [previous section](./31_zarr_chunking_intro.qmd), we explored the fundamentals of Zarr chunking and its significance for Earth Observation data.<br>
 Now we will delve into the specifications and challenges that address geospatial multi-resolution datasets.
 
 ## What we will learn

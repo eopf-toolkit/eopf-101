@@ -59,7 +59,7 @@ Metadata provides all relevant information required to uniquely describe each Se
 - **Other Metadata**: Information like the status of the sensor and details about the satellite's orbit.
 
 ::: {.callout-note}
-EOPF and STAC: Learn more about EOPF and STAC [here](./31_stac_intro.qmd).
+EOPF and STAC: Learn more about EOPF and STAC [here](./41_stac_intro.qmd).
 :::
 
 ### EOPF encoding structure
