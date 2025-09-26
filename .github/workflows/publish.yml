@@ -35,6 +35,10 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
 
       - name: Install quarto dependencies
         run: |
@@ -53,6 +57,17 @@ jobs:
           git-all
           pip install uv
           uv sync
+
+      - name: Initialize Git Repository
+        run: |
+          cd $GITHUB_WORKSPACE
+          git init
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+          git remote add origin https://github.com/${{ github.repository }}.git
+          git fetch origin
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
