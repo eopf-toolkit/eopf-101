@@ -80,7 +80,7 @@ This `Item` interface is composed of:
 ![The item selected inside the Sentinel-2 Level-2A Collection](img/item_des.png){fig-align="center"}
 
 ::: {.callout-important}
-At this level of the STAC structure, we are already diving deep into the STAC levels, and have explored the `Catalog`, `Collection` and `Item` components described in the [Introduction to STAC](31_stac_intro.qmd) section.
+At this level of the STAC structure, we are already diving deep into the STAC levels, and have explored the `Catalog`, `Collection` and `Item` components described in the [Introduction to STAC](41_stac_intro.qmd) section.
 :::
 
 ## Assets 
