@@ -1,10 +1,11 @@
 ---
-title: "Title of the page"
+title: "Title of the page, this one displays the name on the top and the selection menu"
 format: html
 ---
 
 ### Introduction
 
+Give an overview of the content that will compose the chapter. 3 Sentences are a good lenght.<br>
 <br>
 <br>
 <br>
@@ -12,14 +13,14 @@ format: html
 
 ### What we will learn
 
-- 🚀 Learning objective 1
-- 🔎 Learning objective 2
+- 🚀 Learning objective 1. The general takeaway
+- 🔎 Learning objective 2. Introduction to a specific tool if present
 - 🛰️ Include a related icon / emoji to make it engaging
 
 
 ### [OPTIONAL] Prerequisites
 
-List any resources, such as python dependencies or references to previous tutorials. Something the learner should be aware before the introduction to this chapter.
+List any resources, such as python dependencies, `utils.py` or references to previous tutorials. Something the learner should be aware before the introduction to this chapter.
 
 <hr>
 
@@ -69,17 +70,22 @@ Another note with some [embedded links]().
 
 <hr>
 
-## Now it is your turn
+## 💪 Now it is your turn
+If the page is focused in theoretical content and further resources are recommended, provide them through tasks.<br>
+If the content is a tutorial, always include tasks that can be replicated so the audience gets a hands on 
 <br>
 <br>
 <br
 
 ## Conclusion
 <br>
+This section summarises the objectives of the notebook, what a learner learned and what possible conclusions / results were obtained.
 <br>
 <br>
 <br>
 
 ## What's next?
+In one or two sentences, describe what awaits the learner in the next chapter and include a link to the next chapter.
 <br>
+If you need more than one notebook for your workflow, you can mention next steps here.
 <br>
