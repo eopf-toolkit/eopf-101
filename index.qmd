@@ -46,7 +46,7 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
   * [Flood Mapping - Time Series Analysis in Valencia](./64_flood_mapping_valencia.ipynb)
 
 
-<h2>💡 How best use EOPF 101 </h2>
+<h2>💡 How best to use EOPF 101 </h2>
 You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. 
 Beyond this browsable version, you can also set up the required environment to execute the notebooks. 
 
