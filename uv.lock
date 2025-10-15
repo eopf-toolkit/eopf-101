@@ -307,6 +307,27 @@ css = [
 ]
 
 [[package]]
+name = "bokeh"
+version = "3.8.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "contourpy" },
+    { name = "jinja2" },
+    { name = "narwhals" },
+    { name = "numpy" },
+    { name = "packaging" },
+    { name = "pandas" },
+    { name = "pillow" },
+    { name = "pyyaml" },
+    { name = "tornado", marker = "sys_platform != 'emscripten'" },
+    { name = "xyzservices" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/78/bd/8455ecfaa8100dbfbb2af40061c689a7a9c808f4f8c9582f0efd0c8c9a19/bokeh-3.8.0.tar.gz", hash = "sha256:bfdf5e9df910653b097f70cd38f4c2399d91af6e54a618126e2387cc33c9ec03", size = 6529746 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/96/9a/8e641b5415e12036d8a206147b8229d917a767b7d939521458d90feddcf5/bokeh-3.8.0-py3-none-any.whl", hash = "sha256:117c5e559231ad39fef87891a1a1b62b3bfefbaa47d536023537338f46015841", size = 7205343 },
+]
+
+[[package]]
 name = "botocore"
 version = "1.39.11"
 source = { registry = "https://pypi.org/simple" }
@@ -689,6 +710,21 @@ distributed = [
 ]
 
 [[package]]
+name = "dask-labextension"
+version = "7.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "bokeh" },
+    { name = "distributed" },
+    { name = "jupyter-server-proxy" },
+    { name = "jupyterlab" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ae/d5/0a32e550dfdac1afd2f4783edc957054c10e6c4abac3d90c665052a42c19/dask_labextension-7.0.0.tar.gz", hash = "sha256:45a60bd0ad31c5e425986b7e40a5aa242aa582ea868025ac2b82d0aa16ffcb8a", size = 1601360 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/45/0d/e72831b33686a435d2d34909ffc8d9f92b5177d9f620b31c1abff2eaaa10/dask_labextension-7.0.0-py3-none-any.whl", hash = "sha256:34fd1ee80a7259dc292a789cc82e4563d7cd1f5a26eb2ee8b434517482f82027", size = 39450 },
+]
+
+[[package]]
 name = "debugpy"
 version = "1.8.16"
 source = { registry = "https://pypi.org/simple" }
@@ -799,10 +835,13 @@ dependencies = [
     { name = "aiohttp" },
     { name = "cartopy" },
     { name = "dask", extra = ["distributed"] },
+    { name = "dask-labextension" },
     { name = "distributed" },
     { name = "earthpy" },
     { name = "ipykernel" },
     { name = "jupyter" },
+    { name = "jupyter-leaflet" },
+    { name = "jupyterlab-git" },
     { name = "llvmlite" },
     { name = "matplotlib" },
     { name = "nbgitpuller" },
@@ -831,10 +870,13 @@ requires-dist = [
     { name = "cartopy", specifier = ">=0.22.0" },
     { name = "dask", specifier = ">=2024.5.0" },
     { name = "dask", extras = ["distributed"] },
+    { name = "dask-labextension", specifier = ">=7.0.0" },
     { name = "distributed", specifier = ">=2024.5.0" },
     { name = "earthpy" },
     { name = "ipykernel", specifier = ">=6.23.1" },
     { name = "jupyter", specifier = ">=1.1.1" },
+    { name = "jupyter-leaflet", specifier = ">=0.20.0" },
+    { name = "jupyterlab-git", specifier = ">=0.51.2" },
     { name = "llvmlite", specifier = ">=0.44.0" },
     { name = "matplotlib", specifier = ">=3.10.3" },
     { name = "nbgitpuller", specifier = ">=1.2.2" },
@@ -1051,6 +1093,30 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/8c/76/e1960ba846f153ab109575242abf89dc98f8e057faa32f3decf4cce9247a/geopandas-1.1.1.tar.gz", hash = "sha256:1745713f64d095c43e72e08e753dbd271678254b24f2e01db8cdb8debe1d293d", size = 332655 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/0b/70/d5cd0696eff08e62fdbdebe5b46527facb4e7220eabe0ac6225efab50168/geopandas-1.1.1-py3-none-any.whl", hash = "sha256:589e61aaf39b19828843df16cb90234e72897e2579be236f10eee0d052ad98e8", size = 338365 },
+]
+
+[[package]]
+name = "gitdb"
+version = "4.0.12"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "smmap" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/72/94/63b0fc47eb32792c7ba1fe1b694daec9a63620db1e313033d18140c2320a/gitdb-4.0.12.tar.gz", hash = "sha256:5ef71f855d191a3326fcfbc0d5da835f26b13fbcba60c32c21091c349ffdb571", size = 394684 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a0/61/5c78b91c3143ed5c14207f463aecfc8f9dbb5092fb2869baf37c273b2705/gitdb-4.0.12-py3-none-any.whl", hash = "sha256:67073e15955400952c6565cc3e707c554a4eea2e428946f7a4c162fab9bd9bcf", size = 62794 },
+]
+
+[[package]]
+name = "gitpython"
+version = "3.1.45"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "gitdb" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9a/c8/dd58967d119baab745caec2f9d853297cec1989ec1d63f677d3880632b88/gitpython-3.1.45.tar.gz", hash = "sha256:85b0ee964ceddf211c41b9f27a49086010a190fd8132a24e21f362a4b36a791c", size = 215076 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/01/61/d4b89fec821f72385526e1b9d9a3a0385dda4a72b206d28049e2c7cd39b8/gitpython-3.1.45-py3-none-any.whl", hash = "sha256:8908cb2e02fb3b93b7eb0f2827125cb699869470432cc885f019b8fd0fccff77", size = 208168 },
 ]
 
 [[package]]
@@ -1387,6 +1453,15 @@ wheels = [
 ]
 
 [[package]]
+name = "jupyter-leaflet"
+version = "0.20.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/4e/db/870bd0f8995c9359ea1501ba82ed7daf40bbbac95efeca80a35f3705929b/jupyter_leaflet-0.20.0.tar.gz", hash = "sha256:ad826dd7976a2b6d8b91d762c25a69a44f123b7b3bd1acaba236bd9af8e68cb4", size = 1306561 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/16/95/ffe543060eb3b1570d78c3f2c1948c640a6758ff5c6479c27e474819115b/jupyter_leaflet-0.20.0-py3-none-any.whl", hash = "sha256:2e27ce83647316424f04845e3a6af35e1ee44c177c318a145646b11f4afe0764", size = 1107090 },
+]
+
+[[package]]
 name = "jupyter-lsp"
 version = "2.2.6"
 source = { registry = "https://pypi.org/simple" }
@@ -1429,6 +1504,34 @@ wheels = [
 ]
 
 [[package]]
+name = "jupyter-server-mathjax"
+version = "0.2.6"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "jupyter-server" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9c/40/9a1b8c2a2e44e8e2392174cd8e52e0c976335f004301f61b66addea3243e/jupyter_server_mathjax-0.2.6.tar.gz", hash = "sha256:bb1e6b6dc0686c1fe386a22b5886163db548893a99c2810c36399e9c4ca23943", size = 2648665 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7d/77/6a98cc88f1061c0206b427b602efb6fcb9bc369e958aee11676d5cfc4412/jupyter_server_mathjax-0.2.6-py3-none-any.whl", hash = "sha256:416389dde2010df46d5fbbb7adb087a5607111070af65a1445391040f2babb5e", size = 3120990 },
+]
+
+[[package]]
+name = "jupyter-server-proxy"
+version = "4.4.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "aiohttp" },
+    { name = "jupyter-server" },
+    { name = "simpervisor" },
+    { name = "tornado" },
+    { name = "traitlets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2a/c8/ff6ecdbf55ac1a9253d53d87c60004ee508cfc852662b15fb33cd6ebfdbc/jupyter_server_proxy-4.4.0.tar.gz", hash = "sha256:e5732eb9c810c0caa997f90a2f15f7d09af638e7eea9c67eb5c43e9c1f0e1157", size = 136830 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/fd/c6/e4a1d9fdd22d40962befd82780a98b20b67ef9cafe87246e4955f44b8f09/jupyter_server_proxy-4.4.0-py3-none-any.whl", hash = "sha256:707b5c84810bb8863d50f6c6d50a386fec216149e11802b7d4c451b54a63a9a6", size = 37567 },
+]
+
+[[package]]
 name = "jupyter-server-terminals"
 version = "0.5.3"
 source = { registry = "https://pypi.org/simple" }
@@ -1463,6 +1566,23 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/1e/5c/14f0852233d60d30bf0f22a817d6c20ac555d73526cc915274f97c07a2b9/jupyterlab-4.4.6.tar.gz", hash = "sha256:e0b720ff5392846bdbc01745f32f29f4d001c071a4bff94d8b516ba89b5a4157", size = 23040936 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/53/38/6182d63f39428821e705e86fba61704fc69769a24ca5a9578c2c04986c9a/jupyterlab-4.4.6-py3-none-any.whl", hash = "sha256:e877e930f46dde2e3ee9da36a935c6cd4fdb15aa7440519d0fde696f9fadb833", size = 12268564 },
+]
+
+[[package]]
+name = "jupyterlab-git"
+version = "0.51.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "jupyter-server" },
+    { name = "nbdime" },
+    { name = "nbformat" },
+    { name = "packaging" },
+    { name = "pexpect" },
+    { name = "traitlets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f1/a2/071e86f015ce319b42131d543a1108fd92a97e7d5bea622a81a51cd4cf5e/jupyterlab_git-0.51.2.tar.gz", hash = "sha256:ad91d56f0298fd70e7d8f8cd1ee76d261f0dfb940cc490717a31d64df4b7d562", size = 14471184 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/50/dc/d59ae2a9e4671c090ba9ef9f1228a62cf49ad80b4bc3d716565bb7e6a81b/jupyterlab_git-0.51.2-py3-none-any.whl", hash = "sha256:1150edabd844f9a5a3c7ba676409b18b8cc95b1a7bb171f357318f4075db2263", size = 367704 },
 ]
 
 [[package]]
@@ -1918,6 +2038,15 @@ wheels = [
 ]
 
 [[package]]
+name = "narwhals"
+version = "2.8.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ae/05/79a5b5a795f36c1aaa002d194c1ef71e5d95f7e1900155bbfde734815ab9/narwhals-2.8.0.tar.gz", hash = "sha256:52e0b22d54718264ae703bd9293af53b04abc995a1414908c3b807ba8c913858", size = 574277 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1d/86/ac808ecb94322a3f1ea31627d13ab3e50dd4333564d711e0e481ad0f4586/narwhals-2.8.0-py3-none-any.whl", hash = "sha256:6304856676ba4a79fd34148bda63aed8060dd6edb1227edf3659ce5e091de73c", size = 415852 },
+]
+
+[[package]]
 name = "nbclient"
 version = "0.10.2"
 source = { registry = "https://pypi.org/simple" }
@@ -1955,6 +2084,26 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a3/59/f28e15fc47ffb73af68a8d9b47367a8630d76e97ae85ad18271b9db96fdf/nbconvert-7.16.6.tar.gz", hash = "sha256:576a7e37c6480da7b8465eefa66c17844243816ce1ccc372633c6b71c3c0f582", size = 857715 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/cc/9a/cd673b2f773a12c992f41309ef81b99da1690426bd2f96957a7ade0d3ed7/nbconvert-7.16.6-py3-none-any.whl", hash = "sha256:1375a7b67e0c2883678c48e506dc320febb57685e5ee67faa51b18a90f3a712b", size = 258525 },
+]
+
+[[package]]
+name = "nbdime"
+version = "4.0.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorama" },
+    { name = "gitpython" },
+    { name = "jinja2" },
+    { name = "jupyter-server" },
+    { name = "jupyter-server-mathjax" },
+    { name = "nbformat" },
+    { name = "pygments" },
+    { name = "requests" },
+    { name = "tornado" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a6/f1/4be57ecea4d55d322f05a0f89e0b73d7a8d90a16dbf01168eab3e7bf5939/nbdime-4.0.2.tar.gz", hash = "sha256:d8279f8f4b236c0b253b20d60c4831bb67843ed8dbd6e09f234eb011d36f1bf2", size = 9452967 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/73/23/824b295f4cc53f4437f6917e8f46c519cd3a9be909dd36ca0682fdc7fff1/nbdime-4.0.2-py3-none-any.whl", hash = "sha256:e5a43aca669c576c66e757071c0e882de05ac305311d79aded99bfb5a3e9419e", size = 5917346 },
 ]
 
 [[package]]
@@ -3256,12 +3405,30 @@ wheels = [
 ]
 
 [[package]]
+name = "simpervisor"
+version = "1.0.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/dd/fc/9182a4049036c5de29f84a16c5a33304ffc4dbb06d76d569ded8ad527574/simpervisor-1.0.0.tar.gz", hash = "sha256:7eb87ca86d5e276976f5bb0290975a05d452c6a7b7f58062daea7d8369c823c1", size = 14637 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9e/65/be223a02df814a3dbd84d8a0c446d21d4860a4f23ec4d81aabea34e7e994/simpervisor-1.0.0-py3-none-any.whl", hash = "sha256:3e313318264559beea3f475ead202bc1cd58a2f1288363abb5657d306c5b8388", size = 8342 },
+]
+
+[[package]]
 name = "six"
 version = "1.17.0"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68a0e064b6af791aa332cf192da575fd474ed7d6f16a2/six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81", size = 34031 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274", size = 11050 },
+]
+
+[[package]]
+name = "smmap"
+version = "5.0.2"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/44/cd/a040c4b3119bbe532e5b0732286f805445375489fceaec1f48306068ee3b/smmap-5.0.2.tar.gz", hash = "sha256:26ea65a03958fa0c8a1c7e8c7a58fdc77221b8910f6be2131affade476898ad5", size = 22329 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/04/be/d09147ad1ec7934636ad912901c5fd7667e1c858e19d355237db0d0cd5e4/smmap-5.0.2-py3-none-any.whl", hash = "sha256:b30115f0def7d7531d22a0fb6502488d879e75b260a9db4d0819cfb25403af5e", size = 24303 },
 ]
 
 [[package]]
@@ -3611,6 +3778,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/dd/cb/dc0236ae209c924c1a7f4d3ae9d3371980beda85d1e0b5bd2d4f07372e48/xmlschema-4.1.0.tar.gz", hash = "sha256:88ac771cf94d5fc6bbd1a763db8c157f3d683ad23120b0d0b8c46fe4537f2adf", size = 633811 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c5/2c/3ba8f8aeb3cb566e88a61ab0b0b767d5398d1e7293a0f7a76df9051e2b08/xmlschema-4.1.0-py3-none-any.whl", hash = "sha256:eabf610f398a58700bc4ac94380ad9ce558297a3f9ca8b7722ed3f7888eb4498", size = 458466 },
+]
+
+[[package]]
+name = "xyzservices"
+version = "2025.4.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/00/af/c0f7f97bb320d14c089476f487b81f733238cc5603e0914f2e409f49d589/xyzservices-2025.4.0.tar.gz", hash = "sha256:6fe764713648fac53450fbc61a3c366cb6ae5335a1b2ae0c3796b495de3709d8", size = 1134722 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d6/7d/b77455d7c7c51255b2992b429107fab811b2e36ceaf76da1e55a045dc568/xyzservices-2025.4.0-py3-none-any.whl", hash = "sha256:8d4db9a59213ccb4ce1cf70210584f30b10795bff47627cdfb862b39ff6e10c9", size = 90391 },
 ]
 
 [[package]]

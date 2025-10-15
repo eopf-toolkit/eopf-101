@@ -1,7 +1,12 @@
-FROM rocker/r-ver:4.4
+FROM quay.io/jupyter/r-notebook:python-3.12.10
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
+RUN pip install pdm
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    git \
     libcurl4-openssl-dev \
     libssl-dev \
     libudunits2-dev \
@@ -21,12 +26,27 @@ RUN apt-get update && apt-get install -y \
     cmake \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Quarto
+COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
+RUN chown -R ${NB_UID}:${NB_GID} /home/${NB_USER}/deps
+
 RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb \
     && dpkg -i quarto-linux-amd64.deb \
     && rm quarto-linux-amd64.deb
 
-# Install R packages
+USER ${NB_UID}
+
+WORKDIR /home/${NB_USER}/deps 
+
+# Python Deps
+RUN pdm config python.use_venv false && \
+    pdm lock && \
+    pdm export --without-hashes --format requirements | pip install -r /dev/stdin
+
+WORKDIR /home/${NB_USER}
+
+RUN rm -rf deps
+
+# R Deps
 RUN R -e "install.packages('rstac', repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages('tidyverse', repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages('stars', repos='https://cran.rstudio.com/')"
@@ -34,16 +54,6 @@ RUN R -e "install.packages('terra', repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages('httr2', repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages('fs', repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages('lobstr', repos='https://cran.rstudio.com/')"
-
-# Install BiocManager and Rarr
 RUN R -e "install.packages('BiocManager', repos='https://cran.rstudio.com/')"
 RUN R -e "BiocManager::install('Rarr')"
 
-# Set working directory
-WORKDIR /workspace
-
-# Set environment variables
-ENV QUARTO_PYTHON=/usr/bin/python3
-
-# Default command
-CMD ["bash"]
