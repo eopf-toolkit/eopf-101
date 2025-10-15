@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./62_sardinia_s3_lst.html" rel="next">
-<link href="./44_eopf_stac_xarray_tutorial.html" rel="prev">
+<link href="./51_eopf_stac_r.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -270,8 +270,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">[COMING SOON] Tools to work with EOPF Zarr</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tools to work with EOPF Zarr</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
@@ -324,13 +336,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#the-fire-event" id="toc-the-fire-event" class="nav-link" data-scroll-target="#the-fire-event">The Fire Event</a></li>
   <li><a href="#the-case-study" id="toc-the-case-study" class="nav-link" data-scroll-target="#the-case-study">The case study</a></li>
   <li><a href="#about-this-notebook" id="toc-about-this-notebook" class="nav-link" data-scroll-target="#about-this-notebook">About this notebook</a></li>
   <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
-  </ul></li>
   <li><a href="#setting-up-the-environment" id="toc-setting-up-the-environment" class="nav-link" data-scroll-target="#setting-up-the-environment">Setting up the environment</a>
   <ul class="collapse">
   <li><a href="#defining-parameters-for-querying-the-eopf-stac-catalog" id="toc-defining-parameters-for-querying-the-eopf-stac-catalog" class="nav-link" data-scroll-target="#defining-parameters-for-querying-the-eopf-stac-catalog">Defining parameters for querying the EOPF STAC catalog</a></li>
@@ -376,10 +386,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/61_sardinia_s2_tfci.ipynb" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>Communities and ecosystems worldwide are under <strong>increasing threat</strong> from <strong>wildfires</strong>, a problem that is being made worse by <strong>climate change</strong>.<br></p>
 <p>Monitoring these events is crucial, and <strong>satellite imagery</strong> is an invaluable tool in this effort. The <strong>Sentinel satellite missions</strong> offer valuable insights into the different stages of a fire. A <strong>True Colour Composite</strong> of Sentinel-2 data can be used to track smoke, <strong>False Colour Composites</strong> can clearly distinguish healthy vegetation from damaged or burnt areas. Furthermore, True- or False color composites can be combined with other data sources, such as Land Surface Temperature (LST) from <strong>Sentinel-3</strong>. Temperature anomalies retrieved from Sentinel-3 data are useful information to get a more comprehensive picture of a fire event.</p>
+</section>
 <section id="the-fire-event" class="level3">
 <h3 class="anchored" data-anchor-id="the-fire-event">The Fire Event</h3>
 <p>According to the <a href="https://alleanzacontroilcancro.it/en/istituto/istituto-istituto-superiore-sanita/">Italian National Institute of Health (ISS)</a>, between January and July 2025, Italy experienced a significant number of wildfires, with approximately 700 recorded incidents burning over 320 square kilometres.<br></p>
@@ -409,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <section id="import-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
-<div id="10" class="cell" data-execution_count="1">
+<div id="11" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributed <span class="im">import</span> LocalCluster</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -427,7 +439,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="helper-functions" class="level4">
 <h4 class="anchored" data-anchor-id="helper-functions">Helper functions</h4>
 <p>This notebook makes use of a set of functions that are all listed inside the <a href="./zarr_wf_utils.py">zarr_wf_utils.py</a> script. Inside the script, we will find costumised functions that allow us to mask, normalise and extract specific areas of our items of interest.</p>
-<div id="13" class="cell" data-execution_count="2">
+<div id="14" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import our utility functions</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> zarr_wf_utils <span class="im">import</span> (</span>
@@ -441,7 +453,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 </section>
-</section>
 <section id="setting-up-the-environment" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-the-environment">Setting up the environment</h2>
 <section id="defining-parameters-for-querying-the-eopf-stac-catalog" class="level3">
@@ -453,7 +464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>bounding box</strong> information for the area of interest.</li>
 </ul>
 <p>In addition, we set the appropriate re-projection parameters to ensure a smooth and efficient workflow.</p>
-<div id="18" class="cell" data-execution_count="3">
+<div id="19" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The timeframe and area of interest for our filtering</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>def_collection <span class="op">=</span> <span class="st">'sentinel-2-l2a'</span> <span class="co"># collection</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Before the fire:</span></span>
@@ -474,7 +485,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="initiate-a-dask-cluster">Initiate a Dask cluster</h3>
 <p>In a next step we initiate a <strong>virtual Dask cluster</strong>. This cluster consists of a scheduler (the “brain”) and several workers (the “hands”), which enables faster processing of large datasets by breaking down tasks and running them in parallel. <br> A client is then created to manage communication between the code and this cluster.</p>
 <p>For more information, feel free to visit the <strong>dask</strong> <a href="https://docs.dask.org/en/stable/">documentation</a> and the tutorial <a href="http://docs.dask.org/en/stable/#how-to-use-dask">How to use dask</a>.</p>
-<div id="20" class="cell" data-execution_count="4">
+<div id="21" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To track the the performance the code will have</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>st <span class="op">=</span> time.time()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -486,7 +497,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-60fb2cd2-9ae6-11f0-936a-8aa15225f684</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-fcb4efb8-a9df-11f0-92ed-0ede70c208ea</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -512,7 +523,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;" class="anchored">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">98a45de3</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">1c5cfb96</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -542,12 +553,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;" class="anchored">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-e057a319-d4df-4ff5-bd69-c885831c1509</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-7307b624-e2a4-49be-a962-d556b5f7225c</p>
             
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36893</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36635</td>
 <td style="text-align: left;"><strong>Workers:</strong> 0</td>
 </tr>
 <tr class="even">
@@ -581,19 +592,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:39303</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:41467</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:41153/status" target="_blank">http://127.0.0.1:41153/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34713/status" target="_blank">http://127.0.0.1:34713/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:46603</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:34125</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-v4z2qqvx</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-e_kf46kb</td>
 </tr>
 </tbody>
 </table>
@@ -613,19 +624,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:35779</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:39281</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:45749/status" target="_blank">http://127.0.0.1:45749/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:44837/status" target="_blank">http://127.0.0.1:44837/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:45137</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:42049</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-56w_5mjd</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-p7jonbqi</td>
 </tr>
 </tbody>
 </table>
@@ -645,19 +656,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36817</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:39117</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:42317/status" target="_blank">http://127.0.0.1:42317/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34321/status" target="_blank">http://127.0.0.1:34321/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:45091</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41373</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-_mlbwi4n</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-xclf9278</td>
 </tr>
 </tbody>
 </table>
@@ -677,19 +688,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36041</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:39097</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:38153/status" target="_blank">http://127.0.0.1:38153/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:32819/status" target="_blank">http://127.0.0.1:32819/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:32891</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:35441</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-_oy1047b</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-c0he8j8y</td>
 </tr>
 </tbody>
 </table>
@@ -716,7 +727,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="establish-a-connection-to-the-eopf-stac-catalog" class="level3">
 <h3 class="anchored" data-anchor-id="establish-a-connection-to-the-eopf-stac-catalog">Establish a connection to the EOPF STAC Catalog</h3>
 <p>Data is retrieved from the endpoint of the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF STAC Catalog</a>. We can do this with the function <code>Client.open()</code> from the <code>pystac_client</code> library.</p>
-<div id="22" class="cell" data-execution_count="5">
+<div id="23" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>eopf_stac_api_root_endpoint <span class="op">=</span> <span class="st">"https://stac.core.eopf.eodc.eu/"</span> <span class="co">#root starting point</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>eopf_catalog <span class="op">=</span> Client.<span class="bu">open</span>(url<span class="op">=</span>eopf_stac_api_root_endpoint) <span class="co"># calls the selected url</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -726,7 +737,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="pre-fire-visualisation">Pre-Fire Visualisation</h2>
 <p>The first step is to create a <strong>visual representation</strong> of our area of interest for a day before the fire occured: 3 June 2025. We will use the parameters we defined at the beginning to query the STAC collection and retrieve the specific <strong>pre-fire</strong> images needed for our analysis.</p>
 <p>With the <code>search()</code> function, you can query a STAC catalog based on given keyword arguments. As a result of the search, you see that one Item is returned from the STAC Catalog.</p>
-<div id="24" class="cell" data-execution_count="6">
+<div id="25" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interest timeframe parameters for the filtering</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>date_pre <span class="op">=</span> pre_f <span class="op">+</span> <span class="st">'T00:00:00Z/'</span> <span class="op">+</span> pre_f <span class="op">+</span> <span class="st">'T23:59:59.999999Z'</span> <span class="co"># interest period</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>s2_col <span class="op">=</span> <span class="bu">list</span>(eopf_catalog.search(</span>
@@ -744,7 +755,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 </div>
 </div>
 <p>Now, we can retrieve the item and directly and open it as a <code>xarray.DataTree</code>. In addition, key information from the item’s properties is also extracted to verify key properties of the item.</p>
-<div id="26" class="cell" data-execution_count="7">
+<div id="27" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We are interested in the datasets contained in the measurements bands for True Colour and False Colour Composites.</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>s2_zarr <span class="op">=</span> xr.open_datatree(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    av_urls[<span class="dv">0</span>], engine<span class="op">=</span><span class="st">"zarr"</span>, <span class="co">#we always get the earliest one (the first available item goes last)</span></span>
@@ -765,7 +776,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <p>The spectral bands we will need for our analysis are found within the <code>/reflectance</code> group, specifically under the <code>r20m</code> subgroup.<br></p>
 <p>Before directly processing our assets of interest, we will filter out invalid pixels, such as pixels containing clouds, cloud shadows, or areas with no data. We will use the <strong>Scene Classification Layer</strong> (SCL) available inside the <code>.zarr</code> item, which is a separate asset located under the <code>/classification/r20m</code> group.</p>
 <p>By using the pre-defined <code>validate_scl()</code> function, we can create a boolean mask that masks out invalid pixels.</p>
-<div id="28" class="cell" data-execution_count="8">
+<div id="29" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the resolution group we are interested to analyse over:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>zarr_meas <span class="op">=</span> s2_zarr.measurements.reflectance.r20m</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -776,7 +787,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>valid_mask <span class="op">=</span> validate_scl(l2a_class_20m)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The visualisation we are intending to create covers a larger extent than the specific fire area. This helps us to better understand the event’s overall spatial extent. For this, we generate a bounding box to visually pinpoint the fire’s precise location within a wider composite image.</p>
-<div id="30" class="cell" data-execution_count="9">
+<div id="31" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Defining a larger bounding box for better visualisation:</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>bbox_vis <span class="op">=</span> (<span class="fl">8.649555</span>,<span class="fl">40.073583</span>,<span class="fl">9.127893</span>,<span class="fl">40.343840</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -784,7 +795,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>map_box <span class="op">=</span> search_bbox</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In next step, we need to reproject the area of interest from EPSG: <strong>4326</strong> to UTM coordinates. Once the area is defined, our loaded data (<code>zarr_meas</code>) is masked using the defined <code>bbox_utm</code>. After extracting the area, only the valid pixels are selected.</p>
-<div id="32" class="cell" data-execution_count="10">
+<div id="33" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A new list with the converted UTM coordinates</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>bbox_utm <span class="op">=</span> lat_lon_to_utm_box((bbox_vis[<span class="dv">0</span>], bbox_vis[<span class="dv">1</span>]),(bbox_vis[<span class="dv">2</span>], bbox_vis[<span class="dv">3</span>]),transformer)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -806,7 +817,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <h3 class="anchored" data-anchor-id="pre-fire-true-colour-image">Pre-Fire True Colour Image</h3>
 <p>Once we have created the necessary masks, we can proceed to create True Color Image composites. For the composite creation, <code>zarr_meas</code> contains the assets we are interested in. The TCI composite makes use of the <strong>red</strong> (B04), <strong>green</strong> (B03), and <strong>blue</strong> (B02) bands to create a view that looks natural to the human eye.</p>
 <p>xarray’s <code>where()</code> function allows us to apply the SLC filtering we had previously defined.</p>
-<div id="34" class="cell" data-execution_count="11">
+<div id="35" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># True colour channels we are interested to retrieve composite:</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>tc_red  <span class="op">=</span> <span class="st">'b04'</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tc_green<span class="op">=</span> <span class="st">'b03'</span></span>
@@ -835,7 +846,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <p>It is important to point out that until now, we have not accessed on disk the data. Once we add the <code>.values</code> argument to the resulting _ from <code>mask_sub_utm()</code>, the data is accessed.</p>
 <p><code>.zarr</code> contains <strong>x</strong> and <strong>y</strong> information for each of the pixels, and storing these values for a further geolocalisation of our item of interest is essential.</p>
 <p>You can visualise the <strong>blue</strong> (B02) band to verify the clipped area.</p>
-<div id="36" class="cell" data-execution_count="12">
+<div id="37" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The mask_sub_utm() function takes the bands and masks them to the valid rows and columns from the bbox_mask</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>red <span class="op">=</span> mask_sub_utm(red,rows, cols).values</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>gre <span class="op">=</span> mask_sub_utm(gre,rows, cols).values</span>
@@ -868,7 +879,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <p>To create the composite image, we need to <strong>normalise</strong> each of the input assets. Normalisation ensures that the bands have a consistent and predictable range of values. This supports optimal data processing and removes the influence of external factors (like changing light conditions) allowing for a meaningful comparison among generated composites.</p>
 <p>The <code>normalisation_str_gm()</code> function achieves this by scaling the reflectance values to a standard range (0-255) using the percentile-based method.</p>
 <p>Once the values for our three bands have been normalised, they can be stacked in an <strong>RGB</strong> format to generate the initial True Colour Image (TCI).</p>
-<div id="38" class="cell" data-execution_count="13">
+<div id="39" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Input: percentile range for contrast stretching</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>contrast_stretch_percentile<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">98</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Input: gamma correction value</span></span>
@@ -897,7 +908,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 </div>
 <p>The image is currently displayed with a neutral colour ramp and with the non-valid masked pixels. Some of the details can be enhanced based on the information the overall composite contains.</p>
 <p>For this, we can apply a <strong>histogram equalisation</strong>. This technique will adjust the brightness and improve the visibility of details within our image. <br> Through the <code>skimage</code> library, we can apply the <code>exposure.equalize_adapthist()</code> function. This method creates a more natural-looking and visually balanced composite.</p>
-<div id="40" class="cell" data-execution_count="14">
+<div id="41" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Adding equalisation from skimage:</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>fire_tc <span class="op">=</span> exposure.equalize_adapthist(rgb_composite_sm)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -920,14 +931,14 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <p>Next, a <strong>False Colour Image</strong> (FCI) is created to provide a clearer overview of vegetation health.<br></p>
 <p>This image uses the <strong>Shortwave Infrared</strong> (B12), <strong>Near-Infrared</strong> (B8a), and <strong>Blue</strong> (B02) bands. This specific combination enhances the distinction between <strong>healthy vegetation</strong>, which appears <strong>green</strong>, and <strong>damaged</strong> or <strong>burnt</strong> areas, which are shown in vivid, <strong>contrasting colours</strong>.</p>
 <p>This False Colour composite will help us to better highlight the full extent of the fire.</p>
-<div id="43" class="cell" data-execution_count="15">
+<div id="44" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The false colour channels we are interested to retrieve coposite:</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>fc_swir <span class="op">=</span> <span class="st">'b12'</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>fc_nir <span class="op">=</span>  <span class="st">'b8a'</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>fc_blue <span class="op">=</span> <span class="st">'b02'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Following the same principle as of the creation of the True Colour composite, we can choose the relevant bands and apply the masking and clipping steps.</p>
-<div id="45" class="cell" data-execution_count="16">
+<div id="46" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The zarr_meas object is the input dataset containing the bands, fc_red, fc_green, fc_blue specify the bands</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># The where() method is used to apply the boolean valid_mask to the bands</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>swir <span class="op">=</span> zarr_meas[fc_swir].where(valid_mask)</span>
@@ -940,7 +951,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>blu <span class="op">=</span> mask_sub_utm(blu,rows, cols).values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Then, we can apply the normalisation function, followed by the stacking of the three bands. The False Colour composite $$$ explain the colouring</p>
-<div id="47" class="cell" data-execution_count="17">
+<div id="48" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply the normalisation function to each band</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>swir_processed <span class="op">=</span> normalisation_str_gm(swir, <span class="op">*</span>contrast_stretch_percentile, gamma)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>nir_processed <span class="op">=</span> normalisation_str_gm(nir, <span class="op">*</span>contrast_stretch_percentile, gamma)</span>
@@ -964,7 +975,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 </div>
 </div>
 <p>We then continue and also apply the equalisation function.</p>
-<div id="49" class="cell" data-execution_count="18">
+<div id="50" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply adaptive histogram equalisation to enhance contrast for fire detection</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>fire_fc <span class="op">=</span> exposure.equalize_adapthist(false_composite)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -988,7 +999,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <section id="post-fire-visualisation" class="level2">
 <h2 class="anchored" data-anchor-id="post-fire-visualisation">Post-Fire Visualisation</h2>
 <p>Now, we will replicate the same visualisation for a specific time after the fire: 10 June 2025. Considering this new date, we will retrieve images from the same collection that correspond to our new timeframe of interest.</p>
-<div id="52" class="cell" data-execution_count="19">
+<div id="53" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>date_post <span class="op">=</span> post_f <span class="op">+</span> <span class="st">'T00:00:00Z/'</span> <span class="op">+</span> post_f <span class="op">+</span> <span class="st">'T23:59:59.999999Z'</span> <span class="co"># interest period</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>s2_post <span class="op">=</span> <span class="bu">list</span>(eopf_catalog.search(</span>
@@ -1003,7 +1014,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 </div>
 </div>
 <p>We open again the the retrieved item from our filtered results, followed by the masking and validation steps to ensure a clean, cloud-free composite.</p>
-<div id="54" class="cell" data-execution_count="20">
+<div id="55" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>post_zarr <span class="op">=</span> xr.open_datatree(</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    av_urls[<span class="dv">0</span>], engine<span class="op">=</span><span class="st">"zarr"</span>, <span class="co">#we always get the earliest one (last)</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    chunks<span class="op">=</span>{},</span>
@@ -1020,7 +1031,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <section id="post-fire-true-colour-image" class="level3">
 <h3 class="anchored" data-anchor-id="post-fire-true-colour-image">Post-Fire True Colour Image</h3>
 <p>Once invalid pixels are filtered out, we can generate the corresponding True-Color composite to get a view of our area of interest after the fire event. We again clip the retrieved assets to our specific bounding box.</p>
-<div id="57" class="cell" data-execution_count="21">
+<div id="58" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create UTM masks for rows and columns based on the bounding box.</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>cols_post, rows_post <span class="op">=</span> zarr_mask_utm(bbox_utm, zarr_meas)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1044,7 +1055,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>                   t_utm_to_deg.transform(np.nanmax(x_zarr),np.nanmax(y_zarr)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>And, once the new area is defined, we normalise, stack and equalize the composite.</p>
-<div id="59" class="cell" data-execution_count="22">
+<div id="60" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply normalisation and gamma correction to the red, green, and blue bands.</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>red_processed <span class="op">=</span> normalisation_str_gm(red, <span class="op">*</span>contrast_stretch_percentile, gamma)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>green_processed <span class="op">=</span> normalisation_str_gm(gre, <span class="op">*</span>contrast_stretch_percentile, gamma)</span>
@@ -1073,7 +1084,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <section id="post-fire-false-colour-image" class="level3">
 <h3 class="anchored" data-anchor-id="post-fire-false-colour-image">Post-Fire False Colour Image</h3>
 <p>And as the last processing step, we create the False Colour composite for the same day, to clearly visualise the extent of the burn scars and vegetation recovery.</p>
-<div id="62" class="cell" data-execution_count="23">
+<div id="63" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the red, green, and blue bands and apply the valid mask.</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>swir <span class="op">=</span> zarr_meas[fc_swir].where(valid_mask)</span>
@@ -1119,7 +1130,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <p>As a last step, we will <strong>georeference</strong> and <strong>visualise</strong> the created composites together, presenting it in a way that makes it easier to recognise and understand the monitored areas.</p>
 <p>We will use the <code>cartopy</code> library to pinpoint the location of our georeferenced datasets based on their CRS and geospatial bounding box. The visualisation will be a 2x2 matrix, offering a comprehensive, multi-channel overview.<br></p>
 <p>Finally, the plot will be enhanced by adding key elements such as grid lines for improved geolocation, a clear title, and a bounding box to highlight the specific area of the fire. This approach allows for a direct visual comparison of the landscape’s state before and after the event.</p>
-<div id="65" class="cell" data-execution_count="24">
+<div id="66" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data_ll <span class="op">=</span> ccrs.PlateCarree()</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">9</span>), subplot_kw<span class="op">=</span>{<span class="st">'projection'</span>: data_ll})</span>
@@ -1183,14 +1194,14 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 </section>
 <section id="calculating-processing-time" class="level2">
 <h2 class="anchored" data-anchor-id="calculating-processing-time">Calculating processing time</h2>
-<div id="67" class="cell" data-execution_count="25">
+<div id="68" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>et <span class="op">=</span> time.time()</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>total_t <span class="op">=</span> et <span class="op">-</span> st</span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Running Time: '</span>, total_t,<span class="st">' seconds'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total Running Time:  84.05169939994812  seconds</code></pre>
+<pre><code>Total Running Time:  71.37238764762878  seconds</code></pre>
 </div>
 </div>
 <p>As our plots show, the <strong>True Colour Image</strong> reveals a clear change in the state of the vegetation, with an evident burn scar visible on the ground. The <strong>False Colour Image</strong> also highlights a significant change in the spectral response, which precisely encloses the spot where the fire occurred.<br></p>
@@ -1615,8 +1626,8 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./44_eopf_stac_xarray_tutorial.html" class="pagination-link" aria-label="From STAC to Data: Accessing EOPF Zarr with xarray">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></span>
+      <a href="./51_eopf_stac_r.html" class="pagination-link" aria-label="Access the EOPF Zarr STAC API with R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

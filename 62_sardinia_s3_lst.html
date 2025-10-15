@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -270,8 +270,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">[COMING SOON] Tools to work with EOPF Zarr</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tools to work with EOPF Zarr</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
@@ -324,10 +336,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
-  </ul></li>
   <li><a href="#setting-up-the-environment" id="toc-setting-up-the-environment" class="nav-link" data-scroll-target="#setting-up-the-environment">Setting up the environment</a>
   <ul class="collapse">
   <li><a href="#initiate-a-dask-cluster" id="toc-initiate-a-dask-cluster" class="nav-link" data-scroll-target="#initiate-a-dask-cluster">Initiate a Dask cluster</a></li>
@@ -368,8 +378,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/62_sardinia_s3_lst.ipynb" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>On <strong>June 10th, 2025</strong>, a significant wildfire in Italy’s Nuoro Province in Sardinia burned approximately 1000 hectares, a scale that is clearly visible in satellite imagery with a 20-meter resolution. <a href="https://forest-fire.emergency.copernicus.eu/apps/effis_current_situation/">The European Forest Fire Information System (EFFIS)</a> keeps record of these events.</p>
 <p>This notebook demonstrates how two different <code>.zarr</code> encoded <strong>Sentinel Mission products</strong> can be combined to provide a compelling and informative overview of an active fire event.<br></p>
 <p>First, we will use reflectance data from <strong>Sentinel-2 L2A</strong> to locate the area of the fire on the ground. At the same time, we will use data from <strong>Sentinel-3 SLSTR Land Surface Temperature</strong> (LST) to demonstrate the intense heat emanating from the fire.</p>
@@ -380,6 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Part 2 - Analyse fire intensity with Sentinel-2 and -3 data</strong></li>
 <li><a href="./63_sardinia_dNBR.html">Part 3 - Assess burn severity with the normalised burn ratio (dNBR)</a></li>
 </ul>
+</section>
 <section id="what-we-will-learn" class="level3">
 <h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
 <ul>
@@ -390,7 +402,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <section id="import-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
-<div id="6" class="cell" data-execution_count="1">
+<div id="7" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributed <span class="im">import</span> LocalCluster</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -408,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="helper-functions" class="level4">
 <h4 class="anchored" data-anchor-id="helper-functions">Helper functions</h4>
 <p>This notebook makes use of a set of functions that are all listed inside the <a href="./zarr_wf_utils.py">zarr_wf_utils.py</a> script. Inside the script, we will find costumised functions that allow us to mask, normalise and extract specific areas of our items of interest.</p>
-<div id="9" class="cell" data-execution_count="2">
+<div id="10" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import our utility functions</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> zarr_wf_utils <span class="im">import</span> (</span>
@@ -423,14 +435,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 </section>
 </section>
-</section>
 <section id="setting-up-the-environment" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-the-environment">Setting up the environment</h2>
 <section id="initiate-a-dask-cluster" class="level3">
 <h3 class="anchored" data-anchor-id="initiate-a-dask-cluster">Initiate a Dask cluster</h3>
 <p>The first step is to initiate a <strong>virtual Dask cluster</strong>. This cluster consists of a scheduler (the “brain”) and several workers (the “hands”), which enables faster processing of large datasets by breaking down tasks and running them in parallel.</p>
 <p>A client is then created to manage communication between the code and this cluster. For more information, feel free to visit the <strong>dask</strong> <a href="https://docs.dask.org/en/stable/">documentation</a> and the tutorial <a href="http://docs.dask.org/en/stable/#how-to-use-dask">How to use dask</a>.</p>
-<div id="14" class="cell" data-execution_count="3">
+<div id="15" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we are interested in the performance the code will have</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>st <span class="op">=</span> time.time()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -442,7 +453,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-991e7707-9ae6-11f0-94b2-8aa15225f684</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-2da49eb9-a9e0-11f0-9414-0ede70c208ea</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -468,7 +479,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;" class="anchored">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">428b0320</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">ef4bf359</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -498,12 +509,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;" class="anchored">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-ffa8ca23-38ba-4447-b203-3bfee3e2e3c7</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-42e398d5-4f05-4f26-89df-5d7ee9207f2a</p>
             
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:46033</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:38799</td>
 <td style="text-align: left;"><strong>Workers:</strong> 0</td>
 </tr>
 <tr class="even">
@@ -537,19 +548,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:38821</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:43649</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:46483/status" target="_blank">http://127.0.0.1:46483/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:40649/status" target="_blank">http://127.0.0.1:40649/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:33535</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:39205</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-ucck1d5e</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-28w7ekfr</td>
 </tr>
 </tbody>
 </table>
@@ -569,19 +580,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:39221</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:45555</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:35081/status" target="_blank">http://127.0.0.1:35081/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:35401/status" target="_blank">http://127.0.0.1:35401/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:34203</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:39357</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-f30btmcs</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-w32b9bvz</td>
 </tr>
 </tbody>
 </table>
@@ -601,19 +612,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:39057</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:33817</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:45623/status" target="_blank">http://127.0.0.1:45623/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:36133/status" target="_blank">http://127.0.0.1:36133/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:38011</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:40401</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-grsipauy</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-_qr0uc2f</td>
 </tr>
 </tbody>
 </table>
@@ -633,19 +644,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40141</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:37001</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34849/status" target="_blank">http://127.0.0.1:34849/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:46211/status" target="_blank">http://127.0.0.1:46211/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:40801</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:43573</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-5lhbdj4a</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-2x71885s</td>
 </tr>
 </tbody>
 </table>
@@ -672,7 +683,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="establish-a-connection-to-the-eopf-stac-catalog" class="level3">
 <h3 class="anchored" data-anchor-id="establish-a-connection-to-the-eopf-stac-catalog">Establish a connection to the EOPF STAC Catalog</h3>
 <p>Data is retrieved from the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF STAC Catalogue</a> endpoint. Once the connection is established, we can query the catalog based on specific search criteria.</p>
-<div id="17" class="cell" data-execution_count="4">
+<div id="18" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>eopf_stac_api_root_endpoint <span class="op">=</span> <span class="st">"https://stac.core.eopf.eodc.eu/"</span> <span class="co">#root starting point</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>eopf_catalog <span class="op">=</span> Client.<span class="bu">open</span>(url<span class="op">=</span>eopf_stac_api_root_endpoint) <span class="co"># calls the selected url</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>eopf_catalog</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1253,7 +1264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
         </li>
     
             
@@ -1271,7 +1282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
+            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
         </li>
     
             
@@ -1304,7 +1315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
         </li>
     
             
@@ -1322,7 +1333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
         </li>
     
             
@@ -2094,7 +2105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="define-search-paramters" class="level3">
 <h3 class="anchored" data-anchor-id="define-search-paramters">Define search paramters</h3>
-<div id="19" class="cell" data-execution_count="5">
+<div id="20" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The timeframe and area of interest for our filtering</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fire_d <span class="op">=</span> <span class="st">'2025-06-11'</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fire_d_s3 <span class="op">=</span> <span class="st">'2025-06-10'</span></span>
@@ -2133,7 +2144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Land Surface Temperature (LST) data, can be retrieved from the Sentinel-3 SLSTR L2 collection. This data helps to identify temperature anomalies over the Earth’s Surface, which can be a strong indicator of an active fire.</p>
 <p>In the following, we query the EOPF STAC Catalog to retrieve Land Surface Temperature from Sentinel-3 SLSTR L2 data.</p>
 <p>The search below introduces a new argument to the search: <code>query</code>. This argument allows us to go into the <code>.zarr</code> attributes metadata and filter based on specific parameters of the items we are interested in. We will filter for “<strong>Non-Time Critical</strong>” items.</p>
-<div id="24" class="cell" data-execution_count="6">
+<div id="25" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specifying the Sentinel-3 SLSTR L2 LST collection name</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>def_collection <span class="op">=</span> <span class="st">'sentinel-3-slstr-l2-lst'</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2158,7 +2169,7 @@ Total Items Found for Sentinel-3 SLSRT over Sardinia:   5</code></pre>
 </div>
 <p>After filtering the catalog, we open the <strong>first</strong> available Sentinel-3 SLSTR item, which corresponds to our specific timeframe of the selected day.</p>
 <p>For optimising the subsequent plotting, we can extract key information from the retrieved item, such as the date and the specific item time. Afterwards, we access the <strong>Land Surface Temperature</strong> (LST) asset. The LST data is available under the group <code>measurements</code>.</p>
-<div id="26" class="cell" data-execution_count="7">
+<div id="27" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the last item from the list of URLs as a Zarr data tree</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lst_zarr <span class="op">=</span> xr.open_datatree(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    av_urls[<span class="op">-</span><span class="dv">1</span>], <span class="co"># Input: URL of the last Zarr item in the av_urls list</span></span>
@@ -2626,7 +2637,7 @@ Coordinates:
     y          (rows, columns) float64 14MB ...
 Dimensions without coordinates: rows, columns
 Data variables:
-    lst        (rows, columns) float32 7MB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataTree</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-318c435f-697d-4bb8-be5a-239df78e178c" class="xr-section-summary-in" type="checkbox"><label for="section-318c435f-697d-4bb8-be5a-239df78e178c" class="xr-section-summary">Groups: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><div style="display: inline-grid; grid-template-columns: 100%; grid-column: 1 / -1"><div style="display: inline-grid; grid-template-columns: 0px 20px auto; width: 100%;"><div style="grid-column-start: 1;border-right: 0.2em solid;border-color: var(--xr-border-color);height: 1.2em;width: 0px;"></div><div style="grid-column-start: 2;grid-row-start: 1;height: 1em;width: 20px;border-bottom: 0.2em solid;border-color: var(--xr-border-color);"></div><div style="grid-column-start: 3;"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+    lst        (rows, columns) float32 7MB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataTree</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-08c45954-9b5e-443c-b050-0bab272a4d98" class="xr-section-summary-in" type="checkbox"><label for="section-08c45954-9b5e-443c-b050-0bab272a4d98" class="xr-section-summary">Groups: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><div style="display: inline-grid; grid-template-columns: 100%; grid-column: 1 / -1"><div style="display: inline-grid; grid-template-columns: 0px 20px auto; width: 100%;"><div style="grid-column-start: 1;border-right: 0.2em solid;border-color: var(--xr-border-color);height: 1.2em;width: 0px;"></div><div style="grid-column-start: 2;grid-row-start: 1;height: 1em;width: 20px;border-bottom: 0.2em solid;border-color: var(--xr-border-color);"></div><div style="grid-column-start: 3;"><div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
 <path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
@@ -3078,11 +3089,11 @@ Coordinates:
     y          (rows, orphan_pixels) float64 2MB ...
 Dimensions without coordinates: rows, columns, orphan_pixels
 Data variables:
-    lst        (rows, orphan_pixels) float32 898kB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">orphan</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-3553966f-92f0-49b4-b8b3-a223c4b286f2" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-3553966f-92f0-49b4-b8b3-a223c4b286f2" class="xr-section-summary" title="Expand/collapse section">Groups: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><div style="display: inline-grid; grid-template-columns: 100%; grid-column: 1 / -1"></div></div></li><li class="xr-section-item"><input id="section-6a7832e7-a5aa-4963-b77b-0e871d4f62d6" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-6a7832e7-a5aa-4963-b77b-0e871d4f62d6" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span>rows</span>: 1200</li><li><span>columns</span>: 1500</li><li><span>orphan_pixels</span>: 187</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-ea000ef0-08a2-40a5-8104-0bc68899971c" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-ea000ef0-08a2-40a5-8104-0bc68899971c" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c6d33216-f5fd-4caa-a3b1-28b982ff8632" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c6d33216-f5fd-4caa-a3b1-28b982ff8632" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6a31418a-8fa3-48f2-aecc-557d89077b91" class="xr-var-data-in" type="checkbox"><label for="data-6a31418a-8fa3-48f2-aecc-557d89077b91" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Latitude of detector FOV centre on the earth's surface</dd><dt><span>short_name :</span></dt><dd>latitude_orphan</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90000000</dd><dt><span>valid_min :</span></dt><dd>-90000000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c023f27d-fce2-4bff-957b-318883e83d37" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c023f27d-fce2-4bff-957b-318883e83d37" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-815e1e6d-b572-4743-bee4-6bd7ed3849f8" class="xr-var-data-in" type="checkbox"><label for="data-815e1e6d-b572-4743-bee4-6bd7ed3849f8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Longitude of detector FOV centre on the earth's surface</dd><dt><span>short_name :</span></dt><dd>longitude_orphan</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180000000</dd><dt><span>valid_min :</span></dt><dd>-180000000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>x</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-10ba5d56-3bcc-45e4-95dd-c21c9131d7b8" class="xr-var-attrs-in" type="checkbox"><label for="attrs-10ba5d56-3bcc-45e4-95dd-c21c9131d7b8" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-44cc9544-159f-47e6-8c7d-f5f028d811da" class="xr-var-data-in" type="checkbox"><label for="data-44cc9544-159f-47e6-8c7d-f5f028d811da" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Geolocated x (across track) coordinate of detector FOV centre</dd><dt><span>short_name :</span></dt><dd>x_orphan</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>1000000</dd><dt><span>valid_min :</span></dt><dd>-500000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>y</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-93d79c40-5fdb-4c00-9431-c6c5fe02c29a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-93d79c40-5fdb-4c00-9431-c6c5fe02c29a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-dac39b85-8ba6-458a-928d-2f40b6d1a4ac" class="xr-var-data-in" type="checkbox"><label for="data-dac39b85-8ba6-458a-928d-2f40b6d1a4ac" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Geolocated y (along track) coordinate of detector FOV centre</dd><dt><span>short_name :</span></dt><dd>y_orphan</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>100000000</dd><dt><span>valid_min :</span></dt><dd>-1000000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-58780c8b-bba8-44b2-925f-2ebb6c8a6b6e" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-58780c8b-bba8-44b2-925f-2ebb6c8a6b6e" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lst</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-2fec2252-62c9-469d-99f4-5265471cdaa0" class="xr-var-attrs-in" type="checkbox"><label for="attrs-2fec2252-62c9-469d-99f4-5265471cdaa0" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-df72bc36-da19-453c-8d5e-6449d3a8f47f" class="xr-var-data-in" type="checkbox"><label for="data-df72bc36-da19-453c-8d5e-6449d3a8f47f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['x', 'y', 'latitude', 'longitude'], 'dimensions': ['rows', 'orphan_pixels'], 'long_name': 'ungridded land surface temperature', 'standard_name': 'surface_temperature', 'units': 'K'}</dd><dt><span>long_name :</span></dt><dd>ungridded land surface temperature</dd><dt><span>short_name :</span></dt><dd>lst_orphan</dd><dt><span>standard_name :</span></dt><dd>surface_temperature</dd><dt><span>units :</span></dt><dd>K</dd><dt><span>valid_max :</span></dt><dd>32767</dd><dt><span>valid_min :</span></dt><dd>-32767</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-aeabab3d-07f1-40db-bb68-2c49c1740ccd" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-aeabab3d-07f1-40db-bb68-2c49c1740ccd" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div></div></div></div></div></li><li class="xr-section-item"><input id="section-eba94ac4-7997-4f6d-981e-373011475bf6" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-eba94ac4-7997-4f6d-981e-373011475bf6" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span>rows</span>: 1200</li><li><span>columns</span>: 1500</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-a0737bdf-ad1a-4e55-95fa-4df6e519f682" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-a0737bdf-ad1a-4e55-95fa-4df6e519f682" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-7ac32164-b7f3-42af-9eaa-bf4eadf34589" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7ac32164-b7f3-42af-9eaa-bf4eadf34589" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fdc5db64-f416-4979-8f3f-fd760dfdc37a" class="xr-var-data-in" type="checkbox"><label for="data-fdc5db64-f416-4979-8f3f-fd760dfdc37a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Latitude of detector FOV centre on the earth's surface</dd><dt><span>short_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90000000</dd><dt><span>valid_min :</span></dt><dd>-90000000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-ceea2cd1-f71e-4305-ac91-647403c3861a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ceea2cd1-f71e-4305-ac91-647403c3861a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-08791d5b-ce5e-4c4b-9d3d-860163a8cce8" class="xr-var-data-in" type="checkbox"><label for="data-08791d5b-ce5e-4c4b-9d3d-860163a8cce8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Longitude of detector FOV centre on the earth's surface</dd><dt><span>short_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180000000</dd><dt><span>valid_min :</span></dt><dd>-180000000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>x</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-d0f6c82e-938d-4e99-be44-34857e9dde1d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d0f6c82e-938d-4e99-be44-34857e9dde1d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b1925d6e-fa7b-40bf-98ae-5ecd1f2c0a6f" class="xr-var-data-in" type="checkbox"><label for="data-b1925d6e-fa7b-40bf-98ae-5ecd1f2c0a6f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Geolocated x (across track) coordinate of detector FOV centre</dd><dt><span>short_name :</span></dt><dd>x</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>1000000</dd><dt><span>valid_min :</span></dt><dd>-500000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>y</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1a85dcf0-f88e-4188-a8bb-7f8761ff9380" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1a85dcf0-f88e-4188-a8bb-7f8761ff9380" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2b4a73e2-8a19-4bc1-9002-40daec041c5e" class="xr-var-data-in" type="checkbox"><label for="data-2b4a73e2-8a19-4bc1-9002-40daec041c5e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Geolocated y (along track) coordinate of detector FOV centre</dd><dt><span>short_name :</span></dt><dd>y</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>100000000</dd><dt><span>valid_min :</span></dt><dd>-1000000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-c29b8b34-d3aa-414d-9bfd-c0337eceb0ec" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-c29b8b34-d3aa-414d-9bfd-c0337eceb0ec" class="xr-section-summary" title="Expand/collapse section">Inherited coordinates: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"></ul></div></li><li class="xr-section-item"><input id="section-a0047b0e-9771-49a2-99cc-121342a63813" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-a0047b0e-9771-49a2-99cc-121342a63813" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lst</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-475c1b07-728f-48b5-98ab-0f55ac1ef63e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-475c1b07-728f-48b5-98ab-0f55ac1ef63e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-38ec7bb7-ffd4-482e-9e4c-9eaa66559764" class="xr-var-data-in" type="checkbox"><label for="data-38ec7bb7-ffd4-482e-9e4c-9eaa66559764" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['x', 'y', 'latitude', 'longitude'], 'dimensions': ['rows', 'columns'], 'long_name': 'gridded land surface temperature', 'standard_name': 'surface_temperature', 'units': 'K'}</dd><dt><span>long_name :</span></dt><dd>gridded land surface temperature</dd><dt><span>short_name :</span></dt><dd>lst</dd><dt><span>standard_name :</span></dt><dd>surface_temperature</dd><dt><span>units :</span></dt><dd>K</dd><dt><span>valid_max :</span></dt><dd>32767</dd><dt><span>valid_min :</span></dt><dd>-32767</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-365efe77-6e93-4858-9a05-e0cbbbbabd5b" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-365efe77-6e93-4858-9a05-e0cbbbbabd5b" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+    lst        (rows, orphan_pixels) float32 898kB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">orphan</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-2478598e-a622-4964-9085-abd98baa6116" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-2478598e-a622-4964-9085-abd98baa6116" class="xr-section-summary" title="Expand/collapse section">Groups: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><div style="display: inline-grid; grid-template-columns: 100%; grid-column: 1 / -1"></div></div></li><li class="xr-section-item"><input id="section-423b63ba-ac31-42ac-a284-f945e09e995e" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-423b63ba-ac31-42ac-a284-f945e09e995e" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span>rows</span>: 1200</li><li><span>columns</span>: 1500</li><li><span>orphan_pixels</span>: 187</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-ded4937f-3803-4152-8ea4-404c7f24debe" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-ded4937f-3803-4152-8ea4-404c7f24debe" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-28594798-547c-44c1-accd-de6fefe3b088" class="xr-var-attrs-in" type="checkbox"><label for="attrs-28594798-547c-44c1-accd-de6fefe3b088" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7f2a9a37-eaea-45e8-b8f7-889b36968019" class="xr-var-data-in" type="checkbox"><label for="data-7f2a9a37-eaea-45e8-b8f7-889b36968019" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Latitude of detector FOV centre on the earth's surface</dd><dt><span>short_name :</span></dt><dd>latitude_orphan</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90000000</dd><dt><span>valid_min :</span></dt><dd>-90000000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-70cb6c92-b463-4faf-8ab1-f2b69c5b1ca1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-70cb6c92-b463-4faf-8ab1-f2b69c5b1ca1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-990a3ba4-6b66-46e6-8b4a-a4e3d2da73b7" class="xr-var-data-in" type="checkbox"><label for="data-990a3ba4-6b66-46e6-8b4a-a4e3d2da73b7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Longitude of detector FOV centre on the earth's surface</dd><dt><span>short_name :</span></dt><dd>longitude_orphan</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180000000</dd><dt><span>valid_min :</span></dt><dd>-180000000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>x</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-b2c4b4d8-ea49-4fe6-891a-b76a4d112b7f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b2c4b4d8-ea49-4fe6-891a-b76a4d112b7f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e9570a1b-408f-41e5-acca-96321f687be7" class="xr-var-data-in" type="checkbox"><label for="data-e9570a1b-408f-41e5-acca-96321f687be7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Geolocated x (across track) coordinate of detector FOV centre</dd><dt><span>short_name :</span></dt><dd>x_orphan</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>1000000</dd><dt><span>valid_min :</span></dt><dd>-500000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>y</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c75fd4a7-1417-4087-809a-69520544b116" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c75fd4a7-1417-4087-809a-69520544b116" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-03ba2617-d808-42aa-8680-24d752c7c03f" class="xr-var-data-in" type="checkbox"><label for="data-03ba2617-d808-42aa-8680-24d752c7c03f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Geolocated y (along track) coordinate of detector FOV centre</dd><dt><span>short_name :</span></dt><dd>y_orphan</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>100000000</dd><dt><span>valid_min :</span></dt><dd>-1000000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-80e06765-0922-430b-a742-e59b7f651c36" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-80e06765-0922-430b-a742-e59b7f651c36" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lst</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-7a4dd034-0bf9-4350-86a1-c799e4bb438e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7a4dd034-0bf9-4350-86a1-c799e4bb438e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2e69f2cc-b1fa-4faf-a01a-9c8327101c66" class="xr-var-data-in" type="checkbox"><label for="data-2e69f2cc-b1fa-4faf-a01a-9c8327101c66" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['x', 'y', 'latitude', 'longitude'], 'dimensions': ['rows', 'orphan_pixels'], 'long_name': 'ungridded land surface temperature', 'standard_name': 'surface_temperature', 'units': 'K'}</dd><dt><span>long_name :</span></dt><dd>ungridded land surface temperature</dd><dt><span>short_name :</span></dt><dd>lst_orphan</dd><dt><span>standard_name :</span></dt><dd>surface_temperature</dd><dt><span>units :</span></dt><dd>K</dd><dt><span>valid_max :</span></dt><dd>32767</dd><dt><span>valid_min :</span></dt><dd>-32767</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-17e69862-44b4-48de-b093-5f39357fe708" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-17e69862-44b4-48de-b093-5f39357fe708" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div></div></div></div></div></li><li class="xr-section-item"><input id="section-51c04c95-2292-4e6b-be93-8588d8c0573c" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-51c04c95-2292-4e6b-be93-8588d8c0573c" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span>rows</span>: 1200</li><li><span>columns</span>: 1500</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-400c171c-a6cc-4692-b731-e54cfd40737f" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-400c171c-a6cc-4692-b731-e54cfd40737f" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1a9c1fd2-a3ef-4d77-bf95-190371042973" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1a9c1fd2-a3ef-4d77-bf95-190371042973" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4b92bc1a-a7b4-4204-8677-19109c5a82c5" class="xr-var-data-in" type="checkbox"><label for="data-4b92bc1a-a7b4-4204-8677-19109c5a82c5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Latitude of detector FOV centre on the earth's surface</dd><dt><span>short_name :</span></dt><dd>latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90000000</dd><dt><span>valid_min :</span></dt><dd>-90000000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-8ee62a13-68fc-4e15-8cdf-580ab8ac5047" class="xr-var-attrs-in" type="checkbox"><label for="attrs-8ee62a13-68fc-4e15-8cdf-580ab8ac5047" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-54c7603b-deaa-457c-838d-a276eef8c286" class="xr-var-data-in" type="checkbox"><label for="data-54c7603b-deaa-457c-838d-a276eef8c286" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Longitude of detector FOV centre on the earth's surface</dd><dt><span>short_name :</span></dt><dd>longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180000000</dd><dt><span>valid_min :</span></dt><dd>-180000000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>x</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-021b145a-a46a-43d7-bff9-f60d89a855df" class="xr-var-attrs-in" type="checkbox"><label for="attrs-021b145a-a46a-43d7-bff9-f60d89a855df" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f6d648ad-3fd6-48cc-999f-448b6496e9ec" class="xr-var-data-in" type="checkbox"><label for="data-f6d648ad-3fd6-48cc-999f-448b6496e9ec" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Geolocated x (across track) coordinate of detector FOV centre</dd><dt><span>short_name :</span></dt><dd>x</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>1000000</dd><dt><span>valid_min :</span></dt><dd>-500000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>y</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-b7ff6ba5-be41-43ca-9234-cd837f6d22c9" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b7ff6ba5-be41-43ca-9234-cd837f6d22c9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fe3cd473-9741-4e54-9e24-e64837222c8d" class="xr-var-data-in" type="checkbox"><label for="data-fe3cd473-9741-4e54-9e24-e64837222c8d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>long_name :</span></dt><dd>Geolocated y (along track) coordinate of detector FOV centre</dd><dt><span>short_name :</span></dt><dd>y</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>100000000</dd><dt><span>valid_min :</span></dt><dd>-1000000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-f1d563d2-d00c-4d10-8d2f-9903c9e3d890" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-f1d563d2-d00c-4d10-8d2f-9903c9e3d890" class="xr-section-summary" title="Expand/collapse section">Inherited coordinates: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"></ul></div></li><li class="xr-section-item"><input id="section-fd5d8223-e085-403a-a766-0ae145dbfeda" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-fd5d8223-e085-403a-a766-0ae145dbfeda" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lst</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-dd2eedc2-5f27-439c-9118-a3648a6dbc80" class="xr-var-attrs-in" type="checkbox"><label for="attrs-dd2eedc2-5f27-439c-9118-a3648a6dbc80" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f0b5a6bd-6ea4-4303-89a3-324854ef6b32" class="xr-var-data-in" type="checkbox"><label for="data-f0b5a6bd-6ea4-4303-89a3-324854ef6b32" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['x', 'y', 'latitude', 'longitude'], 'dimensions': ['rows', 'columns'], 'long_name': 'gridded land surface temperature', 'standard_name': 'surface_temperature', 'units': 'K'}</dd><dt><span>long_name :</span></dt><dd>gridded land surface temperature</dd><dt><span>short_name :</span></dt><dd>lst</dd><dt><span>standard_name :</span></dt><dd>surface_temperature</dd><dt><span>units :</span></dt><dd>K</dd><dt><span>valid_max :</span></dt><dd>32767</dd><dt><span>valid_min :</span></dt><dd>-32767</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float32]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-8a97fd77-b7df-4b00-9353-02e28155a39b" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-8a97fd77-b7df-4b00-9353-02e28155a39b" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
 </div>
 </div>
 <p>To effectively overlay the data, we first need to process the Land Surface Temperature (LST) asset to cover the same area of interest. We can accomplish this by applying our pre-defined masking functions. Since the LST data is presented in <strong>EPSG:4326</strong>, we will use the <code>zarr_mask_latlon()</code> function to generate the boolean mask of interest over the data, followed by the <code>mask_sub_latlon()</code> function, which clips it to our area of interest.</p>
-<div id="28" class="cell" data-execution_count="8">
+<div id="29" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The zarr_mask_latlon function is used to create a mask based on a bounding box and the measurements data</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cols_lst , rows_lst <span class="op">=</span> zarr_mask_latlon(</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    bbox_vis, <span class="co"># The input bounding box</span></span>
@@ -3101,7 +3112,7 @@ Data variables:
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>lon_lst <span class="op">=</span> mask_sub_latlon(meas_lst[<span class="st">'longitude'</span>],rows_lst, cols_lst).values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>After clipping the data to our defined area of interest, we apply the <strong>temperature threshold</strong> to the data, filtering for only those pixels with <strong>temperatures above 312 Kelvin</strong>. This temperature range is a strong indicator of heat anomalies, which are often associated with active or developing fires.</p>
-<div id="30" class="cell" data-execution_count="9">
+<div id="31" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To clip the data and prepare the array for an overlay with the TCI:</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lstf_clip <span class="op">=</span> np.where(</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    lst_clip <span class="op">&lt;=</span> <span class="dv">312</span>, <span class="co"># values less than or equal to 312 K</span></span>
@@ -3110,7 +3121,7 @@ Data variables:
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Creating a custom colour map that uses shades of red, with the most <strong>vibrant red</strong> indicating the <strong>hottest</strong> areas will enhance our visualisation. This colour map is applied to the LST data, allowing us to clearly and intuitively see the heat signatures that correspond with potential fire activity when the two layers are overlayed.</p>
-<div id="32" class="cell" data-execution_count="10">
+<div id="33" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For colour ramp:</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>col_map <span class="op">=</span> ListedColormap([[<span class="fl">1.</span>, <span class="fl">140.</span><span class="op">/</span><span class="fl">255.</span>, <span class="dv">0</span>],[<span class="fl">178.</span><span class="op">/</span><span class="fl">255.</span>, <span class="fl">34.</span><span class="op">/</span><span class="fl">255.</span>, <span class="fl">34.</span><span class="op">/</span><span class="fl">255.</span>],[<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>]]) <span class="co"># red composite shades</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the boundaries for each colour in the ramp</span></span>
@@ -3124,7 +3135,7 @@ Data variables:
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>map_box <span class="op">=</span> box(map_box[<span class="dv">0</span>],map_box[<span class="dv">1</span>],map_box[<span class="dv">2</span>],map_box[<span class="dv">3</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The final step of the Sentinel-3 SLSTR data processing is to <strong>visualise</strong> the temperature anomalies. We will prepare the filtered LST data to be overlaid over the True-Color composite of Sentinel-2 L2 data.</p>
-<div id="34" class="cell" data-execution_count="11">
+<div id="35" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure to plot</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)</span>
@@ -3149,7 +3160,7 @@ Data variables:
 <section id="create-sentinel-2-l2a-true-color-composite" class="level3">
 <h3 class="anchored" data-anchor-id="create-sentinel-2-l2a-true-color-composite">Create Sentinel-2 L2A True-Color composite</h3>
 <p>Following the parameters we defined before and the workflow described in the <a href="./61_sardinia_s2_tfci.html">first part</a> of this notebook series, we will filter the <strong>Sentinel-2 L2A</strong> data collection to match our event and AOI. This ensures that the visualisations we create are directly relevant to the fire event and set the stage for comparing it with the Land Surface Temperature data from Sentinel-3.</p>
-<div id="37" class="cell" data-execution_count="12">
+<div id="38" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interest timeframe parameters for the filtering</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>date_p <span class="op">=</span> fire_d_s3 <span class="op">+</span> <span class="st">'T00:00:00Z/'</span> <span class="op">+</span> fire_d_s3 <span class="op">+</span> <span class="st">'T23:59:59.999999Z'</span> <span class="co"># interest period</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>def_collection <span class="op">=</span> <span class="st">'sentinel-2-l2a'</span> <span class="co"># collection</span></span>
@@ -3168,7 +3179,7 @@ Data variables:
 </div>
 </div>
 <p>As we can see, there is no capture available for the day on which the fire occurred. This is because <strong>Sentinel-2 L2A</strong> has a <strong>revisit time</strong> of <strong>five</strong> days at the equator, making it possible that, even when the constellation is synchronously retrieving data, the day in question may not be available.<br> In this case, we define the capture date as the one closest to the event, the <strong>11th June 2025</strong>.</p>
-<div id="39" class="cell" data-execution_count="13">
+<div id="40" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Interest timeframe parameters for the filtering</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>date_p <span class="op">=</span> fire_d <span class="op">+</span> <span class="st">'T00:00:00Z/'</span> <span class="op">+</span> fire_d <span class="op">+</span> <span class="st">'T23:59:59.999999Z'</span> <span class="co"># interest period</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>def_collection <span class="op">=</span> <span class="st">'sentinel-2-l2a'</span> <span class="co"># collection</span></span>
@@ -3189,7 +3200,7 @@ Data variables:
 <p>These True-Color composite processing steps include: - Masking of invalid pixels - Clipping to AOI - Band selection - Normalisation - Composite creation - Equalisation</p>
 <section id="masking-out-invalid-pixels" class="level4">
 <h4 class="anchored" data-anchor-id="masking-out-invalid-pixels">Masking out invalid pixels</h4>
-<div id="42" class="cell" data-execution_count="14">
+<div id="43" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We are interested in the datasets contained in the measurements bands for True Colour and False Colour Composites.</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>s2_zarr <span class="op">=</span> xr.open_datatree(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    av_urls[<span class="dv">0</span>], engine<span class="op">=</span><span class="st">"zarr"</span>, <span class="co">#we always get the earliest one (the first available item goes last)</span></span>
@@ -3212,7 +3223,7 @@ Data variables:
 <section id="clipping-to-aoi" class="level4">
 <h4 class="anchored" data-anchor-id="clipping-to-aoi">Clipping to AOI</h4>
 <p>In a next step, we clip the retrieved item to our defined area of interest (AOI).</p>
-<div id="45" class="cell" data-execution_count="15">
+<div id="46" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># True colour channels we are interested to retrieve coposite:</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>tc_red  <span class="op">=</span> <span class="st">'b04'</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>tc_green<span class="op">=</span> <span class="st">'b03'</span></span>
@@ -3233,7 +3244,7 @@ Data variables:
 <section id="band-selection-normalisation-composite-creation-and-equalisation" class="level4">
 <h4 class="anchored" data-anchor-id="band-selection-normalisation-composite-creation-and-equalisation">Band selection, normalisation composite creation and equalisation</h4>
 <p>In the next step, we proceed to select the relevant bands from the item, apply normalisation and equalisation, in order to visualise the True-Color composite of 11 June 2025 over the Nuoto region in Sardinia.</p>
-<div id="48" class="cell" data-execution_count="16">
+<div id="49" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The tc_red, tc_green, and tc_blue variables are inputs specifying the band names</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>red <span class="op">=</span> zarr_meas[tc_red].where(valid_mask)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>gre <span class="op">=</span>  zarr_meas[tc_green].where(valid_mask)</span>
@@ -3288,7 +3299,7 @@ Data variables:
 <section id="overlay-sentinel-2-true-color-composite-with-sentinel-3-lst-data" class="level3">
 <h3 class="anchored" data-anchor-id="overlay-sentinel-2-true-color-composite-with-sentinel-3-lst-data">Overlay Sentinel-2 True-Color composite with Sentinel-3 LST data</h3>
 <p>And finally, we can <strong>georeference</strong> and overlay the two datasets, the True-Color composite from Sentinel-2 as well as the Land Surface Temperature information from Sentinel-3.</p>
-<div id="51" class="cell" data-execution_count="17">
+<div id="52" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Overlay</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the coordinate reference system (CRS) for latitude/longitude</span></span>
@@ -3330,14 +3341,14 @@ Data variables:
 </section>
 <section id="calculating-processing-time" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-processing-time">Calculating processing time</h3>
-<div id="54" class="cell" data-execution_count="18">
+<div id="55" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>et <span class="op">=</span> time.time()</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>total_t <span class="op">=</span> et <span class="op">-</span> st</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Running Time: '</span>, total_t,<span class="st">' seconds'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total Running Time:  35.96616196632385  seconds</code></pre>
+<pre><code>Total Running Time:  32.864274740219116  seconds</code></pre>
 </div>
 </div>
 <p>A significant takeaway from this process is its remarkable speed. The entire workflow, from data access to visualisation, is completed in under two minutes. Here is the key evident advantage of using <code>.zarr</code> encoding for wildfire detection. <br> EOPF enables us to quickly access and combine Sentinel data directly from the cloud without the need to download large volumes of data.</p>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -299,8 +299,20 @@ window.Quarto = {
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start">
- <span class="menu-text">[COMING SOON] Tools to work with EOPF Zarr</span></span>
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tools to work with EOPF Zarr</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  </div>
+</li>
+      </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
@@ -353,10 +365,8 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
-  </ul></li>
   <li><a href="#setting-up-the-environment" id="toc-setting-up-the-environment" class="nav-link" data-scroll-target="#setting-up-the-environment">Setting up the environment</a>
   <ul class="collapse">
   <li><a href="#initiate-a-dask-cluster" id="toc-initiate-a-dask-cluster" class="nav-link" data-scroll-target="#initiate-a-dask-cluster">Initiate a Dask cluster</a></li>
@@ -396,8 +406,9 @@ window.Quarto = {
 </header>
 
 
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/63_sardinia_dNBR.ipynb" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>This notebook introduces the <strong>Normalised Burn Ratio</strong> (NBR), a key index used in satellite remote sensing to assess burn severity. The <strong>NBR</strong> quantifies the severity of damage from wildfires. The NBR is calculated using near-infrared and shortwave infrared bands from Sentinel-2 Level 2 data to highlight vegetation and burned areas.</p>
 <p>Based on the NBR, we can calculate the differenced Normalized Burn Ratio (dNBR) which is a strong indicator of the severity of a fire’s impact on vegetation. The index can be interpreted as follows:<br></p>
 <ul>
@@ -412,6 +423,7 @@ window.Quarto = {
 <li><a href="./62_sardinia_s3_lst.html">Part 2 - Analyse fire intensity with Sentinel-2 and -3 data</a></li>
 <li><strong>Part 3 - Assess burn severity with the normalised burn ratio (dNBR)</strong></li>
 </ul>
+</section>
 <section id="what-we-will-learn" class="level3">
 <h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
 <ul>
@@ -422,7 +434,7 @@ window.Quarto = {
 <hr>
 <section id="import-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
-<div id="6" class="cell" data-execution_count="1">
+<div id="7" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributed <span class="im">import</span> LocalCluster</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -440,7 +452,7 @@ window.Quarto = {
 <section id="helper-functions" class="level4">
 <h4 class="anchored" data-anchor-id="helper-functions">Helper functions</h4>
 <p>This notebook makes use of a set of functions that are all listed inside the <a href="./zarr_wf_utils.py">zarr_wf_utils.py</a> script. Inside the script, we will find costumised functions that allow us to mask, normalise and extract specific areas of our items of interest.</p>
-<div id="9" class="cell" data-execution_count="2">
+<div id="10" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> zarr_wf_utils <span class="im">import</span> (</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    validate_scl_w,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    mask_sub_utm,</span>
@@ -451,13 +463,12 @@ window.Quarto = {
 <hr>
 </section>
 </section>
-</section>
 <section id="setting-up-the-environment" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-the-environment">Setting up the environment</h2>
 <section id="initiate-a-dask-cluster" class="level3">
 <h3 class="anchored" data-anchor-id="initiate-a-dask-cluster">Initiate a Dask cluster</h3>
 <p>The first step is to initiate a virtual Dask cluster consisting of a scheduler that manages tasks and multiple workers that process them.</p>
-<div id="14" class="cell" data-execution_count="3">
+<div id="15" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cluster <span class="op">=</span> LocalCluster()</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> cluster.get_client()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>client</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -466,7 +477,7 @@ window.Quarto = {
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-b3f71791-9ae6-11f0-9572-8aa15225f684</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-46d4d853-a9e0-11f0-94d3-0ede70c208ea</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -492,7 +503,7 @@ window.Quarto = {
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;" class="anchored">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">a6c2a11a</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">ee952227</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -522,12 +533,12 @@ window.Quarto = {
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;" class="anchored">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-1eacbe60-30bb-4351-abd4-217662cf5177</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-10e46dce-af68-4168-887e-50d0f3b7cda4</p>
             
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:37471</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36921</td>
 <td style="text-align: left;"><strong>Workers:</strong> 0</td>
 </tr>
 <tr class="even">
@@ -561,19 +572,19 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:33901</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36331</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:36421/status" target="_blank">http://127.0.0.1:36421/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:40971/status" target="_blank">http://127.0.0.1:40971/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:43305</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:37565</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-bk0mxpd2</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-ipczmds3</td>
 </tr>
 </tbody>
 </table>
@@ -593,19 +604,19 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:39485</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36581</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:39881/status" target="_blank">http://127.0.0.1:39881/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:36611/status" target="_blank">http://127.0.0.1:36611/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:37689</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41069</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-h06dje27</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-_q80qwzy</td>
 </tr>
 </tbody>
 </table>
@@ -625,19 +636,19 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:42233</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:35345</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:43361/status" target="_blank">http://127.0.0.1:43361/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:33823/status" target="_blank">http://127.0.0.1:33823/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:42841</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:45181</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-ao_u5_0x</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-kytgnhj5</td>
 </tr>
 </tbody>
 </table>
@@ -657,19 +668,19 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36193</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:35343</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:33485/status" target="_blank">http://127.0.0.1:33485/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:42639/status" target="_blank">http://127.0.0.1:42639/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:36709</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:43805</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-8m6y6uzq</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-szp622yq</td>
 </tr>
 </tbody>
 </table>
@@ -728,7 +739,7 @@ window.Quarto = {
 </tbody>
 </table>
 <p>For the pre-fire state, we will use an image from <strong>3rd of June 2025</strong>, and due to data avilability, the closest available image for post fire state is set to <strong>3rd July 2025</strong>. Additional information such as CRS and the relevant Sentinel-2 Level 2 bands, <strong>Near Infra Red</strong> (NIR) (B8a) and <strong>Short Wave Infrared</strong> (SWIR) (B12), are set.</p>
-<div id="17" class="cell" data-execution_count="4">
+<div id="18" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dates of interest</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Before the fire:</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>pre_f  <span class="op">=</span> <span class="st">'2025-06-03'</span></span>
@@ -765,7 +776,7 @@ window.Quarto = {
 <section id="establish-a-connection-to-the-eopf-stac-catalog" class="level3">
 <h3 class="anchored" data-anchor-id="establish-a-connection-to-the-eopf-stac-catalog">Establish a connection to the EOPF STAC Catalog</h3>
 <p>Additionally, we also need to establish a connection to the EOPF STAC catalog.</p>
-<div id="20" class="cell" data-execution_count="5">
+<div id="21" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>eopf_stac_api_root_endpoint <span class="op">=</span> <span class="st">"https://stac.core.eopf.eodc.eu/"</span> <span class="co">#root starting point</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>eopf_catalog <span class="op">=</span> Client.<span class="bu">open</span>(url<span class="op">=</span>eopf_stac_api_root_endpoint) <span class="co"># calls the selected url</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>eopf_catalog</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1346,7 +1357,7 @@ window.Quarto = {
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
         </li>
     
             
@@ -1364,7 +1375,7 @@ window.Quarto = {
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
+            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
         </li>
     
             
@@ -1397,7 +1408,7 @@ window.Quarto = {
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
         </li>
     
             
@@ -1415,7 +1426,7 @@ window.Quarto = {
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
         </li>
     
             
@@ -2189,7 +2200,7 @@ window.Quarto = {
 <section id="calculation-of-nbr---pre-fire" class="level2">
 <h2 class="anchored" data-anchor-id="calculation-of-nbr---pre-fire">Calculation of NBR - Pre-Fire</h2>
 <p>Now we can use our defined parameters to query the STAC catalog and to retrieve all available <strong>Sentinel-2</strong> imagery that correspond to our query arguments.</p>
-<div id="23" class="cell" data-execution_count="6">
+<div id="24" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We define the search over the whole day, from 12:00 am to 11:59 pm</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>date_pre <span class="op">=</span> pre_f <span class="op">+</span> <span class="st">'T00:00:00Z/'</span> <span class="op">+</span> pre_f <span class="op">+</span> <span class="st">'T23:59:59.999999Z'</span> <span class="co"># interest period</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2205,7 +2216,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Now we open the retrieved item as a xarray.DataTree. This image will serve as our baseline for the pre-fire conditions, providing a clean snapshot of the landscape before the event. We extract the <code>r20m</code> group under measurements group, as this is the resolution we will be focusing on. We also mask out all invalid pixels by applying the function <code>validate_scl()</code>.</p>
-<div id="25" class="cell" data-execution_count="7">
+<div id="26" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open the last Zarr item from the list of URLs as a data tree.</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pre_zarr <span class="op">=</span> xr.open_datatree(</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    av_urls[<span class="dv">0</span>], engine<span class="op">=</span><span class="st">"zarr"</span>,</span>
@@ -2221,7 +2232,7 @@ window.Quarto = {
 </div>
 <p>To calculate the <strong>Normalised Burn Ratio</strong> (NBR), we will access the specific spectral bands we need: the <strong>Near-Infrared</strong> (NIR) band (B8A) and the <strong>Shortwave Infrared</strong> (SWIR) band (B12).</p>
 <p>Once we access them, we need to ensure our data features our area of interest (AOI). We will apply the same <strong>masking</strong> and <strong>clipping</strong> functions used in our <a href="./62_sardinia_s3_lst.html">previous tutorial</a> to clip the imagery to our precise <code>bbox_utm</code>.</p>
-<div id="27" class="cell" data-execution_count="8">
+<div id="28" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create UTM masks for rows and columns based on the bounding box.</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cols_pre, rows_pre<span class="op">=</span> zarr_mask_utm (bbox_utm, zarr_meas_pre)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2239,7 +2250,7 @@ window.Quarto = {
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>nir_pre <span class="op">=</span> mask_sub_utm(nir_pre,rows_pre, cols_pre).values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Once we obtain the masked assets, we can visualise them before calculating the <strong>NBR</strong>.</p>
-<div id="29" class="cell" data-execution_count="9">
+<div id="30" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure to plot</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].imshow(nir_pre)</span>
@@ -2262,7 +2273,7 @@ window.Quarto = {
 <p>With our <code>swir_pre</code> and <code>nir_pre</code> bands ready, we can now calculate the pre-fire NBR image. We will apply the following NBR formula:</p>
 <p><span class="math display">\[\frac{(NIR - SWIR)} {(NIR + SWIR)}\]</span></p>
 <p>An important consideration for this process is the possibility of division by zero when calculating the composite. To prevent this, we create a mask that assigns a value of <code>1</code> to any pixel that is <code>0</code>, while keeping the original values for all other pixels.</p>
-<div id="33" class="cell" data-execution_count="10">
+<div id="34" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We calculate the nbr for our pre fire event</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pre_difference <span class="op">=</span> nir_pre <span class="op">-</span> swir_pre</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2282,7 +2293,7 @@ window.Quarto = {
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>nbr_pre  <span class="op">=</span> da.where(pre_addition <span class="op">==</span> <span class="dv">0</span>, <span class="dv">0</span>, pre_difference <span class="op">/</span> pre_z)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now, we can visualise the calculated pre-fire NBR image.</p>
-<div id="35" class="cell" data-execution_count="11">
+<div id="36" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualising the clipped red band:</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(nbr_pre, vmin<span class="op">=-</span><span class="fl">1.0</span>, vmax<span class="op">=</span><span class="fl">1.0</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'NBR from the </span><span class="sc">{</span>pre_f<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2302,7 +2313,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="calculation-of-nbr---post-fire">Calculation of NBR - Post-Fire</h2>
 <p>The next step is to repeat the same steps as above and to calculate a <strong>post-fire</strong> NBR image.</p>
 <p>We first query the EOPF STAC catalog for items avialble on 3 July 2025, open the retrieved item as xarray.DataTree and mask out invalid pixels.</p>
-<div id="38" class="cell" data-execution_count="12">
+<div id="39" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We define the search over the whole day, from 12:00 am to 11:59 pm</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>date_post <span class="op">=</span> post_f <span class="op">+</span> <span class="st">'T00:00:00Z/'</span> <span class="op">+</span> post_f <span class="op">+</span> <span class="st">'T23:59:59.999999Z'</span> <span class="co"># interest period</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2325,7 +2336,7 @@ window.Quarto = {
 <span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>valid_mask_post <span class="op">=</span> validate_scl_w(l2a_class_20m_post)  <span class="co"># Boolean mask</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In a next step, we follow the same <strong>masking</strong> and <strong>clipping</strong> functions to this new dataset to ensure it is focused on our area of interest.</p>
-<div id="40" class="cell" data-execution_count="13">
+<div id="41" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create UTM masks for rows and columns based on the bounding box.</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>cols_post, rows_post<span class="op">=</span> zarr_mask_utm(bbox_utm, zarr_meas_post)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2347,7 +2358,7 @@ window.Quarto = {
 <span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>nir_post <span class="op">=</span> mask_sub_utm(nir_post,rows_post, cols_post).values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>After our masking, we obtain the following bands</p>
-<div id="42" class="cell" data-execution_count="14">
+<div id="43" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a figure to plot</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].imshow(nir_post)</span>
@@ -2368,7 +2379,7 @@ window.Quarto = {
 </div>
 </div>
 <p>With our post-fire bands, we can now calculate the Post-Fire NBR. We apply the <strong>0</strong> division consideration masking and the <strong>NBR</strong> formula again to these bands to get the post-fire <strong>NBR</strong> image.</p>
-<div id="44" class="cell" data-execution_count="15">
+<div id="45" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We calculate the nbr for our post fire event</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>post_difference <span class="op">=</span> nir_post <span class="op">-</span> swir_post</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2402,7 +2413,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="calculate-differenced-nbr-dnbr">Calculate Differenced NBR (dNBR)</h2>
 <p>The last calculation step for our analysis is the <strong>delta NBR</strong> (dNBR). This index is calculated by <strong>subtracting</strong> the <strong>post-fire</strong> NBR <strong>from</strong> the <strong>pre-fire</strong> NBR. Higher dNBR values indicate more severe damage, providing a quantitative measure of the fire’s impact.</p>
 <p><span class="math display">\[dNBR = prefireNBR - postfireNBR\]</span></p>
-<div id="48" class="cell" data-execution_count="16">
+<div id="49" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the delta Normalised Burn Ratio (dNBR) by subtracting the post-fire NBR from the pre-fire NBR.</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>dNBR <span class="op">=</span> (nbr_pre <span class="op">-</span> nbr_post) <span class="op">*</span> <span class="dv">1000</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2410,7 +2421,7 @@ window.Quarto = {
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>dNBR_c <span class="op">=</span> dNBR.compute()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>As our calculation was based on dask array for a faster computation, we bring it back to memory and multiply it by 1000 to be able to compare it to <strong>Key &amp; Benson (2006) severity thresholds</strong>, proposed by <a href="https://forest-fire.emergency.copernicus.eu/about-effis/technical-background/fire-severity#:~:text=The%20proposed%20methodology%20is%20recommended,and%20post%2Dfire%20NBR%20composites">EFFIS</a>.</p>
-<div id="50" class="cell" data-execution_count="17">
+<div id="51" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualising the clipped red band:</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.imshow(dNBR)</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(dNBR, vmin<span class="op">=-</span><span class="fl">1000.0</span>, vmax<span class="op">=</span><span class="fl">1000.0</span>)</span>
@@ -2428,7 +2439,7 @@ window.Quarto = {
 </div>
 <p>Finally, we will plot our results to visualise the <strong>burn severity</strong>. Using the <code>cartopy</code> library, we can create a georeferenced map that accurately displays our data based on its CRS and geospatial bounding box.</p>
 <p>The <strong>dNBR</strong> data will be presented on this map using a colour scheme that clearly highlights the most affected areas by the fire.</p>
-<div id="52" class="cell" data-execution_count="18">
+<div id="53" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the Geometry</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>map_box <span class="op">=</span> box(map_box[<span class="dv">0</span>],map_box[<span class="dv">1</span>],map_box[<span class="dv">2</span>],map_box[<span class="dv">3</span>])</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2500,12 +2511,12 @@ window.Quarto = {
 <section id="calculating-processing-time" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-processing-time">Calculating processing time</h3>
 <p>Besides the asset’s accessibility, it is important to note the time efficiency of this monitoring workflow. The entire process, from defining the area of interest to searching, accessing, processing, and visualising the data takes <strong>less</strong> than <strong>30 seconds</strong>.<br></p>
-<div id="56" class="cell" data-execution_count="19">
+<div id="57" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>et <span class="op">=</span> time.time()</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>total_t <span class="op">=</span> et <span class="op">-</span> st</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Running Time: '</span>, total_t,<span class="st">' seconds'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total Running Time:  45.58492159843445  seconds</code></pre>
+<pre><code>Total Running Time:  33.079665660858154  seconds</code></pre>
 </div>
 </div>
 <hr>
