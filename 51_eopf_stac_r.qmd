@@ -24,12 +24,6 @@ The [`rstac` package](https://brazil-data-cube.github.io/rstac/) is required to 
 install.packages("rstac")
 ```
 
-```
-## 
-## The downloaded binary packages are in
-## 	/var/folders/j5/d1hztrys1xzg_8557yh176300000gn/T//RtmpthrK6v/downloaded_packages
-```
-
 Then load the package into your environment:
 
 
