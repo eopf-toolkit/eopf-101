@@ -56,4 +56,4 @@ RUN R -e "install.packages('fs', repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages('lobstr', repos='https://cran.rstudio.com/')"
 RUN R -e "install.packages('BiocManager', repos='https://cran.rstudio.com/')"
 RUN R -e "BiocManager::install('Rarr')"
-
+RUN R -e 'install.packages("IRkernel", repos="https://cran.rstudio.com/"); IRkernel::installspec(user = FALSE)'
