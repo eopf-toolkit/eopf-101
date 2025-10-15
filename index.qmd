@@ -36,8 +36,8 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
   * [Access the EOPF Zarr STAC API with Python](./43_eopf_stac_connection.ipynb)
   * [From STAC to Data: Accessing EOPF Zarr with xarray](./44_eopf_stac_xarray_tutorial.ipynb)
 
-* ***[COMING SOON] Chapter 4 - Tools to work with EOPF Zarr***
-  * *Get hands-on with different libraries and tools facilitating the use of EOPF Sentinel Zarr data*
+* **Chapter 4 - Tools to work with EOPF Zarr** -- *more coming soon!*
+  * [Access the EOPF Zarr STAC API with R](./51_eopf_stac_r.qmd)
 
 * **Chapter 5 - EOPF Zarr in Action**
   * [Fire in Sardinia 2025 - Part 1](./61_sardinia_s2_tfci.ipynb)
@@ -46,7 +46,7 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
   * [Flood Mapping - Time Series Analysis in Valencia](./64_flood_mapping_valencia.ipynb)
 
 
-<h2>💡 How best use EOPF 101 </h2>
+<h2>💡 How best to use EOPF 101 </h2>
 You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. 
 Beyond this browsable version, you can also set up the required environment to execute the notebooks. 
 
