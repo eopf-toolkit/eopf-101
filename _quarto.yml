@@ -42,13 +42,13 @@ book:
         - 42_eopf_stac_zarr_tutorial.qmd
         - 43_eopf_stac_connection.ipynb
         - 44_eopf_stac_xarray_tutorial.ipynb
-    - part: "Tools to work with EOPF Zarr"
+    - part: "**Tools to work with EOPF Zarr**"
       chapters:
         - 51_eopf_stac_r.qmd
         # - 52_zarr_qgis.qmd
         # - 53_zarr_R.qmd
         # - 54_titiler.qmd
-    - part: "EOPF Zarr in Action"
+    - part: "**EOPF Zarr in Action**"
       chapters:
         - 61_sardinia_s2_tfci.ipynb
         - 62_sardinia_s3_lst.ipynb
