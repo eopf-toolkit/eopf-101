@@ -22,7 +22,7 @@ jobs:
           git fetch origin ${{ github.base_ref }}
           CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
 
-          if echo "$CHANGED_FILES" | grep -qE '^pyproject\.toml$|^deployment/Dockerfile$'; then
+          if echo "$CHANGED_FILES" | grep -qE '^pyproject\.toml$|^deployment/Dockerfile(_|$)'; then
             echo "Building image as we've modified pyproject.toml or deployment Dockerfile in this PR"
             echo "build=true" >> $GITHUB_OUTPUT
             echo "tag=pr-${{ github.run_id }}" >> $GITHUB_OUTPUT
@@ -48,18 +48,20 @@ jobs:
           username: ${{ secrets.OVH_HARBOR_USERNAME }}
           password: ${{ secrets.OVH_HARBOR_PASSWORD }}
 
+      # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
       - name: build image
         working-directory: deployment
         if: needs.check-diff.outputs.build == 'true'
         run: |
-          make build-and-push-docker-image TAG=${{ needs.check-diff.outputs.tag }}
+          make build-and-push-docker-image TAG=${{ needs.check-diff.outputs.tag }} PROJECT="r"
 
   test-render:
     needs: [check-diff, prepare-docker-image]
     runs-on: eopf-large
     if: needs.check-diff.result == 'success' && (needs.prepare-docker-image.result == 'success' || needs.prepare-docker-image.result == 'skipped')
     container:
-      image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev:${{ needs.check-diff.outputs.tag }}
+      # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
+      image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:${{ needs.check-diff.outputs.tag }}
       credentials:
         username: ${{ secrets.OVH_HARBOR_USERNAME }}
         password: ${{ secrets.OVH_HARBOR_PASSWORD }}
