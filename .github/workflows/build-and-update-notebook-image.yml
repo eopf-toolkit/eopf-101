@@ -1,4 +1,4 @@
-name: Build and update JupyterHub Notebook image on pyproject.toml change
+name: Build and update JupyterHub Notebook images on pyproject.toml or deployment changes
 
 on:
   push:
