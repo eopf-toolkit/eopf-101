@@ -98,7 +98,7 @@ jobs:
         run: |
           echo "🔍 Checking that all notebooks are clean (no outputs)..."
           # Find all notebooks excluding backups and build artifacts
-          notebooks=$(find . -name "*.ipynb" -not -path "./_book/*" -not -name "*backup*.ipynb" -not -path "./.git/*")
+          notebooks=$(find . -name "*.ipynb" -not -path "./_book/*" -not -name "*backup*.ipynb" -not -path "./.git/* -not path "./.venv/*")
           if [ -z "$notebooks" ]; then
             echo "ℹ️  No notebooks found to validate"
             exit 0
