@@ -62,9 +62,6 @@ jobs:
     container:
       # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
       image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:${{ needs.check-diff.outputs.tag }}
-      credentials:
-        username: ${{ secrets.OVH_HARBOR_USERNAME }}
-        password: ${{ secrets.OVH_HARBOR_PASSWORD }}
       options: --entrypoint "" --user root
 
     steps:
