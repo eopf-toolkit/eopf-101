@@ -17,6 +17,3 @@ push-docker-image:
 
 build-and-push-docker-image: build-docker-image tag-docker-image push-docker-image
 	@echo "Docker image built and pushed with tag: $(TAG)"
-
-things:
-	@echo "$(PROJECT)"
