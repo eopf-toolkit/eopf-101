@@ -4,6 +4,10 @@ RUN pip install pdm
 
 USER root
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
 RUN chown -R ${NB_UID}:${NB_GID} /home/${NB_USER}/deps
 

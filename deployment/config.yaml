@@ -45,7 +45,17 @@ hub:
 singleuser:
   image:
     # This `latest` should ideally be replaced during CI deployments
-    name: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-dev/eopf-toolkit-dev
+    name: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python
     tag: "latest"
     pullSecrets:
       - name: regcred
+  profileList:
+      - display_name: "Python"
+        description: "Python environment powered by eopf-toolkit-python"
+        default: true
+      - display_name: "R"
+        description: "R environment powered by eopf-toolkit-r"
+        kubespawner_override:
+          image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:latest
+          pullSecrets:
+            - name: regcred

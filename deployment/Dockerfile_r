@@ -1,0 +1,38 @@
+FROM quay.io/jupyter/r-notebook:python-3.12.10
+
+RUN mamba install --yes \
+    -c bioconda \
+    'r-rstac' \
+    'r-tidyverse' \
+    'r-stars' \
+    'r-terra' \
+    'r-httr2' \
+    'r-fs' \
+    'r-lobstr' \
+    'r-BiocManager' \
+    'bioconductor-rarr' && \
+    mamba clean --all -f -y && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+RUN pip install pdm
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
+RUN chown -R ${NB_UID}:${NB_GID} /home/${NB_USER}/deps
+
+USER ${NB_UID}
+
+WORKDIR /home/${NB_USER}/deps 
+
+RUN pdm config python.use_venv false && \
+    pdm lock && \
+    pdm export --without-hashes --format requirements | pip install -r /dev/stdin
+
+WORKDIR /home/${NB_USER}
+RUN rm -rf deps
