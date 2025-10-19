@@ -329,3 +329,27 @@ zarr_store |>
   rast() |>
   plotRGB()
 ```
+
+## 💪 Now it is your turn
+
+The following exercises will help you master the STAC API and understand how to find the data you need.
+
+### Task 1: Explore five additional Sentinel-2 Items
+
+Replicate the RGB quick-look for five additional items from your area of interest and review the spatial changes.
+
+### Task 2: Calculate NDVI
+
+Replicate the NDVI calculation for the additional items.
+
+### Task 3: Applying more advanced analysis techniques
+
+The EOPF STAC Catalog offers a wealth of data beyond Sentinel-2. Replicate the search and data access for data from other collections.
+
+## Conclusion
+
+In this tutorial we established a connection to the [EOPF Sentinel Zarr Sample Service STAC Catalog](stac.browser.user.eopf.eodc.eu_) and directly accessed an EOPF Zarr array with `Rarr`. We explored how to review the full Zarr store, read individual arrays, and gave an understanding of Zarr array chunking and dimensions. We also did a simple visualisation of the Quicklook via the [`stars`] package.
+
+## What's next?
+
+In the following section we will present several end-to-end workflows, where we will showcase the application of the available Sentinel Products in the EOPF Sentinel Zarr Sample Service STAC Catalog.
