@@ -24,7 +24,6 @@ An R environment is required to follow this tutorial, with R version >= 4.4.0. F
 We will use the following packages in this tutorial:
 - [`rstac`](https://brazil-data-cube.github.io/rstac/) (for accessing the STAC catalog)
 - [`tidyverse`](https://tidyverse.tidyverse.org/) (for data manipulation)
-- [`stars`](https://r-spatial.github.io/stars/)) (for working with spatiotemporal data)
 - [`terra`](https://rspatial.github.io/terra/index.html) (for working with spatial data in raster format).
 
 You can install them directly from CRAN:
@@ -249,4 +248,84 @@ b02 |>
 b02 |>
   filter(array == "/measurements/reflectance/r60m/b02") |>
   pull(dim)
+```
+
+## Visualising the RGB quicklook composite
+
+EOPF Zarr assets include quicklook RGB composites, which are readily viewable representations of the satellite image. We will open the 10-metre resolution quicklook and visualise it. This is available as an asset, so we can access it directly from the STAC item.
+
+```{r tci-10m-asset}
+tci_10m_asset <- s2_l2a_item |>
+  assets_select(asset_names = "TCI_10m")
+
+tci_10m_url <- tci_10m_asset |>
+  assets_url()
+
+tci_10m_url |>
+  zarr_overview()
+```
+
+From the overview, we can see that the quicklook array has three dimensions to it, each of size 10980 x 10980. The three dimensions correspond to red, green, and blue spectral bands (B04, B03, and B02, respectively), since this is an RGB composite. This information is also available by looking at the assets' bands:
+
+```{r tci-10m-bands}
+s2_l2a_item[["assets"]][["TCI_10m"]][["bands"]] |>
+  map_dfr(as_tibble)
+```
+
+We can read in a small chunk of the array to get an idea of its shape, using the same indexing process we've used before. Note that we want to select _all_ of the bands (the first dimension listed). Rather than writing `1:3`, we can simply use `NULL` as the first dimension, indicating to get all data at this dimension. To preview the data, we will just get the first 2 entries (in each dimension) along the three bands.
+
+```{r tci-10m-preview}
+tci_10m_preview <- tci_10m_url |>
+  read_zarr_array(list(NULL, 1:2, 1:2))
+
+tci_10m_preview
+```
+
+For visualisation purposes, we need the data in a different configuration --- note the dimensions of the data:
+
+```{r tci-10m-preview-dims}
+dim(tci_10m_preview)
+```
+
+Instead, we need to get it into e.g. 2 x 2 x 3, with the _third_ dimension reflecting the number of bands (or layers) To do this, we use the `aperm()` function to transpose an array, with argument `c(2, 3, 1)` -- moving the second dimension to the first, the third to the second, and the first to the third. Then, we can see that the dimensions of the array are correct:
+
+```{r tci-10m-preview-transf}
+tci_10m_preview_perm <- tci_10m_preview |>
+  aperm(c(2, 3, 1))
+
+tci_10m_preview_perm
+
+dim(tci_10m_preview_perm)
+```
+
+Let's read in the full TCI array to visualise it.
+
+```{r tci-10m-dims}
+tci_10m <- tci_10m_url |>
+  read_zarr_array()
+
+tci_10m_perm <- tci_10m |>
+  aperm(c(2, 3, 1))
+
+dim(tci_10m)
+```
+
+For visualisation, we use `terra`'s `plotRGB()` function, first converting the array into a raster object with `rast()`:
+
+```{r tci-10m-vis}
+tci_10m_perm |>
+  rast() |>
+  plotRGB()
+```
+
+We can do the same with the quicklook at the 60-metre resolution, showing the full visualisation process in a single step:
+
+```{r tci-60m-vis}
+zarr_store |>
+  filter(array == "/quality/l2a_quicklook/r60m/tci") |>
+  pull(path) |>
+  read_zarr_array() |>
+  aperm(c(2, 3, 1)) |>
+  rast() |>
+  plotRGB()
 ```
