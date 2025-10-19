@@ -1,7 +1,7 @@
 ---
 title: "Access and analyse EOPF STAC Zarr data with R"
 format:
-  md:
+  html:
     df-print: tibble
 execute:
   cache: true
@@ -102,7 +102,7 @@ If you try to run some of the examples below and receive a timeout error, please
 
 ## Access Zarr data from the STAC Catalog
 
-The first step of accessing Zarr data is to understand the assets within the EOPF Sample Service STAC catalog. The [first tutorial](/eopf_stac_access.md) goes into detail on this, so we recommend reviewing it if you have not already.
+The first step of accessing Zarr data is to understand the assets within the EOPF Sample Service STAC catalog. The [first tutorial](https://eopf-toolkit.github.io/eopf-101/51_eopf_stac_r.html) goes into detail on this, so we recommend reviewing it if you have not already.
 
 For the first part of this tutorial, we will be using data from the [Sentinel-2 Level-2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a). We fetch the "product" asset under a given item, and can look at its URL:
 
