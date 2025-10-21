@@ -47,16 +47,9 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
 
 
 <h2>💡 How best to use EOPF 101 </h2>
+
 You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. 
 Beyond this browsable version, you can also set up the required environment to execute the notebooks. 
-
-*Instructions on local setup and Docker container on CDSE are coming soon.*
-
-<!---
-TODO #<issue_number>
--->
-
-
 
 <h2>📢 How to get involved </h2>
 
@@ -80,7 +73,7 @@ Once you access with your [CDSE](https://dataspace.copernicus.eu/) credentials, 
 
 <h5>Step 3: Notebook Submission</h5>
 
-Submit your completed Jupyter Notebook via [GitHub](https://github.com/eopf-toolkit/community-notebook-competition/tree/main/submissions) once complete, between 1 November 2025 and 30 January 2026 (23:59 UTC+1). Clear guidelines, a notebook template and evaluation criteria will be provided in advance via this GitHub repository. We will also provide some challenge prompts to help get you started. Stay tuned!
+Submit your completed Jupyter Notebook via [GitHub](https://github.com/eopf-toolkit/community-notebook-competition/tree/main/submissions) once complete, between 1 November 2025 and 30 January 2026 (23:59 UTC+1). Stay tuned!
 
 <h5>Judging & Evaluation</h5>
 
@@ -91,8 +84,6 @@ A panel of expert judges will evaluate each submission based on technical soundn
 The competition culminates in an online awards showcase where winners and highly commended entries will be announced.<br>
 
 The top notebooks will be featured in the **EOPF 101** as new case studies and you will be given the chance to be a co-author of a publication on **EOPF 101**. 
-
-There is also a prize pool of **10 000 Euros** in upskilling vouchers sponsored by [thriveGEO](https://www.thrivegeo.com). In addition, there will be exciting **ESA** swag such as **Sentinel-2 Lego** sets up for grabs!<br>
 
 For futher details, please visit the [notebook competition repository](https://github.com/eopf-toolkit/community-notebook-competition)!
 
