@@ -18,7 +18,7 @@ Here we introduce some helpful terms that are mentioned throughout the EOPF 101.
 | **EFFIS** | European Forest Fire Information System |
 | **FCI** | False Colour Image |
 | **GCP** | Ground Control Points |
-| **GDR** | Ground Range Detected |
+| **GRD** | Ground Range Detected |
 | **HEALPix** | Hierarchical Equal Area isoLatitude Pixelation |
 | **LST** | Land Surface Temperature |
 | **NBR** | Normalized Burnt Ratio |
