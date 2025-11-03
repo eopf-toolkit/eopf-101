@@ -49,7 +49,29 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
 <h2>💡 How best to use EOPF 101 </h2>
 
 You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. 
-Beyond this browsable version, you can also set up the required environment to execute the notebooks. 
+
+Beyond this browsable version, you can also set up the required environment to execute the notebooks:
+
+When **starting your server**, you will be able to select the **Docker image** you want to work with. The [EOPF Toolkit](https://github.com/eopf-toolkit) has designed updated environments to support your development!<br>
+
+You can select: **Specify an existing docker image**.
+
+<p align="center"><img title="Select docker image" alt="Alt text" src="/img/sel_di.png" class="center" ></p>
+
+Once you click, the following box is displayed:
+
+<p align="center"><img title="Define the docker option" alt="Alt text" src="/img/def_di.png" class="center" ></p>
+
+In the box, you can copy and paste the following custom lines:
+* If you would like to develop your workflow in Python:<br>
+`4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:competition`
+
+* Or, if you prefer to use R:<br>
+`4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:competition`
+
+And select **Start**.
+
+To get some ideas on how to get started with your development, watch the introductory session [here](https://www.youtube.com/watch?v=N7_C3rxjjp4).
 
 <h2>📢 How to get involved </h2>
 
@@ -81,7 +103,7 @@ A panel of expert judges will evaluate each submission based on technical soundn
 
 <h5>Awards & Showcase</h5>
 
-The competition culminates in an online awards showcase where winners and highly commended entries will be announced.<br>
+The competition culminates in an online awards taking place on 18 February 2026! Winners and highly commended entries will be announced.<br>
 
 The top notebooks will be featured in the **EOPF 101** as new case studies and you will be given the chance to be a co-author of a publication on **EOPF 101**. 
 
