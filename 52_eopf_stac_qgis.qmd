@@ -1,0 +1,111 @@
+---
+title: "Access EOPF Zarr in QGIS Using STAC"
+---
+
+### Introduction
+
+The following sections will demonstrate how to access EOPF Zarr in QGIS using STAC. We will utilise QGIS's native STAC capabilities and add EOPF layers to a QGIS project.
+
+### What We Will Learn
+
+- 🔗 Connect QGIS to EOPF STAC,
+- 🔍 Discover EOPF Zarr data, and
+- 🌍 Visualise EOPF Zarr data as part of a map
+
+<hr />
+
+### Prerequisites
+
+Some of the following steps are not possible with the latest QGIS release at the time of writing (3.44). QGIS 4.0 is expected February 2026 and will include all required functionality. Before then you must either install an experimental weekly or nightly build, or build the application yourself from source.
+
+_NOTE:_ This document covers areas that are in development and may change over the coming months and years. New versions of QGIS and changes to EOPF Zarr metadata may alter requirements or workflows.
+
+### About STAC in QGIS
+
+See [Introduction to STAC](./41_stac_intro.qmd) for more information about STAC.
+
+QGIS users may already be familiar with the [STAC API Browser plugin](https://plugins.qgis.org/plugins/qgis_stac/). Since its release in 2022 this plugin provided basic STAC API support. However, since QGIS 3.40 (released October 2024) STAC support has been steadily growing within the QGIS core product. QGIS STAC users are advised to use QGIS core STAC functionality rather than the plugin.
+
+### Add STAC Connection
+
+STAC access is managed with connections in QGIS, similar to other remote data sources such as WMS, WFS, and ArcGIS REST Servers. A STAC connection can be created by right-clicking on the Browser pane's STAC entry.
+
+![STAC Connection Context Menu](./img/52_01-create-new-stac-connection.png)
+
+Provide a suitable name, such as `EOPF Sample Service`, and `https://stac.core.eopf.eodc.eu/` for the service's URL. At the time of writing this service does not require authentication, though this may change.
+
+![EOPF STAC Connection Details](./img/52_02-stac-connection-details.png)
+
+### Discover Data
+
+Expand the new connection to explore available STAC collections and STAC items. Each entry provides a tooltip on mouse-over.
+
+The Browser pane's nested view shows a limited number of STAC items, as they are ordered in the collection. Additional batches of items will be fetched if available when `Double-click to fetch more items...` is double-clicked. STAC items can be filtered in the Data Source Manager, which is discussed in [Data Source Manager](#data-source-manager), though this is not possible in the Browser pane.
+
+![STAC Collections and STAC Items](./img/52_03-stac-item-tooltip.png)
+
+### Add Data to a Project
+
+Expanding a STAC item in the Browser pane lists all assets associated with the item.
+
+Assets with cloud-optimised data types (Zarr, COG, COPC, etc.) can be added as project layers from the Browser pane. These assets' icons reflect their data type, such as the raster icon ![QGIS Raster Provider Icon](./img/52_qgis-mIconRaster.svg). Assets that are not cloud-optimised (GeoJSON, GeoPackage, Shapefile, etc.) must first be downloaded before they can be added as project layers using QGIS's standard Layer → Add Layer menu. These assets will have a download icon ![QGIS Download Icon](./img/52_qgis-downloading_svg.svg). Cloud-optimised assets cannot be downloaded.
+
+Cloud-optimised assets can be dragged from the Browser pane into the Layers pane. STAC items with one or more cloud-optimised assets can also be dragged into the Layers pane, which will add all cloud-optimised assets as layers. 
+
+![STAC Asset Dragged to Layers Pane](./img/52_04-drag-drop-stac-asset.png)
+
+### Correct Spatial Reference
+
+Due to differences in how EOPF and QGIS / GDAL define spatial references in Zarr, QGIS will not automatically recognise an EOPF Zarr layer's spatial reference. This may be fixed by a future release of either QGIS or EOPF Zarr. For now the spatial reference must be manually corrected.
+
+Each EOPF STAC item's metadata provides an EPSG code that applies to all of its geospatial assets. Access this metadata via the Details entry in the item's context menu.
+
+![STAC Item Context Menu Details](./img/52_05-stac-item-context-menu-detail.png)
+
+Scroll to the `proj:code` property and observe the `EPSG:`-prefixed numeric value.
+
+![STAC Item Context Menu proj:code](./img/52_06-stac-item-detail-proj.png)
+
+Close the Details window, open a Zarr layer's Properties window, and view the Source tab. Under "Assigned Coordinate Reference System (CRS)" you may see "invalid projection".
+
+If the EPSG code from the STAC item Details window is already assigned then this issue has been resolved and you can ignore this step.
+
+![Layer Invalid CRS](./img/52_07-layer-invalid-crs.png)
+
+Click "Select CRS" and type the STAC item's EPSG code in the Filter text box. Select the appropriate CRS entry and apply the change.
+
+![Layer Set CRS](./img/52_08-layer-update-crs.png)
+
+### View Data
+
+After correcting any invalid CRS configurations you can safely view EOPF Zarr data alongside other spatially referenced data.
+
+![Multiple Band EOPF Zarr Data Display](./img/52_09-data-display.png)
+
+### Data Source Manager
+
+QGIS's Data Source Manager can be used instead of the Browser pane to manage STAC connections and discover STAC data.
+
+![QGIS Data Source Manager](./img/52_10-data-source-manager.png)
+
+Data Source Manager supports basic filters to refine which STAC items are available for access.
+
+![Data Source Manager Filters](./img/52_11-stac-filters.png)
+
+In the following example a bounding box filter is applied to items within a single collection. The format of the bounding box is:
+
+```
+minimum x (longitude), maximum x, minimum y (latitude), maximum y [EPSG:4326]
+```
+
+Temporal filters are also available via a calendar-style date picker.
+
+![Applied STAC Item Filters](./img/52_12-applied-filters.png)
+
+Right-clicking a result shows available actions, which include the "Add Layer" nested menu. This menu includes all cloud-optimised assets, and selecting an asset here is equivalent to dragging the asset to the Layers pane as described in [Add Data to a Project](#add-data-to-a-project).
+
+![Filter Result Context Menu](./img/52_13-result-context-layer.png)
+
+### Conclusion
+
+This tutorial has demonstrated how to view EOPF Zarr data in QGIS using STAC. Some of the same principles can be applied to other non-EOPF Zarr datasets.

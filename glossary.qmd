@@ -16,6 +16,7 @@ Here we introduce some helpful terms that are mentioned throughout the EOPF 101.
 | **DN** | Digital Number |
 | **EO** | Earth Observation |
 | **EFFIS** | European Forest Fire Information System |
+| **EPSG** | European Petroleum Survey Group |
 | **FCI** | False Colour Image |
 | **GCP** | Ground Control Points |
 | **GRD** | Ground Range Detected |
