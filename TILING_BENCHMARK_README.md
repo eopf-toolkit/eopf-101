@@ -44,8 +44,19 @@ This implementation addresses [Issue #103](https://github.com/developmentseed/eo
 - Performance analysis and visualization
 - Best practices for chunk optimization
 
-**IMPORTANT - CRS Handling**:
-EOPF Zarr datasets store CRS information in `dt.attrs["other_metadata"]["horizontal_CRS_code"]` but don't encode it in a way rioxarray understands automatically. The notebook properly extracts the EPSG code and sets it using `ds.rio.write_crs()` before any rio-tiler operations.
+**IMPORTANT - EOPF-Specific Setup**:
+
+1. **CRS Handling**: EOPF Zarr datasets store CRS in `dt.attrs["other_metadata"]["horizontal_CRS_code"]` but don't encode it in a way rioxarray understands. Must extract and set explicitly:
+   ```python
+   epsg_code = dt.attrs["other_metadata"]["horizontal_CRS_code"].split(":")[-1]
+   ds = ds.rio.write_crs(f"epsg:{epsg_code}")
+   ```
+
+2. **DataArray for XarrayReader**: Rio-tiler's `XarrayReader` expects DataArrays with a 'band' dimension, not Datasets. Must stack bands:
+   ```python
+   stacked = xr.concat([ds['b04'], ds['b03'], ds['b02']], dim='band')
+   stacked = stacked.rio.write_crs(ds.rio.crs)
+   ```
 
 ### 2. Reusable Utilities Module
 **File**: [`zarr_tiling_utils.py`](zarr_tiling_utils.py)
@@ -201,8 +212,11 @@ eopf-101/
 
 ## Technical Decisions
 
-### CRS Handling for EOPF Data
-EOPF Zarr stores CRS in custom metadata that rioxarray doesn't auto-detect:
+### EOPF Data Preparation for Rio-tiler
+
+Rio-tiler requires specific data preparation when working with EOPF Zarr:
+
+**1. CRS Extraction and Setting**
 ```python
 # Extract EPSG code from EOPF metadata
 epsg_code_full = dt.attrs.get("other_metadata", {}).get("horizontal_CRS_code", "EPSG:4326")
@@ -211,8 +225,25 @@ epsg_code = epsg_code_full.split(":")[-1]
 # Set CRS using rioxarray (required for rio-tiler)
 ds = ds.rio.write_crs(f"epsg:{epsg_code}")
 ```
+This pattern follows `eopf-explorer/geozarr.py` implementation.
 
-This pattern follows `eopf-explorer/geozarr.py` implementation and must be applied before using rio-tiler's XarrayReader.
+**2. DataArray Stacking for XarrayReader**
+```python
+# XarrayReader expects a DataArray with 'band' dimension, not a Dataset
+rgb_bands = xr.concat(
+    [ds['b04'], ds['b03'], ds['b02']],  # Red, Green, Blue
+    dim='band'
+).assign_coords(band=['red', 'green', 'blue'])
+
+# Preserve CRS
+rgb_bands = rgb_bands.rio.write_crs(ds.rio.crs)
+
+# Now use with XarrayReader
+with XarrayReader(rgb_bands) as src:
+    tile = src.part(bounds=src.bounds, max_size=1024)
+```
+
+Credit: Vincent Sarago for clarifying XarrayReader DataArray requirement.
 
 ### Why rio-tiler?
 - **Industry standard** for raster tiling
