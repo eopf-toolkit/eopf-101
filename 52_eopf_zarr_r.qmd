@@ -19,7 +19,7 @@ In this tutorial, we will demonstrate how to access EOPF Zarr products directly 
 
 ### Prerequisites
 
-An R environment is required to follow this tutorial, with R version >= 4.4.0. For local development, we recommend using either [RStudio](https://p!osit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
+An R environment is required to follow this tutorial, with R version >= 4.5.0. For local development, we recommend using either [RStudio](https://p!osit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
 
 We will use the following packages in this tutorial:
 - [`rstac`](https://brazil-data-cube.github.io/rstac/) (for accessing the STAC catalog)
@@ -36,7 +36,7 @@ install.packages("stars")
 install.packages("terra")
 ```
 
-We will also use the `Rarr` package to read Zarr data. It must be installed from Bioconductor, so first install the `BiocManager` package:
+We will also use the `Rarr` package (version >= 1.10.0) to read Zarr data. It must be installed from Bioconductor, so first install the `BiocManager` package:
 
 ```{r install-BiocManager}
 #| eval: false
@@ -60,44 +60,6 @@ library(Rarr)
 library(stars)
 library(terra)
 ```
-
-#### Fixes to the `Rarr` package
-
-We will use functions from the `Rarr` package to read and analyse Zarr data. Unfortunately, there is currently a bug in this package, causing it to parse the EOPF Sample Service data URLs incorrectly -- it has been fixed and will be updated in the next release of `Rarr`. In the meantime, we will write our own version of this URL parsing function and use it instead of the one in `Rarr`.
-
-```{r overwrite-url-parsing}
-#| cache: false
-.url_parse_other <- function(url) {
-  parsed_url <- httr::parse_url(url)
-  bucket <- gsub(
-    x = parsed_url$path, pattern = "^/?([[a-z0-9\\:\\.-]*)/.*",
-    replacement = "\\1", ignore.case = TRUE
-  )
-  object <- gsub(
-    x = parsed_url$path, pattern = "^/?([a-z0-9\\:\\.-]*)/(.*)",
-    replacement = "\\2", ignore.case = TRUE
-  )
-  hostname <- paste0(parsed_url$scheme, "://", parsed_url$hostname)
-
-  if (!is.null(parsed_url$port)) {
-    hostname <- paste0(hostname, ":", parsed_url$port)
-  }
-
-  res <- list(
-    bucket = bucket,
-    object = object,
-    region = "auto",
-    hostname = hostname
-  )
-  return(res)
-}
-
-assignInNamespace(".url_parse_other", .url_parse_other, ns = "Rarr")
-```
-
-This function overwrites the existing one in `Rarr`, and allows us to continue with the analysis.
-
-If you try to run some of the examples below and receive a timeout error, please ensure that you have run the above code block.
 
 ## Access Zarr data from the STAC Catalog
 
