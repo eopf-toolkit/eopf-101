@@ -33,9 +33,7 @@ This implementation addresses [Issue #103](https://github.com/developmentseed/eo
 
 - **Section 3: Understanding the Data Flow** (~5 min)
   - Analyze chunk-to-tile relationships
-  - Measure memory usage patterns
-  - Compare performance across resolutions (10m/20m/60m)
-  - Visualize optimal vs suboptimal chunk alignment
+  - 
 
 **Key Features**:
 - Uses real Sentinel-2 L2A data from EOPF STAC catalog
