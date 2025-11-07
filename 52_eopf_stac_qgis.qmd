@@ -113,11 +113,18 @@ Once we right-click a search result, we can see the available actions we can fol
 ![Filter Result Context Menu](./img/52_13-result-context-layer.png)
 
 ## 💪 Now it is your turn
-If the page is focused in theoretical content and further resources are recommended, provide them through tasks.<br>
-If the content is a tutorial, always include tasks that can be replicated so the audience gets a hands on 
-<br>
-<br>
-<br>
+
+### Task 1: Discover Additional Layers
+
+- Add a STAC item's `EOPF Product` group asset to a QGIS project from either the Browser pane or the Data Source Manager
+- Review the arrays available within this group, noting that many are not published as STAC item assets
+- Add arrays as layers to the QGIS project
+
+### Task 2: Apply Temporal Filters
+
+- Apply filters in the Data Source Manager STAC tab using the calendar-style date picker
+- Note that STAC items are filtered according to their `datetime` property, whose partial value also appears in the item's ID
+- Add layers from a STAC item that was created yesterday
 
 ## Conclusion
 
