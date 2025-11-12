@@ -45,7 +45,7 @@ book:
     - part: "**Tools to work with EOPF Zarr**"
       chapters:
         - 51_eopf_stac_r.qmd
-        # - 52_zarr_qgis.qmd
+        - 52_eopf_stac_qgis.qmd
         # - 53_zarr_R.qmd
         # - 54_titiler.qmd
     - part: "**EOPF Zarr in Action**"

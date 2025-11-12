@@ -38,6 +38,7 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
 
 * **Chapter 4 - Tools to work with EOPF Zarr** -- *more coming soon!*
   * [Access the EOPF Zarr STAC API with R](./51_eopf_stac_r.qmd)
+  * [Access the EOPF Zarr STAC API with QGIS](./52_eopf_stac_qgis.qmd)
 
 * **Chapter 5 - EOPF Zarr in Action**
   * [Fire in Sardinia 2025 - Part 1](./61_sardinia_s2_tfci.ipynb)
