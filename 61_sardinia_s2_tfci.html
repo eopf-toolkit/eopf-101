@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./62_sardinia_s3_lst.html" rel="next">
-<link href="./51_eopf_stac_r.html" rel="prev">
+<link href="./52_eopf_stac_qgis.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -281,6 +281,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
   </div>
 </li>
       </ul>
@@ -497,7 +502,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-b7d14e30-aa0d-11f0-92a3-56b7a1fe0ab7</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-6bd8eacc-c088-11f0-8f00-da4a7745d9ef</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -514,6 +519,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
         
+            <button style="margin-bottom: 12px;" data-commandlinker-command="dask:populate-and-launch-layout" data-commandlinker-args="{&quot;url&quot;: &quot;http://127.0.0.1:8787/status&quot; }">
+                Launch dashboard in JupyterLab
+            </button>
+        
 
         
             <details>
@@ -523,7 +532,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;" class="anchored">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">1ac5ba06</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">5d926380</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -553,12 +562,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;" class="anchored">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-14b77294-eba8-4c88-8448-870518668c5f</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-05886754-f823-4faa-888a-663a5ec357b1</p>
             
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:41695</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:46223</td>
 <td style="text-align: left;"><strong>Workers:</strong> 0</td>
 </tr>
 <tr class="even">
@@ -592,19 +601,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:46331</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40613</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:40617/status" target="_blank">http://127.0.0.1:40617/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:41913/status" target="_blank">http://127.0.0.1:41913/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:34955</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:45111</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-nooo2_cr</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-lsh8opfi</td>
 </tr>
 </tbody>
 </table>
@@ -624,19 +633,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:35299</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40569</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:45937/status" target="_blank">http://127.0.0.1:45937/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:33051/status" target="_blank">http://127.0.0.1:33051/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:34985</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:44105</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-n3lderya</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-k9f9aa28</td>
 </tr>
 </tbody>
 </table>
@@ -656,19 +665,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:33171</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:35965</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:44999/status" target="_blank">http://127.0.0.1:44999/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34865/status" target="_blank">http://127.0.0.1:34865/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41633</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:39639</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-lvxdrqro</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-b7mvo6dr</td>
 </tr>
 </tbody>
 </table>
@@ -688,19 +697,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40511</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:35261</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 1</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:42647/status" target="_blank">http://127.0.0.1:42647/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:43209/status" target="_blank">http://127.0.0.1:43209/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:32989</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:34079</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-kk3oqzw_</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-d68sq3ak</td>
 </tr>
 </tbody>
 </table>
@@ -1201,7 +1210,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Running Time: '</span>, total_t,<span class="st">' seconds'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total Running Time:  60.672173738479614  seconds</code></pre>
+<pre><code>Total Running Time:  66.59228372573853  seconds</code></pre>
 </div>
 </div>
 <p>As our plots show, the <strong>True Colour Image</strong> reveals a clear change in the state of the vegetation, with an evident burn scar visible on the ground. The <strong>False Colour Image</strong> also highlights a significant change in the spectral response, which precisely encloses the spot where the fire occurred.<br></p>
@@ -1626,8 +1635,8 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./51_eopf_stac_r.html" class="pagination-link" aria-label="Access the EOPF Zarr STAC API with R">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></span>
+      <a href="./52_eopf_stac_qgis.html" class="pagination-link" aria-label="Access EOPF Zarr in QGIS Using STAC">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

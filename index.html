@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -244,6 +244,11 @@ ul.task-list li input[type="checkbox"] {
   <a href="./51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -354,6 +359,7 @@ Your community guide for working with EOPF Sentinel Zarr data in the cloud
 <li><strong>Chapter 4 - Tools to work with EOPF Zarr</strong> – <em>more coming soon!</em>
 <ul>
 <li><a href="./51_eopf_stac_r.html">Access the EOPF Zarr STAC API with R</a></li>
+<li><a href="./52_eopf_stac_qgis.html">Access the EOPF Zarr STAC API with QGIS</a></li>
 </ul></li>
 <li><strong>Chapter 5 - EOPF Zarr in Action</strong>
 <ul>
@@ -366,24 +372,55 @@ Your community guide for working with EOPF Sentinel Zarr data in the cloud
 <h2 class="anchored">
 💡 How best to use EOPF 101
 </h2>
-<p>You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. Beyond this browsable version, you can also set up the required environment to execute the notebooks.</p>
-<p><em>Instructions on local setup and Docker container on CDSE are coming soon.</em></p>
-<!---
-TODO #<issue_number>
--->
+<p>You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data.</p>
+<p>Beyond this browsable version, you can also set up the required environment to execute the notebooks:</p>
+<p>When <strong>starting your server</strong>, you will be able to select the <strong>Docker image</strong> you want to work with. The <a href="https://github.com/eopf-toolkit">EOPF Toolkit</a> has designed updated environments to support your development!<br></p>
+<p>You can select: <strong>Specify an existing docker image</strong>.</p>
+<p align="center">
+<img title="Select docker image" alt="Alt text" src="./img/sel_di.png" class="center">
+</p>
+<p>Once you click, the following box is displayed:</p>
+<p align="center">
+<img title="Define the docker option" alt="Alt text" src="./img/def_di.png" class="center">
+</p>
+<p>In the box, you can copy and paste the following custom lines: * If you would like to develop your workflow in Python:<br> <code>4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:competition</code></p>
+<ul>
+<li>Or, if you prefer to use R:<br> <code>4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:competition</code></li>
+</ul>
+<p>And select <strong>Start</strong>.</p>
+<p>To get some ideas on how to get started with your development, watch the introductory session <a href="https://www.youtube.com/watch?v=N7_C3rxjjp4">here</a>.</p>
 <h2 class="anchored">
 📢 How to get involved
 </h2>
-<p>EOPF 101 is an open community resource under active development. Our activities are designed to engage with Sentinel users and to gather feedback on EOPF Sentinel Zarr products. There are different ways you can get involved and engaged:</p>
+<p>EOPF 101 is an open community resource under active development. Our activities are designed to engage with <strong>Sentinel users</strong> and to gather feedback on <strong>EOPF Sentinel Zarr</strong> products. There are different ways you can get involved and engaged:</p>
 <h3 class="anchored">
 Join the EOPF Toolkit Notebook Competition
 </h3>
-<p>Get ready and participate in the EOPF Toolkik Notebook Competition! The competition will kick off in October 2025 and run till January 2026. It is your chance to get hands-on with EOPF Zarr products, get expert input and guidance and show the community the great work you do.</p>
-<p><a href="https://thrivegeo.com/eopf-toolkit-competition/">Express your interest</a> today and do not miss any updates related to the notebook competition.</p>
-<!---
-TODO #<issue_number>
--->
-<p><em>More details coming soon.</em></p>
+<p>Get ready and participate in the EOPF Toolkit Notebook Competition! The competition will kick-off in October 2025 and run until January 2026. It is your chance to get hands-on with EOPF Zarr products, get expert input and guidance to show the community the great work you can do.</p>
+<h4 class="anchored">
+How to Participate?
+</h4>
+<h5 class="anchored">
+Step 1: Launch &amp; Registration
+</h5>
+<p>The competition officially begins with its launch at <a href="https://www.bigdatafromspace2025.org/">Big Data from Space 2025</a> on 30 September 2025. During this stage, you will be able to register <a href="https://thrivegeo.com/eopf-toolkit-competition/">your interest</a> to receive updates!<br></p>
+<h5 class="anchored">
+<p>Step 2: Learning &amp; Development</p>
+<p>Explore this resource and build your own notebook! The <a href="https://jupyterhub.user.eopf.eodc.eu/hub">EOPF Sentinel Zarr Sample Service JupyterLab</a> will be your primary development environment.<br> Once you access with your <a href="https://dataspace.copernicus.eu/">CDSE</a> credentials, you will get the chance to choose the language you want to develop with!</p>
+</h5><h5 class="anchored">
+Step 3: Notebook Submission
+</h5>
+<p>Submit your completed Jupyter Notebook via <a href="https://github.com/eopf-toolkit/community-notebook-competition/tree/main/submissions">GitHub</a> once complete, between 1 November 2025 and 30 January 2026 (23:59 UTC+1). Stay tuned!</p>
+<h5 class="anchored">
+Judging &amp; Evaluation
+</h5>
+<p>A panel of expert judges will evaluate each submission based on technical soundness, effective use of the EOPF Zarr data and plugins and educational quality.</p>
+<h5 class="anchored">
+Awards &amp; Showcase
+</h5>
+<p>The competition culminates in an online awards taking place on 18 February 2026! Winners and highly commended entries will be announced.<br></p>
+<p>The top notebooks will be featured in the <strong>EOPF 101</strong> as new case studies and you will be given the chance to be a co-author of a publication on <strong>EOPF 101</strong>.</p>
+<p>For futher details, please visit the <a href="https://github.com/eopf-toolkit/community-notebook-competition">notebook competition repository</a>!</p>
 <h3 class="anchored">
 Ideas &amp; Feedback?
 </h3>

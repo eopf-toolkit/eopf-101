@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -281,6 +281,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
   </div>
 </li>
       </ul>
@@ -545,9 +550,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -626,6 +629,7 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .xr-text-repr-fallback {
@@ -648,11 +652,18 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name,
+.xr-group-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
+.xr-group-name::before {
+  content: "📁";
+  padding-right: 0.3em;
+}
+
+.xr-group-name,
 .xr-obj-type {
   color: var(--xr-font-color2);
 }
@@ -661,6 +672,8 @@ body.vscode-dark {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
@@ -671,6 +684,7 @@ body.vscode-dark {
   display: inline-block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
 .xr-section-item input + label {
@@ -729,7 +743,6 @@ body.vscode-dark {
 .xr-section-summary,
 .xr-section-inline-details {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -739,11 +752,38 @@ body.vscode-dark {
 .xr-section-details {
   display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 20px auto;
+  width: 100%;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 20px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
 }
 
 .xr-array-wrap {
@@ -981,11 +1021,11 @@ Coordinates:
     line          (azimuth_time) int64 134kB dask.array&lt;chunksize=(16694,), meta=np.ndarray&gt;
     pixel         (ground_range) int64 210kB dask.array&lt;chunksize=(26239,), meta=np.ndarray&gt;
 Data variables:
-    grd           (azimuth_time, ground_range) uint16 876MB dask.array&lt;chunksize=(2557, 26239), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-027fc82c-30bb-4ede-89f7-f73c3fe7f616" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-027fc82c-30bb-4ede-89f7-f73c3fe7f616" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 16694</li><li><span class="xr-has-index">ground_range</span>: 26239</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-bff2640c-fbba-4c35-ab94-91c3b2671f60" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-bff2640c-fbba-4c35-ab94-91c3b2671f60" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:48:30.467916 ... 2...</div><input id="attrs-11554511-c2ee-40ec-b9b5-03a80b052abc" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-11554511-c2ee-40ec-b9b5-03a80b052abc" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c22717e3-c7e4-416a-944d-a3daff03e5e1" class="xr-var-data-in" type="checkbox"><label for="data-c22717e3-c7e4-416a-944d-a3daff03e5e1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:48:30.467916000', '2017-05-08T16:48:30.469413574',
+    grd           (azimuth_time, ground_range) uint16 876MB dask.array&lt;chunksize=(2557, 26239), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-434aea04-91aa-4997-bf10-6ca7c948d162" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-434aea04-91aa-4997-bf10-6ca7c948d162" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 16694</li><li><span class="xr-has-index">ground_range</span>: 26239</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-842d2adb-269d-4dda-81cd-aa7e3323a1c3" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-842d2adb-269d-4dda-81cd-aa7e3323a1c3" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:48:30.467916 ... 2...</div><input id="attrs-09033bbd-671c-4ea4-8eba-0008bf9c903f" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-09033bbd-671c-4ea4-8eba-0008bf9c903f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b5004e24-6e8c-4569-91c2-25c3900ca3ff" class="xr-var-data-in" type="checkbox"><label for="data-b5004e24-6e8c-4569-91c2-25c3900ca3ff" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:48:30.467916000', '2017-05-08T16:48:30.469413574',
        '2017-05-08T16:48:30.470911148', ..., '2017-05-08T16:48:55.463923851',
        '2017-05-08T16:48:55.465421425', '2017-05-08T16:48:55.466919000'],
-      shape=(16694,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 10.0 ... 2.624e+05 2.624e+05</div><input id="attrs-4bcd6aa9-46bb-4adc-a3a7-a31417aa0742" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-4bcd6aa9-46bb-4adc-a3a7-a31417aa0742" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1dcb08bb-e679-410e-97cb-52a8275d1d87" class="xr-var-data-in" type="checkbox"><label for="data-1dcb08bb-e679-410e-97cb-52a8275d1d87" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([0.0000e+00, 1.0000e+01, 2.0000e+01, ..., 2.6236e+05, 2.6237e+05,
-       2.6238e+05], shape=(26239,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(16694,), meta=np.ndarray&gt;</div><input id="attrs-a627f27e-c5ea-41e7-b530-b84dda6fa800" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-a627f27e-c5ea-41e7-b530-b84dda6fa800" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7e1427f2-b733-42e8-9d2b-5a12f4f2c69d" class="xr-var-data-in" type="checkbox"><label for="data-7e1427f2-b733-42e8-9d2b-5a12f4f2c69d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+      shape=(16694,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 10.0 ... 2.624e+05 2.624e+05</div><input id="attrs-fc6e6996-d30d-455b-b92f-f1252092f225" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-fc6e6996-d30d-455b-b92f-f1252092f225" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0c6cfcea-6bb6-43a2-af5f-8b72fd7d5be4" class="xr-var-data-in" type="checkbox"><label for="data-0c6cfcea-6bb6-43a2-af5f-8b72fd7d5be4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([0.0000e+00, 1.0000e+01, 2.0000e+01, ..., 2.6236e+05, 2.6237e+05,
+       2.6238e+05], shape=(26239,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(16694,), meta=np.ndarray&gt;</div><input id="attrs-645ebc29-9c06-40d7-852f-121c6b00385c" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-645ebc29-9c06-40d7-852f-121c6b00385c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f4827213-3cf5-4dfc-baee-03d3a2cf073a" class="xr-var-data-in" type="checkbox"><label for="data-f4827213-3cf5-4dfc-baee-03d3a2cf073a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1028,7 +1068,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(26239,), meta=np.ndarray&gt;</div><input id="attrs-9d869d23-0140-42f8-be02-82418298df83" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-9d869d23-0140-42f8-be02-82418298df83" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6d79cfc4-77f7-4e28-95eb-5bc523560b2f" class="xr-var-data-in" type="checkbox"><label for="data-6d79cfc4-77f7-4e28-95eb-5bc523560b2f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(26239,), meta=np.ndarray&gt;</div><input id="attrs-e124aa96-0d8e-4de0-93e6-8a66850c633b" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-e124aa96-0d8e-4de0-93e6-8a66850c633b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2fa17739-bedf-4a38-9612-91640271db43" class="xr-var-data-in" type="checkbox"><label for="data-2fa17739-bedf-4a38-9612-91640271db43" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1071,7 +1111,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-833eac80-a2e1-4989-9ef9-7832c661a80e" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-833eac80-a2e1-4989-9ef9-7832c661a80e" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>grd</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(2557, 26239), meta=np.ndarray&gt;</div><input id="attrs-29373014-f1fb-4b30-92d5-0cf24477bd9d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-29373014-f1fb-4b30-92d5-0cf24477bd9d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d585d00b-bb3a-4e2d-9494-c54865f44efd" class="xr-var-data-in" type="checkbox"><label for="data-d585d00b-bb3a-4e2d-9494-c54865f44efd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;u2', 'long_name': 'measurement data set for GRD IW'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>measurement data set for GRD IW</dd></dl></div><div class="xr-var-data">
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-dfb222e6-bb7c-452b-a686-2a57f2bc9d0c" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-dfb222e6-bb7c-452b-a686-2a57f2bc9d0c" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>grd</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(2557, 26239), meta=np.ndarray&gt;</div><input id="attrs-a247943b-3428-4dfe-8702-be252f27bf80" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a247943b-3428-4dfe-8702-be252f27bf80" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-57616a2a-80ab-459e-b47c-493c68bcc2f4" class="xr-var-data-in" type="checkbox"><label for="data-57616a2a-80ab-459e-b47c-493c68bcc2f4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;u2', 'long_name': 'measurement data set for GRD IW'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>measurement data set for GRD IW</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1114,33 +1154,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-b7d9a82a-ebb1-4353-98e0-59f1fc25024b" class="xr-section-summary-in" type="checkbox"><label for="section-b7d9a82a-ebb1-4353-98e0-59f1fc25024b" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>azimuth_time</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-20e759be-4350-4083-82e9-4b30f244b38d" class="xr-index-data-in" type="checkbox"><label for="index-20e759be-4350-4083-82e9-4b30f244b38d" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex([   '2017-05-08 16:48:30.467916',
-               '2017-05-08 16:48:30.469413574',
-               '2017-05-08 16:48:30.470911148',
-               '2017-05-08 16:48:30.472408722',
-               '2017-05-08 16:48:30.473906296',
-               '2017-05-08 16:48:30.475403870',
-               '2017-05-08 16:48:30.476901444',
-               '2017-05-08 16:48:30.478399018',
-               '2017-05-08 16:48:30.479896592',
-               '2017-05-08 16:48:30.481394166',
-               ...
-               '2017-05-08 16:48:55.453440833',
-               '2017-05-08 16:48:55.454938407',
-               '2017-05-08 16:48:55.456435981',
-               '2017-05-08 16:48:55.457933555',
-               '2017-05-08 16:48:55.459431129',
-               '2017-05-08 16:48:55.460928703',
-               '2017-05-08 16:48:55.462426277',
-               '2017-05-08 16:48:55.463923851',
-               '2017-05-08 16:48:55.465421425',
-                  '2017-05-08 16:48:55.466919'],
-              dtype='datetime64[ns]', name='azimuth_time', length=16694, freq=None))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>ground_range</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-1c3bdf7a-6f6c-484c-9031-f65e9e8b6eaf" class="xr-index-data-in" type="checkbox"><label for="index-1c3bdf7a-6f6c-484c-9031-f65e9e8b6eaf" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([     0.0,     10.0,     20.0,     30.0,     40.0,     50.0,     60.0,
-           70.0,     80.0,     90.0,
-       ...
-       262290.0, 262300.0, 262310.0, 262320.0, 262330.0, 262340.0, 262350.0,
-       262360.0, 262370.0, 262380.0],
-      dtype='float64', name='ground_range', length=26239))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-45f00578-c510-41d5-9f23-36bc30d300ee" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-45f00578-c510-41d5-9f23-36bc30d300ee" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+</div></li></ul></div></li></ul></div></div>
 </div>
 </div>
 <p>Antoher way to open a subgroup is converting the information showed on the data tree to a data set information, using <code>.to_dataset()</code> function.</p>
@@ -1169,9 +1183,7 @@ Data variables:
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -1250,6 +1262,7 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .xr-text-repr-fallback {
@@ -1272,11 +1285,18 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name,
+.xr-group-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
+.xr-group-name::before {
+  content: "📁";
+  padding-right: 0.3em;
+}
+
+.xr-group-name,
 .xr-obj-type {
   color: var(--xr-font-color2);
 }
@@ -1285,6 +1305,8 @@ body.vscode-dark {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
@@ -1295,6 +1317,7 @@ body.vscode-dark {
   display: inline-block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
 .xr-section-item input + label {
@@ -1353,7 +1376,6 @@ body.vscode-dark {
 .xr-section-summary,
 .xr-section-inline-details {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -1363,11 +1385,38 @@ body.vscode-dark {
 .xr-section-details {
   display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 20px auto;
+  width: 100%;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 20px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
 }
 
 .xr-array-wrap {
@@ -1605,11 +1654,11 @@ Coordinates:
     line          (azimuth_time) int64 134kB dask.array&lt;chunksize=(16694,), meta=np.ndarray&gt;
     pixel         (ground_range) int64 210kB dask.array&lt;chunksize=(26239,), meta=np.ndarray&gt;
 Data variables:
-    grd           (azimuth_time, ground_range) uint16 876MB dask.array&lt;chunksize=(2557, 26239), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-05653899-e5bd-4478-a74a-c4a136adb04a" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-05653899-e5bd-4478-a74a-c4a136adb04a" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 16694</li><li><span class="xr-has-index">ground_range</span>: 26239</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-ccfbede1-27af-4848-a856-be50078d54d1" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-ccfbede1-27af-4848-a856-be50078d54d1" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:48:30.467916 ... 2...</div><input id="attrs-c306b13e-ff0d-4fe2-af64-60fef4532859" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c306b13e-ff0d-4fe2-af64-60fef4532859" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-cbd85dc6-2422-410d-abb4-212286e14dab" class="xr-var-data-in" type="checkbox"><label for="data-cbd85dc6-2422-410d-abb4-212286e14dab" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:48:30.467916000', '2017-05-08T16:48:30.469413574',
+    grd           (azimuth_time, ground_range) uint16 876MB dask.array&lt;chunksize=(2557, 26239), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-3b227384-5b7e-432c-949e-007c79930b36" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-3b227384-5b7e-432c-949e-007c79930b36" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 16694</li><li><span class="xr-has-index">ground_range</span>: 26239</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-ddb29748-aa75-48b1-aa36-6ecedca764e6" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-ddb29748-aa75-48b1-aa36-6ecedca764e6" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:48:30.467916 ... 2...</div><input id="attrs-001d527a-3534-459a-970f-6900213051f9" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-001d527a-3534-459a-970f-6900213051f9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f85c3cb2-6fad-4d96-8a7b-330f988eca0f" class="xr-var-data-in" type="checkbox"><label for="data-f85c3cb2-6fad-4d96-8a7b-330f988eca0f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:48:30.467916000', '2017-05-08T16:48:30.469413574',
        '2017-05-08T16:48:30.470911148', ..., '2017-05-08T16:48:55.463923851',
        '2017-05-08T16:48:55.465421425', '2017-05-08T16:48:55.466919000'],
-      shape=(16694,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 10.0 ... 2.624e+05 2.624e+05</div><input id="attrs-625cd5c7-43dd-4283-ac34-1b1bc5554632" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-625cd5c7-43dd-4283-ac34-1b1bc5554632" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ac752be3-b61c-46f5-a669-8eb684f91ef0" class="xr-var-data-in" type="checkbox"><label for="data-ac752be3-b61c-46f5-a669-8eb684f91ef0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([0.0000e+00, 1.0000e+01, 2.0000e+01, ..., 2.6236e+05, 2.6237e+05,
-       2.6238e+05], shape=(26239,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(16694,), meta=np.ndarray&gt;</div><input id="attrs-d2973f0c-ccb9-4582-9928-2e6fdcf798ce" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-d2973f0c-ccb9-4582-9928-2e6fdcf798ce" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1d5fa675-604c-4910-b1df-033571e3175a" class="xr-var-data-in" type="checkbox"><label for="data-1d5fa675-604c-4910-b1df-033571e3175a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+      shape=(16694,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 10.0 ... 2.624e+05 2.624e+05</div><input id="attrs-87c1dec3-ad2f-4621-b460-2859d7a714ef" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-87c1dec3-ad2f-4621-b460-2859d7a714ef" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d57de4fd-6d7f-40c8-a9f8-9a5d64a637a5" class="xr-var-data-in" type="checkbox"><label for="data-d57de4fd-6d7f-40c8-a9f8-9a5d64a637a5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([0.0000e+00, 1.0000e+01, 2.0000e+01, ..., 2.6236e+05, 2.6237e+05,
+       2.6238e+05], shape=(26239,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(16694,), meta=np.ndarray&gt;</div><input id="attrs-02ee69d3-2988-4072-ae7e-5c0c1188014e" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-02ee69d3-2988-4072-ae7e-5c0c1188014e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-467c87f7-da36-475c-b8fb-b0387da3dd45" class="xr-var-data-in" type="checkbox"><label for="data-467c87f7-da36-475c-b8fb-b0387da3dd45" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1652,7 +1701,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(26239,), meta=np.ndarray&gt;</div><input id="attrs-c2f4338d-d48a-43c7-85c4-79259e203f76" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c2f4338d-d48a-43c7-85c4-79259e203f76" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-af120944-e528-451e-aeeb-3ef0b9107536" class="xr-var-data-in" type="checkbox"><label for="data-af120944-e528-451e-aeeb-3ef0b9107536" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(26239,), meta=np.ndarray&gt;</div><input id="attrs-2a7e3508-26ba-4672-b465-f26705ebf050" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-2a7e3508-26ba-4672-b465-f26705ebf050" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-03b32a22-0bb6-465f-b761-142b8d4a6f46" class="xr-var-data-in" type="checkbox"><label for="data-03b32a22-0bb6-465f-b761-142b8d4a6f46" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1695,7 +1744,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-0076bee6-b9e1-4f5f-b805-8328489d19de" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-0076bee6-b9e1-4f5f-b805-8328489d19de" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>grd</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(2557, 26239), meta=np.ndarray&gt;</div><input id="attrs-c653602b-f2f5-4c03-a0cc-a10b0828662b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c653602b-f2f5-4c03-a0cc-a10b0828662b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-cb4493c4-34e6-4f83-88ec-05d8fcee91e0" class="xr-var-data-in" type="checkbox"><label for="data-cb4493c4-34e6-4f83-88ec-05d8fcee91e0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;u2', 'long_name': 'measurement data set for GRD IW'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>measurement data set for GRD IW</dd></dl></div><div class="xr-var-data">
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-64aecc47-f8fd-4b82-a608-d0e061274009" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-64aecc47-f8fd-4b82-a608-d0e061274009" class="xr-section-summary">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>grd</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(2557, 26239), meta=np.ndarray&gt;</div><input id="attrs-f7c34b2d-7c5d-475b-a7e5-71d3cf40d7bf" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f7c34b2d-7c5d-475b-a7e5-71d3cf40d7bf" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-621233b6-6291-4b11-991e-ac78befa2df5" class="xr-var-data-in" type="checkbox"><label for="data-621233b6-6291-4b11-991e-ac78befa2df5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;u2', 'long_name': 'measurement data set for GRD IW'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>measurement data set for GRD IW</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1738,33 +1787,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-8878a1ae-842d-41e7-9d2b-41300833947c" class="xr-section-summary-in" type="checkbox"><label for="section-8878a1ae-842d-41e7-9d2b-41300833947c" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>azimuth_time</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-e35367ac-58fd-43e1-9736-1eb25920c489" class="xr-index-data-in" type="checkbox"><label for="index-e35367ac-58fd-43e1-9736-1eb25920c489" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex([   '2017-05-08 16:48:30.467916',
-               '2017-05-08 16:48:30.469413574',
-               '2017-05-08 16:48:30.470911148',
-               '2017-05-08 16:48:30.472408722',
-               '2017-05-08 16:48:30.473906296',
-               '2017-05-08 16:48:30.475403870',
-               '2017-05-08 16:48:30.476901444',
-               '2017-05-08 16:48:30.478399018',
-               '2017-05-08 16:48:30.479896592',
-               '2017-05-08 16:48:30.481394166',
-               ...
-               '2017-05-08 16:48:55.453440833',
-               '2017-05-08 16:48:55.454938407',
-               '2017-05-08 16:48:55.456435981',
-               '2017-05-08 16:48:55.457933555',
-               '2017-05-08 16:48:55.459431129',
-               '2017-05-08 16:48:55.460928703',
-               '2017-05-08 16:48:55.462426277',
-               '2017-05-08 16:48:55.463923851',
-               '2017-05-08 16:48:55.465421425',
-                  '2017-05-08 16:48:55.466919'],
-              dtype='datetime64[ns]', name='azimuth_time', length=16694, freq=None))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>ground_range</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-1e31bc21-9e81-48f5-979f-911784604b2e" class="xr-index-data-in" type="checkbox"><label for="index-1e31bc21-9e81-48f5-979f-911784604b2e" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([     0.0,     10.0,     20.0,     30.0,     40.0,     50.0,     60.0,
-           70.0,     80.0,     90.0,
-       ...
-       262290.0, 262300.0, 262310.0, 262320.0, 262330.0, 262340.0, 262350.0,
-       262360.0, 262370.0, 262380.0],
-      dtype='float64', name='ground_range', length=26239))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-a0e6963e-609c-426f-b513-3a7e74c2f8a5" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-a0e6963e-609c-426f-b513-3a7e74c2f8a5" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+</div></li></ul></div></li></ul></div></div>
 </div>
 </div>
 </section>
@@ -1820,9 +1843,7 @@ Data variables:
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -1901,6 +1922,7 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .xr-text-repr-fallback {
@@ -1923,11 +1945,18 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name,
+.xr-group-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
+.xr-group-name::before {
+  content: "📁";
+  padding-right: 0.3em;
+}
+
+.xr-group-name,
 .xr-obj-type {
   color: var(--xr-font-color2);
 }
@@ -1936,6 +1965,8 @@ body.vscode-dark {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
@@ -1946,6 +1977,7 @@ body.vscode-dark {
   display: inline-block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
 .xr-section-item input + label {
@@ -2004,7 +2036,6 @@ body.vscode-dark {
 .xr-section-summary,
 .xr-section-inline-details {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -2014,11 +2045,38 @@ body.vscode-dark {
 .xr-section-details {
   display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 20px auto;
+  width: 100%;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 20px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
 }
 
 .xr-array-wrap {
@@ -2259,7 +2317,7 @@ Data variables:
     beta_nought   (azimuth_time, ground_range) float32 71kB dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;
     dn            (azimuth_time, ground_range) float32 71kB dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;
     gamma         (azimuth_time, ground_range) float32 71kB dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;
-    sigma_nought  (azimuth_time, ground_range) float32 71kB dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-7cd416a7-1403-45ba-b346-263a3475f10d" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-7cd416a7-1403-45ba-b346-263a3475f10d" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 27</li><li><span class="xr-has-index">ground_range</span>: 657</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-3c4add8e-124e-44df-a4c0-babebe874150" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-3c4add8e-124e-44df-a4c0-babebe874150" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:48:30.467916 ... 2...</div><input id="attrs-5a16ee6f-06c1-4206-8b3a-fc6b64ca0225" class="xr-var-attrs-in" type="checkbox"><label for="attrs-5a16ee6f-06c1-4206-8b3a-fc6b64ca0225" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6a55d907-78a1-4f86-b4da-b589b0ce56e0" class="xr-var-data-in" type="checkbox"><label for="data-6a55d907-78a1-4f86-b4da-b589b0ce56e0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['azimuth_time']</dd><dt><span>dtype :</span></dt><dd>&lt;M8[us]</dd><dt><span>long_name :</span></dt><dd>zero doppler azimuth time at which calibration vector applies</dd></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:48:30.467916000', '2017-05-08T16:48:31.467916000',
+    sigma_nought  (azimuth_time, ground_range) float32 71kB dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-c788e995-3408-4d13-bc58-a67c3f0c537d" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-c788e995-3408-4d13-bc58-a67c3f0c537d" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 27</li><li><span class="xr-has-index">ground_range</span>: 657</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-d37ffa9b-ac5f-4059-90d4-81b8243102e1" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d37ffa9b-ac5f-4059-90d4-81b8243102e1" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:48:30.467916 ... 2...</div><input id="attrs-b690d9dc-f5ad-4f07-8b0c-4df3fb60ab2b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b690d9dc-f5ad-4f07-8b0c-4df3fb60ab2b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-cc6a6855-c9da-41b1-aed6-c53afad9648e" class="xr-var-data-in" type="checkbox"><label for="data-cc6a6855-c9da-41b1-aed6-c53afad9648e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['azimuth_time']</dd><dt><span>dtype :</span></dt><dd>&lt;M8[us]</dd><dt><span>long_name :</span></dt><dd>zero doppler azimuth time at which calibration vector applies</dd></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:48:30.467916000', '2017-05-08T16:48:31.467916000',
        '2017-05-08T16:48:32.467916000', '2017-05-08T16:48:33.467916000',
        '2017-05-08T16:48:34.467916000', '2017-05-08T16:48:35.467916000',
        '2017-05-08T16:48:36.467916000', '2017-05-08T16:48:37.467916000',
@@ -2272,8 +2330,8 @@ Data variables:
        '2017-05-08T16:48:50.467916000', '2017-05-08T16:48:51.467916000',
        '2017-05-08T16:48:52.467916000', '2017-05-08T16:48:53.467916000',
        '2017-05-08T16:48:54.467916000', '2017-05-08T16:48:55.467916000',
-       '2017-05-08T16:48:56.467916000'], dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 6.677e+06 ... 4.38e+09</div><input id="attrs-0af20c08-e367-4335-9bac-dbee80cbca6b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0af20c08-e367-4335-9bac-dbee80cbca6b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0dad457b-44fb-45e2-aafd-0e1e13f79d15" class="xr-var-data-in" type="checkbox"><label for="data-0dad457b-44fb-45e2-aafd-0e1e13f79d15" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['ground_range']</dd><dt><span>dtype :</span></dt><dd>&lt;f8</dd></dl></div><div class="xr-var-data"><pre>array([0.000000e+00, 6.677200e+06, 1.335440e+07, ..., 4.366889e+09,
-       4.373566e+09, 4.379909e+09], shape=(657,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">uint32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27,), meta=np.ndarray&gt;</div><input id="attrs-56280c90-6ec8-424c-bb16-d5e9cec74685" class="xr-var-attrs-in" type="checkbox"><label for="attrs-56280c90-6ec8-424c-bb16-d5e9cec74685" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a93a1894-c187-4495-9ef6-28d61201b0e8" class="xr-var-data-in" type="checkbox"><label for="data-a93a1894-c187-4495-9ef6-28d61201b0e8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['azimuth_time']</dd><dt><span>dtype :</span></dt><dd>&lt;u4</dd><dt><span>long_name :</span></dt><dd>image line at which the calibration vector applies</dd></dl></div><div class="xr-var-data">
+       '2017-05-08T16:48:56.467916000'], dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 6.677e+06 ... 4.38e+09</div><input id="attrs-414fda03-0337-419a-85c2-1f672fd72aac" class="xr-var-attrs-in" type="checkbox"><label for="attrs-414fda03-0337-419a-85c2-1f672fd72aac" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-78202d53-6aeb-4393-bd55-ef5f335d139c" class="xr-var-data-in" type="checkbox"><label for="data-78202d53-6aeb-4393-bd55-ef5f335d139c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['ground_range']</dd><dt><span>dtype :</span></dt><dd>&lt;f8</dd></dl></div><div class="xr-var-data"><pre>array([0.000000e+00, 6.677200e+06, 1.335440e+07, ..., 4.366889e+09,
+       4.373566e+09, 4.379909e+09], shape=(657,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">uint32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27,), meta=np.ndarray&gt;</div><input id="attrs-5d089187-2342-4c36-93cc-8818bf6cfffd" class="xr-var-attrs-in" type="checkbox"><label for="attrs-5d089187-2342-4c36-93cc-8818bf6cfffd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-847583a8-a635-49d8-8a48-bcccaa1045d4" class="xr-var-data-in" type="checkbox"><label for="data-847583a8-a635-49d8-8a48-bcccaa1045d4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['azimuth_time']</dd><dt><span>dtype :</span></dt><dd>&lt;u4</dd><dt><span>long_name :</span></dt><dd>image line at which the calibration vector applies</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2316,7 +2374,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">uint32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(657,), meta=np.ndarray&gt;</div><input id="attrs-6513673e-1341-456c-8a46-f515597d91d2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6513673e-1341-456c-8a46-f515597d91d2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-61caf8af-9bc6-4415-8cd0-2aa74e7cd114" class="xr-var-data-in" type="checkbox"><label for="data-61caf8af-9bc6-4415-8cd0-2aa74e7cd114" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['ground_range']</dd><dt><span>dtype :</span></dt><dd>&lt;u4</dd><dt><span>long_name :</span></dt><dd>image pixel at which the calibration vector applies (this array contains the count attribute number of integer values (i.e. one value per point in the noise vector); the maximum length of this array is one value for every pixel in an image line, however in general the vector is subsampled)</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">uint32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(657,), meta=np.ndarray&gt;</div><input id="attrs-84863582-e2ba-49a9-9d73-80e6348fddf5" class="xr-var-attrs-in" type="checkbox"><label for="attrs-84863582-e2ba-49a9-9d73-80e6348fddf5" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7581d147-ccc6-47b4-8aba-75f058169c90" class="xr-var-data-in" type="checkbox"><label for="data-7581d147-ccc6-47b4-8aba-75f058169c90" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['ground_range']</dd><dt><span>dtype :</span></dt><dd>&lt;u4</dd><dt><span>long_name :</span></dt><dd>image pixel at which the calibration vector applies (this array contains the count attribute number of integer values (i.e. one value per point in the noise vector); the maximum length of this array is one value for every pixel in an image line, however in general the vector is subsampled)</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2359,7 +2417,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-315603cf-c04e-4177-b3d3-2d824974382d" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-315603cf-c04e-4177-b3d3-2d824974382d" class="xr-section-summary">Data variables: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>beta_nought</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</div><input id="attrs-39e06590-4244-4957-b370-e005f76593e7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-39e06590-4244-4957-b370-e005f76593e7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c48351ed-bcbb-4577-a7e5-67d69a249b05" class="xr-var-data-in" type="checkbox"><label for="data-c48351ed-bcbb-4577-a7e5-67d69a249b05" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;f4', 'long_name': 'beta nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)'}</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>beta nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd></dl></div><div class="xr-var-data">
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-af91ac81-5988-4dcb-94c2-dd4ed38adc03" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-af91ac81-5988-4dcb-94c2-dd4ed38adc03" class="xr-section-summary">Data variables: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>beta_nought</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</div><input id="attrs-14935c2f-84c9-44e7-becc-25f73460ab18" class="xr-var-attrs-in" type="checkbox"><label for="attrs-14935c2f-84c9-44e7-becc-25f73460ab18" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e0a84b6d-08a8-4744-b465-411e8e8a18f2" class="xr-var-data-in" type="checkbox"><label for="data-e0a84b6d-08a8-4744-b465-411e8e8a18f2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;f4', 'long_name': 'beta nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)'}</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>beta nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2402,7 +2460,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>dn</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</div><input id="attrs-52aa9155-c059-4b7b-8bf0-36c840da633e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-52aa9155-c059-4b7b-8bf0-36c840da633e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ab78fd2b-178a-4aaa-abd4-db30444c1e80" class="xr-var-data-in" type="checkbox"><label for="data-ab78fd2b-178a-4aaa-abd4-db30444c1e80" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;f4', 'long_name': 'digital number calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)'}</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>digital number calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>dn</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</div><input id="attrs-2c221cc5-f05d-42e6-920d-07f8dfd9c143" class="xr-var-attrs-in" type="checkbox"><label for="attrs-2c221cc5-f05d-42e6-920d-07f8dfd9c143" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-cda5f752-a5d2-4f09-87ce-9963661a6f1f" class="xr-var-data-in" type="checkbox"><label for="data-cda5f752-a5d2-4f09-87ce-9963661a6f1f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;f4', 'long_name': 'digital number calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)'}</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>digital number calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2445,7 +2503,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>gamma</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</div><input id="attrs-1e49070a-6af8-4636-8fbf-7de757f5f8f1" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1e49070a-6af8-4636-8fbf-7de757f5f8f1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-38a43a89-b676-4112-b105-f0585432fe2c" class="xr-var-data-in" type="checkbox"><label for="data-38a43a89-b676-4112-b105-f0585432fe2c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;f4', 'long_name': 'gamma calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)'}</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>gamma calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>gamma</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</div><input id="attrs-bee8f942-aad2-49b0-b8ea-6558d1893bfc" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bee8f942-aad2-49b0-b8ea-6558d1893bfc" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a8f2a2da-4d4d-4cb9-9ca0-ab3a9071ccf7" class="xr-var-data-in" type="checkbox"><label for="data-a8f2a2da-4d4d-4cb9-9ca0-ab3a9071ccf7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;f4', 'long_name': 'gamma calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)'}</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>gamma calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2488,7 +2546,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>sigma_nought</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</div><input id="attrs-ce5689b1-72d1-44d1-8f90-e17715879546" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ce5689b1-72d1-44d1-8f90-e17715879546" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f651b666-a3f8-4450-b5f6-ed2fefc22397" class="xr-var-data-in" type="checkbox"><label for="data-f651b666-a3f8-4450-b5f6-ed2fefc22397" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;f4', 'long_name': 'sigma nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)'}</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>sigma nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>sigma_nought</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(27, 657), meta=np.ndarray&gt;</div><input id="attrs-4b303d6c-d38a-4552-b4a0-62c862a524ce" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4b303d6c-d38a-4552-b4a0-62c862a524ce" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6dba3a2e-146c-4877-8987-7b4777ed08b3" class="xr-var-data-in" type="checkbox"><label for="data-6dba3a2e-146c-4877-8987-7b4777ed08b3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;f4', 'long_name': 'sigma nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)'}</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>sigma nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2531,26 +2589,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-36ce44bf-8f75-4999-89a3-523acaa106f5" class="xr-section-summary-in" type="checkbox"><label for="section-36ce44bf-8f75-4999-89a3-523acaa106f5" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>azimuth_time</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-474e4363-61d4-4132-9bc4-1289bdd310df" class="xr-index-data-in" type="checkbox"><label for="index-474e4363-61d4-4132-9bc4-1289bdd310df" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2017-05-08 16:48:30.467916', '2017-05-08 16:48:31.467916',
-               '2017-05-08 16:48:32.467916', '2017-05-08 16:48:33.467916',
-               '2017-05-08 16:48:34.467916', '2017-05-08 16:48:35.467916',
-               '2017-05-08 16:48:36.467916', '2017-05-08 16:48:37.467916',
-               '2017-05-08 16:48:38.467916', '2017-05-08 16:48:39.467916',
-               '2017-05-08 16:48:40.467916', '2017-05-08 16:48:41.467916',
-               '2017-05-08 16:48:42.467916', '2017-05-08 16:48:43.467916',
-               '2017-05-08 16:48:44.467916', '2017-05-08 16:48:45.467916',
-               '2017-05-08 16:48:46.467916', '2017-05-08 16:48:47.467916',
-               '2017-05-08 16:48:48.467916', '2017-05-08 16:48:49.467916',
-               '2017-05-08 16:48:50.467916', '2017-05-08 16:48:51.467916',
-               '2017-05-08 16:48:52.467916', '2017-05-08 16:48:53.467916',
-               '2017-05-08 16:48:54.467916', '2017-05-08 16:48:55.467916',
-               '2017-05-08 16:48:56.467916'],
-              dtype='datetime64[ns]', name='azimuth_time', freq=None))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>ground_range</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-9a8b7bd1-894c-40d2-9323-82443ac1422c" class="xr-index-data-in" type="checkbox"><label for="index-9a8b7bd1-894c-40d2-9323-82443ac1422c" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([         0.0,    6677200.0,   13354400.0,   20031600.0,   26708800.0,
-         33386000.0,   40063200.0,   46740400.0,   53417600.0,   60094800.0,
-       ...
-       4320148400.0, 4326825600.0, 4333502800.0, 4340180000.0, 4346857200.0,
-       4353534400.0, 4360211600.0, 4366888800.0, 4373566000.0, 4379909340.0],
-      dtype='float64', name='ground_range', length=657))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-c3c74b63-e5a4-46de-b110-299df0024420" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-c3c74b63-e5a4-46de-b110-299df0024420" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+</div></li></ul></div></li></ul></div></div>
 </div>
 </div>
 <div id="36" class="cell" data-execution_count="10">
@@ -2587,9 +2626,7 @@ Data variables:
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -2668,6 +2705,7 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .xr-text-repr-fallback {
@@ -2690,11 +2728,18 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name,
+.xr-group-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
+.xr-group-name::before {
+  content: "📁";
+  padding-right: 0.3em;
+}
+
+.xr-group-name,
 .xr-obj-type {
   color: var(--xr-font-color2);
 }
@@ -2703,6 +2748,8 @@ body.vscode-dark {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
@@ -2713,6 +2760,7 @@ body.vscode-dark {
   display: inline-block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
 .xr-section-item input + label {
@@ -2771,7 +2819,6 @@ body.vscode-dark {
 .xr-section-summary,
 .xr-section-inline-details {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -2781,11 +2828,38 @@ body.vscode-dark {
 .xr-section-details {
   display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 20px auto;
+  width: 100%;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 20px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
 }
 
 .xr-array-wrap {
@@ -3029,14 +3103,14 @@ Data variables:
     incidence_angle       (azimuth_time, ground_range) float64 2kB dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;
     latitude              (azimuth_time, ground_range) float64 2kB dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;
     longitude             (azimuth_time, ground_range) float64 2kB dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;
-    slant_range_time_gcp  (azimuth_time, ground_range) float64 2kB dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-c981ba6c-b854-4b2b-9c66-c71171824ea7" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-c981ba6c-b854-4b2b-9c66-c71171824ea7" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 10</li><li><span class="xr-has-index">ground_range</span>: 21</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-bb1968dd-9383-4590-bafa-ffc368e2fc61" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-bb1968dd-9383-4590-bafa-ffc368e2fc61" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:48:30.467916 ... 2...</div><input id="attrs-be807adb-4e69-48dc-8d53-d913b0adf090" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-be807adb-4e69-48dc-8d53-d913b0adf090" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bb91607e-c75b-4813-b61f-9e5555465794" class="xr-var-data-in" type="checkbox"><label for="data-bb91607e-c75b-4813-b61f-9e5555465794" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:48:30.467916000', '2017-05-08T16:48:33.469054000',
+    slant_range_time_gcp  (azimuth_time, ground_range) float64 2kB dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-d6e3cf69-5772-4f2e-9f33-70c855463a35" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-d6e3cf69-5772-4f2e-9f33-70c855463a35" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 10</li><li><span class="xr-has-index">ground_range</span>: 21</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-00042284-8547-4c2b-bf48-18ef7ef7e973" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-00042284-8547-4c2b-bf48-18ef7ef7e973" class="xr-section-summary">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:48:30.467916 ... 2...</div><input id="attrs-cafa5a74-eb87-43e8-a97d-f21c2461ffcf" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-cafa5a74-eb87-43e8-a97d-f21c2461ffcf" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2a4e701f-4698-4646-b443-cfb78ddc6e20" class="xr-var-data-in" type="checkbox"><label for="data-2a4e701f-4698-4646-b443-cfb78ddc6e20" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:48:30.467916000', '2017-05-08T16:48:33.469054000',
        '2017-05-08T16:48:36.470192000', '2017-05-08T16:48:39.471330000',
        '2017-05-08T16:48:42.472469000', '2017-05-08T16:48:45.473607000',
        '2017-05-08T16:48:48.474745000', '2017-05-08T16:48:51.475884000',
        '2017-05-08T16:48:54.477022000', '2017-05-08T16:48:55.466919000'],
-      dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 1.312e+04 ... 2.624e+05</div><input id="attrs-b8462c56-70a4-425b-969f-229daea04e3d" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b8462c56-70a4-425b-969f-229daea04e3d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1fe9f1b3-f4ae-4ebe-9dda-0673a57875ee" class="xr-var-data-in" type="checkbox"><label for="data-1fe9f1b3-f4ae-4ebe-9dda-0673a57875ee" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([     0.,  13120.,  26240.,  39360.,  52480.,  65600.,  78720.,  91840.,
+      dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 1.312e+04 ... 2.624e+05</div><input id="attrs-c092346b-5ce3-4571-9faf-66ad9672f2ce" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c092346b-5ce3-4571-9faf-66ad9672f2ce" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b927aaa6-65e3-4661-b6b8-da08d10a2769" class="xr-var-data-in" type="checkbox"><label for="data-b927aaa6-65e3-4661-b6b8-da08d10a2769" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([     0.,  13120.,  26240.,  39360.,  52480.,  65600.,  78720.,  91840.,
        104960., 118080., 131200., 144320., 157440., 170560., 183680., 196800.,
-       209920., 223040., 236160., 249280., 262380.])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">uint32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10,), meta=np.ndarray&gt;</div><input id="attrs-b2553f3c-a44a-4d83-a236-ec3e01e7c73b" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b2553f3c-a44a-4d83-a236-ec3e01e7c73b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-504dbd51-03b7-4ddd-8a5e-ff9a8372c64c" class="xr-var-data-in" type="checkbox"><label for="data-504dbd51-03b7-4ddd-8a5e-ff9a8372c64c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+       209920., 223040., 236160., 249280., 262380.])</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">uint32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10,), meta=np.ndarray&gt;</div><input id="attrs-5da7791d-ac96-4b87-ac9d-7561c2172d09" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-5da7791d-ac96-4b87-ac9d-7561c2172d09" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2d4d73cf-ade6-43dc-8406-fd089763a0bd" class="xr-var-data-in" type="checkbox"><label for="data-2d4d73cf-ade6-43dc-8406-fd089763a0bd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3079,7 +3153,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">uint32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(21,), meta=np.ndarray&gt;</div><input id="attrs-5357a0ac-d4b1-4015-b789-91d4b233377b" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-5357a0ac-d4b1-4015-b789-91d4b233377b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-de33253c-d712-4dfa-ac57-f4d11c7e8a9f" class="xr-var-data-in" type="checkbox"><label for="data-de33253c-d712-4dfa-ac57-f4d11c7e8a9f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">uint32</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(21,), meta=np.ndarray&gt;</div><input id="attrs-419f1174-9e61-4069-9956-2d690d201ece" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-419f1174-9e61-4069-9956-2d690d201ece" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7e947e40-166d-4407-9592-628729030a29" class="xr-var-data-in" type="checkbox"><label for="data-7e947e40-166d-4407-9592-628729030a29" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3122,7 +3196,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-df65ffc8-0211-4f30-9ed4-32a2d0008462" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-df65ffc8-0211-4f30-9ed4-32a2d0008462" class="xr-section-summary">Data variables: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>azimuth_time_gcp</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-9668c6fe-9e71-4e2c-8a72-87d238b00699" class="xr-var-attrs-in" type="checkbox"><label for="attrs-9668c6fe-9e71-4e2c-8a72-87d238b00699" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-279ee737-c3e3-48ab-aaa5-7ac919f7efba" class="xr-var-data-in" type="checkbox"><label for="data-279ee737-c3e3-48ab-aaa5-7ac919f7efba" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-efda7b0a-a9bd-4fc7-8336-0e28c1ef698e" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-efda7b0a-a9bd-4fc7-8336-0e28c1ef698e" class="xr-section-summary">Data variables: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>azimuth_time_gcp</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-4bb4c8c9-a125-45b8-87e6-5023312c03e9" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4bb4c8c9-a125-45b8-87e6-5023312c03e9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6b6dde5e-f21f-4c24-9eeb-311ab35bcb09" class="xr-var-data-in" type="checkbox"><label for="data-6b6dde5e-f21f-4c24-9eeb-311ab35bcb09" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3165,7 +3239,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>elevation_angle</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-7193ad4b-816f-4190-9167-53b78a744d0e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7193ad4b-816f-4190-9167-53b78a744d0e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1f4b6aa7-9462-4f26-b804-7468c5453213" class="xr-var-data-in" type="checkbox"><label for="data-1f4b6aa7-9462-4f26-b804-7468c5453213" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>elevation_angle</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-3315de89-4d89-4a7f-a304-5991bd565a97" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3315de89-4d89-4a7f-a304-5991bd565a97" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a0ff4d58-ee50-4a4a-8b9d-cf2e3fcd8ef0" class="xr-var-data-in" type="checkbox"><label for="data-a0ff4d58-ee50-4a4a-8b9d-cf2e3fcd8ef0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3208,7 +3282,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>height</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-3016e8b3-9800-4cf8-8e9d-9ad5bf2492cc" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3016e8b3-9800-4cf8-8e9d-9ad5bf2492cc" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3de8457c-132c-4eb7-a636-4a5bd012da03" class="xr-var-data-in" type="checkbox"><label for="data-3de8457c-132c-4eb7-a636-4a5bd012da03" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>height</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-ae76ff94-5c5c-4dc5-a615-2b385930fd80" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ae76ff94-5c5c-4dc5-a615-2b385930fd80" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-64f88aa3-d24d-41a0-9eb2-b2795cdba8f2" class="xr-var-data-in" type="checkbox"><label for="data-64f88aa3-d24d-41a0-9eb2-b2795cdba8f2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3251,7 +3325,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>incidence_angle</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-ac822f25-0941-4213-90f4-95025f2d37a3" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ac822f25-0941-4213-90f4-95025f2d37a3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b17d5aa8-90a9-4bdc-8b88-f63af91bf895" class="xr-var-data-in" type="checkbox"><label for="data-b17d5aa8-90a9-4bdc-8b88-f63af91bf895" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>incidence_angle</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-a50b4469-cadc-4627-9321-5c0176907b2b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a50b4469-cadc-4627-9321-5c0176907b2b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ce13a5d2-e196-47b5-ab52-8f9b2a92e1f2" class="xr-var-data-in" type="checkbox"><label for="data-ce13a5d2-e196-47b5-ab52-8f9b2a92e1f2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3294,7 +3368,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-183355bc-09df-43de-85a9-b1d7a092feac" class="xr-var-attrs-in" type="checkbox"><label for="attrs-183355bc-09df-43de-85a9-b1d7a092feac" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8966f39c-6e41-40b5-a587-37746e18c4dc" class="xr-var-data-in" type="checkbox"><label for="data-8966f39c-6e41-40b5-a587-37746e18c4dc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-dfe4032c-c7c2-4d8b-8d7d-44f234ebc749" class="xr-var-attrs-in" type="checkbox"><label for="attrs-dfe4032c-c7c2-4d8b-8d7d-44f234ebc749" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3fbb682f-2b5a-4619-86c9-a5e56e1bcd4b" class="xr-var-data-in" type="checkbox"><label for="data-3fbb682f-2b5a-4619-86c9-a5e56e1bcd4b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3337,7 +3411,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-41d0780e-beba-48b5-ab2f-657ee4072f2e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-41d0780e-beba-48b5-ab2f-657ee4072f2e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d84d6aba-aa96-417d-a676-f84f09b0a4c0" class="xr-var-data-in" type="checkbox"><label for="data-d84d6aba-aa96-417d-a676-f84f09b0a4c0" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-f9674dc3-15fa-48ce-8c14-af026df061da" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f9674dc3-15fa-48ce-8c14-af026df061da" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-dc8993e3-f752-41d3-9eb3-ddbac36bffe3" class="xr-var-data-in" type="checkbox"><label for="data-dc8993e3-f752-41d3-9eb3-ddbac36bffe3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3380,7 +3454,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>slant_range_time_gcp</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-56f36997-7d4f-423d-aa7a-b6cd655c5d2f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-56f36997-7d4f-423d-aa7a-b6cd655c5d2f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c5fbf658-d7e1-46c8-aa3a-a3ca2a391d0e" class="xr-var-data-in" type="checkbox"><label for="data-c5fbf658-d7e1-46c8-aa3a-a3ca2a391d0e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>slant_range_time_gcp</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(10, 21), meta=np.ndarray&gt;</div><input id="attrs-14743577-965f-4240-9ca1-1cbdc56e1b8c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-14743577-965f-4240-9ca1-1cbdc56e1b8c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1431020a-b683-43a8-89f6-fe980c60952b" class="xr-var-data-in" type="checkbox"><label for="data-1431020a-b683-43a8-89f6-fe980c60952b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3423,15 +3497,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-f1643ee5-196f-4e73-a6ff-06aa646646d5" class="xr-section-summary-in" type="checkbox"><label for="section-f1643ee5-196f-4e73-a6ff-06aa646646d5" class="xr-section-summary">Indexes: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>azimuth_time</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-71ad38a3-80a0-4a50-933c-e95910606d4e" class="xr-index-data-in" type="checkbox"><label for="index-71ad38a3-80a0-4a50-933c-e95910606d4e" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2017-05-08 16:48:30.467916', '2017-05-08 16:48:33.469054',
-               '2017-05-08 16:48:36.470192', '2017-05-08 16:48:39.471330',
-               '2017-05-08 16:48:42.472469', '2017-05-08 16:48:45.473607',
-               '2017-05-08 16:48:48.474745', '2017-05-08 16:48:51.475884',
-               '2017-05-08 16:48:54.477022', '2017-05-08 16:48:55.466919'],
-              dtype='datetime64[ns]', name='azimuth_time', freq=None))</pre></div></li><li class="xr-var-item"><div class="xr-index-name"><div>ground_range</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-196fca18-9009-4ce1-bb18-df1029150821" class="xr-index-data-in" type="checkbox"><label for="index-196fca18-9009-4ce1-bb18-df1029150821" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(Index([     0.0,  13120.0,  26240.0,  39360.0,  52480.0,  65600.0,  78720.0,
-        91840.0, 104960.0, 118080.0, 131200.0, 144320.0, 157440.0, 170560.0,
-       183680.0, 196800.0, 209920.0, 223040.0, 236160.0, 249280.0, 262380.0],
-      dtype='float64', name='ground_range'))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-8335b4e6-ad90-49fe-b978-12242853bb46" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-8335b4e6-ad90-49fe-b978-12242853bb46" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+</div></li></ul></div></li></ul></div></div>
 </div>
 </div>
 <div id="40" class="cell" data-execution_count="12">
@@ -3468,9 +3534,7 @@ Data variables:
 </symbol>
 </defs>
 </svg>
-<style>/* CSS stylesheet for displaying xarray objects in jupyterlab.
- *
- */
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
 :root {
   --xr-font-color0: var(
@@ -3549,6 +3613,7 @@ body.vscode-dark {
   display: block !important;
   min-width: 300px;
   max-width: 700px;
+  line-height: 1.6;
 }
 
 .xr-text-repr-fallback {
@@ -3571,11 +3636,18 @@ body.vscode-dark {
 }
 
 .xr-obj-type,
-.xr-array-name {
+.xr-obj-name,
+.xr-group-name {
   margin-left: 2px;
   margin-right: 10px;
 }
 
+.xr-group-name::before {
+  content: "📁";
+  padding-right: 0.3em;
+}
+
+.xr-group-name,
 .xr-obj-type {
   color: var(--xr-font-color2);
 }
@@ -3584,6 +3656,8 @@ body.vscode-dark {
   padding-left: 0 !important;
   display: grid;
   grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .xr-section-item {
@@ -3594,6 +3668,7 @@ body.vscode-dark {
   display: inline-block;
   opacity: 0;
   height: 0;
+  margin: 0;
 }
 
 .xr-section-item input + label {
@@ -3652,7 +3727,6 @@ body.vscode-dark {
 .xr-section-summary,
 .xr-section-inline-details {
   padding-top: 4px;
-  padding-bottom: 4px;
 }
 
 .xr-section-inline-details {
@@ -3662,11 +3736,38 @@ body.vscode-dark {
 .xr-section-details {
   display: none;
   grid-column: 1 / -1;
+  margin-top: 4px;
   margin-bottom: 5px;
 }
 
 .xr-section-summary-in:checked ~ .xr-section-details {
   display: contents;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 20px auto;
+  width: 100%;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 20px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
 }
 
 .xr-array-wrap {
@@ -3903,7 +4004,7 @@ Coordinates:
 Dimensions without coordinates: axis
 Data variables:
     position      (azimuth_time, axis) float64 408B dask.array&lt;chunksize=(17, 3), meta=np.ndarray&gt;
-    velocity      (azimuth_time, axis) float64 408B dask.array&lt;chunksize=(17, 3), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-9e71549b-e875-46b0-9379-95dc2a86c6e1" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-9e71549b-e875-46b0-9379-95dc2a86c6e1" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 17</li><li><span>axis</span>: 3</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-789ced85-94de-4662-b7ff-1294583ce0bb" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-789ced85-94de-4662-b7ff-1294583ce0bb" class="xr-section-summary">Coordinates: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:47:24.054129 ... 2...</div><input id="attrs-71b28a08-c387-44c2-9382-4f098f13c12f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-71b28a08-c387-44c2-9382-4f098f13c12f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3bf34571-8ce7-4b9b-b2a0-f3bceea595d7" class="xr-var-data-in" type="checkbox"><label for="data-3bf34571-8ce7-4b9b-b2a0-f3bceea595d7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['azimuth_time']</dd><dt><span>dtype :</span></dt><dd>&lt;M8[us]</dd><dt><span>long_name :</span></dt><dd>time stamp at which orbit state vectors apply</dd></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:47:24.054129000', '2017-05-08T16:47:34.054128000',
+    velocity      (azimuth_time, axis) float64 408B dask.array&lt;chunksize=(17, 3), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-ba1f78ed-76fa-44d6-b3b3-495e61f38200" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-ba1f78ed-76fa-44d6-b3b3-495e61f38200" class="xr-section-summary" title="Expand/collapse section">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 17</li><li><span>axis</span>: 3</li></ul></div><div class="xr-section-details"></div></li><li class="xr-section-item"><input id="section-490de6c8-92aa-49a9-90e2-23c44d5a8b56" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-490de6c8-92aa-49a9-90e2-23c44d5a8b56" class="xr-section-summary">Coordinates: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2017-05-08T16:47:24.054129 ... 2...</div><input id="attrs-9e27a12f-8396-4c20-8217-d70e4b1a2f7f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-9e27a12f-8396-4c20-8217-d70e4b1a2f7f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-49073467-2b20-4af0-8489-dd1d8a10ad15" class="xr-var-data-in" type="checkbox"><label for="data-49073467-2b20-4af0-8489-dd1d8a10ad15" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['azimuth_time']</dd><dt><span>dtype :</span></dt><dd>&lt;M8[us]</dd><dt><span>long_name :</span></dt><dd>time stamp at which orbit state vectors apply</dd></dl></div><div class="xr-var-data"><pre>array(['2017-05-08T16:47:24.054129000', '2017-05-08T16:47:34.054128000',
        '2017-05-08T16:47:44.054128000', '2017-05-08T16:47:54.054128000',
        '2017-05-08T16:48:04.054129000', '2017-05-08T16:48:14.054128000',
        '2017-05-08T16:48:24.054128000', '2017-05-08T16:48:34.054128000',
@@ -3911,7 +4012,7 @@ Data variables:
        '2017-05-08T16:49:04.054128000', '2017-05-08T16:49:14.054128000',
        '2017-05-08T16:49:24.054129000', '2017-05-08T16:49:34.054128000',
        '2017-05-08T16:49:44.054128000', '2017-05-08T16:49:54.054128000',
-       '2017-05-08T16:50:04.054129000'], dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-b6b6302f-8e60-49ee-89a4-a553d0ad7e4d" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-b6b6302f-8e60-49ee-89a4-a553d0ad7e4d" class="xr-section-summary">Data variables: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>position</span></div><div class="xr-var-dims">(azimuth_time, axis)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(17, 3), meta=np.ndarray&gt;</div><input id="attrs-319db36f-9cd8-4a46-8acb-ab36e935b17c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-319db36f-9cd8-4a46-8acb-ab36e935b17c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d4688b08-2e53-49cf-b9b9-f1a708b53f33" class="xr-var-data-in" type="checkbox"><label for="data-d4688b08-2e53-49cf-b9b9-f1a708b53f33" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time'], 'dimensions': ['azimuth_time', 'axis'], 'dtype': '&lt;f8', 'long_name': 'position vector', 'units': 'm'}</dd><dt><span>dtype :</span></dt><dd>&lt;f8</dd><dt><span>long_name :</span></dt><dd>position vector</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data">
+       '2017-05-08T16:50:04.054129000'], dtype='datetime64[ns]')</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-06b7b653-26eb-402e-8851-b6bd982b323a" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-06b7b653-26eb-402e-8851-b6bd982b323a" class="xr-section-summary">Data variables: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>position</span></div><div class="xr-var-dims">(azimuth_time, axis)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(17, 3), meta=np.ndarray&gt;</div><input id="attrs-38d43987-664c-423c-b312-13fa3d4de492" class="xr-var-attrs-in" type="checkbox"><label for="attrs-38d43987-664c-423c-b312-13fa3d4de492" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-50b00af5-4b6b-4d3d-be18-8fc505acd082" class="xr-var-data-in" type="checkbox"><label for="data-50b00af5-4b6b-4d3d-be18-8fc505acd082" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time'], 'dimensions': ['azimuth_time', 'axis'], 'dtype': '&lt;f8', 'long_name': 'position vector', 'units': 'm'}</dd><dt><span>dtype :</span></dt><dd>&lt;f8</dd><dt><span>long_name :</span></dt><dd>position vector</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3954,7 +4055,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>velocity</span></div><div class="xr-var-dims">(azimuth_time, axis)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(17, 3), meta=np.ndarray&gt;</div><input id="attrs-96c2842c-7b2b-4850-9c73-9337268f3df2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-96c2842c-7b2b-4850-9c73-9337268f3df2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c2a233f9-bcb9-4ab7-bd15-fb7e56adad9d" class="xr-var-data-in" type="checkbox"><label for="data-c2a233f9-bcb9-4ab7-bd15-fb7e56adad9d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time'], 'dimensions': ['azimuth_time', 'axis'], 'dtype': '&lt;f8', 'long_name': 'velocity vector', 'units': 'm/s'}</dd><dt><span>dtype :</span></dt><dd>&lt;f8</dd><dt><span>long_name :</span></dt><dd>velocity vector</dd><dt><span>units :</span></dt><dd>m/s</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>velocity</span></div><div class="xr-var-dims">(azimuth_time, axis)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(17, 3), meta=np.ndarray&gt;</div><input id="attrs-70af52cb-a1c3-4745-bd03-492e30a415f4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-70af52cb-a1c3-4745-bd03-492e30a415f4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6be3175f-cb12-4951-8c0d-b73959791c1a" class="xr-var-data-in" type="checkbox"><label for="data-6be3175f-cb12-4951-8c0d-b73959791c1a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time'], 'dimensions': ['azimuth_time', 'axis'], 'dtype': '&lt;f8', 'long_name': 'velocity vector', 'units': 'm/s'}</dd><dt><span>dtype :</span></dt><dd>&lt;f8</dd><dt><span>long_name :</span></dt><dd>velocity vector</dd><dt><span>units :</span></dt><dd>m/s</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3997,16 +4098,7 @@ Data variables:
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-ec08b4b4-d9fa-42a0-b220-3980655c13c5" class="xr-section-summary-in" type="checkbox"><label for="section-ec08b4b4-d9fa-42a0-b220-3980655c13c5" class="xr-section-summary">Indexes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-index-name"><div>azimuth_time</div></div><div class="xr-index-preview">PandasIndex</div><input type="checkbox" disabled=""><label></label><input id="index-0b09eba4-dfff-4e40-a1b7-56fe93c99cc2" class="xr-index-data-in" type="checkbox"><label for="index-0b09eba4-dfff-4e40-a1b7-56fe93c99cc2" title="Show/Hide index repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-index-data"><pre>PandasIndex(DatetimeIndex(['2017-05-08 16:47:24.054129', '2017-05-08 16:47:34.054128',
-               '2017-05-08 16:47:44.054128', '2017-05-08 16:47:54.054128',
-               '2017-05-08 16:48:04.054129', '2017-05-08 16:48:14.054128',
-               '2017-05-08 16:48:24.054128', '2017-05-08 16:48:34.054128',
-               '2017-05-08 16:48:44.054129', '2017-05-08 16:48:54.054128',
-               '2017-05-08 16:49:04.054128', '2017-05-08 16:49:14.054128',
-               '2017-05-08 16:49:24.054129', '2017-05-08 16:49:34.054128',
-               '2017-05-08 16:49:44.054128', '2017-05-08 16:49:54.054128',
-               '2017-05-08 16:50:04.054129'],
-              dtype='datetime64[ns]', name='azimuth_time', freq=None))</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-0535dc9e-0d00-44b3-b9cc-78ef4fb10939" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-0535dc9e-0d00-44b3-b9cc-78ef4fb10939" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(0)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"></dl></div></li></ul></div></div>
+</div></li></ul></div></li></ul></div></div>
 </div>
 </div>
 <div id="44" class="cell" data-execution_count="14">
