@@ -2,8 +2,8 @@
 import math
 import numpy as np
 import pandas as pd
-from datetime import datetime
 import xarray as xr                        
+from rasterio.enums import Resampling           # Resampling method for reprojection
 
 # Image processing for water detection
 from skimage.filters import threshold_otsu      # Thresholding (for MNDWI classification)
@@ -30,6 +30,15 @@ def load_dataset(path, band_codes):
         resolution=20,
     )
 
+# Helper function to load datatrees
+def load_datatrees(path):
+    return xr.open_datatree(
+        path,
+        engine="zarr",
+        chunks={},
+        decode_timedelta=False
+    )
+
 # helper function to find the utm zone
 def get_utm_zone(lon: float) -> int:
     return math.ceil((180 + lon) / 6)
@@ -52,6 +61,73 @@ def preprocess_dataset(ds, minx, maxx, miny, maxy, band_map):
     ds_subset = ds_subset.expand_dims(time=[np.datetime64(date)])
 
     return ds_subset
+
+def preprocess_datatree(
+    dtree,
+    minx_utm,
+    miny_utm,
+    maxx_utm,
+    maxy_utm,
+    crs_code
+):
+    """
+    Preprocess a single datatree:
+    - Clip to UTM bounds
+    - Reproject 10m band to 20m
+    - Merge bands into one dataset
+    - Add time coordinate
+    
+    Parameters
+    ----------
+    dtree : xr.DataTree
+        Loaded datatree for one scene
+    minx_utm, miny_utm, maxx_utm, maxy_utm : float
+        Clipping bounds in UTM
+    crs_code : int or str
+        CRS to assign
+    
+    Returns
+    -------
+    xr.Dataset
+        Dataset with bands 'green' and 'swir' and a time dimension
+    """
+    
+    # Extract bands
+    green_10m = dtree.measurements.reflectance.r10m.ds["b03"]
+    swir_20m  = dtree.measurements.reflectance.r20m.ds["b11"]
+    
+    # Clip to UTM bounds
+    green_clip = green_10m.sel(
+        x=slice(minx_utm, maxx_utm),
+        y=slice(maxy_utm, miny_utm)
+    )
+    swir_clip = swir_20m.sel(
+        x=slice(minx_utm, maxx_utm),
+        y=slice(maxy_utm, miny_utm)
+    )
+    
+    # Assign CRS
+    green_clip = green_clip.rio.write_crs(crs_code, inplace=False)
+    swir_clip = swir_clip.rio.write_crs(crs_code, inplace=False)
+    
+    # Reproject high-res to match low-res
+    green_20m = green_clip.rio.reproject_match(
+        swir_clip,
+        resampling=Resampling.nearest,
+        )
+        
+    # Merge bands
+    ds_merged = xr.Dataset({
+        "green": green_20m,
+        "swir": swir_clip
+    })
+    
+    # Add time coordinate
+    date_str = dtree.attrs["stac_discovery"]["properties"]["start_datetime"]
+    date = pd.to_datetime(date_str).date()
+    ds_merged = ds_merged.expand_dims(time=[np.datetime64(date)])
+    
+    return ds_merged
 
 def gww(slice_mndwi: np.ndarray, slice_wo: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
