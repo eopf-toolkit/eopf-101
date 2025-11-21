@@ -176,3 +176,8 @@ jobs:
             echo "Rendering (standalone): $f"
             quarto render "$f" --to html
           done < changed.lst
+        env:
+          BUCKET_NAME: ${{ secrets.RENDER_BUCKET_NAME }}
+          ACCESS_KEY: ${{ secrets.RENDER_BUCKET_ACCESS_KEY }}
+          SECRET_KEY: ${{ secrets.RENDER_BUCKET_SECRET_KEY }}
+          BUCKET_ENDPOINT: ${{ secrets.RENDER_BUCKET_ENDPOINT }}
