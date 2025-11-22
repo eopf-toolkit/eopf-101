@@ -135,7 +135,6 @@ def preprocess_datatree_ndwi(
     miny_utm,
     maxx_utm,
     maxy_utm,
-    crs_code
 ):
     """
     Preprocess a single datatree:
@@ -150,8 +149,6 @@ def preprocess_datatree_ndwi(
         Loaded datatree for one scene
     minx_utm, miny_utm, maxx_utm, maxy_utm : float
         Clipping bounds in UTM
-    crs_code : int or str
-        CRS to assign
     
     Returns
     -------
