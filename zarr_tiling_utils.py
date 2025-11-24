@@ -624,7 +624,7 @@ def compare_chunking_strategies(ds_variants, tile_size=256, tile_x=512, tile_y=5
                 )
                 ax.add_patch(rect_chunk)
 
-        ax.set_title(f'{name}\n{chunks_accessed} chunk{"s" if chunks_accessed > 1 else ""} accessed | {transferred_mb:.2f} MB transferred',
+        ax.set_title(f'{name}\n{chunks_accessed} chunk{"s" if chunks_accessed > 1 else ""} accessed | {transferred_mb:.2f} MBits transferred',
                     fontsize=12, fontweight='bold')
         ax.set_xlabel('X (pixels)')
         ax.set_ylabel('Y (pixels)')
