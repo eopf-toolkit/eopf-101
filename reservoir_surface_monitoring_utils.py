@@ -6,7 +6,7 @@ import xarray as xr
 from rasterio.enums import Resampling           # Resampling method for reprojection
 
 # Image processing for water detection
-from skimage.filters import threshold_otsu      # Thresholding (for MNDWI classification)
+from skimage.filters import threshold_otsu      # Thresholding (for NDWI classification)
 from skimage.feature import canny               # Edge detection
 from skimage.morphology import dilation         # Edge dilation
 from skimage.measure import label               # Connected components labeling
@@ -62,7 +62,7 @@ def preprocess_dataset(ds, minx, maxx, miny, maxy, band_map):
 
     return ds_subset
 
-def preprocess_datatree(
+def _old_preprocess_datatree(
     dtree,
     minx_utm,
     miny_utm,
@@ -129,7 +129,7 @@ def preprocess_datatree(
     
     return ds_merged
 
-def preprocess_datatree_ndwi(
+def preprocess_datatree(
     dtree,
     minx_utm,
     miny_utm,
