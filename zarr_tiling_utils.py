@@ -557,32 +557,37 @@ def visualize_chunks_and_tiles(ds, tile_size=256, num_sample_tiles=4):
 def compare_chunking_strategies(ds_variants, tile_size=256, tile_x=512, tile_y=512):
     """
     Compare how a single tile request maps to chunks in different strategies.
+    Calculates chunks accessed and data transfer volume for each strategy.
     """
     fig, axes = plt.subplots(2, 3, figsize=(18, 12))
     axes = axes.flatten()  # Flatten 2D array to 1D for easy indexing
 
     results = {}
-    
+
     for idx, (name, ds) in enumerate(ds_variants.items()):
         ax = axes[idx]
-        
+
         # Get chunk info
         chunk_y = ds['b04'].chunks[0][0]
         chunk_x = ds['b04'].chunks[1][0]
         height, width = ds.dims['y'], ds.dims['x']
-        
+
+        # Get dtype size
+        dtype_size = ds['b04'].dtype.itemsize
+        num_bands = len([v for v in ds.data_vars if v.startswith('b')])
+
         # Display data
         band_data = ds['b04'].values
         p2, p98 = np.percentile(band_data[band_data > 0], [2, 98])
         band_stretched = np.clip((band_data - p2) / (p98 - p2), 0, 1)
         ax.imshow(band_stretched, cmap='gray', extent=[0, width, height, 0], alpha=0.5)
-        
+
         # Draw chunk grid
         for i in range(0, height + 1, chunk_y):
             ax.axhline(y=i, color='cyan', linewidth=1.5, alpha=0.7)
         for j in range(0, width + 1, chunk_x):
             ax.axvline(x=j, color='cyan', linewidth=1.5, alpha=0.7)
-        
+
         # Draw the test tile
         import matplotlib.patches as mpatches
         rect = mpatches.Rectangle(
@@ -590,15 +595,26 @@ def compare_chunking_strategies(ds_variants, tile_size=256, tile_x=512, tile_y=5
             linewidth=4, edgecolor='red', facecolor='none', linestyle='--'
         )
         ax.add_patch(rect)
-        
+
         # Calculate chunks accessed
         chunk_y_start = int(tile_y / chunk_y)
         chunk_y_end = int((tile_y + tile_size - 1) / chunk_y)
         chunk_x_start = int(tile_x / chunk_x)
         chunk_x_end = int((tile_x + tile_size - 1) / chunk_x)
-        
+
         chunks_accessed = (chunk_y_end - chunk_y_start + 1) * (chunk_x_end - chunk_x_start + 1)
-        
+
+        # Calculate data transfer volumes
+        # Actual tile data needed
+        tile_data_mb = (tile_size * tile_size * dtype_size * num_bands) / (1024 * 1024)
+
+        # Data that must be transferred (full chunks)
+        chunk_size_bytes = chunk_y * chunk_x * dtype_size * num_bands
+        transferred_mb = (chunks_accessed * chunk_size_bytes) / (1024 * 1024)
+
+        # Overhead ratio
+        overhead_ratio = transferred_mb / tile_data_mb if tile_data_mb > 0 else 0
+
         # Highlight accessed chunks
         for cy in range(chunk_y_start, chunk_y_end + 1):
             for cx in range(chunk_x_start, chunk_x_end + 1):
@@ -607,26 +623,46 @@ def compare_chunking_strategies(ds_variants, tile_size=256, tile_x=512, tile_y=5
                     facecolor='red', alpha=0.2, edgecolor='red', linewidth=2
                 )
                 ax.add_patch(rect_chunk)
-        
-        ax.set_title(f'{name}\n{chunks_accessed} chunk{"s" if chunks_accessed > 1 else ""} accessed',
+
+        ax.set_title(f'{name}\n{chunks_accessed} chunk{"s" if chunks_accessed > 1 else ""} accessed | {transferred_mb:.2f} MB transferred',
                     fontsize=12, fontweight='bold')
         ax.set_xlabel('X (pixels)')
         ax.set_ylabel('Y (pixels)')
         ax.set_xlim(0, width)
         ax.set_ylim(height, 0)
-        
-        results[name] = chunks_accessed
+
+        results[name] = {
+            'chunks_accessed': chunks_accessed,
+            'tile_data_mb': tile_data_mb,
+            'transferred_mb': transferred_mb,
+            'overhead_ratio': overhead_ratio,
+            'chunk_size': f'{chunk_y}×{chunk_x}'
+        }
     
     plt.tight_layout()
     plt.show()
-    
+
     # Summary
-    print(f"\n🎯 Chunk Access Comparison for {tile_size}x{tile_size}px Tile:")
-    print("=" * 60)
-    for name, chunks in results.items():
-        efficiency = "✅ Optimal" if chunks == 1 else "⚠️ Acceptable" if chunks <= 4 else "❌ Inefficient"
-        print(f"{name:<25} {chunks:>3} chunks  {efficiency}")
-    
+    print(f"\n🎯 Chunk Access and Data Transfer Comparison for {tile_size}×{tile_size}px Tile:")
+    print("=" * 100)
+    print(f"{'Strategy':<20} {'Chunk Size':<12} {'Chunks':<8} {'Tile Data':<12} {'Transferred':<14} {'Overhead':<10} {'Efficiency'}")
+    print("-" * 100)
+
+    for name, metrics in results.items():
+        chunks = metrics['chunks_accessed']
+        efficiency_label = "✅ Optimal" if chunks == 1 else "⚠️ Acceptable" if chunks <= 4 else "❌ Inefficient"
+
+        print(f"{name:<20} {metrics['chunk_size']:<12} {chunks:<8} "
+              f"{metrics['tile_data_mb']:>8.2f} MB  {metrics['transferred_mb']:>10.2f} MB  "
+              f"{metrics['overhead_ratio']:>8.2f}x  {efficiency_label}")
+
+    print("=" * 100)
+    print(f"\n💡 Interpretation:")
+    print(f"   • Tile Data: Actual data needed for the {tile_size}×{tile_size}px tile")
+    print("   • Transferred: Total data that must be read from storage (full chunks)")
+    print("   • Overhead: Ratio of transferred/needed (lower is better, 1.0x is perfect)")
+    print("   • Optimal: 1 chunk accessed | Acceptable: 2-4 chunks | Inefficient: >4 chunks")
+
     return results
 
 
