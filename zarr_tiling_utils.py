@@ -645,12 +645,26 @@ def compare_chunking_strategies(ds_variants, tile_size=256, tile_x=512, tile_y=5
     # Summary
     print(f"\n🎯 Chunk Access and Data Transfer Comparison for {tile_size}×{tile_size}px Tile:")
     print("=" * 100)
-    print(f"{'Strategy':<20} {'Chunk Size':<12} {'Chunks':<8} {'Tile Data':<12} {'Transferred':<14} {'Overhead':<10} {'Efficiency'}")
+    print(f"{'Strategy':<30} {'Chunk Size':<12} {'Chunks':<8} {'Tile Data':<12} {'Transferred':<14} {'Overhead':<10} {'Efficiency'}")
     print("-" * 100)
 
     for name, metrics in results.items():
         chunks = metrics['chunks_accessed']
-        efficiency_label = "✅ Optimal" if chunks == 1 else "⚠️ Acceptable" if chunks <= 4 else "❌ Inefficient"
+        overhead = metrics['overhead_ratio']
+
+        # Efficiency considers both chunk count (HTTP requests) and data overhead
+        if chunks == 1 and overhead <= 2.0:
+            efficiency_label = "✅ Optimal"
+        elif chunks <= 4 and overhead <= 4.0:
+            efficiency_label = "✅ Good"
+        elif chunks <= 4 and overhead <= 8.0:
+            efficiency_label = "⚠️ Acceptable"
+        elif chunks > 4:
+            efficiency_label = "⚠️ Many requests"
+        elif overhead > 8.0:
+            efficiency_label = "❌ High overhead"
+        else:
+            efficiency_label = "❌ Inefficient"
 
         print(f"{name:<20} {metrics['chunk_size']:<12} {chunks:<8} "
               f"{metrics['tile_data_mb']:>8.2f} MB  {metrics['transferred_mb']:>10.2f} MB  "
@@ -661,7 +675,13 @@ def compare_chunking_strategies(ds_variants, tile_size=256, tile_x=512, tile_y=5
     print(f"   • Tile Data: Actual data needed for the {tile_size}×{tile_size}px tile")
     print("   • Transferred: Total data that must be read from storage (full chunks)")
     print("   • Overhead: Ratio of transferred/needed (lower is better, 1.0x is perfect)")
-    print("   • Optimal: 1 chunk accessed | Acceptable: 2-4 chunks | Inefficient: >4 chunks")
+    print("\n   Efficiency considers BOTH chunk count (HTTP requests) AND data overhead:")
+    print("   • ✅ Optimal: 1 chunk + low overhead (≤2x)")
+    print("   • ✅ Good: 2-4 chunks + low overhead (≤2x)")
+    print("   • ⚠️ Acceptable: Trade-offs between chunk count and overhead")
+    print("   • ⚠️ Many requests: Many small chunks but minimal wasted data")
+    print("   • ❌ High overhead: Reading >10x more data than needed")
+    print("   • ❌ Inefficient: Poor performance on both metrics")
 
     return results
 
