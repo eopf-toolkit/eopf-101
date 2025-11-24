@@ -12,9 +12,9 @@ Key capabilities:
 """
 
 import time
+import matplotlib.pyplot as plt
 import numpy as np
 import xarray as xr
-import zarr
 from typing import Any, Dict, List, Tuple, Optional
 from dataclasses import dataclass
 import psutil
@@ -424,68 +424,6 @@ def downsample_2d_array(
         raise ValueError(f"Unknown method: {method}")
 
 
-def compare_chunking_strategies(
-    strategies: List[ChunkingStrategy],
-    ds: xr.Dataset,
-    zoom_levels: List[int] = [8, 12, 16],
-    tile_size: int = 256
-) -> Dict[str, List[PerformanceMetrics]]:
-    """
-    Compare multiple chunking strategies across zoom levels.
-
-    This is the main benchmarking function for Notebook 2.
-
-    Parameters
-    ----------
-    strategies : List[ChunkingStrategy]
-        Chunking strategies to test
-    ds : xr.Dataset
-        Dataset to benchmark
-    zoom_levels : List[int], default [8, 12, 16]
-        Zoom levels to test
-    tile_size : int, default 256
-        Tile size for benchmarking
-
-    Returns
-    -------
-    Dict[str, List[PerformanceMetrics]]
-        Results keyed by strategy name
-
-    Examples
-    --------
-    >>> strategies = [
-    ...     ChunkingStrategy('small', 256, 'Small chunks'),
-    ...     ChunkingStrategy('medium', 512, 'Medium chunks'),
-    ...     ChunkingStrategy('large', 1024, 'Large chunks')
-    ... ]
-    >>> results = compare_chunking_strategies(strategies, ds)
-    """
-    results = {}
-
-    for strategy in strategies:
-        print(f"\\n📊 Testing strategy: {strategy.name} ({strategy.chunk_size}x{strategy.chunk_size})")
-        strategy_results = []
-
-        # Rechunk dataset
-        chunks = {'y': strategy.chunk_size, 'x': strategy.chunk_size}
-        ds_chunked = ds.chunk(chunks)
-
-        for zoom in zoom_levels:
-            print(f"  Zoom level {zoom}...", end=' ')
-            metrics = benchmark_tile_generation(
-                ds_chunked,
-                tile_size=tile_size,
-                zoom_level=zoom,
-                num_tiles=5
-            )
-            strategy_results.append(metrics)
-            print(f"{metrics.tile_generation_time:.3f}s per tile")
-
-        results[strategy.name] = strategy_results
-
-    return results
-
-
 def print_performance_summary(results: Dict[str, List[PerformanceMetrics]]) -> None:
     """
     Print a formatted summary of benchmarking results.
@@ -510,6 +448,186 @@ def print_performance_summary(results: Dict[str, List[PerformanceMetrics]]) -> N
                   f"{m.data_transferred_mb:<12.2f}")
 
     print("="*80)
+    
+
+def visualize_chunks_and_tiles(ds, tile_size=256, num_sample_tiles=4):
+    """
+    Visualize spatial relationship between Zarr chunks and tile requests.
+    
+    Shows chunk boundaries on actual data with example tile requests overlaid.
+    """
+    import matplotlib.patches as mpatches
+    
+    # Get chunk and dimension info from the ACTUAL dataset chunks
+    chunk_y = ds['b04'].chunks[0][0]
+    chunk_x = ds['b04'].chunks[1][0]
+    height, width = ds.dims['y'], ds.dims['x']
+    
+    print(f"📐 Using ACTUAL chunk dimensions from dataset:")
+    print(f"   Chunk size: {chunk_y}×{chunk_x} pixels (from ds['b04'].chunks)")
+    print(f"   Dataset size: {height}×{width} pixels")
+    print(f"   Tile size for demo: {tile_size}×{tile_size} pixels\n")
+    
+    # Create figure
+    fig, ax = plt.subplots(1, 1, figsize=(14, 14))
+    
+    # Display band data as background
+    band_data = ds['b04'].values
+    
+    # Simple contrast stretch
+    p2, p98 = np.percentile(band_data[band_data > 0], [2, 98])
+    band_stretched = np.clip((band_data - p2) / (p98 - p2), 0, 1)
+    
+    ax.imshow(band_stretched, cmap='gray', extent=[0, width, height, 0], alpha=0.7)
+    
+    # Draw chunk grid using ACTUAL chunk dimensions (NOT tile_size)
+    for i in range(0, height + 1, chunk_y):
+        ax.axhline(y=i, color='cyan', linewidth=2, alpha=0.8, linestyle='-')
+    for j in range(0, width + 1, chunk_x):
+        ax.axvline(x=j, color='cyan', linewidth=2, alpha=0.8, linestyle='-')
+    
+    # Add chunk labels
+    for i_chunk in range(int(np.ceil(height / chunk_y))):
+        for j_chunk in range(int(np.ceil(width / chunk_x))):
+            y_pos = i_chunk * chunk_y + chunk_y / 2
+            x_pos = j_chunk * chunk_x + chunk_x / 2
+            if y_pos < height and x_pos < width:
+                ax.text(x_pos, y_pos, f'C{i_chunk},{j_chunk}', 
+                       ha='center', va='center', fontsize=8, color='cyan',
+                       bbox=dict(boxstyle='round', facecolor='black', alpha=0.5))
+    
+    # Draw example tile requests
+    np.random.seed(112)
+    tile_colors = ['red', 'yellow', 'lime', 'magenta']
+    tile_info = []
+    
+    for i in range(num_sample_tiles):
+        # Random tile position
+        margin = tile_size
+        x_start = np.random.randint(margin, width - tile_size - margin)
+        y_start = np.random.randint(margin, height - tile_size - margin)
+        
+        # Calculate which chunks this tile intersects
+        chunk_y_start = int(y_start / chunk_y)
+        chunk_y_end = int((y_start + tile_size - 1) / chunk_y)
+        chunk_x_start = int(x_start / chunk_x)
+        chunk_x_end = int((x_start + tile_size - 1) / chunk_x)
+        
+        chunks_accessed = (chunk_y_end - chunk_y_start + 1) * (chunk_x_end - chunk_x_start + 1)
+        tile_info.append({
+            'tile': i+1,
+            'chunks': chunks_accessed,
+            'chunk_range': f'Y:{chunk_y_start}-{chunk_y_end}, X:{chunk_x_start}-{chunk_x_end}'
+        })
+        
+        # Draw tile boundary
+        rect = mpatches.Rectangle(
+            (x_start, y_start), tile_size, tile_size,
+            linewidth=4, edgecolor=tile_colors[i], facecolor='none',
+            linestyle='--', label=f'Tile {i+1} ({chunks_accessed} chunks)'
+        )
+        ax.add_patch(rect)
+        
+        # Add tile label
+        ax.text(x_start + tile_size/2, y_start + tile_size/2, f'T{i+1}',
+               color=tile_colors[i], fontsize=16, fontweight='bold',
+               ha='center', va='center',
+               bbox=dict(boxstyle='round', facecolor='black', alpha=0.8))
+    
+    ax.set_title(f'Chunk Grid (cyan, {chunk_y}×{chunk_x}px) with {tile_size}×{tile_size}px Tile Requests', 
+                fontsize=14, fontweight='bold')
+    ax.set_xlabel('X (pixels)', fontsize=12)
+    ax.set_ylabel('Y (pixels)', fontsize=12)
+    ax.legend(loc='upper right', fontsize=10)
+    ax.set_xlim(0, width)
+    ax.set_ylim(height, 0)
+    
+    plt.tight_layout()
+    plt.show()
+    
+    # Print tile information
+    print("\n📊 Tile-to-Chunk Mapping:")
+    print(f"{'Tile':<8} {'Chunks Accessed':<18} {'Chunk Range'}")
+    print("=" * 60)
+    for info in tile_info:
+        print(f"T{info['tile']:<7} {info['chunks']:<18} {info['chunk_range']}")
+    
+    return tile_info
+
+def compare_chunking_strategies(ds_variants, tile_size=256, tile_x=512, tile_y=512):
+    """
+    Compare how a single tile request maps to chunks in different strategies.
+    """
+    fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+    axes = axes.flatten()  # Flatten 2D array to 1D for easy indexing
+
+    results = {}
+    
+    for idx, (name, ds) in enumerate(ds_variants.items()):
+        ax = axes[idx]
+        
+        # Get chunk info
+        chunk_y = ds['b04'].chunks[0][0]
+        chunk_x = ds['b04'].chunks[1][0]
+        height, width = ds.dims['y'], ds.dims['x']
+        
+        # Display data
+        band_data = ds['b04'].values
+        p2, p98 = np.percentile(band_data[band_data > 0], [2, 98])
+        band_stretched = np.clip((band_data - p2) / (p98 - p2), 0, 1)
+        ax.imshow(band_stretched, cmap='gray', extent=[0, width, height, 0], alpha=0.5)
+        
+        # Draw chunk grid
+        for i in range(0, height + 1, chunk_y):
+            ax.axhline(y=i, color='cyan', linewidth=1.5, alpha=0.7)
+        for j in range(0, width + 1, chunk_x):
+            ax.axvline(x=j, color='cyan', linewidth=1.5, alpha=0.7)
+        
+        # Draw the test tile
+        import matplotlib.patches as mpatches
+        rect = mpatches.Rectangle(
+            (tile_x, tile_y), tile_size, tile_size,
+            linewidth=4, edgecolor='red', facecolor='none', linestyle='--'
+        )
+        ax.add_patch(rect)
+        
+        # Calculate chunks accessed
+        chunk_y_start = int(tile_y / chunk_y)
+        chunk_y_end = int((tile_y + tile_size - 1) / chunk_y)
+        chunk_x_start = int(tile_x / chunk_x)
+        chunk_x_end = int((tile_x + tile_size - 1) / chunk_x)
+        
+        chunks_accessed = (chunk_y_end - chunk_y_start + 1) * (chunk_x_end - chunk_x_start + 1)
+        
+        # Highlight accessed chunks
+        for cy in range(chunk_y_start, chunk_y_end + 1):
+            for cx in range(chunk_x_start, chunk_x_end + 1):
+                rect_chunk = mpatches.Rectangle(
+                    (cx * chunk_x, cy * chunk_y), chunk_x, chunk_y,
+                    facecolor='red', alpha=0.2, edgecolor='red', linewidth=2
+                )
+                ax.add_patch(rect_chunk)
+        
+        ax.set_title(f'{name}\n{chunks_accessed} chunk{"s" if chunks_accessed > 1 else ""} accessed',
+                    fontsize=12, fontweight='bold')
+        ax.set_xlabel('X (pixels)')
+        ax.set_ylabel('Y (pixels)')
+        ax.set_xlim(0, width)
+        ax.set_ylim(height, 0)
+        
+        results[name] = chunks_accessed
+    
+    plt.tight_layout()
+    plt.show()
+    
+    # Summary
+    print(f"\n🎯 Chunk Access Comparison for {tile_size}x{tile_size}px Tile:")
+    print("=" * 60)
+    for name, chunks in results.items():
+        efficiency = "✅ Optimal" if chunks == 1 else "⚠️ Acceptable" if chunks <= 4 else "❌ Inefficient"
+        print(f"{name:<25} {chunks:>3} chunks  {efficiency}")
+    
+    return results
 
 
 if __name__ == "__main__":
