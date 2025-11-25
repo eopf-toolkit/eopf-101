@@ -244,7 +244,7 @@ def gww(slice_mndwi: np.ndarray, slice_wo: np.ndarray,
     water_fill_JRC = slice_wo > p
     water_fill_JRC[nanmask] = False
     
-    # Identify non-water pixels from MNDWI
+    # Identify non-water pixels from NDWI
     nonwater = slice_mndwi < nonwater_thresh
     
     # Final filled water mask
