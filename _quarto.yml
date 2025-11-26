@@ -44,12 +44,12 @@ book:
         - 04_eopf_and_stac/44_eopf_stac_xarray_tutorial.ipynb
     - part: "**Tools to work with EOPF Zarr**"
       chapters:
-        - 05_tools_to_w_w_zarr/51_eopf_stac_r.qmd
-        - 05_tools_to_w_w_zarr/52_eopf_stac_qgis.qmd
-        # - 05_tools_to_w_w_zarr/53_zarr_R.qmd
-        # - 05_tools_to_w_w_zarr/54_zarr_R_rarr.qmd
-        # - 05_tools_to_w_w_zarr/55_zarr_R_gdal.qmd
-        # - 05_tools_to_w_w_zarr/56_titiler.qmd
+        - 05_zarr_tools/51_eopf_stac_r.qmd
+        - 05_zarr_tools/52_eopf_stac_qgis.qmd
+        # - 05_zarr_tools/53_zarr_R.qmd
+        # - 05_zarr_tools/54_zarr_R_rarr.qmd
+        # - 05_zarr_tools/55_zarr_R_gdal.qmd
+        # - 05_zarr_tools/56_titiler.qmd
     - part: "**EOPF Zarr in Action**"
       chapters:
         - 06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb
