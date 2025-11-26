@@ -57,11 +57,11 @@ When **starting your server**, you will be able to select the **Docker image** y
 
 You can select: **Specify an existing docker image**.
 
-<p align="center"><img title="Select docker image" alt="Alt text" src="/img/sel_di.png" class="center" ></p>
+<p align="center"><img title="Select docker image" alt="Alt text" src="/img/sel_di.png" width= 90% class="center" ></p>
 
 Once you click, the following box is displayed:
 
-<p align="center"><img title="Define the docker option" alt="Alt text" src="/img/def_di.png" class="center" ></p>
+<p align="center"><img title="Define the docker option" alt="Alt text" src="/img/def_di.png" width= 90% class="center" ></p>
 
 In the box, you can copy and paste the following custom lines:
 * If you would like to develop your workflow in Python:<br>
