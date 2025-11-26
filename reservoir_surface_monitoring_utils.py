@@ -1,9 +1,6 @@
-# Core & utilities
-import math
 import numpy as np
 import pandas as pd
 import xarray as xr                        
-from rasterio.enums import Resampling           # Resampling method for reprojection
 
 # Image processing for water detection
 from skimage.filters import threshold_otsu      # Thresholding (for NDWI classification)
@@ -20,16 +17,6 @@ def list_found_elements(search_result):
         coll.append(item.collection_id)
     return ids, coll
 
-# helper function to load datasets
-def load_dataset(path, band_codes):
-    return xr.open_dataset(
-        path,
-        engine="eopf-zarr",
-        chunks={},
-        variables=band_codes,
-        resolution=20,
-    )
-
 # Helper function to load datatrees
 def load_datatrees(path):
     return xr.open_datatree(
@@ -39,96 +26,7 @@ def load_datatrees(path):
         decode_timedelta=False
     )
 
-# helper function to find the utm zone
-def get_utm_zone(lon: float) -> int:
-    return math.ceil((180 + lon) / 6)
-
-# Helper function to subset and rename bands, and add time dimension
-def preprocess_dataset(ds, minx, maxx, miny, maxy, band_map):
-    # Subset to relevant bands and rename
-    ds = ds[list(band_map.keys())].rename(band_map)
-
-    # Subset spatially
-    ds_subset = ds.sel(
-        x=slice(minx, maxx),
-        y=slice(maxy, miny)  # reversed if y decreases
-    )
-
-    # Extract time from attributes and add as time coordinate
-    date_str = ds.attrs.get("mean_sensing_time", None)
-    date = pd.to_datetime(date_str).date()
-
-    ds_subset = ds_subset.expand_dims(time=[np.datetime64(date)])
-
-    return ds_subset
-
-def _old_preprocess_datatree(
-    dtree,
-    minx_utm,
-    miny_utm,
-    maxx_utm,
-    maxy_utm,
-    crs_code
-):
-    """
-    Preprocess a single datatree:
-    - Clip to UTM bounds
-    - Reproject 10m band to 20m
-    - Merge bands into one dataset
-    - Add time coordinate
-    
-    Parameters
-    ----------
-    dtree : xr.DataTree
-        Loaded datatree for one scene
-    minx_utm, miny_utm, maxx_utm, maxy_utm : float
-        Clipping bounds in UTM
-    crs_code : int or str
-        CRS to assign
-    
-    Returns
-    -------
-    xr.Dataset
-        Dataset with bands 'green' and 'swir' and a time dimension
-    """
-    
-    # Extract bands
-    green_10m = dtree.measurements.reflectance.r10m.ds["b03"]
-    swir_20m  = dtree.measurements.reflectance.r20m.ds["b11"]
-    
-    # Clip to UTM bounds
-    green_clip = green_10m.sel(
-        x=slice(minx_utm, maxx_utm),
-        y=slice(maxy_utm, miny_utm)
-    )
-    swir_clip = swir_20m.sel(
-        x=slice(minx_utm, maxx_utm),
-        y=slice(maxy_utm, miny_utm)
-    )
-    
-    # Assign CRS
-    green_clip = green_clip.rio.write_crs(crs_code, inplace=False)
-    swir_clip = swir_clip.rio.write_crs(crs_code, inplace=False)
-    
-    # Reproject high-res to match low-res
-    green_20m = green_clip.rio.reproject_match(
-        swir_clip,
-        resampling=Resampling.nearest,
-        )
-        
-    # Merge bands
-    ds_merged = xr.Dataset({
-        "green": green_20m,
-        "swir": swir_clip
-    })
-    
-    # Add time coordinate
-    date_str = dtree.attrs["stac_discovery"]["properties"]["start_datetime"]
-    date = pd.to_datetime(date_str).date()
-    ds_merged = ds_merged.expand_dims(time=[np.datetime64(date)])
-    
-    return ds_merged
-
+# Function to preprocess a single datatree
 def preprocess_datatree(
     dtree,
     minx_utm,
@@ -183,6 +81,7 @@ def preprocess_datatree(
     
     return ds_merged
 
+# Function to apply the core GWW algorithm
 def gww(slice_mndwi: np.ndarray, slice_wo: np.ndarray,
         canny_sigma: float = 0.7,
         canny_low: float = 0.5,
@@ -255,13 +154,14 @@ def gww(slice_mndwi: np.ndarray, slice_wo: np.ndarray,
     
     return water, water_fill, total_water
 
-# function to extract largest connected component
+# Function to extract largest connected component
 def largest_connected_component(segmentation):
     """Extract the largest connected component from a binary segmentation mask."""
     labels = label(segmentation, connectivity=2)
     largest_cc = labels == np.argmax(np.bincount(labels[segmentation]))
     return largest_cc
 
+# Function to compute area in km² from binary mask
 def compute_area_km2(mask_2d: np.ndarray, pixel_size: float = 10.0) -> float:
     """Compute area (km²) from a binary mask."""
     return (np.sum(mask_2d) * (pixel_size ** 2)) / 1000000
