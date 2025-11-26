@@ -70,4 +70,4 @@ In this section, we provide an overview of the available **Sentinel Missions** t
 
 
 ## What's next?
-In the following [chapter](21_what_is_zarr.qmd), we will dive deep into `EOPF Zarr` format and understand why it can provide an optimal and efficient application.
+In the following [chapter](/02_about_eopf_zarr/21_what_is_zarr.qmd), we will dive deep into `EOPF Zarr` format and understand why it can provide an optimal and efficient application.
