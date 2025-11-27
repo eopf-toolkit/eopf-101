@@ -135,8 +135,7 @@ def gww(slice_mndwi: np.ndarray, slice_wo: np.ndarray,
     wo_flat = wo_edge[~wo_edge.mask]
     wo_flat = wo_flat[~np.isnan(wo_flat)]
     
-    # Compute threshold from WO dataset (median)
-    # p = np.median(wo_flat) if len(wo_flat) > 0 else 0.0
+    # Compute threshold from WO dataset (80th percentile)
     p = np.percentile(wo_flat, 80) if len(wo_flat) > 0 else 0.0
 
     # Generate water fill from WO dataset
