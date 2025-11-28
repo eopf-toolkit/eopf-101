@@ -132,4 +132,4 @@ This tutorial demonstrated how to integrate and visualise EOPF Zarr items in QGI
 
 ## What's next?
 
-In the following [section](./61_sardinia_s2_tfci.ipynb) we will present several **end-to-end** workflows, where we will showcase the application of the available **Sentinel Products** in the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
+In the following [section](/06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb) we will present several **end-to-end** workflows, where we will showcase the application of the available **Sentinel Products** in the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).

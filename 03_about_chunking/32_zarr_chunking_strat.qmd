@@ -103,5 +103,5 @@ This chapter presented the specific workflow for setting up an optimal data chun
 
 ## What's next?
 
-Now that you have been introduced to the `.zarr` chunking reasoning and strategies, you are prepared for the next step. In the following [chapter](./41_stac_intro.qmd) we will introduce you to **STAC** and the **EOPF Zarr STAC Catalog**.<br>
+Now that you have been introduced to the `.zarr` chunking reasoning and strategies, you are prepared for the next step. In the following [chapter](/04_eopf_and_stac/41_stac_intro.qmd) we will introduce you to **STAC** and the **EOPF Zarr STAC Catalog**.<br>
 As we go along, we are more and more transitioning from theory to practice, providing you with hands-on tutorials working with EOPF `.zarr` products.
