@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import xarray as xr                        
+import warnings
 
 # Image processing for water detection
 from skimage.filters import threshold_otsu      # Thresholding (for NDWI classification)
@@ -77,7 +78,12 @@ def preprocess_datatree(
     # Add time coordinate
     date_str = dtree.attrs["stac_discovery"]["properties"]["start_datetime"]
     date = pd.to_datetime(date_str).date()
-    ds_merged = ds_merged.expand_dims(time=[np.datetime64(date)])
+
+    # catch warnings for nanosecond precision
+    # and expand dimensions for time
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", UserWarning)
+        ds_merged = ds_merged.expand_dims(time=[np.datetime64(date)])
     
     return ds_merged
 
