@@ -30,17 +30,17 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
   * [An introduction to Chunking](/03_about_chunking/31_zarr_chunking_intro.qmd)
   * [Best practices and Chunking optimisation in EOPF](/03_about_chunking/32_zarr_chunking_strat.qmd)
 
-* **Chapter 3 - EOPF and STAC**
+* **Chapter 4 - EOPF and STAC**
   * [Introduction to STAC](/04_eopf_and_stac/41_stac_intro.qmd)
   * [Explore the web interface of the EOPF Zarr STAC Catalog](/04_eopf_and_stac/42_eopf_stac_zarr_tutorial.qmd)
   * [Access the EOPF Zarr STAC API with Python](/04_eopf_and_stac/43_eopf_stac_connection.ipynb)
   * [From STAC to Data: Accessing EOPF Zarr with xarray](/04_eopf_and_stac/44_eopf_stac_xarray_tutorial.ipynb)
 
-* **Chapter 4 - Tools to work with EOPF Zarr** -- *more coming soon!*
+* **Chapter 5 - Tools to work with EOPF Zarr** -- *more coming soon!*
   * [Access the EOPF Zarr STAC API with R](/05_zarr_tools/51_eopf_stac_r.qmd)
   * [Access the EOPF Zarr STAC API with QGIS](/05_zarr_tools/52_eopf_stac_qgis.qmd)
 
-* **Chapter 5 - EOPF Zarr in Action**
+* **Chapter 6 - EOPF Zarr in Action**
   * [Fire in Sardinia 2025 - Part 1](/06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb)
   * [Fire in Sardinia 2025 - Part 2](/06_eopf_zarr_in_action/62_sardinia_s3_lst.ipynb)
   * [Fire in Sardinia 2025 - Part 3](/06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb)
