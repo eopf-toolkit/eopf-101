@@ -15,36 +15,36 @@ re-processed EOPF Sentinel Zarr data, as well as tools and libraries to work wit
 Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments, as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data.
 
 * **Chapter 1 - About EOPF**
-  * [Introduction to the EOPF](./11_about_eopf.qmd)
-  * [About Cloud-Optimised Formats](./12_about_cloudoptimized_formats.qmd)
-  * [EOPF Sentinel Zarr products](./13_overview_eopf_datasets.qmd)
+  * [Introduction to the EOPF](/01_about_eopf/11_about_eopf.qmd)
+  * [About Cloud-Optimised Formats](/01_about_eopf/12_about_cloudoptimized_formats.qmd)
+  * [EOPF Sentinel Zarr products](/01_about_eopf/13_overview_eopf_datasets.qmd)
 
 * **Chapter 2 - About EOPF Zarr**
-  * [Overview of the EOPF Zarr format](./21_what_is_zarr.qmd)
-  * [Discover EOPF Zarr - Sentinel-1 GRD](./22_zarr_structure_S1GRD.ipynb)
-  * [Operations with EOPF Zarr - Sentinel-1 GRD](./23_S1_basic_operations.ipynb)
-  * [Discover EOPF Zarr - Sentinel-2 L2A](./24_zarr_struct_S2L2A.ipynb)
-  * [Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST](./25_zarr_struct_S3.ipynb)
+  * [Overview of the EOPF Zarr format](/02_about_eopf_zarr/21_what_is_zarr.qmd)
+  * [Discover EOPF Zarr - Sentinel-1 GRD](/02_about_eopf_zarr/22_zarr_structure_S1GRD.ipynb)
+  * [Operations with EOPF Zarr - Sentinel-1 GRD](/02_about_eopf_zarr/23_S1_basic_operations.ipynb)
+  * [Discover EOPF Zarr - Sentinel-2 L2A](/02_about_eopf_zarr/24_zarr_struct_S2L2A.ipynb)
+  * [Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST](/02_about_eopf_zarr/25_zarr_struct_S3.ipynb)
 
 * **Chapter 3 - About Chunking**
-  * [An introduction to Chunking](./31_zarr_chunking_intro.qmd)
-  * [Best practices and Chunking optimisation in EOPF](./32_zarr_chunking_strat.qmd)
+  * [An introduction to Chunking](/03_about_chunking/31_zarr_chunking_intro.qmd)
+  * [Best practices and Chunking optimisation in EOPF](/03_about_chunking/32_zarr_chunking_strat.qmd)
 
 * **Chapter 3 - EOPF and STAC**
-  * [Introduction to STAC](./41_stac_intro.qmd)
-  * [Explore the web interface of the EOPF Zarr STAC Catalog](./42_eopf_stac_zarr_tutorial.qmd)
-  * [Access the EOPF Zarr STAC API with Python](./43_eopf_stac_connection.ipynb)
-  * [From STAC to Data: Accessing EOPF Zarr with xarray](./44_eopf_stac_xarray_tutorial.ipynb)
+  * [Introduction to STAC](/04_eopf_and_stac/41_stac_intro.qmd)
+  * [Explore the web interface of the EOPF Zarr STAC Catalog](/04_eopf_and_stac/42_eopf_stac_zarr_tutorial.qmd)
+  * [Access the EOPF Zarr STAC API with Python](/04_eopf_and_stac/43_eopf_stac_connection.ipynb)
+  * [From STAC to Data: Accessing EOPF Zarr with xarray](/04_eopf_and_stac/44_eopf_stac_xarray_tutorial.ipynb)
 
 * **Chapter 4 - Tools to work with EOPF Zarr** -- *more coming soon!*
-  * [Access the EOPF Zarr STAC API with R](./51_eopf_stac_r.qmd)
-  * [Access the EOPF Zarr STAC API with QGIS](./52_eopf_stac_qgis.qmd)
+  * [Access the EOPF Zarr STAC API with R](/05_zarr_tools/51_eopf_stac_r.qmd)
+  * [Access the EOPF Zarr STAC API with QGIS](/05_zarr_tools/52_eopf_stac_qgis.qmd)
 
 * **Chapter 5 - EOPF Zarr in Action**
-  * [Fire in Sardinia 2025 - Part 1](./61_sardinia_s2_tfci.ipynb)
-  * [Fire in Sardinia 2025 - Part 2](./62_sardinia_s3_lst.ipynb)
-  * [Fire in Sardinia 2025 - Part 3](./63_sardinia_dNBR.ipynb)
-  * [Flood Mapping - Time Series Analysis in Valencia](./64_flood_mapping_valencia.ipynb)
+  * [Fire in Sardinia 2025 - Part 1](/06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb)
+  * [Fire in Sardinia 2025 - Part 2](/06_eopf_zarr_in_action/62_sardinia_s3_lst.ipynb)
+  * [Fire in Sardinia 2025 - Part 3](/06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb)
+  * [Flood Mapping - Time Series Analysis in Valencia](/06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb)
 
 
 <h2>💡 How best to use EOPF 101 </h2>
@@ -57,11 +57,11 @@ When **starting your server**, you will be able to select the **Docker image** y
 
 You can select: **Specify an existing docker image**.
 
-<p align="center"><img title="Select docker image" alt="Alt text" src="/img/sel_di.png" class="center" ></p>
+<p align="center"><img title="Select docker image" alt="Alt text" src="/img/sel_di.png" width= 90% class="center" ></p>
 
 Once you click, the following box is displayed:
 
-<p align="center"><img title="Define the docker option" alt="Alt text" src="/img/def_di.png" class="center" ></p>
+<p align="center"><img title="Define the docker option" alt="Alt text" src="/img/def_di.png" width= 90% class="center" ></p>
 
 In the box, you can copy and paste the following custom lines:
 * If you would like to develop your workflow in Python:<br>
