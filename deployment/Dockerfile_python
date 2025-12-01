@@ -21,7 +21,5 @@ RUN pdm config python.use_venv false && \
     pdm lock && \
     pdm export --without-hashes --format requirements | pip install -r /dev/stdin
 
-RUN pip install freezegun
-
 WORKDIR /home/${NB_USER}
 RUN rm -rf deps
