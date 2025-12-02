@@ -60,7 +60,6 @@ dependencies = [
     "ipywidgets>=8.0.0",     # Required for interactive visualization (66_use_overviews.ipynb)
     "ipyleaflet>=0.17.0",    # Required for web map visualization (66_use_overviews.ipynb)
     "pillow>=10.0.0",        # Required for ipyleaflet_multiscales (RGB image encoding)
-    "datatree>=0.0.12",      # Required for opening datatree (65_create_overviews.ipynb)
 ]
 
 [tool.setuptools]
