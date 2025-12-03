@@ -2,8 +2,9 @@ import xarray as xr
 import zarr
 import json
 from pathlib import Path
+from typing import Dict, List, Optional, Union
 
-def create_overviews(dataset, variable_names, scales, x_dim="x", y_dim="y"):
+def create_overviews(dataset: xr.Dataset, variable_names: List[str], scales: List[int], x_dim: str = "x", y_dim: str = "y") -> Dict[str, xr.Dataset]:
     """
     Generate in-memory overview (downscaled) datasets for selected variables.
     Performs computation only - no I/O.
@@ -54,7 +55,7 @@ def create_overviews(dataset, variable_names, scales, x_dim="x", y_dim="y"):
 
 
 
-def create_multiscales_metadata(dataset, variable_names, scales, overview_path=".", resampling_method="average", version="1.0", x_dim="x", y_dim="y"):
+def create_multiscales_metadata(dataset: xr.Dataset, variable_names: List[str], scales: List[int], overview_path: str = ".", resampling_method: str = "average", version: str = "1.0", x_dim: str = "x", y_dim: str = "y") -> xr.Dataset:
     """
     Attach GeoZarr-compliant multiscales metadata to dataset.attrs["multiscales"].
     Modifies dataset in place.
@@ -130,7 +131,7 @@ def create_multiscales_metadata(dataset, variable_names, scales, overview_path="
     return dataset
 
 
-def write_overviews(zarr_group_path, overviews, overview_path=".", mode="a", zarr_version=None):
+def write_overviews(zarr_group_path: Union[str, Path], overviews: Dict[str, xr.Dataset], overview_path: str = ".", mode: str = "a", zarr_version: Optional[int] = None) -> None:
     """
     Persist computed overview datasets to Zarr storage.
     Writes L1, L2, ... as subgroups (L0 should be written separately).
@@ -174,7 +175,7 @@ def write_overviews(zarr_group_path, overviews, overview_path=".", mode="a", zar
         level_dataset.to_zarr(level_path_str, **write_kwargs)
 
 
-def write_metadata(zarr_group_path, dataset_with_attrs, zarr_version=None):
+def write_metadata(zarr_group_path: Union[str, Path], dataset_with_attrs: xr.Dataset, zarr_version: Optional[int] = None) -> None:
     """
     Update metadata (.zattrs) of an existing Zarr group without rewriting data arrays.
     Used to add multiscales metadata after overview levels are written.

@@ -41,6 +41,9 @@ Example Usage
 
 import math
 import numpy as np
+import numpy.typing as npt
+from typing import Dict, Tuple, Optional
+import xarray as xr
 from io import BytesIO
 import base64
 from PIL import Image
@@ -50,7 +53,7 @@ from ipywidgets import IntSlider, VBox, Label
 from IPython.display import display, HTML
 
 
-def create_rgb_image_base64(overview_datasets, level_idx, band_names=None, max_size=512):
+def create_rgb_image_base64(overview_datasets: Dict[str, xr.Dataset], level_idx: int, band_names: Optional[Dict[str, str]] = None, max_size: int = 512) -> Tuple[str, Tuple[int, int, int]]:
     """
     Create RGB composite as base64-encoded PNG for ImageOverlay.
 
@@ -90,7 +93,7 @@ def create_rgb_image_base64(overview_datasets, level_idx, band_names=None, max_s
         r, g, b = r[::step, ::step], g[::step, ::step], b[::step, ::step]
 
     # Normalize each band using percentile stretching (2%-98%)
-    def normalize(band):
+    def normalize(band: npt.NDArray) -> npt.NDArray:
         valid_pixels = band[~np.isnan(band)]  # ← ADD THIS LINE
         if len(valid_pixels) == 0:
             return np.zeros_like(band)
@@ -113,7 +116,7 @@ def create_rgb_image_base64(overview_datasets, level_idx, band_names=None, max_s
     return f"data:image/png;base64,{img_base64}", rgb_uint8.shape
 
 
-def transform_bbox_to_latlon(proj_epsg, proj_bbox):
+def transform_bbox_to_latlon(proj_epsg: int, proj_bbox: Tuple[float, float, float, float]) -> Dict[str, any]:
     """
     Transform bounding box from projected CRS to EPSG:4326 (lat/lon).
 
@@ -146,7 +149,7 @@ def transform_bbox_to_latlon(proj_epsg, proj_bbox):
     }
 
 
-def select_level_for_zoom(multiscales, zoom, lat):
+def select_level_for_zoom(multiscales: Dict[str, any], zoom: int, lat: float) -> int:
     """
     Select best overview level based on Leaflet zoom and cell_size metadata.
 
@@ -198,7 +201,7 @@ def select_level_for_zoom(multiscales, zoom, lat):
     return best_level
 
 
-def enable_crisp_rendering():
+def enable_crisp_rendering() -> None:
     """
     Enable crisp (pixelated) rendering for Leaflet image layers.
 
@@ -216,8 +219,8 @@ def enable_crisp_rendering():
     """))
 
 
-def create_interactive_map(overview_datasets, multiscales, metadata,
-                          initial_level=5, initial_zoom=7, band_names=None, max_size=512):
+def create_interactive_map(overview_datasets: Dict[str, xr.Dataset], multiscales: Dict[str, any], metadata: Dict[str, any],
+                          initial_level: int = 5, initial_zoom: int = 7, band_names: Optional[Dict[str, str]] = None, max_size: int = 512) -> VBox:
     """
     Create complete interactive Leaflet map with auto-switching overview levels.
 
@@ -316,7 +319,7 @@ def create_interactive_map(overview_datasets, multiscales, metadata,
     level_label = Label(value=initial_label)
 
     # Event handlers
-    def update_overlay_to_level(level_idx, zoom=None):
+    def update_overlay_to_level(level_idx: int, zoom: Optional[int] = None) -> None:
         """Update image overlay to a specific level."""
         level_id = f"L{level_idx}"
         ds_level = overview_datasets[level_id]
@@ -346,13 +349,13 @@ def create_interactive_map(overview_datasets, multiscales, metadata,
 
         level_label.value = label_text
 
-    def on_slider_change(change):
+    def on_slider_change(change: Dict[str, any]) -> None:
         """Handle manual slider changes."""
         # Get current zoom from map
         current_zoom = m.zoom
         update_overlay_to_level(change['new'], zoom=current_zoom)
 
-    def on_zoom_change(change):
+    def on_zoom_change(change: Dict[str, any]) -> None:
         """Automatically select appropriate level based on zoom and cell_size."""
         zoom = change['new']
         suggested_level = select_level_for_zoom(multiscales, zoom, center_lat)
