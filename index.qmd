@@ -49,9 +49,14 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
 
 <h2>💡 How best to use EOPF 101 </h2>
 
-You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. 
+You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of **EOPF Sentinel Zarr** data.
 
-Beyond this browsable version, you can also set up the required environment to execute the notebooks:
+If you would like to execute the notebooks through the **JupyterHub**, simply follow the **Launch Button** available in all the executable notebooks:
+
+<p align="center"><img title="Launch the Jupyter Notebook" alt="Alt text" src="/img/launch_button.png" width= 60% class="center" ></p>
+
+
+Beyond this browsable version, you can also set up our **Docker images** within your own **JupyterHub Server** and test workkflows yourself!
 
 When **starting your server**, you will be able to select the **Docker image** you want to work with. The [EOPF Toolkit](https://github.com/eopf-toolkit) has designed updated environments to support your development!<br>
 
@@ -64,6 +69,7 @@ Once you click, the following box is displayed:
 <p align="center"><img title="Define the docker option" alt="Alt text" src="/img/def_di.png" width= 90% class="center" ></p>
 
 In the box, you can copy and paste the following custom lines:
+
 * If you would like to develop your workflow in Python:<br>
 `4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:competition`
 
@@ -71,8 +77,6 @@ In the box, you can copy and paste the following custom lines:
 `4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:competition`
 
 And select **Start**.
-
-To get some ideas on how to get started with your development, watch the introductory session [here](https://www.youtube.com/watch?v=N7_C3rxjjp4).
 
 <h2>📢 How to get involved </h2>
 
@@ -93,6 +97,8 @@ The competition officially begins with its launch at [Big Data from Space 2025](
 
 Explore this resource and build your own notebook! The [EOPF Sentinel Zarr Sample Service JupyterLab](https://jupyterhub.user.eopf.eodc.eu/hub) will be your primary development environment.<br>
 Once you access with your [CDSE](https://dataspace.copernicus.eu/) credentials, you will get the chance to choose the language you want to develop with!
+
+To get some ideas on how to get started with your development, watch the introductory session [here](https://www.youtube.com/watch?v=N7_C3rxjjp4).
 
 <h5>Step 3: Notebook Submission</h5>
 
