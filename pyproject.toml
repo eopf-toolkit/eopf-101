@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "eopf-101"
 version = "0.1.0"
 description = "EOPF 101 - A toolkit for working with Sentinel data in Zarr format"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 readme = "README.md"
 authors = [
     { name = "Emmanuel Mathot", email = "emmanuel@developmentseed.com" },
