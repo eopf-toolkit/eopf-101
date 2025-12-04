@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ESA EOPF 101</title>
+<title>Explore the web interface of the EOPF Zarr STAC Catalog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +23,26 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./01_about_eopf/11_about_eopf.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../04_eopf_and_stac/43_eopf_stac_connection.html" rel="next">
+<link href="../04_eopf_and_stac/41_stac_intro.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -79,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating fullcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -88,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../04_eopf_and_stac/41_stac_intro.html"><strong>EOPF and STAC</strong></a></li><li class="breadcrumb-item"><a href="../04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -102,9 +103,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main">
     <a href="https://github.com/eopf-toolkit/eopf-101" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
@@ -119,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -133,17 +134,17 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_about_eopf/11_about_eopf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the EOPF</span></a>
+  <a href="../01_about_eopf/11_about_eopf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the EOPF</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_about_eopf/12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About cloud-optimised formats</span></a>
+  <a href="../01_about_eopf/12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About cloud-optimised formats</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_about_eopf/13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
+  <a href="../01_about_eopf/13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
   </div>
 </li>
       </ul>
@@ -159,27 +160,27 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/21_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
+  <a href="../02_about_eopf_zarr/21_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/22_zarr_structure_S1GRD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-1 GRD</span></a>
+  <a href="../02_about_eopf_zarr/22_zarr_structure_S1GRD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-1 GRD</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/23_S1_basic_operations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operations with EOPF Zarr - Sentinel-1 GRD</span></a>
+  <a href="../02_about_eopf_zarr/23_S1_basic_operations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operations with EOPF Zarr - Sentinel-1 GRD</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/24_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
+  <a href="../02_about_eopf_zarr/24_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/25_zarr_struct_S3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></a>
+  <a href="../02_about_eopf_zarr/25_zarr_struct_S3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></a>
   </div>
 </li>
       </ul>
@@ -195,12 +196,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_about_chunking/31_zarr_chunking_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">An introduction to Chunking</span></a>
+  <a href="../03_about_chunking/31_zarr_chunking_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">An introduction to Chunking</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_about_chunking/32_zarr_chunking_strat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></a>
+  <a href="../03_about_chunking/32_zarr_chunking_strat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></a>
   </div>
 </li>
       </ul>
@@ -216,22 +217,22 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_eopf_and_stac/41_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
+  <a href="../04_eopf_and_stac/41_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
+  <a href="../04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_eopf_and_stac/43_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
+  <a href="../04_eopf_and_stac/43_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_eopf_and_stac/44_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
+  <a href="../04_eopf_and_stac/44_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
   </div>
 </li>
       </ul>
@@ -247,12 +248,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_zarr_tools/51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  <a href="../05_zarr_tools/51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
+  <a href="../05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
   </div>
 </li>
       </ul>
@@ -268,34 +269,34 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
+  <a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
+  <a href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_eopf_zarr_in_action/63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
+  <a href="../06_eopf_zarr_in_action/63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
+  <a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>References</strong></span></a>
+  <a href="../references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>References</strong></span></a>
   </div>
 </li>
     </ul>
@@ -303,13 +304,40 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
+  <li><a href="#our-starting-point" id="toc-our-starting-point" class="nav-link" data-scroll-target="#our-starting-point">Our Starting Point</a></li>
+  <li><a href="#exploring-sentinel-collections" id="toc-exploring-sentinel-collections" class="nav-link" data-scroll-target="#exploring-sentinel-collections">Exploring Sentinel Collections</a>
+  <ul class="collapse">
+  <li><a href="#filtering-collections" id="toc-filtering-collections" class="nav-link" data-scroll-target="#filtering-collections">Filtering Collections</a></li>
+  </ul></li>
+  <li><a href="#exploring-items" id="toc-exploring-items" class="nav-link" data-scroll-target="#exploring-items">Exploring Items</a></li>
+  <li><a href="#assets" id="toc-assets" class="nav-link" data-scroll-target="#assets">Assets</a>
+  <ul class="collapse">
+  <li><a href="#accessing-assets" id="toc-accessing-assets" class="nav-link" data-scroll-target="#accessing-assets">Accessing Assets</a></li>
+  </ul></li>
+  <li><a href="#now-it-is-your-turn" id="toc-now-it-is-your-turn" class="nav-link" data-scroll-target="#now-it-is-your-turn">💪 Now it is your turn</a>
+  <ul class="collapse">
+  <li><a href="#task-1-discover-sentinel-1-grd-data" id="toc-task-1-discover-sentinel-1-grd-data" class="nav-link" data-scroll-target="#task-1-discover-sentinel-1-grd-data">Task 1: Discover Sentinel-1 GRD Data</a></li>
+  <li><a href="#task-2-mapping-your-interests" id="toc-task-2-mapping-your-interests" class="nav-link" data-scroll-target="#task-2-mapping-your-interests">Task 2: Mapping Your Interests</a></li>
+  <li><a href="#task-3-unpacking-an-asset" id="toc-task-3-unpacking-an-asset" class="nav-link" data-scroll-target="#task-3-unpacking-an-asset">Task 3: Unpacking an Asset</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../04_eopf_and_stac/41_stac_intro.html"><strong>EOPF and STAC</strong></a></li><li class="breadcrumb-item"><a href="../04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><strong>ESA EOPF 101</strong></h1>
+<h1 class="title"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></h1>
 </div>
 
 
@@ -326,123 +354,174 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<h3 class="anchored">
-Your community guide for working with EOPF Sentinel Zarr data in the cloud
-</h3>
-<p>Explore EOPF 101, an open community resource designed to help Sentinel data users explore EOPF Sentinel Zarr data in the cloud. With our step-by-step and hands-on tutorials, you’ll learn how to effectively use EOPF Sentinel Zarr products and build Earth Observation workflows that scale.</p>
-<h2 class="anchored">
-🚀 Ready to explore EOPF 101?
-</h2>
-<p>EOPF 101 is designed for Sentinel data users who are new to cloud-optimised geospatial formats and cloud-based workflows. It introduces you to fundamental cloud-native geospatial concepts, the Earth Observation Processing Framework (EOPF) activities by ESA, re-processed EOPF Sentinel Zarr data, as well as tools and libraries to work with EOPF Sentinel Zarr data in the cloud.</p>
-<p>Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments, as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data.</p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>This section introduces you to the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Samples Service STAC Catalog</a>, which offers access to the re-engineered Sentinel-1, Sentinel-2 and Sentinel-3 data products. We will guide you through its web interface, inspect the various levels of STAC components, and demonstrate how to access the underlying Sentinel Zarr data.</p>
+</section>
+<section id="what-we-will-learn" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
 <ul>
-<li><strong>Chapter 1 - About EOPF</strong>
-<ul>
-<li><a href="./01_about_eopf/11_about_eopf.html">Introduction to the EOPF</a></li>
-<li><a href="./01_about_eopf/12_about_cloudoptimized_formats.html">About Cloud-Optimised Formats</a></li>
-<li><a href="./01_about_eopf/13_overview_eopf_datasets.html">EOPF Sentinel Zarr products</a></li>
-</ul></li>
-<li><strong>Chapter 2 - About EOPF Zarr</strong>
-<ul>
-<li><a href="./02_about_eopf_zarr/21_what_is_zarr.html">Overview of the EOPF Zarr format</a></li>
-<li><a href="./02_about_eopf_zarr/22_zarr_structure_S1GRD.html">Discover EOPF Zarr - Sentinel-1 GRD</a></li>
-<li><a href="./02_about_eopf_zarr/23_S1_basic_operations.html">Operations with EOPF Zarr - Sentinel-1 GRD</a></li>
-<li><a href="./02_about_eopf_zarr/24_zarr_struct_S2L2A.html">Discover EOPF Zarr - Sentinel-2 L2A</a></li>
-<li><a href="./02_about_eopf_zarr/25_zarr_struct_S3.html">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</a></li>
-</ul></li>
-<li><strong>Chapter 3 - About Chunking</strong>
-<ul>
-<li><a href="./03_about_chunking/31_zarr_chunking_intro.html">An introduction to Chunking</a></li>
-<li><a href="./03_about_chunking/32_zarr_chunking_strat.html">Best practices and Chunking optimisation in EOPF</a></li>
-</ul></li>
-<li><strong>Chapter 4 - EOPF and STAC</strong>
-<ul>
-<li><a href="./04_eopf_and_stac/41_stac_intro.html">Introduction to STAC</a></li>
-<li><a href="./04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html">Explore the web interface of the EOPF Zarr STAC Catalog</a></li>
-<li><a href="./04_eopf_and_stac/43_eopf_stac_connection.html">Access the EOPF Zarr STAC API with Python</a></li>
-<li><a href="./04_eopf_and_stac/44_eopf_stac_xarray_tutorial.html">From STAC to Data: Accessing EOPF Zarr with xarray</a></li>
-</ul></li>
-<li><strong>Chapter 5 - Tools to work with EOPF Zarr</strong> – <em>more coming soon!</em>
-<ul>
-<li><a href="./05_zarr_tools/51_eopf_stac_r.html">Access the EOPF Zarr STAC API with R</a></li>
-<li><a href="./05_zarr_tools/52_eopf_stac_qgis.html">Access the EOPF Zarr STAC API with QGIS</a></li>
-</ul></li>
-<li><strong>Chapter 6 - EOPF Zarr in Action</strong>
-<ul>
-<li><a href="./06_eopf_zarr_in_action/61_sardinia_s2_tfci.html">Fire in Sardinia 2025 - Part 1</a></li>
-<li><a href="./06_eopf_zarr_in_action/62_sardinia_s3_lst.html">Fire in Sardinia 2025 - Part 2</a></li>
-<li><a href="./06_eopf_zarr_in_action/63_sardinia_dNBR.html">Fire in Sardinia 2025 - Part 3</a></li>
-<li><a href="./06_eopf_zarr_in_action/64_flood_mapping_valencia.html">Flood Mapping - Time Series Analysis in Valencia</a></li>
-</ul></li>
+<li>⚙️ How does the STAC browser interface work</li>
+<li>🔦 Explore the available Collections within the EOPF Sentinel Zarr Samples Service STAC Catalog</li>
+<li>📡 How to obtain access to EOPF Sentinel Zarr products from the EOPF Sentinel Zarr Samples Service STAC Catalog</li>
 </ul>
-<h2 class="anchored">
-💡 How best to use EOPF 101
-</h2>
-<p>You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data.</p>
-<p>Beyond this browsable version, you can also set up the required environment to execute the notebooks:</p>
-<p>When <strong>starting your server</strong>, you will be able to select the <strong>Docker image</strong> you want to work with. The <a href="https://github.com/eopf-toolkit">EOPF Toolkit</a> has designed updated environments to support your development!<br></p>
-<p>You can select: <strong>Specify an existing docker image</strong>.</p>
-<p align="center">
-<img title="Select docker image" alt="Alt text" src="./img/sel_di.png" width="90%" class="center">
-</p>
-<p>Once you click, the following box is displayed:</p>
-<p align="center">
-<img title="Define the docker option" alt="Alt text" src="./img/def_di.png" width="90%" class="center">
-</p>
-<p>In the box, you can copy and paste the following custom lines: * If you would like to develop your workflow in Python:<br> <code>4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:competition</code></p>
+<hr>
+</section>
+<section id="our-starting-point" class="level2">
+<h2 class="anchored" data-anchor-id="our-starting-point">Our Starting Point</h2>
+<p>The first step is to access the main homepage of the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Samples Service STAC Catalog</a>. The landing page offers you a comprehensive overview of the available data collections. This serves as our <strong>initial entry</strong> point into the catalog.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/home_page.png" class="img-fluid figure-img"></p>
+<figcaption>Home page</figcaption>
+</figure>
+</div>
+<p>Three main areas can be identified: (i) the <strong>API and URL</strong> section, (ii) <strong>Search bar</strong> and (iii) <strong>Collections Display</strong>. <br></p>
+<p>As outlined in detail in the book section <a href="13_overview_eopf_datasets.qmd">The EOPF Available Datasets</a>, the catalog displays the 11 distinct collections available from the Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br> The user interface provides an intuitive way to browse through all of these collections. It is possible to filter them by specific criteria or select them manually, allowing precise control over the displayed data.</p>
+</section>
+<section id="exploring-sentinel-collections" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-sentinel-collections">Exploring Sentinel Collections</h2>
+<p>Let us now select one of the 11 <code>Collection</code> available, e.g.&nbsp;let us select the <a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a">Sentinel 2-Level-2A</a> collection. Once you have selected the Collection, you will be directed to the interface of a specific <code>Collection</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/sentinel_2_collection.png" class="img-fluid figure-img"></p>
+<figcaption>Web interface of the Sentinel-2 Level-2A Collection of the EOPF Sentinel Zarr Samples Service STAC Catalog</figcaption>
+</figure>
+</div>
+<p>The interface can be divided into five principal sections:</p>
+<ol type="1">
+<li><strong>Description</strong>: The name and a brief introduction to the available collection. This includes crucial details such as the <strong>temporal extent</strong> (the period over which the data was acquired)</li>
+<li><strong>API and URL</strong>: for further application.</li>
+<li><strong>Spatial Extent</strong>: The geographical area of the displayed items is shown on the map.</li>
+<li><strong>Available Items</strong>: On the right-hand side of the page, a list of links for the items contained within the collection corresponds to the selected collection.</li>
+<li><strong>Collection Metadata</strong>: A general overview of the Collection’s metadata, its providers, instruments, and the corresponding DOIs for research.</li>
+<li><strong>Metadata</strong>: Specific information about the bands and instruments, such as backscatter or reflectance information.</li>
+<li><strong>Assets in Items</strong>: The Assets structure is available for the Items available in the Collection.</li>
+</ol>
+<section id="filtering-collections" class="level3">
+<h3 class="anchored" data-anchor-id="filtering-collections">Filtering Collections</h3>
+<p>Any selected <code>Collection</code> (in this case Sentinel-2 Level-2A) allows us to filter the items of our interest by <strong>temporal</strong> and <strong>spatial</strong> extent. We can access this tab by clicking on <strong>Show Filters</strong> on the right side under the <strong>Items</strong> section.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/filter_1.png" class="img-fluid figure-img"></p>
+<figcaption>Overview of interface that opens when clicking in <em>Show Filters</em></figcaption>
+</figure>
+</div>
+<p>The interface that opens allows us to select on the calendar a specific period we are interested in. This is particularly useful when we are interested in a temporal analysis. Let us search over the available items captured between May 1st and May 5th 2024.<br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/temporal_filter.png" class="img-fluid figure-img"></p>
+<figcaption>Filtering over time</figcaption>
+</figure>
+</div>
+<p>Additionally, we can select a location we are interested in by checking the <strong>Filter by spatial extent</strong> box. This allows us to refine our search over an area of interest. Once you tick the box, a map activates and allows us to draw a bounding box that we can drag and drop. Let us select Europe as our area of interest.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/spatial_filter.png" class="img-fluid figure-img"></p>
+<figcaption>Filtering over spatial extent</figcaption>
+</figure>
+</div>
+<p>Once we select the desired period and area via the filters, we can sort the items that match our search by ID, Date and Time, or select the number of resulting items we are interested in per page. In this case, we select 2, so the overview is digestible. Then, we click <strong>Submit</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/filtered_results.png" class="img-fluid figure-img"></p>
+<figcaption>Resulting Items</figcaption>
+</figure>
+</div>
+<p>Under the window, we can now see that two items appear. For example:<br> <code>S2B_MSIL2A_20250504T131719_N0511_R124_T27VVL_20250504T165710</code><br></p>
+<p>We can select any of the resulting items, and this will enable us to access an <code>Item</code> inside the <code>Collection</code>.</p>
+</section>
+</section>
+<section id="exploring-items" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-items">Exploring Items</h2>
+<p>When a specific <code>Item</code> sparks our interest, clicking on it will bring us to a detailed overview page for that selected <code>Item</code>. <br></p>
+<p>This <code>Item</code> interface is composed of:</p>
+<ol type="1">
+<li><strong>Description</strong>: The name of the <code>Item</code>. Depending on the mission and collection it belongs to, the composition of the name changes.</li>
+<li><strong>Spatial Extent</strong>: The geographical footprint of the selected <code>Item</code> is shown on the map.</li>
+<li><strong>Collection Metadata</strong>: A general overview of the Collection’s metadata, its providers, instruments, resolution, grid and the corresponding DOIs for research.</li>
+<li><strong>API and URL</strong>: Allows the entry point for further retrieval of the individual assets.</li>
+<li><strong>Assets menu</strong>: lists all the <code>Assets</code> that are part of the selected <code>Item</code>.</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/item_des.png" class="img-fluid figure-img"></p>
+<figcaption>The item selected inside the Sentinel-2 Level-2A Collection</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>At this level of the STAC structure, we are already diving deep into the STAC levels, and have explored the <code>Catalog</code>, <code>Collection</code> and <code>Item</code> components described in the <a href="../04_eopf_and_stac/41_stac_intro.html">Introduction to STAC</a> section.</p>
+</div>
+</div>
+</section>
+<section id="assets" class="level2">
+<h2 class="anchored" data-anchor-id="assets">Assets</h2>
+<p>Inside the selected <code>Item</code>, we will get an overview of the available <code>Assets</code> that belong to the <code>Item</code>. By expanding the <strong>dropdown menu</strong> for any <code>Asset</code> of interest, you can access its specific metadata and, most importantly, the actual data. <br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/drop_down.png" class="img-fluid figure-img"></p>
+<figcaption>Overview of the web interface on Asset level</figcaption>
+</figure>
+</div>
+<p>In the case of the <strong>Sentinel-2 Level-2A</strong> collection, each asset corresponds to one of the 13 spectral bands available. The array information provides details about the structure and content of the data, hinting at the actual values contained within the asset. It also contains the chunking grid specification and all the crucial metadata necessary to structure and process the data through a wide range of geospatial methodologies.</p>
+<section id="accessing-assets" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-assets">Accessing Assets</h3>
+<p>For direct data access of <code>Assetz</code> and therefore the actual data, there are two options provided via the web interface: * <strong>Download</strong>: It is possible to download only one asset separately in <code>.zarr</code> format by clicking the <em>Download</em> option associated with an Asset, and * <strong>Copy URL</strong>: We can also retrieve the unique URL of the specified <code>Asset</code>, which allows us to directly integrate the link into programmatic workflows, without the need to download the <code>Asset</code>. We can get it by simply clicking on the <em>Copy URL</em> option under the <code>Asset</code> of our interest.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/download_img.png" class="img-fluid figure-img"></p>
+<figcaption>Data access options via the web interface</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="now-it-is-your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="now-it-is-your-turn">💪 Now it is your turn</h2>
+<p>Your task now is to explore the web interface of the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Samples Service STAC Catalog</a> on your own and explore other <code>Collections</code> than the one we showcased.</p>
+<section id="task-1-discover-sentinel-1-grd-data" class="level3">
+<h3 class="anchored" data-anchor-id="task-1-discover-sentinel-1-grd-data">Task 1: Discover Sentinel-1 GRD Data</h3>
+<p>Navigate to the <a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1&amp;language=en">Sentinel-1 Level-1 GRD Collection</a>.</p>
 <ul>
-<li>Or, if you prefer to use R:<br> <code>4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:competition</code></li>
+<li>How many items can you find for the most recent two years available in the catalogue?</li>
+<li>Try filtering by different periods and observe how the results change. How many items are available for September 2023?</li>
 </ul>
-<p>And select <strong>Start</strong>.</p>
-<p>To get some ideas on how to get started with your development, watch the introductory session <a href="https://www.youtube.com/watch?v=N7_C3rxjjp4">here</a>.</p>
-<h2 class="anchored">
-📢 How to get involved
-</h2>
-<p>EOPF 101 is an open community resource under active development. Our activities are designed to engage with <strong>Sentinel users</strong> and to gather feedback on <strong>EOPF Sentinel Zarr</strong> products. There are different ways you can get involved and engaged:</p>
-<h3 class="anchored">
-Join the EOPF Toolkit Notebook Competition
-</h3>
-<p>Get ready and participate in the EOPF Toolkit Notebook Competition! The competition will kick-off in October 2025 and run until January 2026. It is your chance to get hands-on with EOPF Zarr products, get expert input and guidance to show the community the great work you can do.</p>
-<h4 class="anchored">
-How to Participate?
-</h4>
-<h5 class="anchored">
-Step 1: Launch &amp; Registration
-</h5>
-<p>The competition officially begins with its launch at <a href="https://www.bigdatafromspace2025.org/">Big Data from Space 2025</a> on 30 September 2025. During this stage, you will be able to register <a href="https://thrivegeo.com/eopf-toolkit-competition/">your interest</a> to receive updates!<br></p>
-<h5 class="anchored">
-<p>Step 2: Learning &amp; Development</p>
-<p>Explore this resource and build your own notebook! The <a href="https://jupyterhub.user.eopf.eodc.eu/hub">EOPF Sentinel Zarr Sample Service JupyterLab</a> will be your primary development environment.<br> Once you access with your <a href="https://dataspace.copernicus.eu/">CDSE</a> credentials, you will get the chance to choose the language you want to develop with!</p>
-</h5><h5 class="anchored">
-Step 3: Notebook Submission
-</h5>
-<p>Submit your completed Jupyter Notebook via <a href="https://github.com/eopf-toolkit/community-notebook-competition/tree/main/submissions">GitHub</a> once complete, between 1 November 2025 and 30 January 2026 (23:59 UTC+1). Stay tuned!</p>
-<h5 class="anchored">
-Judging &amp; Evaluation
-</h5>
-<p>A panel of expert judges will evaluate each submission based on technical soundness, effective use of the EOPF Zarr data and plugins and educational quality.</p>
-<h5 class="anchored">
-Awards &amp; Showcase
-</h5>
-<p>The competition culminates in an online awards taking place on 18 February 2026! Winners and highly commended entries will be announced.<br></p>
-<p>The top notebooks will be featured in the <strong>EOPF 101</strong> as new case studies and you will be given the chance to be a co-author of a publication on <strong>EOPF 101</strong>.</p>
-<p>For futher details, please visit the <a href="https://github.com/eopf-toolkit/community-notebook-competition">notebook competition repository</a>!</p>
-<h3 class="anchored">
-Ideas &amp; Feedback?
-</h3>
-<p>Is there a plugin or library missing that you would like to see integrated? Do you have feedback on EOPF 101? Please submit an <a href="https://github.com/eopf-toolkit/eopf-101/issues">issue</a> and we will review your request.</p>
-<h2 class="anchored">
-About the ESA EOPF Toolkit project
-</h2>
-<p>EOPF 101 is a community resource developed as part of the <a href="https://github.com/eopf-toolkit">EOPF Toolkit project</a> funded by the <a href="https://www.esa.int/">European Space Agency</a>. EOPF 101 is brought to you by <a href="https://developmentseed.org/">Development Seed</a>, <a href="https://www.thrivegeo.com">thriveGEO</a> and <a href="https://sparkgeo.com/">SparkGeo</a>. <br></p>
-<p align="center">
-<img title="EOPF Toolkit Logo" alt="Alt text" src="./img/EOPF_FINAL_LOGO.png" class="center" width="40%">
-</p>
-<p align="center">
-<img title="Consortium logos" alt="Alt text" src="./img/logos.png" class="center" width="80%">
-</p>
+</section>
+<section id="task-2-mapping-your-interests" class="level3">
+<h3 class="anchored" data-anchor-id="task-2-mapping-your-interests">Task 2: Mapping Your Interests</h3>
+<p>Explore the interactive map within the <a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1&amp;language=en">Sentinel-1 Level-1 GRD</a> and the <a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a?.language=en">Sentinel-2 Level-2A</a> collections.</p>
+<ul>
+<li>Can you identify and list the names of at least three distinct geographical areas where a significant number of items are available? (Hint: Look for clusters of the displayed items!)</li>
+</ul>
+</section>
+<section id="task-3-unpacking-an-asset" class="level3">
+<h3 class="anchored" data-anchor-id="task-3-unpacking-an-asset">Task 3: Unpacking an Asset</h3>
+<p>Select an item from any collection that looks interesting to you. Click on it to view its details. Then, expand one of the assets.</p>
+<ul>
+<li>What kind of array information is provided?</li>
+<li>Who is the data provider?</li>
+<li>How would this information be useful if you were to process this data?</li>
+</ul>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This section walked you through the web interface of the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Samples Service STAC Catalog</a>. We have demonstrated how to navigate its interface, from the initial overview of the available <code>Collections</code> to the detailed inspection of specific <code>Items</code> and <code>Assets</code>. By understanding the structure and components of a STAC catalog, we are able to efficiently access re-engineered EOPF Zarr assets.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
+<p>In the next <a href="../04_eopf_and_stac/43_eopf_stac_connection.html">section</a>, we will explore how to programmatically connect to and search through the EOPF Sentinel Zarr Samples Service STAC API with the help of the <code>pystac</code> and the <code>pystac-client</code> Python libraries.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -847,10 +926,13 @@ About the ESA EOPF Toolkit project
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../04_eopf_and_stac/41_stac_intro.html" class="pagination-link" aria-label="Introduction to STAC">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Introduction to STAC</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_about_eopf/11_about_eopf.html" class="pagination-link" aria-label="Introduction to the EOPF">
-        <span class="nav-page-text"><span class="chapter-title">Introduction to the EOPF</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../04_eopf_and_stac/43_eopf_stac_connection.html" class="pagination-link" aria-label="Access the EOPF Zarr STAC API with Python">
+        <span class="nav-page-text"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

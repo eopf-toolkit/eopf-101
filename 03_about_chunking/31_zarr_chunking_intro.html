@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ESA EOPF 101</title>
+<title>An introduction to Chunking</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +23,26 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./01_about_eopf/11_about_eopf.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../03_about_chunking/32_zarr_chunking_strat.html" rel="next">
+<link href="../02_about_eopf_zarr/25_zarr_struct_S3.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -79,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating fullcontent quarto-light">
+<body class="nav-sidebar floating quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -88,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../03_about_chunking/31_zarr_chunking_intro.html"><strong>About Chunking</strong></a></li><li class="breadcrumb-item"><a href="../03_about_chunking/31_zarr_chunking_intro.html"><span class="chapter-title">An introduction to Chunking</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -102,9 +103,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
-      <img src="./img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main">
     <a href="https://github.com/eopf-toolkit/eopf-101" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
@@ -119,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -133,17 +134,17 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_about_eopf/11_about_eopf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the EOPF</span></a>
+  <a href="../01_about_eopf/11_about_eopf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the EOPF</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_about_eopf/12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About cloud-optimised formats</span></a>
+  <a href="../01_about_eopf/12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About cloud-optimised formats</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_about_eopf/13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
+  <a href="../01_about_eopf/13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
   </div>
 </li>
       </ul>
@@ -159,27 +160,27 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/21_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
+  <a href="../02_about_eopf_zarr/21_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/22_zarr_structure_S1GRD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-1 GRD</span></a>
+  <a href="../02_about_eopf_zarr/22_zarr_structure_S1GRD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-1 GRD</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/23_S1_basic_operations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operations with EOPF Zarr - Sentinel-1 GRD</span></a>
+  <a href="../02_about_eopf_zarr/23_S1_basic_operations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operations with EOPF Zarr - Sentinel-1 GRD</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/24_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
+  <a href="../02_about_eopf_zarr/24_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_about_eopf_zarr/25_zarr_struct_S3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></a>
+  <a href="../02_about_eopf_zarr/25_zarr_struct_S3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></a>
   </div>
 </li>
       </ul>
@@ -195,12 +196,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_about_chunking/31_zarr_chunking_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">An introduction to Chunking</span></a>
+  <a href="../03_about_chunking/31_zarr_chunking_intro.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">An introduction to Chunking</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_about_chunking/32_zarr_chunking_strat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></a>
+  <a href="../03_about_chunking/32_zarr_chunking_strat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></a>
   </div>
 </li>
       </ul>
@@ -216,22 +217,22 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_eopf_and_stac/41_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
+  <a href="../04_eopf_and_stac/41_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
+  <a href="../04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_eopf_and_stac/43_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
+  <a href="../04_eopf_and_stac/43_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./04_eopf_and_stac/44_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
+  <a href="../04_eopf_and_stac/44_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
   </div>
 </li>
       </ul>
@@ -247,12 +248,12 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_zarr_tools/51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  <a href="../05_zarr_tools/51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
+  <a href="../05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
   </div>
 </li>
       </ul>
@@ -268,34 +269,34 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
+  <a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
+  <a href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_eopf_zarr_in_action/63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
+  <a href="../06_eopf_zarr_in_action/63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
+  <a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>References</strong></span></a>
+  <a href="../references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>References</strong></span></a>
   </div>
 </li>
     </ul>
@@ -303,13 +304,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
+  <li><a href="#what-are-chunks" id="toc-what-are-chunks" class="nav-link" data-scroll-target="#what-are-chunks">What are chunks?</a></li>
+  <li><a href="#why-chunks-transform-performance" id="toc-why-chunks-transform-performance" class="nav-link" data-scroll-target="#why-chunks-transform-performance">Why chunks transform performance</a>
+  <ul class="collapse">
+  <li><a href="#chunk-sizes-for-performance" id="toc-chunk-sizes-for-performance" class="nav-link" data-scroll-target="#chunk-sizes-for-performance">Chunk sizes for performance</a></li>
+  <li><a href="#a-simple-chunking-example" id="toc-a-simple-chunking-example" class="nav-link" data-scroll-target="#a-simple-chunking-example">A simple chunking example</a></li>
+  <li><a href="#compression-of-chunks" id="toc-compression-of-chunks" class="nav-link" data-scroll-target="#compression-of-chunks">Compression of chunks</a></li>
+  </ul></li>
+  <li><a href="#why-is-it-relevant-to-chunk-eo-data" id="toc-why-is-it-relevant-to-chunk-eo-data" class="nav-link" data-scroll-target="#why-is-it-relevant-to-chunk-eo-data">Why is it relevant to chunk EO data</a></li>
+  <li><a href="#now-it-is-your-turn" id="toc-now-it-is-your-turn" class="nav-link" data-scroll-target="#now-it-is-your-turn">💪 Now it is your turn</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../03_about_chunking/31_zarr_chunking_intro.html"><strong>About Chunking</strong></a></li><li class="breadcrumb-item"><a href="../03_about_chunking/31_zarr_chunking_intro.html"><span class="chapter-title">An introduction to Chunking</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><strong>ESA EOPF 101</strong></h1>
+<h1 class="title"><span class="chapter-title">An introduction to Chunking</span></h1>
 </div>
 
 
@@ -326,123 +347,171 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<h3 class="anchored">
-Your community guide for working with EOPF Sentinel Zarr data in the cloud
-</h3>
-<p>Explore EOPF 101, an open community resource designed to help Sentinel data users explore EOPF Sentinel Zarr data in the cloud. With our step-by-step and hands-on tutorials, you’ll learn how to effectively use EOPF Sentinel Zarr products and build Earth Observation workflows that scale.</p>
-<h2 class="anchored">
-🚀 Ready to explore EOPF 101?
-</h2>
-<p>EOPF 101 is designed for Sentinel data users who are new to cloud-optimised geospatial formats and cloud-based workflows. It introduces you to fundamental cloud-native geospatial concepts, the Earth Observation Processing Framework (EOPF) activities by ESA, re-processed EOPF Sentinel Zarr data, as well as tools and libraries to work with EOPF Sentinel Zarr data in the cloud.</p>
-<p>Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments, as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data.</p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p><strong>Chunking</strong> is the secret sauce that makes <code>.zarr</code> format incredibly efficient for <strong>Earth Observation</strong> data processing.<br> Understanding chunking allows us to transform the way we work with massive satellite datasets. This means somehow, turning memory-crushing, slow operations into fast, scalable analysis workflows.<br></p>
+<p>This introduction takes you from chunking basics to advanced optimisation strategies specifically tailored for <a href="https://eopf.copernicus.eu/">EOPF (Earth Observation Processing Framework)</a> datasets.</p>
+</section>
+<section id="what-we-will-learn" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
 <ul>
-<li><strong>Chapter 1 - About EOPF</strong>
-<ul>
-<li><a href="./01_about_eopf/11_about_eopf.html">Introduction to the EOPF</a></li>
-<li><a href="./01_about_eopf/12_about_cloudoptimized_formats.html">About Cloud-Optimised Formats</a></li>
-<li><a href="./01_about_eopf/13_overview_eopf_datasets.html">EOPF Sentinel Zarr products</a></li>
-</ul></li>
-<li><strong>Chapter 2 - About EOPF Zarr</strong>
-<ul>
-<li><a href="./02_about_eopf_zarr/21_what_is_zarr.html">Overview of the EOPF Zarr format</a></li>
-<li><a href="./02_about_eopf_zarr/22_zarr_structure_S1GRD.html">Discover EOPF Zarr - Sentinel-1 GRD</a></li>
-<li><a href="./02_about_eopf_zarr/23_S1_basic_operations.html">Operations with EOPF Zarr - Sentinel-1 GRD</a></li>
-<li><a href="./02_about_eopf_zarr/24_zarr_struct_S2L2A.html">Discover EOPF Zarr - Sentinel-2 L2A</a></li>
-<li><a href="./02_about_eopf_zarr/25_zarr_struct_S3.html">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</a></li>
-</ul></li>
-<li><strong>Chapter 3 - About Chunking</strong>
-<ul>
-<li><a href="./03_about_chunking/31_zarr_chunking_intro.html">An introduction to Chunking</a></li>
-<li><a href="./03_about_chunking/32_zarr_chunking_strat.html">Best practices and Chunking optimisation in EOPF</a></li>
-</ul></li>
-<li><strong>Chapter 4 - EOPF and STAC</strong>
-<ul>
-<li><a href="./04_eopf_and_stac/41_stac_intro.html">Introduction to STAC</a></li>
-<li><a href="./04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html">Explore the web interface of the EOPF Zarr STAC Catalog</a></li>
-<li><a href="./04_eopf_and_stac/43_eopf_stac_connection.html">Access the EOPF Zarr STAC API with Python</a></li>
-<li><a href="./04_eopf_and_stac/44_eopf_stac_xarray_tutorial.html">From STAC to Data: Accessing EOPF Zarr with xarray</a></li>
-</ul></li>
-<li><strong>Chapter 5 - Tools to work with EOPF Zarr</strong> – <em>more coming soon!</em>
-<ul>
-<li><a href="./05_zarr_tools/51_eopf_stac_r.html">Access the EOPF Zarr STAC API with R</a></li>
-<li><a href="./05_zarr_tools/52_eopf_stac_qgis.html">Access the EOPF Zarr STAC API with QGIS</a></li>
-</ul></li>
-<li><strong>Chapter 6 - EOPF Zarr in Action</strong>
-<ul>
-<li><a href="./06_eopf_zarr_in_action/61_sardinia_s2_tfci.html">Fire in Sardinia 2025 - Part 1</a></li>
-<li><a href="./06_eopf_zarr_in_action/62_sardinia_s3_lst.html">Fire in Sardinia 2025 - Part 2</a></li>
-<li><a href="./06_eopf_zarr_in_action/63_sardinia_dNBR.html">Fire in Sardinia 2025 - Part 3</a></li>
-<li><a href="./06_eopf_zarr_in_action/64_flood_mapping_valencia.html">Flood Mapping - Time Series Analysis in Valencia</a></li>
-</ul></li>
+<li>🧱 What a <em>chunk</em> is</li>
+<li>⏳ Recognise the relationship between chunk and optimisation</li>
+<li>📚 The relevant considerations for chunking size, compression and transfer</li>
 </ul>
-<h2 class="anchored">
-💡 How best to use EOPF 101
-</h2>
-<p>You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data.</p>
-<p>Beyond this browsable version, you can also set up the required environment to execute the notebooks:</p>
-<p>When <strong>starting your server</strong>, you will be able to select the <strong>Docker image</strong> you want to work with. The <a href="https://github.com/eopf-toolkit">EOPF Toolkit</a> has designed updated environments to support your development!<br></p>
-<p>You can select: <strong>Specify an existing docker image</strong>.</p>
-<p align="center">
-<img title="Select docker image" alt="Alt text" src="./img/sel_di.png" width="90%" class="center">
-</p>
-<p>Once you click, the following box is displayed:</p>
-<p align="center">
-<img title="Define the docker option" alt="Alt text" src="./img/def_di.png" width="90%" class="center">
-</p>
-<p>In the box, you can copy and paste the following custom lines: * If you would like to develop your workflow in Python:<br> <code>4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:competition</code></p>
+<hr>
+</section>
+<section id="what-are-chunks" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-chunks">What are chunks?</h2>
+<p>Zarr revolutionises how we store and access large multidimensional arrays by breaking them into smaller, manageable pieces called <strong>chunks</strong>. Think of chunks as rectangular tiles that together compose a complete dataset, but with a <strong>significant difference</strong>: they allow us to access and process each of the components independently.</p>
+<div style="text-align: center;">
+<p><em>A chunk is <code>.zarr</code>’s fundamental storage unit: an equally-sized block of array data that gets compressed and stored as a separate object.</em></p>
+</div>
+<p>For example, when we have a massive 10,000 × 10,000 pixel satellite image, <code>zarr</code> might divide it into 100 chunks of 1,000 × 1,000 pixels each. Then, each chunk becomes a <strong>separate compressed file</strong> or <strong>object</strong> in our storage system.</p>
+</section>
+<section id="why-chunks-transform-performance" class="level2">
+<h2 class="anchored" data-anchor-id="why-chunks-transform-performance">Why chunks transform performance</h2>
+<p>Chunking addresses <strong>three critical performance bottlenecks</strong> in large-scale data processing:</p>
 <ul>
-<li>Or, if you prefer to use R:<br> <code>4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:competition</code></li>
+<li><p><strong>Memory efficiency</strong>: Instead of loading entire datasets into RAM, chunks allow us to only load the specific data we need. This allows us to work with datasets larger than our available memory, like a 100 GB satellite time series. It can be processed on a machine with just 8 GB of RAM.</p></li>
+<li><p><strong>I/O optimisation</strong>: Chunking <strong>minimises data transfer</strong>, as it only reads relevant sections. When we need data from one geographic region, <code>zarr</code> loads only those chunks covering that area. For cloud storage, this translates to fewer, more efficient HTTP requests instead of downloading massive files. It also reduces data latency.</p></li>
+<li><p><strong>Parallel processing</strong>: Different chunks can be processed simultaneously by multiple CPU cores or distributed workers. This transforms compute-intensive operations from sequential bottlenecks into scalable parallel workflows.</p></li>
 </ul>
-<p>And select <strong>Start</strong>.</p>
-<p>To get some ideas on how to get started with your development, watch the introductory session <a href="https://www.youtube.com/watch?v=N7_C3rxjjp4">here</a>.</p>
-<h2 class="anchored">
-📢 How to get involved
-</h2>
-<p>EOPF 101 is an open community resource under active development. Our activities are designed to engage with <strong>Sentinel users</strong> and to gather feedback on <strong>EOPF Sentinel Zarr</strong> products. There are different ways you can get involved and engaged:</p>
-<h3 class="anchored">
-Join the EOPF Toolkit Notebook Competition
-</h3>
-<p>Get ready and participate in the EOPF Toolkit Notebook Competition! The competition will kick-off in October 2025 and run until January 2026. It is your chance to get hands-on with EOPF Zarr products, get expert input and guidance to show the community the great work you can do.</p>
-<h4 class="anchored">
-How to Participate?
-</h4>
-<h5 class="anchored">
-Step 1: Launch &amp; Registration
-</h5>
-<p>The competition officially begins with its launch at <a href="https://www.bigdatafromspace2025.org/">Big Data from Space 2025</a> on 30 September 2025. During this stage, you will be able to register <a href="https://thrivegeo.com/eopf-toolkit-competition/">your interest</a> to receive updates!<br></p>
-<h5 class="anchored">
-<p>Step 2: Learning &amp; Development</p>
-<p>Explore this resource and build your own notebook! The <a href="https://jupyterhub.user.eopf.eodc.eu/hub">EOPF Sentinel Zarr Sample Service JupyterLab</a> will be your primary development environment.<br> Once you access with your <a href="https://dataspace.copernicus.eu/">CDSE</a> credentials, you will get the chance to choose the language you want to develop with!</p>
-</h5><h5 class="anchored">
-Step 3: Notebook Submission
-</h5>
-<p>Submit your completed Jupyter Notebook via <a href="https://github.com/eopf-toolkit/community-notebook-competition/tree/main/submissions">GitHub</a> once complete, between 1 November 2025 and 30 January 2026 (23:59 UTC+1). Stay tuned!</p>
-<h5 class="anchored">
-Judging &amp; Evaluation
-</h5>
-<p>A panel of expert judges will evaluate each submission based on technical soundness, effective use of the EOPF Zarr data and plugins and educational quality.</p>
-<h5 class="anchored">
-Awards &amp; Showcase
-</h5>
-<p>The competition culminates in an online awards taking place on 18 February 2026! Winners and highly commended entries will be announced.<br></p>
-<p>The top notebooks will be featured in the <strong>EOPF 101</strong> as new case studies and you will be given the chance to be a co-author of a publication on <strong>EOPF 101</strong>.</p>
-<p>For futher details, please visit the <a href="https://github.com/eopf-toolkit/community-notebook-competition">notebook competition repository</a>!</p>
-<h3 class="anchored">
-Ideas &amp; Feedback?
-</h3>
-<p>Is there a plugin or library missing that you would like to see integrated? Do you have feedback on EOPF 101? Please submit an <a href="https://github.com/eopf-toolkit/eopf-101/issues">issue</a> and we will review your request.</p>
-<h2 class="anchored">
-About the ESA EOPF Toolkit project
-</h2>
-<p>EOPF 101 is a community resource developed as part of the <a href="https://github.com/eopf-toolkit">EOPF Toolkit project</a> funded by the <a href="https://www.esa.int/">European Space Agency</a>. EOPF 101 is brought to you by <a href="https://developmentseed.org/">Development Seed</a>, <a href="https://www.thrivegeo.com">thriveGEO</a> and <a href="https://sparkgeo.com/">SparkGeo</a>. <br></p>
-<p align="center">
-<img title="EOPF Toolkit Logo" alt="Alt text" src="./img/EOPF_FINAL_LOGO.png" class="center" width="40%">
-</p>
-<p align="center">
-<img title="Consortium logos" alt="Alt text" src="./img/logos.png" class="center" width="80%">
-</p>
+<section id="chunk-sizes-for-performance" class="level3">
+<h3 class="anchored" data-anchor-id="chunk-sizes-for-performance">Chunk sizes for performance</h3>
+<p>Chunk size selection fundamentally determines the performance characteristics over our dataset. The choice of chunking size affects memory usage, I/O efficiency, parallel scaling, and network transfer costs. That is the reason, it is one of the most critical optimisation decisions in Earth Observation data processing.</p>
+<p>There are three levels of chunk sizes:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Chunk size</strong></th>
+<th style="text-align: left;"><strong>Advantages</strong></th>
+<th style="text-align: left;"><strong>Disadvantages</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Small chunks (1-10 MB)</strong></td>
+<td style="text-align: left;">Fine-grained access patterns, minimise memory usage per operation, and enable high granularity for parallel processing.</td>
+<td style="text-align: left;">High metadata overhead, requires numerous network requests for cloud storage, and creates complex task graphs.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Medium chunks (10-100 MB)</strong></td>
+<td style="text-align: left;">Optimal balance for most Earth Observation applications, works well with cloud storage byte-range requests, enables efficient compression ratios, and supports good parallelisation without excessive overhead.</td>
+<td style="text-align: left;">Depend exclusively on the dataset size, making it difficult to replicate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Large chunks (&gt;100 MB)</strong></td>
+<td style="text-align: left;">Maximises compression efficiency, minimises network request count, and dramatically reduces metadata overhead for massive datasets.</td>
+<td style="text-align: left;">Increases memory requirements, may transfer unnecessary data for sparse access patterns, and can limit parallel efficiency.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="a-simple-chunking-example" class="level3">
+<h3 class="anchored" data-anchor-id="a-simple-chunking-example">A simple chunking example</h3>
+<p>We can explore chunking with a simple 2D raster dataset example. Imagine we have a 6×6 grid representing temperature data. This simple dataset can be chunked in different ways, each with its own advantages and tradeoffs:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/chunks_size.png" class="img-fluid figure-img"></p>
+<figcaption>Chunking sizes over the same dataset</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>1×1 Chunks</strong></th>
+<th style="text-align: left;"><strong>2×2 Chunks</strong></th>
+<th style="text-align: left;"><strong>3×3 Chunks</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">- Each pixel is a chunk<br>- Maximum flexibility but high overhead<br>- 36 total chunks<br>- Good for random access to individual cells<br>- Poor for operations that need adjacent cells</td>
+<td style="text-align: left;">- Each chunk contains 4 cells<br>- Balanced approach<br>- 9 total chunks<br>- Good for small region operations<br>- Reasonable compression potential</td>
+<td style="text-align: left;">- Each chunk contains 9 cells<br>- More efficient storage<br>- 4 total chunks<br>- Better compression<br>- Less granular access</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="compression-of-chunks" class="level3">
+<h3 class="anchored" data-anchor-id="compression-of-chunks">Compression of chunks</h3>
+<p><strong>Compression interactions</strong> significantly affect optimal chunk sizes. Larger chunks generally achieve better compression ratios, which are important for spectral data with high spatial correlation. However, compressed chunks must be fully decompressed when accessed, potentially increasing memory usage beyond the nominal chunk size. Balance compression benefits with memory requirements for your specific workflows.</p>
+<p>The available compression algorithms for <code>zarr</code> are the following.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Compression Algorithm</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Blosc with LZ4</strong></td>
+<td style="text-align: left;">Provides excellent speed with moderate compression ratios, making it ideal for interactive applications where decompression speed matters more than maximum storage efficiency. LZ4 typically achieves 2-5× compression on satellite data with very fast decompression.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Zstandard (Zstd)</strong></td>
+<td style="text-align: left;">Offers an exceptional balance between compression ratio and speed, making it the preferred choice for many Earth Observation applications. Zstd often achieves 3-8× compression on spectral data while maintaining reasonable decompression performance.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Specialised algorithms</strong></td>
+<td style="text-align: left;">Such as JPEG 2000, provide excellent compression for certain data types but may not integrate well with general-purpose array processing workflows. Consider format compatibility when selecting compression approaches.</td>
+</tr>
+</tbody>
+</table>
+<p>Compression effectiveness depends heavily on network characteristics:</p>
+<ul>
+<li><p><strong>Bandwidth-limited environments</strong> benefit tremendously from aggressive compression since decompression is typically faster than network transfer. In these cases, higher compression ratios directly translate to reduced analysis time.</p></li>
+<li><p><strong>High-bandwidth, low-latency networks</strong> may make compression counterproductive if decompression becomes the bottleneck. Profile your specific network environment to determine optimal compression levels.</p></li>
+<li><p><strong>Cloud storage considerations</strong> include both transfer costs and access speed. Compressed data reduces both storage costs and transfer times, but increases CPU usage. For most Earth Observation applications, compression provides net benefits.</p></li>
+</ul>
+</section>
+</section>
+<section id="why-is-it-relevant-to-chunk-eo-data" class="level2">
+<h2 class="anchored" data-anchor-id="why-is-it-relevant-to-chunk-eo-data">Why is it relevant to chunk EO data</h2>
+<p>Earth Observation datasets exhibit characteristics that <strong>significantly</strong> <strong>influence</strong> optimal <strong>chunking strategies</strong>. We can consider their structure, sizes, processing workflows and spatial and temporal resolutions.</p>
+<ul>
+<li><p><strong>Multi-dimensional complexity</strong>: Satellite data combines spatial dimensions (often tens of thousands of pixels per side), spectral dimensions (multiple wavelength bands), and temporal dimensions (time series spanning years or decades). Each dimension has different access patterns and computational requirements.</p></li>
+<li><p><strong>Scale characteristics</strong>: Modern satellites generate massive data volumes. The Sentinel-2 mission alone, for example, produces approximately 1.6 TB per orbit, with the full archive exceeding 25 petabytes and growing rapidly. Processing workflows must handle this scale efficiently.</p></li>
+<li><p><strong>Access patterns</strong>: Unlike general-purpose arrays, EO data has predictable access patterns. Spatial analysis typically accesses rectangular geographic regions. Spectral analysis needs multiple bands for the same locations. Time series analysis follows individual pixels or regions through time.</p></li>
+<li><p><strong>Heterogeneous resolutions</strong>: Many instruments capture data at multiple spatial resolutions simultaneously. Some missions require coordinated chunking strategies that balance storage efficiency with processing convenience.</p></li>
+</ul>
+</section>
+<section id="now-it-is-your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="now-it-is-your-turn">💪 Now it is your turn</h2>
+<p>For a <strong>deep dive</strong> into the chunking theory and further technical resources, we recommend going through the following resources:</p>
+<ul>
+<li><a href="https://element84.com/software-engineering/chunks-and-chunkability-tyranny-of-the-chunk/">Chunks and Chunkability: Tyranny of the Chunk</a></li>
+<li><a href="https://blog.dask.org/2021/11/02/choosing-dask-chunk-sizes">Choosing Good Chunk Sizes in Dask</a> - Dask team’s chunking recommendations</li>
+<li><a href="https://esipfed.github.io/cloud-computing-cluster/optimization-practices.html">Optimization Practices - Chunking</a> - ESIP Fed’s chunking best practices</li>
+<li><a href="https://www.researchgate.net/publication/359832694_Optimal_Chunking_Strategies_for_Cloud-based_Storage_of_Geospatial_Data_Using_Zarr">Optimal Chunking Strategies for Cloud-based Storage</a> - Research on geospatial chunking</li>
+</ul>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This chapter introduced the logic behind data chunking and its relevance for scalable analysis workflows. We explored how optimising the size, compression and considering the transfer of these chunks significantly enhances the efficiency of data retrieval.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
+<p>In the following <a href="../03_about_chunking/32_zarr_chunking_strat.html">section</a> , we will go over <strong>optimal chunking strategies</strong> and relevant <strong>considerations</strong> when aiming for making Earth Observation workflows more <strong>efficient</strong>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -847,10 +916,13 @@ About the ESA EOPF Toolkit project
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../02_about_eopf_zarr/25_zarr_struct_S3.html" class="pagination-link" aria-label="Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./01_about_eopf/11_about_eopf.html" class="pagination-link" aria-label="Introduction to the EOPF">
-        <span class="nav-page-text"><span class="chapter-title">Introduction to the EOPF</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../03_about_chunking/32_zarr_chunking_strat.html" class="pagination-link" aria-label="Best practices and Chunking optimisation in EOPF">
+        <span class="nav-page-text"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
