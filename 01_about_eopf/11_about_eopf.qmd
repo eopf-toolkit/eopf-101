@@ -44,10 +44,10 @@ The EOPF product structure consists of the following components:
 - **Conditions:** Information about the environment or technical aspects when the data was collected.
 - **Attributes:** Global metadata, such as when it was acquired and the sensor's orbit.
 
-![EOPF product structure](/img/EOProduct-structure.png){fig-align="center"}
+![EOPF product structure](../img/EOProduct-structure.png){fig-align="center"}
 
 ::: {.callout-note}
-Learn more about the EOPF Zarr product structure [here](/02_about_eopf_zarr/21_what_is_zarr.qmd).
+Learn more about the EOPF Zarr product structure [here](../02_about_eopf_zarr/21_what_is_zarr.qmd).
 :::
 
 ### EOPF metadata structure
@@ -59,7 +59,7 @@ Metadata provides all relevant information required to uniquely describe each Se
 - **Other Metadata**: Information like the status of the sensor and details about the satellite's orbit.
 
 ::: {.callout-note}
-EOPF and STAC: Learn more about EOPF and STAC [here](/04_eopf_and_stac/41_stac_intro.qmd).
+EOPF and STAC: Learn more about EOPF and STAC [here](../04_eopf_and_stac/41_stac_intro.qmd).
 :::
 
 ### EOPF encoding structure
@@ -85,4 +85,4 @@ To learn more about the EOPF processor framework, visit [https://eopf.copernicus
 Throughout this section, we explored the EOPF initiative and its adoption of the `.zarr `format. This new approach is set to significantly improve and simplify how we access and work with data from the satellite missions Sentinel-1, Sentinel-2, and Sentinel-3.
 
 ## What's next?
-In the following [section](/01_about_eopf/12_about_cloudoptimized_formats.qmd), we learn why EO data needs to be cloud-optimised when processed in the cloud.
+In the following [section](./12_about_cloudoptimized_formats.qmd), we learn why EO data needs to be cloud-optimised when processed in the cloud.

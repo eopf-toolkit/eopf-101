@@ -22,7 +22,7 @@ The landing page offers you a comprehensive overview of the available data colle
 
 Three main areas can be identified: (i) the **API and URL** section, (ii) **Search bar** and (iii) **Collections Display**. <br>
 
-As outlined in detail in the book section [The EOPF Available Datasets](/01_about_eopf/13_overview_eopf_datasets.qmd), the catalog displays the 11 distinct collections available from the Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br> The user interface provides an intuitive way to browse through all of these collections. It is possible to filter them by specific criteria or select them manually, allowing precise control over the displayed data. 
+As outlined in detail in the book section [The EOPF Available Datasets](../01_about_eopf/13_overview_eopf_datasets.qmd), the catalog displays the 11 distinct collections available from the Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br> The user interface provides an intuitive way to browse through all of these collections. It is possible to filter them by specific criteria or select them manually, allowing precise control over the displayed data. 
 
 ## Exploring Sentinel Collections
 Let us now select one of the 11 `Collection` available, e.g. let us select the [Sentinel 2-Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) collection. Once you have selected the Collection, you will be directed to the interface of a specific `Collection`.
@@ -80,7 +80,7 @@ This `Item` interface is composed of:
 ![The item selected inside the Sentinel-2 Level-2A Collection](/img/item_des.png){fig-align="center"}
 
 ::: {.callout-important}
-At this level of the STAC structure, we are already diving deep into the STAC levels, and have explored the `Catalog`, `Collection` and `Item` components described in the [Introduction to STAC](/04_eopf_and_stac/41_stac_intro.qmd) section.
+At this level of the STAC structure, we are already diving deep into the STAC levels, and have explored the `Catalog`, `Collection` and `Item` components described in the [Introduction to STAC](../04_eopf_and_stac/41_stac_intro.qmd) section.
 :::
 
 ## Assets 

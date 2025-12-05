@@ -113,4 +113,4 @@ Zarr vs COG: Want to learn more about the differences and similarities of COG an
 In this section, we explored the fundamental concepts of **cloud-optimised geospatial formats**. By understanding the core characteristics of these formats and by looking at specific examples like **Zarr**, you now have a solid foundation for appreciating how these innovations are making geospatial data more accessible, efficient, and powerful in the cloud.
 
 ## What's next?
-Now that we have an idea of the available cloud-optimised formats for satellite imagery and the reason why we need to optimise traditional formats for the cloud, in the next [section](/01_about_eopf/13_overview_eopf_datasets.qmd), we will explore the EOPF data products that are being re-processed as part of the EOPF Zarr Sample Service.
+Now that we have an idea of the available cloud-optimised formats for satellite imagery and the reason why we need to optimise traditional formats for the cloud, in the next [section](./13_overview_eopf_datasets.qmd), we will explore the EOPF data products that are being re-processed as part of the EOPF Zarr Sample Service.
