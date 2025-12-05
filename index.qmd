@@ -15,55 +15,61 @@ re-processed EOPF Sentinel Zarr data, as well as tools and libraries to work wit
 Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments, as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data.
 
 * **Chapter 1 - About EOPF**
-  * [Introduction to the EOPF](/01_about_eopf/11_about_eopf.qmd)
-  * [About Cloud-Optimised Formats](/01_about_eopf/12_about_cloudoptimized_formats.qmd)
-  * [EOPF Sentinel Zarr products](/01_about_eopf/13_overview_eopf_datasets.qmd)
+  * [Introduction to the EOPF](./01_about_eopf/11_about_eopf.qmd)
+  * [About Cloud-Optimised Formats](./01_about_eopf/12_about_cloudoptimized_formats.qmd)
+  * [EOPF Sentinel Zarr products](./01_about_eopf/13_overview_eopf_datasets.qmd)
 
 * **Chapter 2 - About EOPF Zarr**
-  * [Overview of the EOPF Zarr format](/02_about_eopf_zarr/21_what_is_zarr.qmd)
-  * [Discover EOPF Zarr - Sentinel-1 GRD](/02_about_eopf_zarr/22_zarr_structure_S1GRD.ipynb)
-  * [Operations with EOPF Zarr - Sentinel-1 GRD](/02_about_eopf_zarr/23_S1_basic_operations.ipynb)
-  * [Discover EOPF Zarr - Sentinel-2 L2A](/02_about_eopf_zarr/24_zarr_struct_S2L2A.ipynb)
-  * [Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST](/02_about_eopf_zarr/25_zarr_struct_S3.ipynb)
+  * [Overview of the EOPF Zarr format](./02_about_eopf_zarr/21_what_is_zarr.qmd)
+  * [Discover EOPF Zarr - Sentinel-1 GRD](./02_about_eopf_zarr/22_zarr_structure_S1GRD.ipynb)
+  * [Operations with EOPF Zarr - Sentinel-1 GRD](./02_about_eopf_zarr/23_S1_basic_operations.ipynb)
+  * [Discover EOPF Zarr - Sentinel-2 L2A](./02_about_eopf_zarr/24_zarr_struct_S2L2A.ipynb)
+  * [Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST](./02_about_eopf_zarr/25_zarr_struct_S3.ipynb)
 
 * **Chapter 3 - About Chunking**
-  * [An introduction to Chunking](/03_about_chunking/31_zarr_chunking_intro.qmd)
-  * [Best practices and Chunking optimisation in EOPF](/03_about_chunking/32_zarr_chunking_strat.qmd)
+  * [An introduction to Chunking](./03_about_chunking/31_zarr_chunking_intro.qmd)
+  * [Best practices and Chunking optimisation in EOPF](./03_about_chunking/32_zarr_chunking_strat.qmd)
 
 * **Chapter 4 - EOPF and STAC**
-  * [Introduction to STAC](/04_eopf_and_stac/41_stac_intro.qmd)
-  * [Explore the web interface of the EOPF Zarr STAC Catalog](/04_eopf_and_stac/42_eopf_stac_zarr_tutorial.qmd)
-  * [Access the EOPF Zarr STAC API with Python](/04_eopf_and_stac/43_eopf_stac_connection.ipynb)
-  * [From STAC to Data: Accessing EOPF Zarr with xarray](/04_eopf_and_stac/44_eopf_stac_xarray_tutorial.ipynb)
+  * [Introduction to STAC](./04_eopf_and_stac/41_stac_intro.qmd)
+  * [Explore the web interface of the EOPF Zarr STAC Catalog](./04_eopf_and_stac/42_eopf_stac_zarr_tutorial.qmd)
+  * [Access the EOPF Zarr STAC API with Python](./04_eopf_and_stac/43_eopf_stac_connection.ipynb)
+  * [From STAC to Data: Accessing EOPF Zarr with xarray](./04_eopf_and_stac/44_eopf_stac_xarray_tutorial.ipynb)
 
 * **Chapter 5 - Tools to work with EOPF Zarr** -- *more coming soon!*
-  * [Access the EOPF Zarr STAC API with R](/05_zarr_tools/51_eopf_stac_r.qmd)
-  * [Access the EOPF Zarr STAC API with QGIS](/05_zarr_tools/52_eopf_stac_qgis.qmd)
+  * [Access the EOPF Zarr STAC API with R](./05_zarr_tools/51_eopf_stac_r.qmd)
+  * [Access the EOPF Zarr STAC API with QGIS](./05_zarr_tools/52_eopf_stac_qgis.qmd)
 
 * **Chapter 6 - EOPF Zarr in Action**
-  * [Fire in Sardinia 2025 - Part 1](/06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb)
-  * [Fire in Sardinia 2025 - Part 2](/06_eopf_zarr_in_action/62_sardinia_s3_lst.ipynb)
-  * [Fire in Sardinia 2025 - Part 3](/06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb)
-  * [Flood Mapping - Time Series Analysis in Valencia](/06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb)
+  * [Fire in Sardinia 2025 - Part 1](./06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb)
+  * [Fire in Sardinia 2025 - Part 2](./06_eopf_zarr_in_action/62_sardinia_s3_lst.ipynb)
+  * [Fire in Sardinia 2025 - Part 3](./06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb)
+  * [Flood Mapping - Time Series Analysis in Valencia](./06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb)
 
 
 <h2>💡 How best to use EOPF 101 </h2>
 
-You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of EOPF Sentinel Zarr data. 
+You can use EOPF 101 as a reference online resource to get example code and workflows for working with Zarr data, the EOPF STAC Catalogue, and different libraries and plugins facilitating the use of **EOPF Sentinel Zarr** data.
 
-Beyond this browsable version, you can also set up the required environment to execute the notebooks:
+If you would like to execute the notebooks through the **JupyterHub**, simply follow the **Launch Button** available in all the executable notebooks:
+
+<p align="center"><img title="Launch the Jupyter Notebook" alt="Alt text" src="./img/launch_button.png" width= 60% class="center" ></p>
+
+
+Beyond this browsable version, you can also set up our **Docker images** within your own **JupyterHub Server** and test workkflows yourself!
 
 When **starting your server**, you will be able to select the **Docker image** you want to work with. The [EOPF Toolkit](https://github.com/eopf-toolkit) has designed updated environments to support your development!<br>
 
 You can select: **Specify an existing docker image**.
 
-<p align="center"><img title="Select docker image" alt="Alt text" src="/img/sel_di.png" width= 90% class="center" ></p>
+<p align="center"><img title="Select docker image" alt="Alt text" src="./img/sel_di.png" width= 90% class="center" ></p>
 
 Once you click, the following box is displayed:
 
-<p align="center"><img title="Define the docker option" alt="Alt text" src="/img/def_di.png" width= 90% class="center" ></p>
+<p align="center"><img title="Define the docker option" alt="Alt text" src="./img/def_di.png" width= 90% class="center" ></p>
 
 In the box, you can copy and paste the following custom lines:
+
 * If you would like to develop your workflow in Python:<br>
 `4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:competition`
 
@@ -71,8 +77,6 @@ In the box, you can copy and paste the following custom lines:
 `4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:competition`
 
 And select **Start**.
-
-To get some ideas on how to get started with your development, watch the introductory session [here](https://www.youtube.com/watch?v=N7_C3rxjjp4).
 
 <h2>📢 How to get involved </h2>
 
@@ -93,6 +97,8 @@ The competition officially begins with its launch at [Big Data from Space 2025](
 
 Explore this resource and build your own notebook! The [EOPF Sentinel Zarr Sample Service JupyterLab](https://jupyterhub.user.eopf.eodc.eu/hub) will be your primary development environment.<br>
 Once you access with your [CDSE](https://dataspace.copernicus.eu/) credentials, you will get the chance to choose the language you want to develop with!
+
+To get some ideas on how to get started with your development, watch the introductory session [here](https://www.youtube.com/watch?v=N7_C3rxjjp4).
 
 <h5>Step 3: Notebook Submission</h5>
 

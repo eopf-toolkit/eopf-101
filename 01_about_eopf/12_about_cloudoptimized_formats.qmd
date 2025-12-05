@@ -66,7 +66,7 @@ COGs have been widely used as a cloud-native format for satellite imagery and im
 
 A key feature of COGs is the **Internal File Directory** (IFD), which acts like an internal index. This allows for retrieving only the parts of the data needed using simple web requests. For example, it is possible to access just the tiles covering Paris from a large Sentinel-2 image of Europe.
 
-![COG structure. Retrieved from CNG documentation](img/cogtiff.png)
+![COG structure. Retrieved from CNG documentation](./../img/cogtiff.png)
 
 ### Multi-dimensional Array Storage with Zarr
 Zarr is the cloud-optimised version for the traditional formats `netCDF` and `HDF5`, and is specifically designed for storing and accessing large n-dimensional arrays in the cloud by:
@@ -80,7 +80,7 @@ Zarr is the cloud-optimised version for the traditional formats `netCDF` and `HD
 
 This makes Zarr particularly well-suited as a storage format for processing Earth observation data in the cloud.
 
-![Zarr's hierarchical organization showing stores, groups, arrays, and chunks](img/zarr-terminology-hierarchy.png)
+![Zarr's hierarchical organization showing stores, groups, arrays, and chunks](./../img/zarr-terminology-hierarchy.png)
 
 ### When to use COG versus Zarr?
 The table below compares some features of COG and Zarr:

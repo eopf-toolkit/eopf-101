@@ -44,7 +44,7 @@ Zarr uses descriptive **metadata** to describe the individual arrays but also th
 
 The graphic below shows an overview of all relevant Zarr components.
 
-![Zarr conceptual structure and overview of Zarr components](img/zarr_str.png){fig-align="center"}
+![Zarr conceptual structure and overview of Zarr components](./../img/zarr_str.png){fig-align="center"}
 
 ## EOPF Zarr Structure
 The ESA EOPF defines `Zarr` as the encoding format for the [EOPF Sentinel Zarr Samples Service](https://zarr.eopf.copernicus.eu/). The Zarr encoding is well aligned with ESA's objective of enhancing the accessibility of Sentinel data by modernising the previous `.SAFE` encoding into a flexible, cloud-native structure. The cloud-native nature of `zarr` is expected to broaden the applications of the Sentinel data within the geospatial community while maintaining data quality and established algorithms.
@@ -64,7 +64,7 @@ Let us imagine a Sentinel-2 L2A tile. The tile has dimensions of approximately 1
 For efficient handling, the data is divided into 1,024 by 1,024-pixel chunks. This chunking strategy allows for optimal performance when reading specific spatial regions of interest.
 
 The figure below gives a graphical overview of how an EOPF Zarr Sentinel-2 L2A product file is organised.
-![Overview of the EOPF Zarr product structure on the example of Sentinel-2 L2A](img/s2l2a.jpg){fig-align="center"}
+![Overview of the EOPF Zarr product structure on the example of Sentinel-2 L2A](./../img/s2l2a.jpg){fig-align="center"}
 
 The table below provides a more detailed outline of what content is available in the different groups.
 
@@ -88,4 +88,4 @@ The EOPF Zarr structure allows for efficient access to individual bands or speci
 
 ## What's next?
 
-Now that you have a theoretical grasp of the **Zarr** format, the next section [Discover EOPF Zarr - Sentinel-2 L2A](./22_zarr_structure_S1GRD.ipynb) will provide a first hands-on experience opening an EOPF Zarr product. We will transition to our first **Jupyter Notebook** where you will directly interact with a Zarr store.
+Now that you have a theoretical grasp of the **Zarr** format, the next section [Discover EOPF Zarr - Sentinel-1 GRD](./22_zarr_structure_S1GRD.ipynb) will provide a first hands-on experience opening an EOPF Zarr product. We will transition to our first **Jupyter Notebook** where you will directly interact with a Zarr store.
