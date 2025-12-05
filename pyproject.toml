@@ -39,7 +39,7 @@ dependencies = [
     "matplotlib>=3.10.3",
     "rioxarray>=0.14.1",
     "stackstac>=0.4.4",
-    "xarray>=2024.5.0",
+    "xarray>=2025.10.1",
     "distributed>=2024.5.0",
     "dask>=2024.5.0",
     "ipykernel>=6.23.1",
@@ -57,10 +57,9 @@ dependencies = [
     "xarray_sentinel",
     "earthpy",
     "dask[distributed]",
-    "nbgitpuller>=1.2.2",
-    "dask-labextension>=7.0.0",
-    "jupyter-leaflet>=0.20.0",
-    "jupyterlab-git>=0.51.2",
+    "ipywidgets>=8.0.0",     # Required for interactive visualization (66_use_overviews.ipynb)
+    "ipyleaflet>=0.17.0",    # Required for web map visualization (66_use_overviews.ipynb)
+    "pillow>=10.0.0",        # Required for ipyleaflet_multiscales (RGB image encoding)
 ]
 
 [tool.setuptools]
