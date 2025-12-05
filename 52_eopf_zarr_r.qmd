@@ -70,7 +70,7 @@ For the first part of this tutorial, we will be using data from the [Sentinel-2 
 ```{r access-stac-product}
 s2_l2a_item <- stac("https://stac.core.eopf.eodc.eu/") |>
   collections(collection_id = "sentinel-2-l2a") |>
-  items(feature_id = "S2B_MSIL2A_20250530T101559_N0511_R065_T32TPT_20250530T130924") |>
+  items(feature_id = "S2A_MSIL2A_20251107T100231_N0511_R122_T33UXP_20251107T113811") |>
   get_request()
 
 s2_l2a_product <- s2_l2a_item |>
@@ -117,7 +117,6 @@ r20m |>
   select(path, nchunks, dim, chunk_dim) |>
   as.list()
 ```
-
 
 We can also see an overview of individual arrays using `zarr_overview()`. With the default setting (where `as_data_frame` is `FALSE`), this prints information on the array directly to the console, in a more digestible way:
 
@@ -216,7 +215,7 @@ b02 |>
 
 EOPF Zarr assets include quicklook RGB composites, which are readily viewable representations of the satellite image. We will open the 10-metre resolution quicklook and visualise it. This is available as an asset, so we can access it directly from the STAC item.
 
-```{r tci-10m-asset}
+```{r tci-10m-asset, eval = FALSE}
 tci_10m_asset <- s2_l2a_item |>
   assets_select(asset_names = "TCI_10m")
 
@@ -229,14 +228,14 @@ tci_10m_url |>
 
 From the overview, we can see that the quicklook array has three dimensions to it, each of size 10980 x 10980. The three dimensions correspond to red, green, and blue spectral bands (B04, B03, and B02, respectively), since this is an RGB composite. This information is also available by looking at the assets' bands:
 
-```{r tci-10m-bands}
+```{r tci-10m-bands, eval = FALSE}
 s2_l2a_item[["assets"]][["TCI_10m"]][["bands"]] |>
   map_dfr(as_tibble)
 ```
 
 We can read in a small chunk of the array to get an idea of its shape, using the same indexing process we've used before. Note that we want to select _all_ of the bands (the first dimension listed). Rather than writing `1:3`, we can simply use `NULL` as the first dimension, indicating to get all data at this dimension. To preview the data, we will just get the first 2 entries (in each dimension) along the three bands.
 
-```{r tci-10m-preview}
+```{r tci-10m-preview, eval = FALSE}
 tci_10m_preview <- tci_10m_url |>
   read_zarr_array(list(NULL, 1:2, 1:2))
 
@@ -245,13 +244,13 @@ tci_10m_preview
 
 For visualisation purposes, we need the data in a different configuration --- note the dimensions of the data:
 
-```{r tci-10m-preview-dims}
+```{r tci-10m-preview-dims, eval = FALSE}
 dim(tci_10m_preview)
 ```
 
 Instead, we need to get it into e.g. 2 x 2 x 3, with the _third_ dimension reflecting the number of bands (or layers) To do this, we use the `aperm()` function to transpose an array, with argument `c(2, 3, 1)` -- moving the second dimension to the first, the third to the second, and the first to the third. Then, we can see that the dimensions of the array are correct:
 
-```{r tci-10m-preview-transf}
+```{r tci-10m-preview-transf, eval = FALSE}
 tci_10m_preview_perm <- tci_10m_preview |>
   aperm(c(2, 3, 1))
 
@@ -262,7 +261,7 @@ dim(tci_10m_preview_perm)
 
 Let's read in the full TCI array to visualise it.
 
-```{r tci-10m-dims}
+```{r tci-10m-dims, eval = FALSE}
 tci_10m <- tci_10m_url |>
   read_zarr_array()
 
@@ -274,7 +273,7 @@ dim(tci_10m)
 
 For visualisation, we use `terra`'s `plotRGB()` function, first converting the array into a raster object with `rast()`:
 
-```{r tci-10m-vis}
+```{r tci-10m-vis, eval = FALSE}
 tci_10m_perm |>
   rast() |>
   plotRGB()
@@ -282,7 +281,7 @@ tci_10m_perm |>
 
 We can do the same with the quicklook at the 60-metre resolution, showing the full visualisation process in a single step:
 
-```{r tci-60m-vis}
+```{r tci-60m-vis, eval = FALSE}
 zarr_store |>
   filter(array == "/quality/l2a_quicklook/r60m/tci") |>
   pull(path) |>
@@ -290,6 +289,16 @@ zarr_store |>
   aperm(c(2, 3, 1)) |>
   rast() |>
   plotRGB()
+```
+
+## Simple Data Analysis: Calculating NDVI
+
+Let us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).
+
+First, we access the *Red* (B04) and *Near-InfraRed* (B08A) bands, which are needed for calculation of the NDVI, at 20m resolution:
+
+```{r}
+
 ```
 
 ## 💪 Now it is your turn
