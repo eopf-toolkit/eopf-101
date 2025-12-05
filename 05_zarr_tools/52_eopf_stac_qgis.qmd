@@ -26,17 +26,17 @@ This document covers areas that are in development and may change over the comin
 
 QGIS users may already be familiar with the [STAC API Browser plugin](https://plugins.qgis.org/plugins/qgis_stac/). Since its release in 2022 this plugin provided basic STAC API support. However, since QGIS 3.40 (released October 2024) STAC support has been steadily growing within the QGIS core product. QGIS STAC users are advised to use QGIS core STAC functionality rather than the plugin.
 
-When new to STAC, we suggest having a look at the [Introduction to STAC](./41_stac_intro.qmd) chapter for more information about STAC and its components.
+When new to STAC, we suggest having a look at the [Introduction to STAC](./../04_eopf_and_stac/41_stac_intro.qmd) chapter for more information about STAC and its components.
 
 ## Add STAC Connection
 
 STAC access in QGIS is managed with **connections**, similar to other remote data sources such as **WMS**, **WFS**, and **ArcGIS REST Servers**. A STAC connection can be created by right-clicking on the Browser pane's STAC entry.
 
-![STAC Connection Context Menu](./img/52_01-create-new-stac-connection.png)
+![STAC Connection Context Menu](./../img/52_01-create-new-stac-connection.png)
 
 To identify the connection, we suggest providing a suitable name, such as `EOPF Sample Service`, and `https://stac.core.eopf.eodc.eu/` for the service's URL. Until now, this service does not require authentication, but we suggest following the ongoing discussions on the [EOPF forum](https://discourse.eopf.copernicus.eu/c/eopf-sentinel-zarr-samples/13) to keep track of EOPF's STAC Catalog updates.
 
-![EOPF STAC Connection Details](./img/52_02-stac-connection-details.png)
+![EOPF STAC Connection Details](./../img/52_02-stac-connection-details.png)
 
 ## Discover Data
 
@@ -44,13 +44,13 @@ Once connected, we can expand the new connection to explore available STAC colle
 
 The Browser pane's nested view shows a limited number of STAC items, as they are ordered in the collection. Additional batches of items will be fetched if available when `Double-click to fetch more items...` is double-clicked. The STAC items can also be filtered in the **Data Source Manager**, which is discussed further in [Data Source Manager](#data-source-manager), though this is not possible in the Browser pane.
 
-![STAC Collections and STAC Items](./img/52_03-stac-item-tooltip.png)
+![STAC Collections and STAC Items](./../img/52_03-stac-item-tooltip.png)
 
 ## Add Data to a Project
 
 Once we expand a STAC item in the Browser pane, all assets associated with the item are listed.
 
-Assets with cloud-optimised data types like Zarr, COG, COPC, etc., can be added as project layers from the Browser pane. These assets' icons reflect their data type, such as the raster icon ![QGIS Raster Provider Icon](./img/52_qgis-mIconRaster.svg). Assets that are not cloud-optimised (GeoJSON, GeoPackage, Shapefile, etc.) must first be downloaded before they can be added as project layers using QGIS's standard Layer → Add Layer menu. These assets will have a download icon ![QGIS Download Icon](./img/52_qgis-downloading_svg.svg).
+Assets with cloud-optimised data types like Zarr, COG, COPC, etc., can be added as project layers from the Browser pane. These assets' icons reflect their data type, such as the raster icon ![QGIS Raster Provider Icon](./../img/52_qgis-mIconRaster.svg). Assets that are not cloud-optimised (GeoJSON, GeoPackage, Shapefile, etc.) must first be downloaded before they can be added as project layers using QGIS's standard Layer → Add Layer menu. These assets will have a download icon ![QGIS Download Icon](./../img/52_qgis-downloading_svg.svg).
 
 ::: {.callout-note}
 Remember: Cloud-optimised assets cannot be downloaded.
@@ -58,7 +58,7 @@ Remember: Cloud-optimised assets cannot be downloaded.
 
 Cloud-optimised assets can be dragged from the Browser pane into the Layers pane. STAC items with one or more cloud-optimised assets can also be dragged into the Layers pane, which will add all cloud-optimised assets as layers. 
 
-![STAC Asset Dragged to Layers Pane](./img/52_04-drag-drop-stac-asset.png)
+![STAC Asset Dragged to Layers Pane](./../img/52_04-drag-drop-stac-asset.png)
 
 ## Correct Spatial Reference
 
@@ -66,37 +66,37 @@ Due to differences in how EOPF, GDAL and QGIS define spatial references in the Z
 
 EOPF STAC item metadata provides the **EPSG** code that georeferences all of the item's assets. We can access this metadata via the **Details** entry in the item's context menu.
 
-![STAC Item Context Menu Details](./img/52_05-stac-item-context-menu-detail.png)
+![STAC Item Context Menu Details](./../img/52_05-stac-item-context-menu-detail.png)
 
 Then, we scroll down to the `proj:code` property and observe the `EPSG:`-prefixed numeric value.
 
-![STAC Item Context Menu proj:code](./img/52_06-stac-item-detail-proj.png)
+![STAC Item Context Menu proj:code](./../img/52_06-stac-item-detail-proj.png)
 
 After closing the **Details** window, we open one of our Zarr layers' **Properties** window, and click on the **Source tab**. Under **Assigned Coordinate Reference System (CRS)** we will see "`invalid projection`" in the dropdown.
 
 If while following these steps, the EPSG code from the STAC item Details window is already assigned, the issue has been resolved and we can skip this step.
 
-![Layer Invalid CRS](./img/52_07-layer-invalid-crs.png)
+![Layer Invalid CRS](./../img/52_07-layer-invalid-crs.png)
 
 To correct the metadata for a smooth integration in QGIS, we can click "**Select CRS**" and type the STAC item's EPSG code in the **Filter** text box. We then select the appropriate CRS entry and apply the change.
 
-![Layer Set CRS](./img/52_08-layer-update-crs.png)
+![Layer Set CRS](./../img/52_08-layer-update-crs.png)
 
 ## View Data
 
 After correcting any invalid CRS configurations we will safely view EOPF Zarr data alongside other spatially referenced data.
 
-![Multiple Band EOPF Zarr Data Display](./img/52_09-data-display.png)
+![Multiple Band EOPF Zarr Data Display](./../img/52_09-data-display.png)
 
 ## Data Source Manager
 
 QGIS's **Data Source Manager** can be used instead of the **Browser** pane to manage **STAC connections** and discover STAC data.
 
-![QGIS Data Source Manager](./img/52_10-data-source-manager.png)
+![QGIS Data Source Manager](./../img/52_10-data-source-manager.png)
 
 The **Data Source Manager** supports basic filters to refine which STAC items are available for access.
 
-![Data Source Manager Filters](./img/52_11-stac-filters.png)
+![Data Source Manager Filters](./../img/52_11-stac-filters.png)
 
 In the following example a bounding box filter is applied to items within a single collection. The format of the bounding box needs to follow:
 
@@ -106,11 +106,11 @@ minimum x (longitude), maximum x, minimum y (latitude), maximum y [EPSG:4326]
 
 We can also temporally filter a STAC connection via a calendar-style date picker.
 
-![Applied STAC Item Filters](./img/52_12-applied-filters.png)
+![Applied STAC Item Filters](./../img/52_12-applied-filters.png)
 
 Once we right-click a search result, we can see the available actions we can follow, which include the **Add Layer** nested menu. This menu includes all cloud-optimised assets inside the item. Selecting an asset here is equivalent to dragging the asset to the Layers pane as described in the [Add Data to a Project](#add-data-to-a-project) section.
 
-![Filter Result Context Menu](./img/52_13-result-context-layer.png)
+![Filter Result Context Menu](./../img/52_13-result-context-layer.png)
 
 ## 💪 Now it is your turn
 
@@ -132,4 +132,4 @@ This tutorial demonstrated how to integrate and visualise EOPF Zarr items in QGI
 
 ## What's next?
 
-In the following [section](/06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb) we will present several **end-to-end** workflows, where we will showcase the application of the available **Sentinel Products** in the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
+In the following [section](./../06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb) we will present several **end-to-end** workflows, where we will showcase the application of the available **Sentinel Products** in the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).

@@ -18,16 +18,16 @@ This section introduces you to the [EOPF Sentinel Zarr Samples Service STAC Cata
 The first step is to access the main homepage of the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
 The landing page offers you a comprehensive overview of the available data collections. This serves as our **initial entry** point into the catalog.
 
-![Home page](img/home_page.png){fig-align="center"}
+![Home page](./../img/home_page.png){fig-align="center"}
 
 Three main areas can be identified: (i) the **API and URL** section, (ii) **Search bar** and (iii) **Collections Display**. <br>
 
-As outlined in detail in the book section [The EOPF Available Datasets](13_overview_eopf_datasets.qmd), the catalog displays the 11 distinct collections available from the Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br> The user interface provides an intuitive way to browse through all of these collections. It is possible to filter them by specific criteria or select them manually, allowing precise control over the displayed data. 
+As outlined in detail in the book section [The EOPF Available Datasets](./../01_about_eopf/13_overview_eopf_datasets.qmd), the catalog displays the 11 distinct collections available from the Sentinel-1, Sentinel-2, and Sentinel-3 missions. <br> The user interface provides an intuitive way to browse through all of these collections. It is possible to filter them by specific criteria or select them manually, allowing precise control over the displayed data. 
 
 ## Exploring Sentinel Collections
 Let us now select one of the 11 `Collection` available, e.g. let us select the [Sentinel 2-Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a) collection. Once you have selected the Collection, you will be directed to the interface of a specific `Collection`.
 
-![Web interface of the Sentinel-2 Level-2A Collection of the EOPF Sentinel Zarr Samples Service STAC Catalog](img/sentinel_2_collection.png){fig-align="center"}
+![Web interface of the Sentinel-2 Level-2A Collection of the EOPF Sentinel Zarr Samples Service STAC Catalog](./../img/sentinel_2_collection.png){fig-align="center"}
 
 The interface can be divided into five principal sections:
 
@@ -43,22 +43,22 @@ The interface can be divided into five principal sections:
 
 Any selected `Collection` (in this case Sentinel-2 Level-2A) allows us to filter the items of our interest by **temporal** and **spatial** extent. We can access this tab by clicking on **Show Filters** on the right side under the **Items** section. 
 
-![Overview of interface that opens when clicking in *Show Filters*](img/filter_1.png){fig-align="center"}
+![Overview of interface that opens when clicking in *Show Filters*](./../img/filter_1.png){fig-align="center"}
 
 The interface that opens allows us to select on the calendar a specific period we are interested in. This is particularly useful when we are interested in a temporal analysis.
 Let us search over the available items captured between May 1st and May 5th 2024.<br>
 
-![Filtering over time](img/temporal_filter.png){fig-align="center"}
+![Filtering over time](./../img/temporal_filter.png){fig-align="center"}
 
 Additionally, we can select a location we are interested in by checking the **Filter by spatial extent** box. This allows us to refine our search over an area of interest.
 Once you tick the box, a map activates and allows us to draw a bounding box that we can drag and drop. Let us select Europe as our area of interest.
 
-![Filtering over spatial extent](img/spatial_filter.png){fig-align="center"}
+![Filtering over spatial extent](./../img/spatial_filter.png){fig-align="center"}
 
 Once we select the desired period and area via the filters, we can sort the items that match our search by ID, Date and Time, or select the number of resulting items we are interested in per page.
 In this case, we select 2, so the overview is digestible. Then, we click **Submit**.
 
-![Resulting Items](img/filtered_results.png){fig-align="center"}
+![Resulting Items](./../img/filtered_results.png){fig-align="center"}
 
 Under the window, we can now see that two items appear. For example:<br>
 `S2B_MSIL2A_20250504T131719_N0511_R124_T27VVL_20250504T165710`<br>
@@ -77,27 +77,27 @@ This `Item` interface is composed of:
 4. **API and URL**: Allows the entry point for further retrieval of the individual assets.
 5. **Assets menu**: lists all the `Assets` that are part of the selected `Item`.
 
-![The item selected inside the Sentinel-2 Level-2A Collection](img/item_des.png){fig-align="center"}
+![The item selected inside the Sentinel-2 Level-2A Collection](./../img/item_des.png){fig-align="center"}
 
 ::: {.callout-important}
-At this level of the STAC structure, we are already diving deep into the STAC levels, and have explored the `Catalog`, `Collection` and `Item` components described in the [Introduction to STAC](41_stac_intro.qmd) section.
+At this level of the STAC structure, we are already diving deep into the STAC levels, and have explored the `Catalog`, `Collection` and `Item` components described in the [Introduction to STAC](./../04_eopf_and_stac/41_stac_intro.qmd) section.
 :::
 
 ## Assets 
 Inside the selected `Item`, we will get an overview of the available `Assets` that belong to the `Item`.
 By expanding the **dropdown menu** for any `Asset` of interest, you can access its specific metadata and, most importantly, the actual data. <br>
 
-![Overview of the web interface on Asset level](img/drop_down.png){fig-align="center"}
+![Overview of the web interface on Asset level](./../img/drop_down.png){fig-align="center"}
 
 In the case of the **Sentinel-2 Level-2A** collection, each asset corresponds to one of the 13 spectral bands available. The array information provides details about the structure and content of the data, hinting at the actual values contained within the asset. It also contains the chunking grid specification and all the crucial metadata necessary to structure and process the data through a wide range of geospatial methodologies.
 
 ### Accessing Assets
 
-For direct data access of `Assetz` and therefore the actual data, there are two options provided via the web interface:
+For direct data access of `Assets` and therefore the actual data, there are two options provided via the web interface:
 * **Download**: It is possible to download only one asset separately in `.zarr` format by clicking the *Download* option associated with an Asset, and
 * **Copy URL**: We can also retrieve the unique URL of the specified `Asset`, which allows us to directly integrate the link into programmatic workflows, without the need to download the `Asset`. We can get it by simply clicking on the *Copy URL* option under the `Asset` of our interest.
 
-![Data access options via the web interface](img/download_img.png){fig-align="center"}
+![Data access options via the web interface](./../img/download_img.png){fig-align="center"}
 
 
 ## 💪 Now it is your turn
@@ -113,7 +113,7 @@ Navigate to the [Sentinel-1 Level-1 GRD Collection](https://stac.browser.user.eo
 ### Task 2: Mapping Your Interests
 Explore the interactive map within the  [Sentinel-1 Level-1 GRD](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.itemFilterOpen=1&language=en) and the [Sentinel-2 Level-2A](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a?.language=en) collections.
 
-- Can you identify and list the names of at least three distinct geographical areas where a significant number of items are available? (Hint: Look for clusters of the displayed items!)
+- Can you identify and list the names of at least three distinct geographical areas where a significant number of items are available? (**Hint**: Look for clusters of the displayed items!)
 
 ### Task 3: Unpacking an Asset
 Select an item from any collection that looks interesting to you. Click on it to view its details. Then, expand one of the assets. 

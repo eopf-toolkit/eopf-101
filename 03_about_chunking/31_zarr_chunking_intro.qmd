@@ -57,7 +57,7 @@ There are three levels of chunk sizes:
 
 We can explore chunking with a simple 2D raster dataset example. Imagine we have a 6×6 grid representing temperature data. This simple dataset can be chunked in different ways, each with its own advantages and tradeoffs:
 
-![Chunking sizes over the same dataset](img/chunks_size.png)
+![Chunking sizes over the same dataset](./../img/chunks_size.png)
 
 
 | **1×1 Chunks** | **2×2 Chunks** | **3×3 Chunks** |
