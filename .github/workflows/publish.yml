@@ -1,7 +1,9 @@
 name: Quarto Publish
 
 on:
-  push: [main]
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
