@@ -1,9 +1,7 @@
 name: Quarto Publish
 
 on:
-  workflow_dispatch:
-  release:
-    types: [published]
+  push: [main]
 
 permissions:
   contents: write
