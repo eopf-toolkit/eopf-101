@@ -130,7 +130,7 @@ def gww(
     )
 
     # Flatten for Otsu threshold
-    flat = ndwi_edge[~ndwi_edge.mask]
+    flat = np.asarray(ndwi_edge[~ndwi_edge.mask])
     flat = flat[~np.isnan(flat)]
 
     # Compute Otsu threshold
@@ -144,7 +144,7 @@ def gww(
     wo_edge = np.ma.array(
         slice_wo, mask=np.logical_or(nanmask, ~dilated), fill_value=np.nan
     )
-    wo_flat = wo_edge[~wo_edge.mask]
+    wo_flat = np.asarray(wo_edge[~wo_edge.mask])
     wo_flat = wo_flat[~np.isnan(wo_flat)]
 
     # Compute threshold from WO dataset (80th percentile)
