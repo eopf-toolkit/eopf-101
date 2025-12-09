@@ -325,6 +325,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating Zarr Overviews</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Visualising Multiscale Pyramids</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -466,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Our first step is to establish a connection to the EOPF Sentinel Zarr Sample Service STAC Catalog. For this, you need the Catalog’s base URL, which you can find on the web interface under the <strong>API &amp; URL</strong> tab. By clicking on 🔗<strong>Source</strong>, you will get the address of the STAC metadata file - which is available <a href="https://stac.core.eopf.eodc.eu/">here</a>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="img/api_connection.png" class="img-fluid figure-img"></p>
+<p><img src="./../img/api_connection.png" class="img-fluid figure-img"></p>
 <figcaption>EOPF API url for connection</figcaption>
 </figure>
 </div>
@@ -1002,6 +1017,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">9</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
             <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l1-rbt"</span>
         </li>
     
@@ -1037,7 +1103,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">9</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">10</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1088,7 +1154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">10</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">11</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1139,7 +1205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">11</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1190,7 +1256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1241,7 +1307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">14</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1292,7 +1358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">14</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">15</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1327,57 +1393,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="pystac-row">
             <span class="pystac-k">title</span>
             <span class="pystac-v">"Sentinel-3 SLSTR Level-2 FRP"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">15</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l1-err"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 OLCI Level-1 ERR"</span>
         </li>
     
             
@@ -1461,7 +1476,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l1-err"</span>
         </li>
     
             
@@ -1479,7 +1494,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
+            <span class="pystac-v">"Sentinel-3 OLCI Level-1 ERR"</span>
         </li>
     
             
@@ -1512,7 +1527,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
         </li>
     
             
@@ -1530,7 +1545,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
         </li>
     
             
@@ -1960,6 +1975,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>sentinel-2-l2a
+sentinel-1-l2-ocn
 sentinel-3-slstr-l1-rbt
 sentinel-3-olci-l2-lrr
 sentinel-3-olci-l2-lfr
@@ -1967,10 +1983,9 @@ sentinel-2-l1c
 sentinel-3-olci-l1-efr
 sentinel-1-l1-grd
 sentinel-3-slstr-l2-frp
-sentinel-3-olci-l1-err
 sentinel-1-l1-slc
-sentinel-3-slstr-l2-lst
-sentinel-1-l2-ocn</code></pre>
+sentinel-3-olci-l1-err
+sentinel-3-slstr-l2-lst</code></pre>
 </div>
 </div>
 <p>In a next step, we can select one <code>collection</code> and retrieve certain metadata that allow us to get more information about the selected collection, such as keywords, the ID and useful links for resources.</p>
@@ -2005,7 +2020,7 @@ Available Links:  [&lt;Link rel=items target=https://stac.core.eopf.eodc.eu/coll
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Search Results:"</span>)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:  '</span>,<span class="bu">len</span>(time_items[<span class="dv">0</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pystac_client.item_search.ItemSearch object at 0x7f1d68250740&gt;
+<pre><code>&lt;pystac_client.item_search.ItemSearch object at 0x7fc1e0935a00&gt;
 Search Results:
 Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   1797</code></pre>
 </div>
@@ -2031,7 +2046,7 @@ Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   1
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found:  '</span>,<span class="bu">len</span>(innsbruck_sets[<span class="dv">0</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Search Result:
-Total Items Found:   162</code></pre>
+Total Items Found:   164</code></pre>
 </div>
 </div>
 </section>

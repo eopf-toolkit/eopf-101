@@ -322,6 +322,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating Zarr Overviews</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Visualising Multiscale Pyramids</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -439,317 +454,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>s2l2a_zarr_sample<span class="op">=</span> xr.open_datatree(</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    url, </span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    engine<span class="op">=</span><span class="st">"zarr"</span>)  <span class="co"># storage format</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">gaierror</span>                                  Traceback (most recent call last)
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/connector.py:1532</span>, in <span class="ansi-cyan-fg">TCPConnector._create_direct_connection</span><span class="ansi-blue-fg">(self, req, traces, timeout, client_error)</span>
-<span class="ansi-green-fg">   1528</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">   1529</span>     <span style="font-style:italic;color:rgb(95,135,135)"># Cancelling this lookup should not cancel the underlying lookup</span>
-<span class="ansi-green-fg">   1530</span>     <span style="font-style:italic;color:rgb(95,135,135)">#  or else the cancel event will get broadcast to all the waiters</span>
-<span class="ansi-green-fg">   1531</span>     <span style="font-style:italic;color:rgb(95,135,135)">#  across all connections.</span>
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1532</span>     hosts = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._resolve_host(host, port, traces=traces)
-<span class="ansi-green-fg">   1533</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">OSError</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> exc:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/connector.py:1148</span>, in <span class="ansi-cyan-fg">TCPConnector._resolve_host</span><span class="ansi-blue-fg">(self, host, port, traces)</span>
-<span class="ansi-green-fg">   1147</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1148</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> asyncio.shield(resolved_host_task)
-<span class="ansi-green-fg">   1149</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> asyncio.CancelledError:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/connector.py:1532</span>, in <span class="ansi-cyan-fg">TCPConnector._create_direct_connection</span><span class="ansi-blue-fg">(self, req, traces, timeout, client_error)</span>
-<span class="ansi-green-fg">   1528</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">   1529</span>     <span style="font-style:italic;color:rgb(95,135,135)"># Cancelling this lookup should not cancel the underlying lookup</span>
-<span class="ansi-green-fg">   1530</span>     <span style="font-style:italic;color:rgb(95,135,135)">#  or else the cancel event will get broadcast to all the waiters</span>
-<span class="ansi-green-fg">   1531</span>     <span style="font-style:italic;color:rgb(95,135,135)">#  across all connections.</span>
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1532</span>     hosts = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._resolve_host(host, port, traces=traces)
-<span class="ansi-green-fg">   1533</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">OSError</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> exc:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/connector.py:1123</span>, in <span class="ansi-cyan-fg">TCPConnector._resolve_host</span><span class="ansi-blue-fg">(self, host, port, traces)</span>
-<span class="ansi-green-fg">   1122</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1123</span>     <span style="font-weight:bold;color:rgb(0,135,0)">await</span> future
-<span class="ansi-green-fg">   1124</span> <span style="font-weight:bold;color:rgb(0,135,0)">finally</span>:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/connector.py:1179</span>, in <span class="ansi-cyan-fg">TCPConnector._resolve_host_with_throttle</span><span class="ansi-blue-fg">(self, key, host, port, futures, traces)</span>
-<span class="ansi-green-fg">   1177</span>         <span style="font-weight:bold;color:rgb(0,135,0)">await</span> trace.send_dns_resolvehost_start(host)
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1179</span> addrs = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._resolver.resolve(host, port, family=<span style="color:rgb(0,135,0)">self</span>._family)
-<span class="ansi-green-fg">   1180</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> traces:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/resolver.py:40</span>, in <span class="ansi-cyan-fg">ThreadedResolver.resolve</span><span class="ansi-blue-fg">(self, host, port, family)</span>
-<span class="ansi-green-fg">     37</span> <span style="font-weight:bold;color:rgb(0,135,0)">async</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">resolve</span>(
-<span class="ansi-green-fg">     38</span>     <span style="color:rgb(0,135,0)">self</span>, host: <span style="color:rgb(0,135,0)">str</span>, port: <span style="color:rgb(0,135,0)">int</span> = <span class="ansi-green-fg">0</span>, family: socket.AddressFamily = socket.AF_INET
-<span class="ansi-green-fg">     39</span> ) -&gt; List[ResolveResult]:
-<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">40</span>     infos = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._loop.getaddrinfo(
-<span class="ansi-green-fg">     41</span>         host,
-<span class="ansi-green-fg">     42</span>         port,
-<span class="ansi-green-fg">     43</span>         <span style="color:rgb(0,135,0)">type</span>=socket.SOCK_STREAM,
-<span class="ansi-green-fg">     44</span>         family=family,
-<span class="ansi-green-fg">     45</span>         flags=_AI_ADDRCONFIG,
-<span class="ansi-green-fg">     46</span>     )
-<span class="ansi-green-fg">     48</span>     hosts: List[ResolveResult] = []
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/asyncio/base_events.py:905</span>, in <span class="ansi-cyan-fg">BaseEventLoop.getaddrinfo</span><span class="ansi-blue-fg">(self, host, port, family, type, proto, flags)</span>
-<span class="ansi-green-fg">    903</span>     getaddr_func = socket.getaddrinfo
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">905</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>.run_in_executor(
-<span class="ansi-green-fg">    906</span>     <span style="font-weight:bold;color:rgb(0,135,0)">None</span>, getaddr_func, host, port, family, <span style="color:rgb(0,135,0)">type</span>, proto, flags)
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/concurrent/futures/thread.py:59</span>, in <span class="ansi-cyan-fg">_WorkItem.run</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-fg">     58</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">---&gt; </span><span class="ansi-green-fg">59</span>     result = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">fn</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">     60</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">BaseException</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> exc:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/socket.py:978</span>, in <span class="ansi-cyan-fg">getaddrinfo</span><span class="ansi-blue-fg">(host, port, family, type, proto, flags)</span>
-<span class="ansi-green-fg">    977</span> addrlist = []
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">978</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> res <span style="font-weight:bold;color:rgb(175,0,255)">in</span> <span class="ansi-yellow-bg">_socket</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">getaddrinfo</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">host</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">port</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">family</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span style="color:rgb(0,135,0)" class="ansi-yellow-bg">type</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">proto</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">flags</span><span class="ansi-yellow-bg">)</span>:
-<span class="ansi-green-fg">    979</span>     af, socktype, proto, canonname, sa = res
-
-<span class="ansi-red-fg">gaierror</span>: [Errno -2] Name or service not known
-
-The above exception was the direct cause of the following exception:
-
-<span class="ansi-red-fg">ClientConnectorDNSError</span>                   Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 3</span>
-<span class="ansi-green-fg">      1</span> url = <span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">https://objects.eodc.eu/e05ab01a9d56408d82ac32d69a5aae2a:202506-s02msil2a/10/products/cpm_v256/S2C_MSIL2A_20250610T103641_N0511_R008_T32UMD_20250610T132001.zarr</span><span class="ansi-yellow-fg">'</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> s2l2a_zarr_sample= <span class="ansi-yellow-bg">xr</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_datatree</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">      4</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">url</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span>
-<span class="ansi-green-fg">      5</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">engine</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">zarr</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">)</span>  <span style="font-style:italic;color:rgb(95,135,135)"># storage format</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/api.py:1066</span>, in <span class="ansi-cyan-fg">open_datatree</span><span class="ansi-blue-fg">(filename_or_obj, engine, chunks, cache, decode_cf, mask_and_scale, decode_times, decode_timedelta, use_cftime, concat_characters, decode_coords, drop_variables, create_default_indexes, inline_array, chunked_array_type, from_array_kwargs, backend_kwargs, **kwargs)</span>
-<span class="ansi-green-fg">   1054</span> decoders = _resolve_decoders_kwargs(
-<span class="ansi-green-fg">   1055</span>     decode_cf,
-<span class="ansi-green-fg">   1056</span>     open_backend_dataset_parameters=backend.open_dataset_parameters,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1062</span>     decode_coords=decode_coords,
-<span class="ansi-green-fg">   1063</span> )
-<span class="ansi-green-fg">   1064</span> overwrite_encoded_chunks = kwargs.pop(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">overwrite_encoded_chunks</span><span class="ansi-yellow-fg">"</span>, <span style="font-weight:bold;color:rgb(0,135,0)">None</span>)
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1066</span> backend_tree = <span class="ansi-yellow-bg">backend</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_datatree</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   1067</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1068</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1069</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">decoders</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1070</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1071</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1073</span> tree = _datatree_from_backend_datatree(
-<span class="ansi-green-fg">   1074</span>     backend_tree,
-<span class="ansi-green-fg">   1075</span>     filename_or_obj,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1086</span>     **kwargs,
-<span class="ansi-green-fg">   1087</span> )
-<span class="ansi-green-fg">   1089</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> tree
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1710</span>, in <span class="ansi-cyan-fg">ZarrBackendEntrypoint.open_datatree</span><span class="ansi-blue-fg">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, synchronizer, consolidated, chunk_store, storage_options, zarr_version, zarr_format)</span>
-<span class="ansi-green-fg">   1689</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">open_datatree</span>(
-<span class="ansi-green-fg">   1690</span>     <span style="color:rgb(0,135,0)">self</span>,
-<span class="ansi-green-fg">   1691</span>     filename_or_obj: T_PathFileOrDataStore,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1707</span>     zarr_format=<span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
-<span class="ansi-green-fg">   1708</span> ) -&gt; DataTree:
-<span class="ansi-green-fg">   1709</span>     filename_or_obj = _normalize_path(filename_or_obj)
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1710</span>     groups_dict = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_groups_as_dict</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   1711</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1712</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mask_and_scale</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mask_and_scale</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1713</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_times</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_times</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1714</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">concat_characters</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">concat_characters</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1715</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_coords</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_coords</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1716</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1717</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">use_cftime</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_cftime</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1718</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_timedelta</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_timedelta</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1719</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1720</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1721</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1722</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1723</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1724</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1725</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1726</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1727</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1729</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> datatree_from_dict_with_io_cleanup(groups_dict)
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1759</span>, in <span class="ansi-cyan-fg">ZarrBackendEntrypoint.open_groups_as_dict</span><span class="ansi-blue-fg">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, synchronizer, consolidated, chunk_store, storage_options, zarr_version, zarr_format)</span>
-<span class="ansi-green-fg">   1756</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">   1757</span>     parent = <span style="color:rgb(0,135,0)">str</span>(NodePath(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">/</span><span class="ansi-yellow-fg">"</span>))
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1759</span> stores = <span class="ansi-yellow-bg">ZarrStore</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_store</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   1760</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1761</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">parent</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1762</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1763</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1764</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1765</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">consolidate_on_close</span><span class="ansi-yellow-bg">=</span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">False</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1766</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1767</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1768</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1769</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1770</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1772</span> groups_dict = {}
-<span class="ansi-green-fg">   1773</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> path_group, store <span style="font-weight:bold;color:rgb(175,0,255)">in</span> stores.items():
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:645</span>, in <span class="ansi-cyan-fg">ZarrStore.open_store</span><span class="ansi-blue-fg">(cls, store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, append_dim, write_region, safe_chunks, align_chunks, zarr_version, zarr_format, use_zarr_fill_value_as_mask, write_empty, cache_members)</span>
-<span class="ansi-green-fg">    619</span> <span style="color:rgb(175,0,255)">@classmethod</span>
-<span class="ansi-green-fg">    620</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">open_store</span>(
-<span class="ansi-green-fg">    621</span>     <span style="color:rgb(0,135,0)">cls</span>,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    638</span>     cache_members: <span style="color:rgb(0,135,0)">bool</span> = <span style="font-weight:bold;color:rgb(0,135,0)">True</span>,
-<span class="ansi-green-fg">    639</span> ):
-<span class="ansi-green-fg">    640</span>     (
-<span class="ansi-green-fg">    641</span>         zarr_group,
-<span class="ansi-green-fg">    642</span>         consolidate_on_close,
-<span class="ansi-green-fg">    643</span>         close_store_on_close,
-<span class="ansi-green-fg">    644</span>         use_zarr_fill_value_as_mask,
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">645</span>     ) = <span class="ansi-yellow-bg">_get_open_params</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    646</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    647</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    648</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    649</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    650</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    651</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">consolidate_on_close</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidate_on_close</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    652</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    653</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    654</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    655</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">use_zarr_fill_value_as_mask</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_zarr_fill_value_as_mask</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    656</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    657</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    659</span>     <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">zarr</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> Group
-<span class="ansi-green-fg">    661</span>     group_members: <span style="color:rgb(0,135,0)">dict</span>[<span style="color:rgb(0,135,0)">str</span>, Group] = {}
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1868</span>, in <span class="ansi-cyan-fg">_get_open_params</span><span class="ansi-blue-fg">(store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, zarr_version, use_zarr_fill_value_as_mask, zarr_format)</span>
-<span class="ansi-green-fg">   1865</span> <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> consolidated <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>:
-<span class="ansi-green-fg">   1866</span>     <span style="font-style:italic;color:rgb(95,135,135)"># same but with more error handling in case no consolidated metadata found</span>
-<span class="ansi-green-fg">   1867</span>     <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1868</span>         zarr_root_group = <span class="ansi-yellow-bg">zarr</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_consolidated</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">open_kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1869</span>     <span style="font-weight:bold;color:rgb(0,135,0)">except</span> (<span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>, <span style="font-weight:bold;color:rgb(215,95,95)">KeyError</span>):
-<span class="ansi-green-fg">   1870</span>         <span style="font-style:italic;color:rgb(95,135,135)"># ValueError in zarr-python 3.x, KeyError in 2.x.</span>
-<span class="ansi-green-fg">   1871</span>         <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/synchronous.py:231</span>, in <span class="ansi-cyan-fg">open_consolidated</span><span class="ansi-blue-fg">(use_consolidated, *args, **kwargs)</span>
-<span class="ansi-green-fg">    226</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">open_consolidated</span>(*args: Any, use_consolidated: Literal[<span style="font-weight:bold;color:rgb(0,135,0)">True</span>] = <span style="font-weight:bold;color:rgb(0,135,0)">True</span>, **kwargs: Any) -&gt; Group:
-<span class="ansi-green-fg">    227</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    228</span> <span style="font-style:italic" class="ansi-yellow-fg">    Alias for :func:`open_group` with ``use_consolidated=True``.</span>
-<span class="ansi-green-fg">    229</span> <span style="font-style:italic" class="ansi-yellow-fg">    """</span>
-<span class="ansi-green-fg">    230</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> Group(
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">231</span>         <span class="ansi-yellow-bg">sync</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">async_api</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_consolidated</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    232</span>     )
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:163</span>, in <span class="ansi-cyan-fg">sync</span><span class="ansi-blue-fg">(coro, loop, timeout)</span>
-<span class="ansi-green-fg">    160</span> return_result = <span style="color:rgb(0,135,0)">next</span>(<span style="color:rgb(0,135,0)">iter</span>(finished)).result()
-<span class="ansi-green-fg">    162</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">isinstance</span>(return_result, <span style="font-weight:bold;color:rgb(215,95,95)">BaseException</span>):
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">163</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> return_result
-<span class="ansi-green-fg">    164</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">    165</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> return_result
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:119</span>, in <span class="ansi-cyan-fg">_runner</span><span class="ansi-blue-fg">(coro)</span>
-<span class="ansi-green-fg">    114</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    115</span> <span style="font-style:italic" class="ansi-yellow-fg">Await a coroutine and return the result of running it. If awaiting the coroutine raises an</span>
-<span class="ansi-green-fg">    116</span> <span style="font-style:italic" class="ansi-yellow-fg">exception, the exception will be returned.</span>
-<span class="ansi-green-fg">    117</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    118</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">119</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> coro
-<span class="ansi-green-fg">    120</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">Exception</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> ex:
-<span class="ansi-green-fg">    121</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> ex
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/asynchronous.py:408</span>, in <span class="ansi-cyan-fg">open_consolidated</span><span class="ansi-blue-fg">(use_consolidated, *args, **kwargs)</span>
-<span class="ansi-green-fg">    403</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> use_consolidated <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(0,135,0)">True</span>:
-<span class="ansi-green-fg">    404</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">TypeError</span>(
-<span class="ansi-green-fg">    405</span>         <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">use_consolidated</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> must be </span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">True</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> in </span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">open_consolidated</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">. Use </span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">open</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> with </span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">    406</span>         <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">use_consolidated=False</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> to bypass consolidated metadata.</span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">    407</span>     )
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">408</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> open_group(*args, use_consolidated=use_consolidated, **kwargs)
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/asynchronous.py:857</span>, in <span class="ansi-cyan-fg">open_group</span><span class="ansi-blue-fg">(store, mode, cache_attrs, synchronizer, path, chunk_store, storage_options, zarr_version, zarr_format, meta_array, attributes, use_consolidated)</span>
-<span class="ansi-green-fg">    855</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">    856</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> mode <span style="font-weight:bold;color:rgb(175,0,255)">in</span> _READ_MODES:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">857</span>         <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> AsyncGroup.open(
-<span class="ansi-green-fg">    858</span>             store_path, zarr_format=zarr_format, use_consolidated=use_consolidated
-<span class="ansi-green-fg">    859</span>         )
-<span class="ansi-green-fg">    860</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> (<span style="font-weight:bold;color:rgb(215,95,95)">KeyError</span>, <span style="font-weight:bold;color:rgb(215,95,95)">FileNotFoundError</span>):
-<span class="ansi-green-fg">    861</span>     <span style="font-weight:bold;color:rgb(0,135,0)">pass</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/group.py:559</span>, in <span class="ansi-cyan-fg">AsyncGroup.open</span><span class="ansi-blue-fg">(cls, store, zarr_format, use_consolidated)</span>
-<span class="ansi-green-fg">    552</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">FileNotFoundError</span>(store_path)
-<span class="ansi-green-fg">    553</span> <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> zarr_format <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>:
-<span class="ansi-green-fg">    554</span>     (
-<span class="ansi-green-fg">    555</span>         zarr_json_bytes,
-<span class="ansi-green-fg">    556</span>         zgroup_bytes,
-<span class="ansi-green-fg">    557</span>         zattrs_bytes,
-<span class="ansi-green-fg">    558</span>         maybe_consolidated_metadata_bytes,
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">559</span>     ) = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> asyncio.gather(
-<span class="ansi-green-fg">    560</span>         (store_path / ZARR_JSON).get(),
-<span class="ansi-green-fg">    561</span>         (store_path / ZGROUP_JSON).get(),
-<span class="ansi-green-fg">    562</span>         (store_path / ZATTRS_JSON).get(),
-<span class="ansi-green-fg">    563</span>         (store_path / <span style="color:rgb(0,135,0)">str</span>(consolidated_key)).get(),
-<span class="ansi-green-fg">    564</span>     )
-<span class="ansi-green-fg">    565</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> zarr_json_bytes <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span> <span style="font-weight:bold;color:rgb(175,0,255)">and</span> zgroup_bytes <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>:
-<span class="ansi-green-fg">    566</span>         <span style="font-style:italic;color:rgb(95,135,135)"># warn and favor v3</span>
-<span class="ansi-green-fg">    567</span>         msg = <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Both zarr.json (Zarr format 3) and .zgroup (Zarr format 2) metadata objects exist at </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>store_path<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">. Zarr format 3 will be used.</span><span class="ansi-yellow-fg">"</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/storage/_common.py:168</span>, in <span class="ansi-cyan-fg">StorePath.get</span><span class="ansi-blue-fg">(self, prototype, byte_range)</span>
-<span class="ansi-green-fg">    166</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> prototype <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>:
-<span class="ansi-green-fg">    167</span>     prototype = default_buffer_prototype()
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">168</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>.store.get(<span style="color:rgb(0,135,0)">self</span>.path, prototype=prototype, byte_range=byte_range)
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/storage/_fsspec.py:299</span>, in <span class="ansi-cyan-fg">FsspecStore.get</span><span class="ansi-blue-fg">(self, key, prototype, byte_range)</span>
-<span class="ansi-green-fg">    297</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">    298</span>     <span style="font-weight:bold;color:rgb(0,135,0)">if</span> byte_range <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">299</span>         value = prototype.buffer.from_bytes(<span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>.fs._cat_file(path))
-<span class="ansi-green-fg">    300</span>     <span style="font-weight:bold;color:rgb(0,135,0)">elif</span> <span style="color:rgb(0,135,0)">isinstance</span>(byte_range, RangeByteRequest):
-<span class="ansi-green-fg">    301</span>         value = prototype.buffer.from_bytes(
-<span class="ansi-green-fg">    302</span>             <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>.fs._cat_file(
-<span class="ansi-green-fg">    303</span>                 path,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    306</span>             )
-<span class="ansi-green-fg">    307</span>         )
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/fsspec/implementations/http.py:245</span>, in <span class="ansi-cyan-fg">HTTPFileSystem._cat_file</span><span class="ansi-blue-fg">(self, url, start, end, **kwargs)</span>
-<span class="ansi-green-fg">    243</span>     kw[<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">headers</span><span class="ansi-yellow-fg">"</span>] = headers
-<span class="ansi-green-fg">    244</span> session = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>.set_session()
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">245</span> <span style="font-weight:bold;color:rgb(0,135,0)">async</span> <span style="font-weight:bold;color:rgb(0,135,0)">with</span> session.get(<span style="color:rgb(0,135,0)">self</span>.encode_url(url), **kw) <span style="font-weight:bold;color:rgb(0,135,0)">as</span> r:
-<span class="ansi-green-fg">    246</span>     out = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> r.read()
-<span class="ansi-green-fg">    247</span>     <span style="color:rgb(0,135,0)">self</span>._raise_not_found_for_status(r, url)
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/client.py:1510</span>, in <span class="ansi-cyan-fg">_BaseRequestContextManager.__aenter__</span><span class="ansi-blue-fg">(self)</span>
-<span class="ansi-green-fg">   1509</span> <span style="font-weight:bold;color:rgb(0,135,0)">async</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">__aenter__</span>(<span style="color:rgb(0,135,0)">self</span>) -&gt; _RetType:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1510</span>     <span style="color:rgb(0,135,0)">self</span>._resp: _RetType = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._coro
-<span class="ansi-green-fg">   1511</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._resp.<span class="ansi-blue-fg">__aenter__</span>()
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/client.py:779</span>, in <span class="ansi-cyan-fg">ClientSession._request</span><span class="ansi-blue-fg">(self, method, str_or_url, params, data, json, cookies, headers, skip_auto_headers, auth, allow_redirects, max_redirects, compress, chunked, expect100, raise_for_status, read_until_eof, proxy, proxy_auth, timeout, verify_ssl, fingerprint, ssl_context, ssl, server_hostname, proxy_headers, trace_request_ctx, read_bufsize, auto_decompress, max_line_size, max_field_size, middlewares)</span>
-<span class="ansi-green-fg">    776</span>     handler = _connect_and_send_request
-<span class="ansi-green-fg">    778</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">779</span>     resp = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> handler(req)
-<span class="ansi-green-fg">    780</span> <span style="font-style:italic;color:rgb(95,135,135)"># Client connector errors should not be retried</span>
-<span class="ansi-green-fg">    781</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> (
-<span class="ansi-green-fg">    782</span>     ConnectionTimeoutError,
-<span class="ansi-green-fg">    783</span>     ClientConnectorError,
-<span class="ansi-green-fg">    784</span>     ClientConnectorCertificateError,
-<span class="ansi-green-fg">    785</span>     ClientConnectorSSLError,
-<span class="ansi-green-fg">    786</span> ):
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/client.py:734</span>, in <span class="ansi-cyan-fg">ClientSession._request.&lt;locals&gt;._connect_and_send_request</span><span class="ansi-blue-fg">(req)</span>
-<span class="ansi-green-fg">    732</span> <span style="font-weight:bold;color:rgb(0,135,0)">assert</span> <span style="color:rgb(0,135,0)">self</span>._connector <span style="font-weight:bold;color:rgb(175,0,255)">is</span> <span style="font-weight:bold;color:rgb(175,0,255)">not</span> <span style="font-weight:bold;color:rgb(0,135,0)">None</span>
-<span class="ansi-green-fg">    733</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">734</span>     conn = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._connector.connect(
-<span class="ansi-green-fg">    735</span>         req, traces=traces, timeout=real_timeout
-<span class="ansi-green-fg">    736</span>     )
-<span class="ansi-green-fg">    737</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> asyncio.TimeoutError <span style="font-weight:bold;color:rgb(0,135,0)">as</span> exc:
-<span class="ansi-green-fg">    738</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> ConnectionTimeoutError(
-<span class="ansi-green-fg">    739</span>         <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Connection timeout to host </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>req.url<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">    740</span>     ) <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">exc</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/connector.py:642</span>, in <span class="ansi-cyan-fg">BaseConnector.connect</span><span class="ansi-blue-fg">(self, req, traces, timeout)</span>
-<span class="ansi-green-fg">    640</span>     <span style="font-weight:bold;color:rgb(0,135,0)">for</span> trace <span style="font-weight:bold;color:rgb(175,0,255)">in</span> traces:
-<span class="ansi-green-fg">    641</span>         <span style="font-weight:bold;color:rgb(0,135,0)">await</span> trace.send_connection_create_start()
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">642</span> proto = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._create_connection(req, traces, timeout)
-<span class="ansi-green-fg">    643</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> traces:
-<span class="ansi-green-fg">    644</span>     <span style="font-weight:bold;color:rgb(0,135,0)">for</span> trace <span style="font-weight:bold;color:rgb(175,0,255)">in</span> traces:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/connector.py:1209</span>, in <span class="ansi-cyan-fg">TCPConnector._create_connection</span><span class="ansi-blue-fg">(self, req, traces, timeout)</span>
-<span class="ansi-green-fg">   1207</span>     _, proto = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._create_proxy_connection(req, traces, timeout)
-<span class="ansi-green-fg">   1208</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1209</span>     _, proto = <span style="font-weight:bold;color:rgb(0,135,0)">await</span> <span style="color:rgb(0,135,0)">self</span>._create_direct_connection(req, traces, timeout)
-<span class="ansi-green-fg">   1211</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> proto
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/aiohttp/connector.py:1538</span>, in <span class="ansi-cyan-fg">TCPConnector._create_direct_connection</span><span class="ansi-blue-fg">(self, req, traces, timeout, client_error)</span>
-<span class="ansi-green-fg">   1535</span>         <span style="font-weight:bold;color:rgb(0,135,0)">raise</span>
-<span class="ansi-green-fg">   1536</span>     <span style="font-style:italic;color:rgb(95,135,135)"># in case of proxy it is not ClientProxyConnectionError</span>
-<span class="ansi-green-fg">   1537</span>     <span style="font-style:italic;color:rgb(95,135,135)"># it is problem of resolving proxy ip itself</span>
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1538</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> ClientConnectorDNSError(req.connection_key, exc) <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">exc</span>
-<span class="ansi-green-fg">   1540</span> last_exc: Optional[<span style="font-weight:bold;color:rgb(215,95,95)">Exception</span>] = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>
-<span class="ansi-green-fg">   1541</span> addr_infos = <span style="color:rgb(0,135,0)">self</span>._convert_hosts_to_addr_infos(hosts)
-
-<span class="ansi-red-fg">ClientConnectorDNSError</span>: Cannot connect to host objects.eodc.eu:443 ssl:default [Name or service not known]</pre>
-</div>
-</div>
 </div>
 <p>If we apply the helper function <code>print_gen_structure</code> on the root of the <code>DataTree</code> object, we will get a listing of the tree-like structure of the object. We can see all Zarr groups, such as <code>measurements</code>, <code>quality</code> and <code>conditions</code>, their sub-groups and content.</p>
 <div id="16" class="cell" data-execution_count="4">
@@ -757,19 +461,44 @@ The above exception was the direct cause of the following exception:
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>print_gen_structure(s2l2a_zarr_sample.root) </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Zarr Sentinel 2 L2A Structure</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 2</span>
-<span class="ansi-green-fg">      1</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Zarr Sentinel 2 L2A Structure</span><span class="ansi-yellow-fg">"</span>)
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> print_gen_structure(<span class="ansi-yellow-bg">s2l2a_zarr_sample</span>.root) 
-<span class="ansi-green-fg">      3</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">-</span><span class="ansi-yellow-fg">"</span> * <span class="ansi-green-fg">30</span>)
-
-<span class="ansi-red-fg">NameError</span>: name 's2l2a_zarr_sample' is not defined</pre>
-</div>
+<pre><code>Zarr Sentinel 2 L2A Structure
+None
+  conditions
+    geometry
+    mask
+      detector_footprint
+        r10m
+        r20m
+        r60m
+      l1c_classification
+        r60m
+      l2a_classification
+        r20m
+        r60m
+    meteorology
+      cams
+      ecmwf
+  measurements
+    reflectance
+      r10m
+      r20m
+      r60m
+  quality
+    atmosphere
+      r10m
+      r20m
+      r60m
+    l2a_quicklook
+      r10m
+      r20m
+      r60m
+    mask
+      r10m
+      r20m
+      r60m
+    probability
+      r20m
+------------------------------</code></pre>
 </div>
 </div>
 </section>
@@ -789,52 +518,31 @@ The above exception was the direct cause of the following exception:
 <div id="22" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># STAC metadata style:</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(s2l2a_zarr_sample.attrs[<span class="st">"stac_discovery"</span>].keys()))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[6]</span><span class="ansi-green-fg">, line 2</span>
-<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># STAC metadata style:</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span style="color:rgb(0,135,0)">print</span>(<span style="color:rgb(0,135,0)">list</span>(<span class="ansi-yellow-bg">s2l2a_zarr_sample</span>.attrs[<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">stac_discovery</span><span class="ansi-yellow-fg">"</span>].keys()))
-
-<span class="ansi-red-fg">NameError</span>: name 's2l2a_zarr_sample' is not defined</pre>
-</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['assets', 'bbox', 'geometry', 'id', 'links', 'properties', 'stac_extensions', 'stac_version', 'type']</code></pre>
 </div>
 </div>
 <p>We are also, able to retrieve specific information by diving deep into the <code>stac_discovery</code> metadata, such as:</p>
 <div id="24" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Date of Item Creation: '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'created'</span>])</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Item Bounding Box    : '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'bbox'</span>])</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Item ESPG            : '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'proj:epsg'</span>])</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Sentinel Platform    : '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'platform'</span>])</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Item Processing Level: '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'processing:level'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[7]</span><span class="ansi-green-fg">, line 1</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">1</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">Date of Item Creation: </span><span class="ansi-yellow-fg">'</span>, <span class="ansi-yellow-bg">s2l2a_zarr_sample</span>.attrs[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">stac_discovery</span><span class="ansi-yellow-fg">'</span>][<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">properties</span><span class="ansi-yellow-fg">'</span>][<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">created</span><span class="ansi-yellow-fg">'</span>])
-<span class="ansi-green-fg">      2</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">Item Bounding Box    : </span><span class="ansi-yellow-fg">'</span>, s2l2a_zarr_sample.attrs[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">stac_discovery</span><span class="ansi-yellow-fg">'</span>][<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">bbox</span><span class="ansi-yellow-fg">'</span>])
-<span class="ansi-green-fg">      3</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">Item ESPG            : </span><span class="ansi-yellow-fg">'</span>, s2l2a_zarr_sample.attrs[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">stac_discovery</span><span class="ansi-yellow-fg">'</span>][<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">properties</span><span class="ansi-yellow-fg">'</span>][<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">proj:epsg</span><span class="ansi-yellow-fg">'</span>])
-
-<span class="ansi-red-fg">NameError</span>: name 's2l2a_zarr_sample' is not defined</pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Date of Item Creation: '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'created'</span>])</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Item Bounding Box    : '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'bbox'</span>])</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Item ESPG            : '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'proj:epsg'</span>])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Sentinel Platform    : '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'platform'</span>])</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Item Processing Level: '</span>, s2l2a_zarr_sample.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'processing:level'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Date of Item Creation:  2025-06-10T13:20:01+00:00
+Item Bounding Box    :  [9.146276872400831, 52.25344953517325, 7.500940412097549, 53.24953673463324]
+Item ESPG            :  32632
+Sentinel Platform    :  sentinel-2c
+Item Processing Level:  L2A</code></pre>
 </div>
 </div>
 <p>And from <code>other_metadata</code>, we are able to retrieve the information specific to the instrument variables.</p>
 <div id="26" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complementing metadata:</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(s2l2a_zarr_sample.attrs[<span class="st">"other_metadata"</span>].keys()))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[8]</span><span class="ansi-green-fg">, line 2</span>
-<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># Complementing metadata:</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> <span style="color:rgb(0,135,0)">print</span>(<span style="color:rgb(0,135,0)">list</span>(<span class="ansi-yellow-bg">s2l2a_zarr_sample</span>.attrs[<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">other_metadata</span><span class="ansi-yellow-fg">"</span>].keys()))
-
-<span class="ansi-red-fg">NameError</span>: name 's2l2a_zarr_sample' is not defined</pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Complementing metadata:</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(s2l2a_zarr_sample.attrs[<span class="st">"other_metadata"</span>].keys()))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['AOT_retrieval_model', 'L0_ancillary_data_quality', 'L0_ephemeris_data_quality', 'NUC_table_ID', 'SWIR_rearrangement_flag', 'UTM_zone_identification', 'absolute_location_assessment_from_AOCS', 'band_description', 'declared_accuracy_of_AOT_model', 'declared_accuracy_of_radiative_transfer_model', 'declared_accuracy_of_water_vapour_model', 'electronic_crosstalk_correction_flag', 'eopf_category', 'geometric_refinement', 'history', 'horizontal_CRS_code', 'horizontal_CRS_name', 'mean_sensing_time', 'mean_sun_azimuth_angle_in_deg_for_all_bands_all_detectors', 'mean_sun_zenith_angle_in_deg_for_all_bands_all_detectors', 'mean_value_of_aerosol_optical_thickness', 'mean_value_of_total_water_vapour_content', 'meteo', 'multispectral_registration_assessment', 'onboard_compression_flag', 'onboard_equalization_flag', 'optical_crosstalk_correction_flag', 'ozone_source', 'ozone_value', 'percentage_of_degraded_MSI_data', 'planimetric_stability_assessment_from_AOCS', 'product_quality_status', 'reflectance_correction_factor_from_the_Sun-Earth_distance_variation_computed_using_the_acquisition_date', 'spectral_band_of_reference']</code></pre>
 </div>
 </div>
 </section>

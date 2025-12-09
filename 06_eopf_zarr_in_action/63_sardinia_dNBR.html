@@ -354,6 +354,21 @@ window.Quarto = {
   <a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating Zarr Overviews</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Visualising Multiscale Pyramids</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item">
@@ -421,7 +436,7 @@ window.Quarto = {
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>This notebook introduces the <strong>Normalised Burn Ratio</strong> (NBR), a key index used in satellite remote sensing to assess burn severity. The <strong>NBR</strong> quantifies the severity of damage from wildfires. The NBR is calculated using near-infrared and shortwave infrared bands from Sentinel-2 Level 2 data to highlight vegetation and burned areas.</p>
-<p>Based on the NBR, we can calculate the differenced Normalized Burn Ratio (dNBR) which is a strong indicator of the severity of a fire’s impact on vegetation. The index can be interpreted as follows:<br></p>
+<p>Based on the NBR, we can calculate the differenced Normalised Burn Ratio (dNBR) which is a strong indicator of the severity of a fire’s impact on vegetation. The index can be interpreted as follows:<br></p>
 <ul>
 <li><strong>High dNBR</strong> values suggest high burn severity,</li>
 <li><strong>Low dNBR</strong> values indicate low burn severity or minimal damage, and</li>
@@ -488,7 +503,7 @@ window.Quarto = {
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-637c4cc1-d110-11f0-91d2-6aaece13f98b</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-a62ed8f0-d51b-11f0-9143-76a8e0fde9ed</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -505,10 +520,6 @@ window.Quarto = {
 
 
         
-            <button style="margin-bottom: 12px;" data-commandlinker-command="dask:populate-and-launch-layout" data-commandlinker-args="{&quot;url&quot;: &quot;http://127.0.0.1:8787/status&quot; }">
-                Launch dashboard in JupyterLab
-            </button>
-        
 
         
             <details>
@@ -518,7 +529,7 @@ window.Quarto = {
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;" class="anchored">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">9f47a620</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">e726feb0</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -527,8 +538,8 @@ window.Quarto = {
 <td style="text-align: left;"><strong>Workers:</strong> 4</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Total threads:</strong> 4</td>
-<td style="text-align: left;"><strong>Total memory:</strong> 15.62 GiB</td>
+<td style="text-align: left;"><strong>Total threads:</strong> 8</td>
+<td style="text-align: left;"><strong>Total memory:</strong> 31.35 GiB</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Status:</strong> running</td>
@@ -548,12 +559,12 @@ window.Quarto = {
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;" class="anchored">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-5b1c4427-99dc-4f5a-bf2a-f13567450f9b</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-d9567c1c-452f-4dc7-a87d-80bb8f702bf7</p>
             
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:37685</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:42995</td>
 <td style="text-align: left;"><strong>Workers:</strong> 0</td>
 </tr>
 <tr class="even">
@@ -587,19 +598,19 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:43823</td>
-<td style="text-align: left;"><strong>Total threads:</strong> 1</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40667</td>
+<td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:39055/status" target="_blank">http://127.0.0.1:39055/status</a></td>
-<td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:44071/status" target="_blank">http://127.0.0.1:44071/status</a></td>
+<td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:33431</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:35241</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-zillhwfg</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-s05s3kqo</td>
 </tr>
 </tbody>
 </table>
@@ -619,19 +630,19 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:45855</td>
-<td style="text-align: left;"><strong>Total threads:</strong> 1</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:41247</td>
+<td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34939/status" target="_blank">http://127.0.0.1:34939/status</a></td>
-<td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:40449/status" target="_blank">http://127.0.0.1:40449/status</a></td>
+<td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:39519</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:38961</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-kwb2htif</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-cd5j7uw4</td>
 </tr>
 </tbody>
 </table>
@@ -651,19 +662,19 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:34855</td>
-<td style="text-align: left;"><strong>Total threads:</strong> 1</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:35207</td>
+<td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:40421/status" target="_blank">http://127.0.0.1:40421/status</a></td>
-<td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:36943/status" target="_blank">http://127.0.0.1:36943/status</a></td>
+<td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:35673</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:44081</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-ik3t4y5a</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-7wob054k</td>
 </tr>
 </tbody>
 </table>
@@ -683,19 +694,19 @@ window.Quarto = {
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:45529</td>
-<td style="text-align: left;"><strong>Total threads:</strong> 1</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:37065</td>
+<td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:33807/status" target="_blank">http://127.0.0.1:33807/status</a></td>
-<td style="text-align: left;"><strong>Memory:</strong> 3.91 GiB</td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:35999/status" target="_blank">http://127.0.0.1:35999/status</a></td>
+<td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41889</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:37783</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-w7xhkp3t</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-46hjuthu</td>
 </tr>
 </tbody>
 </table>
@@ -1321,6 +1332,57 @@ window.Quarto = {
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">9</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
             <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l1-rbt"</span>
         </li>
     
@@ -1356,7 +1418,7 @@ window.Quarto = {
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">9</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">10</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1407,7 +1469,7 @@ window.Quarto = {
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">10</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">11</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1458,7 +1520,7 @@ window.Quarto = {
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">11</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1509,7 +1571,7 @@ window.Quarto = {
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1560,7 +1622,7 @@ window.Quarto = {
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">14</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1611,7 +1673,7 @@ window.Quarto = {
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">14</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">15</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1646,57 +1708,6 @@ window.Quarto = {
         <li class="pystac-row">
             <span class="pystac-k">title</span>
             <span class="pystac-v">"Sentinel-3 SLSTR Level-2 FRP"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">15</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l1-err"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 OLCI Level-1 ERR"</span>
         </li>
     
             
@@ -1780,7 +1791,7 @@ window.Quarto = {
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l1-err"</span>
         </li>
     
             
@@ -1798,7 +1809,7 @@ window.Quarto = {
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
+            <span class="pystac-v">"Sentinel-3 OLCI Level-1 ERR"</span>
         </li>
     
             
@@ -1831,7 +1842,7 @@ window.Quarto = {
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
         </li>
     
             
@@ -1849,7 +1860,7 @@ window.Quarto = {
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
         </li>
     
             
@@ -2582,7 +2593,7 @@ window.Quarto = {
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>total_t <span class="op">=</span> et <span class="op">-</span> st</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Running Time: '</span>, total_t,<span class="st">' seconds'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total Running Time:  44.250707149505615  seconds</code></pre>
+<pre><code>Total Running Time:  34.51369595527649  seconds</code></pre>
 </div>
 </div>
 <hr>

@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Reservoir Surface Monitoring</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../06_eopf_zarr_in_action/66_use_overviews.html" rel="next">
+<link href="../06_eopf_zarr_in_action/65_create_overviews.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async="" src="https://plausible.io/js/pa-IdJjKOvKq9lif5cw4UK5i.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><strong>EOPF Zarr in Action</strong></a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/65_reservoir_surface_monitoring.html"><span class="chapter-title">Reservoir Surface Monitoring</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/eopf-toolkit/eopf-101" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About EOPF</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01_about_eopf/11_about_eopf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the EOPF</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01_about_eopf/12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About cloud-optimised formats</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01_about_eopf/13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About EOPF Zarr</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/21_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/22_zarr_structure_S1GRD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/23_S1_basic_operations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operations with EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/24_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/25_zarr_struct_S3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About Chunking</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03_about_chunking/31_zarr_chunking_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">An introduction to Chunking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03_about_chunking/32_zarr_chunking_strat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>EOPF and STAC</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/41_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/43_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/44_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Tools to work with EOPF Zarr</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>EOPF Zarr in Action</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating Zarr Overviews</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Visualising Multiscale Pyramids</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>References</strong></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#section-1---data-preparation" id="toc-section-1---data-preparation" class="nav-link" data-scroll-target="#section-1---data-preparation">Section 1 - Data Preparation</a>
+  <ul class="collapse">
+  <li><a href="#initial-settings-and-data-connection" id="toc-initial-settings-and-data-connection" class="nav-link" data-scroll-target="#initial-settings-and-data-connection">1.1 - Initial settings and data connection</a></li>
+  <li><a href="#load-and-preprocess-data" id="toc-load-and-preprocess-data" class="nav-link" data-scroll-target="#load-and-preprocess-data">1.2 - Load and preprocess data</a></li>
+  <li><a href="#filtering-data" id="toc-filtering-data" class="nav-link" data-scroll-target="#filtering-data">1.3 - Filtering data</a></li>
+  </ul></li>
+  <li><a href="#section-2---reservoir-water-surface-estimation" id="toc-section-2---reservoir-water-surface-estimation" class="nav-link" data-scroll-target="#section-2---reservoir-water-surface-estimation">Section 2 - Reservoir Water Surface Estimation</a>
+  <ul class="collapse">
+  <li><a href="#compute-normalized-difference-water-index-ndwi" id="toc-compute-normalized-difference-water-index-ndwi" class="nav-link" data-scroll-target="#compute-normalized-difference-water-index-ndwi">2.1 - Compute Normalized Difference Water Index (NDWI)</a></li>
+  <li><a href="#integrate-water-occurrence-wo-data" id="toc-integrate-water-occurrence-wo-data" class="nav-link" data-scroll-target="#integrate-water-occurrence-wo-data">2.2 - Integrate Water Occurrence (WO) data</a></li>
+  <li><a href="#interpretation-of-pixel-values-in-gswe-water-occurrence-layer" id="toc-interpretation-of-pixel-values-in-gswe-water-occurrence-layer" class="nav-link" data-scroll-target="#interpretation-of-pixel-values-in-gswe-water-occurrence-layer">Interpretation of Pixel Values in GSWE (Water Occurrence Layer)</a></li>
+  <li><a href="#generate-water-extents-core-gww-algorithm" id="toc-generate-water-extents-core-gww-algorithm" class="nav-link" data-scroll-target="#generate-water-extents-core-gww-algorithm">2.3 - Generate water extents (core GWW algorithm)</a></li>
+  <li><a href="#extract-largest-connected-component" id="toc-extract-largest-connected-component" class="nav-link" data-scroll-target="#extract-largest-connected-component">2.4 - Extract Largest Connected Component</a></li>
+  <li><a href="#compute-reservoir-area" id="toc-compute-reservoir-area" class="nav-link" data-scroll-target="#compute-reservoir-area">2.5 - Compute reservoir area</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#now-it-is-your-turn" id="toc-now-it-is-your-turn" class="nav-link" data-scroll-target="#now-it-is-your-turn">💪 Now it is your turn</a>
+  <ul class="collapse">
+  <li><a href="#task-1-try-another-reservoir" id="toc-task-1-try-another-reservoir" class="nav-link" data-scroll-target="#task-1-try-another-reservoir">Task 1: Try Another Reservoir</a></li>
+  <li><a href="#task-2-compare-with-the-official-gww-algorithm" id="toc-task-2-compare-with-the-official-gww-algorithm" class="nav-link" data-scroll-target="#task-2-compare-with-the-official-gww-algorithm">Task 2: Compare with the official GWW algorithm</a></li>
+  <li><a href="#task-3-advanced-explore-water-extent-estimation-with-sar-sentinel-1-level-1-grd" id="toc-task-3-advanced-explore-water-extent-estimation-with-sar-sentinel-1-level-1-grd" class="nav-link" data-scroll-target="#task-3-advanced-explore-water-extent-estimation-with-sar-sentinel-1-level-1-grd">Task 3 (advanced): Explore water extent estimation with SAR Sentinel-1 Level-1 GRD</a></li>
+  </ul></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><strong>EOPF Zarr in Action</strong></a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/65_reservoir_surface_monitoring.html"><span class="chapter-title">Reservoir Surface Monitoring</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Reservoir Surface Monitoring</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/65_reservoir_surface_monitoring.ipynb" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Water reservoirs are essential for water supply, energy production, and irrigation. However, population growth, economic expansion, and climate change are increasing pressure on these resources, affecting water availability and raising the risk of droughts and floods. Reliable monitoring of reservoirs is critical to ensure sustainable water management and water security. This is especially important in transboundary basins, where upstream reservoirs can significantly influence water availability for downstream countries.</p>
+<p>The <a href="https://www.globalwaterwatch.earth/">Global Water Watch (GWW)</a> is a platform developed by <a href="https://www.deltares.nl/en">Deltares</a> with support from <a href="https://www.google.org/">Google.org</a>, the <a href="https://waterpeacesecurity.org/">Water, Peace, and Security Partnership</a>, and the <a href="https://www.esa.int/">European Space Agency (ESA)</a>. It provides near-real-time (NRT), globally accessible information on reservoirs using Earth Observation data, helping stakeholders monitor changes in water extent and manage resources more effectively. A detailed description of the GWW methods is available under <em>High-resolution surface water dynamics in Earth’s small and medium-sized reservoirs</em> by Donchyts et al., <a href="https://www.nature.com/articles/s41598-022-17074-6">here</a>.</p>
+<p>In this notebook, we <strong>implement parts of the GWW algorithms</strong> to estimate water surface area for a single reservoir: <strong>Mita Hills in Zambia</strong>. Although the original GWW algorithm uses <strong>Landsat 7 &amp; 8</strong> as well as <strong>Sentinel-2</strong>, we focus only on <strong>Sentinel-2 (L1C) imagery</strong> here for simplicity. For the purpose of this resource, we use Sentinel-2 (L1C) imagery available through the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF STAC Catalog</a>.</p>
+<p><strong>Section 1</strong> focuses on preparing and preprocessing the Sentinel-2 data, while <strong>Section 2</strong> covers the steps required to estimate reservoir surface area using the GWW methodology.</p>
+</section>
+<section id="what-we-will-learn" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
+<ul>
+<li><p>Retrieve Sentinel-2 L1C data from the EOPF STAC Catalog</p></li>
+<li><p>Preprocess Sentinel-2 L1C imagery and filter out low-quality scenes</p></li>
+<li><p>Compute the Normalized Difference Water Index (NDWI) to highlight water bodies</p></li>
+<li><p>Apply the GWW algorithm to Sentinel-2 L1C data to generate water masks and fill missing water pixels (e.g., due to clouds or shadows) with auxiliary data</p></li>
+<li><p>Extract the largest connected component and estimate the water surface area</p></li>
+<li><p>Efficiently process large image collections using parallel computing techniques with Dask</p></li>
+</ul>
+</section>
+<section id="prerequisites" class="level3">
+<h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
+<p>This notebook uses Sentinel-2 L1C reflectance data from the EOPF STAC Catalog and requires a Water Occurrence dataset subset (provided in the <code>data</code> folder).</p>
+<hr>
+<section id="import-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
+<div id="8" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parallel computing and data handling</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask                                  </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.distributed <span class="im">import</span> Client          </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Data access</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac_client <span class="im">import</span> Client <span class="im">as</span> StacClient   <span class="co"># Query EO datasets via STAC API</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac <span class="im">import</span> MediaType                     <span class="co"># Identify asset media types (e.g., ZARR)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Geospatial data processing</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pyproj <span class="im">import</span> CRS, Transformer            </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr                        </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> rioxarray</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> rasterio.enums <span class="im">import</span> Resampling           </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualization</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt                </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Warnings management</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="helper-functions" class="level4">
+<h4 class="anchored" data-anchor-id="helper-functions">Helper functions</h4>
+<p>This notebook utilizes a set of helper functions from the Python file <a href="./reservoir_surface_monitoring_utils.py">reservoir_surface_monitoring_utils.py</a> to handle key tasks, including loading and preprocessing the datasets, computing water masks using the GWW algorithm, and calculating reservoir areas. The main logic of each function is outlined in the notebook prior to its use, and the full code can be inspected in <code>reservoir_surface_monitoring_utils.py</code>.</p>
+<div id="11" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> reservoir_surface_monitoring_utils <span class="im">import</span> (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    list_found_elements,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    load_datatrees,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    preprocess_datatree,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    gww,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    largest_connected_component,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    compute_area_km2,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="section-1---data-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="section-1---data-preparation">Section 1 - Data Preparation</h2>
+<p><strong>Overview of Section 1</strong>:</p>
+<p><strong>1.1 - Initial settings and data connection</strong><br>
+<strong>1.2 - Load and preprocess data</strong><br>
+<strong>1.3 - Filtering data</strong></p>
+<section id="initial-settings-and-data-connection" class="level3">
+<h3 class="anchored" data-anchor-id="initial-settings-and-data-connection">1.1 - Initial settings and data connection</h3>
+<p>Initiate dask client for parallel processing</p>
+<div id="17" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start dask client </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client()  <span class="co"># local cluster, can monitor dashboard</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client.dashboard_link)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;Client: 'tcp://127.0.0.1:46111' processes=4 threads=8, memory=31.35 GiB&gt;
+http://127.0.0.1:8787/status</code></pre>
+</div>
+</div>
+<p>Define the settings and retrieve Sentinel-2 L1C data from the EOPF STAC Catalog. In this example, we will use the bounding box covering Mita Hills, apply a 30% cloud cover cutoff for the query, and select a period from August 2022 to December 2024. This relatively long period ensures a sufficient number of scenes, covering both dry and wet conditions.</p>
+<div id="19" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define AOI bbox coordinates (minx, miny, maxx, maxy) in EPSG:4326 (WGS 84)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>minx, miny, maxx, maxy <span class="op">=</span> <span class="fl">28.99253107</span>, <span class="op">-</span><span class="fl">14.2426452</span>, <span class="fl">29.17046702</span>, <span class="op">-</span><span class="fl">13.95317373</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define time range</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>start_date <span class="op">=</span> <span class="st">"2022-08-01"</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>end_date <span class="op">=</span> <span class="st">"2024-12-01"</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Define cloud cover cutoff percentile</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>cloud_cutoff_percentile <span class="op">=</span> <span class="dv">30</span>  <span class="co"># e.g., 30%</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Define collection</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>collection <span class="op">=</span> <span class="st">"sentinel-2-l1c"</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Connect to EOPF STAC Catalog</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>eopf_stac_api_root_endpoint <span class="op">=</span> <span class="st">"https://stac.core.eopf.eodc.eu/"</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>eopf_catalog <span class="op">=</span> StacClient.<span class="bu">open</span>(url<span class="op">=</span>eopf_stac_api_root_endpoint)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Start a search</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>s2_collection <span class="op">=</span> eopf_catalog.search(</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    collections<span class="op">=</span>collection,</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span>(minx, miny, maxx, maxy),</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    datetime<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>start_date<span class="sc">}</span><span class="ss">T00:00:00Z/</span><span class="sc">{</span>end_date<span class="sc">}</span><span class="ss">T23:59:59Z"</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    query <span class="op">=</span> {<span class="st">'eo:cloud_cover'</span>: {<span class="st">'lte'</span>: cloud_cutoff_percentile}}</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co"># List found scenes</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>scenes <span class="op">=</span> list_found_elements(s2_collection)</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total items found for collection </span><span class="sc">{</span>collection<span class="sc">}</span><span class="ss"> over AOI:"</span>, <span class="bu">len</span>(scenes[<span class="dv">0</span>]))</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(scenes[<span class="dv">0</span>]) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"No scenes found for the specified AOI and time range. Please adjust your search parameters."</span>)</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve ZARR URLs/paths</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>S2l1c_coll <span class="op">=</span> eopf_catalog.get_collection(collection)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>items_loc_url <span class="op">=</span> []</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> item_id <span class="kw">in</span> scenes[<span class="dv">0</span>]:</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>    item <span class="op">=</span> S2l1c_coll.get_item(<span class="bu">id</span><span class="op">=</span>item_id)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>    item_assets <span class="op">=</span> item.get_assets(media_type<span class="op">=</span>MediaType.ZARR)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>    cloud_storage_url <span class="op">=</span> item_assets[<span class="st">'product'</span>].href</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    items_loc_url.append(cloud_storage_url)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total items found for collection sentinel-2-l1c over AOI: 115</code></pre>
+</div>
+</div>
+</section>
+<section id="load-and-preprocess-data" class="level3">
+<h3 class="anchored" data-anchor-id="load-and-preprocess-data">1.2 - Load and preprocess data</h3>
+<p>First we load the datasets using the <code>load_datatrees</code> function. Note that in the following cell loading is done lazily using <code>dask.delayed</code>, which builds a Dask task graph. Execution of this graph triggers <strong>parallel processing</strong> of all dataset loading tasks, improving efficiency and reducing memory usage.</p>
+<div id="22" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load datatrees in parallel using dask.delayed</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>delayed_datatrees <span class="op">=</span> [dask.delayed(load_datatrees)(path) <span class="cf">for</span> path <span class="kw">in</span> items_loc_url]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>datatrees <span class="op">=</span> dask.compute(<span class="op">*</span>delayed_datatrees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The obtained datatrees contain the full set of source bands (at all available resolutions) as well as useful metadata for every retrieved scene. Some preprocessing is necessary. This is handled by the <code>preprocess_datatree</code> function, which extracts only the bands of interest, i.e.&nbsp;green (b03) and NIR (b08), clips the tile to the AOI, merges the two bands into a single dataset, and finally adds a <strong>time dimension</strong> derived from the datatree attributes (“stac_discovery” / “properties” / “start_datetime”).</p>
+<p>Although the search coordinates are given in geographic coordinates (EPSG:4326), the data retrieved from the <strong>EOPF STAC API</strong> is provided in UTM coordinates. Therefore, we need to convert the AOI coordinates to UTM as well, to ensure that the clipping is performed correctly. The image CRS code is also available in the datatree attributes.</p>
+<div id="24" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the scenes crs from the attributes of the first datatree</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>crs_code <span class="op">=</span> datatrees[<span class="dv">0</span>].attrs[<span class="st">"other_metadata"</span>][<span class="st">"horizontal_CRS_code"</span>]  </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Scene CRS code:"</span>, crs_code)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Build CRS object and transformer from WGS84</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>scene_crs <span class="op">=</span> CRS.from_user_input(crs_code)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>project_to_scene <span class="op">=</span> Transformer.from_crs(<span class="st">"EPSG:4326"</span>, scene_crs, always_xy<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Transform bounding box to scene CRS </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>minx_utm, miny_utm <span class="op">=</span> project_to_scene.transform(minx, miny)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>maxx_utm, maxy_utm <span class="op">=</span> project_to_scene.transform(maxx, maxy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Scene CRS code: EPSG:32735</code></pre>
+</div>
+</div>
+<p>Apply the preprocessing and compute the datasets</p>
+<div id="26" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess datatrees in parallel using dask.delayed</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>delayed_datasets <span class="op">=</span> [</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    dask.delayed(preprocess_datatree)(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        dtree,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        minx_utm,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        miny_utm,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        maxx_utm,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        maxy_utm,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> dtree <span class="kw">in</span> datatrees</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>datasets <span class="op">=</span> dask.compute(<span class="op">*</span>delayed_datasets)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Create a datacube with all datasets along time dimension</p>
+<div id="28" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ignore some warnings</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>, message<span class="op">=</span><span class="st">"Converting non-nanosecond precision"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine all datasets along time dimension</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>data_cube <span class="op">=</span> xr.concat(datasets, dim<span class="op">=</span><span class="st">"time"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by time</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>data_cube <span class="op">=</span> data_cube.sortby(<span class="st">"time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="filtering-data" class="level3">
+<h3 class="anchored" data-anchor-id="filtering-data">1.3 - Filtering data</h3>
+<p>Although we selected scenes with less than 30% cloud coverage in our query, this threshold applies to the entire tile, meaning some clouds may still be present in the clipped <code>data_cube</code>.</p>
+<p>To address this, we first assign a quality score to each image using the green band by computing the 75th percentile (default in GWW) over the AOI (clouds have high reflectance so the lower the score the cleaner).</p>
+<p>We then keep only the cleanest scenes based on a chosen percentage of the total images (in our case 75%).</p>
+<p>Notes to consider:</p>
+<ol type="1">
+<li><p>This step requires a long time series with a relatively large number of images (for example, in this notebook we use a period with around 100 images). If you are focusing on a shorter period, you can skip this subsection and move directly to Section 2.</p></li>
+<li><p>Selecting scenes with less than 30% cloud coverage can be somewhat arbitrary. A more accurate estimate could be obtained from climatology data, for example using the MODIS cloud occurrence dataset.</p></li>
+<li><p>Keeping the top 75% of the cleanest images is also somewhat arbitrary.</p></li>
+<li><p>All of the above filtering settings may reduce the number of final cleaned images compared to the number used/provided by the official GWW algorithm over the same period, although only minor differences are expected.</p></li>
+</ol>
+<div id="31" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute quality scores based on green band 75th percentile</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>quality_scores <span class="op">=</span> data_cube[<span class="st">"green"</span>].quantile(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    q<span class="op">=</span><span class="fl">0.75</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    dim<span class="op">=</span>(<span class="st">"y"</span>, <span class="st">"x"</span>),</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    skipna<span class="op">=</span><span class="va">True</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Store quality scores in data cube</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>data_cube[<span class="st">"quality_score"</span>] <span class="op">=</span> quality_scores</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="32" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep the 75% cleanest scenes based on quality scores</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>keep_fraction <span class="op">=</span> <span class="fl">0.75</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Only compute the quality_score array</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>qs <span class="op">=</span> data_cube[<span class="st">"quality_score"</span>].compute().values </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>n_keep <span class="op">=</span> <span class="bu">max</span>(<span class="bu">int</span>(<span class="bu">len</span>(qs) <span class="op">*</span> keep_fraction), <span class="dv">1</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Indices of the n_keep smallest values</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>sorted_idx <span class="op">=</span> qs.argsort()[:n_keep]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Select those scenes from dataset </span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>data_cube <span class="op">=</span> data_cube.isel(time<span class="op">=</span>sorted_idx).sortby(<span class="st">"time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Finally, we have a clipped and cleaned <code>data_cube</code> containing all scenes, including a <strong>time dimension</strong> for the relevant bands as data variables (<code>time</code>, <code>lat</code>, <code>lon</code>). We will use this dataset in <strong>Section 2</strong> to perform time series analysis, namely to derive water extents and calculate the area for each scene.</p>
+<hr>
+</section>
+</section>
+<section id="section-2---reservoir-water-surface-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="section-2---reservoir-water-surface-estimation">Section 2 - Reservoir Water Surface Estimation</h2>
+<p><strong>Overview of Section 2:</strong></p>
+<p><strong>2.1 - Compute Normalized Difference Water Index (NDWI)</strong><br>
+<strong>2.2 - Integrate Water Occurrence (WO) data</strong><br>
+<strong>2.3 - Generate water extents (core GWW algorithm)</strong><br>
+<strong>2.4 - Extract Largest Connected Component</strong><br>
+<strong>2.5 - Compute reservoir area</strong></p>
+<section id="compute-normalized-difference-water-index-ndwi" class="level3">
+<h3 class="anchored" data-anchor-id="compute-normalized-difference-water-index-ndwi">2.1 - Compute Normalized Difference Water Index (NDWI)</h3>
+<p>Once we have preprocessed and prepared the data for our AOI, we can start by computing the Normalized Difference Water Index (NDWI) using the green (b03) and NIR (b08) bands. The NDWI highlights water features by producing high positive values for water pixels and lower or negative values for land and vegetation. This provides an initial indication of where water is located, although simple thresholding at this stage can be unreliable, particularly near shorelines or in areas with shallow water or vegetation.</p>
+<div id="39" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate NDWI</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>green <span class="op">=</span> data_cube[<span class="st">'green'</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>nir <span class="op">=</span> data_cube[<span class="st">'nir'</span>]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ndwi <span class="op">=</span> (green <span class="op">-</span> nir) <span class="op">/</span> (green <span class="op">+</span> nir)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Visualize example output from Subsection 2.1</p>
+<div id="41" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot NDWI for a specific date as an example</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(ndwi.sel(time<span class="op">=</span><span class="st">'2024-05-23'</span>), vmin<span class="op">=-</span><span class="fl">0.5</span>, vmax<span class="op">=</span><span class="fl">0.5</span>, cmap<span class="op">=</span><span class="st">'managua'</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.colorbar(label<span class="op">=</span><span class="st">'NDWI'</span>, shrink<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'NDWI on 2024-05-23'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="65_reservoir_surface_monitoring_files/figure-html/cell-13-output-1.png" width="380" height="431" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As shown in the plot, the water body area is visible, with high values represented by the deep sky-blue color. However, clouds are present within the water body area.</p>
+</section>
+<section id="integrate-water-occurrence-wo-data" class="level3">
+<h3 class="anchored" data-anchor-id="integrate-water-occurrence-wo-data">2.2 - Integrate Water Occurrence (WO) data</h3>
+<p>The Global Surface Water Explorer (GSWE) dataset from the European Commission’s Joint Research Centre is also used here. This dataset maps the location and temporal distribution of water surfaces at the global scale over the past 32 years, providing statistics on the extent and change of those water surfaces, namely water occurrence (WO) probabilities per pixel. WO represents the fraction of time a given pixel was observed as water over the study period. The table below shows the range of values and their interpretation.</p>
+</section>
+<section id="interpretation-of-pixel-values-in-gswe-water-occurrence-layer" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation-of-pixel-values-in-gswe-water-occurrence-layer">Interpretation of Pixel Values in GSWE (Water Occurrence Layer)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 27%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Pixel Value (range)</strong></th>
+<th><strong>Interpretation</strong></th>
+<th><strong>Typical Environment</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.0</td>
+<td>Never detected as water during the observation period</td>
+<td>Land, desert, urban area</td>
+</tr>
+<tr class="even">
+<td>0.1 – 0.5</td>
+<td>Occasionally detected as water (intermittent presence)</td>
+<td>Seasonal ponds, floodplains, agricultural fields</td>
+</tr>
+<tr class="odd">
+<td>0.5 – 0.9</td>
+<td>Frequently water but not permanent</td>
+<td>Wetlands, seasonal lakes, riverbanks</td>
+</tr>
+<tr class="even">
+<td>~1.0</td>
+<td>Almost always water (permanent presence)</td>
+<td>Lakes, large rivers, reservoirs</td>
+</tr>
+</tbody>
+</table>
+<p>For more information the user is referred to the <a href="https://www.nature.com/articles/nature20584">associated journal article</a> and the online <a href="https://storage.googleapis.com/global-surface-water/downloads_ancillary/DataUsersGuidev2021.pdf">Data Users Guide</a>.</p>
+<p>The WO dataset is static. For this exercise, we have stored a subset over our AOI (under the <code>data</code> folder), which we will read. In general, the dataset can be downloaded <a href="https://global-surface-water.appspot.com/download">here</a> or accessed through <strong>Google Earth Engine</strong>. At the end of this notebook, in the example tasks, a code snippet is provided showing how the WO dataset can be downloaded and processed using <code>ee</code> and/or <code>geemap</code>.</p>
+<p>The <strong>GSWE</strong> will be used in the next step to perform some filling over the initially classified water areas.</p>
+<div id="45" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ds_wo <span class="op">=</span> rioxarray.open_rasterio(<span class="st">"data/water_occurrence_utm35_v14.tif"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ndwi.rio.write_crs(crs_code, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># resample it to match ndwi as it is on a 30m resolution</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>ds_wo_matched <span class="op">=</span> ds_wo.rio.reproject_match(</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    ndwi,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    resampling<span class="op">=</span>Resampling.nearest</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>ds_wo_matched <span class="op">=</span> ds_wo_matched[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Visualize example output from Subsection 2.2</p>
+<div id="47" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot WO</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(ds_wo_matched, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'managua'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.colorbar(label<span class="op">=</span><span class="st">'Probability of Water Occurrence'</span>, shrink<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Water Occurrence'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="65_reservoir_surface_monitoring_files/figure-html/cell-15-output-1.png" width="369" height="431" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As shown in the plot, the main water body has very high probability values, close to one, indicating that these pixels were almost always water during the observation period, representing the permanent water areas of the reservoir. Lower values appear near the edges of the reservoir, which are the most challenging areas to detect. These lower probabilities typically indicate that water was present frequently but not permanently (values around 0.5–0.9) or only occasionally (values around 0.1–0.5). In the next subsection, we will focus on detecting these variable water areas in each image.</p>
+</section>
+<section id="generate-water-extents-core-gww-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="generate-water-extents-core-gww-algorithm">2.3 - Generate water extents (core GWW algorithm)</h3>
+<p>To detect water more reliably, we combine the following two datasets: the NDWI index and the Water Occurrence (WO).</p>
+<p>First, we identify edges in the NDWI image using the <code>Canny</code>, which highlights sharp transitions between water and land. After that, we apply a <code>morphological dilation</code> to the edges, and using only these dilated edge pixels, we apply <code>Otsu thresholding</code> to determine a robust cutoff value that separates water from land. This avoids biases from large uniform land areas and ensures the threshold is focused on transition zones. For more details on the Canny edge detector and Otsu thresholding see this <a href="http://www.mdpi.com/2072-4292/8/5/386">publication</a>.</p>
+<p>Next, we use the WO dataset to fill in water areas that NDWI might miss, such as shallow, turbid zones etc. The 80th percentile of the WO values is computed only on the edge pixels, making the filling threshold context-aware. This filling also helps recover water in pixels obscured by clouds or shadows in the current image. Water is added in areas that are classified as non-water (NDWI&lt;0 here, -0.15 in raw GWW) but exceed the WO threshold.</p>
+<p>Finally, the water mask from NDWI and the filled water mask from WO are combined to produce the total water mask.</p>
+<p><em>The code for the steps described above can be found in the <code>gww</code> function.</em></p>
+<div id="51" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>water_mask_da, water_fill_da, total_water_da <span class="op">=</span> xr.apply_ufunc(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    gww,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    ndwi,              <span class="co"># NDWI array</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    ds_wo_matched,     <span class="co"># Water occurrence array</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    input_core_dims<span class="op">=</span>[[<span class="st">"y"</span>, <span class="st">"x"</span>], [<span class="st">"y"</span>, <span class="st">"x"</span>]],</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    output_core_dims<span class="op">=</span>[[<span class="st">"y"</span>, <span class="st">"x"</span>], [<span class="st">"y"</span>, <span class="st">"x"</span>], [<span class="st">"y"</span>, <span class="st">"x"</span>]],</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    vectorize<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    dask<span class="op">=</span><span class="st">"parallelized"</span>,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    output_dtypes<span class="op">=</span>[<span class="bu">bool</span>, <span class="bu">bool</span>, <span class="bu">bool</span>],</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    dask_gufunc_kwargs<span class="op">=</span>{<span class="st">"allow_rechunk"</span>: <span class="va">True</span>},</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    kwargs<span class="op">=</span>{</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"canny_sigma"</span>: <span class="fl">0.7</span>,        <span class="co"># Sigma for Canny edge detector</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"canny_low"</span>: <span class="fl">0.5</span>,          <span class="co"># Canny low threshold</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"canny_high"</span>: <span class="fl">1.0</span>,         <span class="co"># Canny high threshold</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"nonwater_thresh"</span>: <span class="dv">0</span>       <span class="co"># NDWI non-water threshold, used to fill water pixels from WO</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Visualize example output from Subsection 2.3</p>
+<div id="53" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.imshow(water_mask_da.sel(time<span class="op">=</span><span class="st">"2024-05-23"</span>).compute(), cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Water Mask'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.axis('off')</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.imshow(water_fill_da.sel(time<span class="op">=</span><span class="st">"2024-05-23"</span>).compute(), cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Water Fill'</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.axis('off')</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>plt.imshow(total_water_da.sel(time<span class="op">=</span><span class="st">"2024-05-23"</span>).compute(), cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Total Water'</span>)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.axis('off')</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="65_reservoir_surface_monitoring_files/figure-html/cell-17-output-1.png" width="950" height="482" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the example scene from 2024-05-23 shown in the figure above, the left panel displays the initial water detected using Otsu, the middle panel shows the water filling based on the WO dataset, and the right panel presents the total detected water produced by our algorithm.</p>
+</section>
+<section id="extract-largest-connected-component" class="level3">
+<h3 class="anchored" data-anchor-id="extract-largest-connected-component">2.4 - Extract Largest Connected Component</h3>
+<p>Even after thresholding, small water patches or noise may appear in the mask. Since we are interested in the main reservoir, we extract the <strong>largest connected component</strong> from the binary water mask. This isolates the primary water body while ignoring smaller, isolated water regions, giving a clean representation of the reservoir. For this we are using the <code>largest_connected_component</code> function. (Note that the largest connected component is not extracted in the original GWW algorithm)</p>
+<div id="57" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Largest Connected Component (LCC) filtering on Total Water</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>lcc_da <span class="op">=</span> xr.apply_ufunc(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    largest_connected_component,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    total_water_da,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    input_core_dims<span class="op">=</span>[[<span class="st">"y"</span>, <span class="st">"x"</span>]],</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    output_core_dims<span class="op">=</span>[[<span class="st">"y"</span>, <span class="st">"x"</span>]],</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    vectorize<span class="op">=</span><span class="va">True</span>,  <span class="co"># applies function to each 2D slice</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    dask<span class="op">=</span><span class="st">"parallelized"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    output_dtypes<span class="op">=</span>[<span class="bu">bool</span>],</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="compute-reservoir-area" class="level3">
+<h3 class="anchored" data-anchor-id="compute-reservoir-area">2.5 - Compute reservoir area</h3>
+<p>As a last step, we can calculate the reservoir area by counting the number of pixels in the largest water body and converting this count to square kilometers using the pixel size (10 m for our case; see the <code>compute_area_km2</code> function).</p>
+<div id="60" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute area in km² of LCC water bodies</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>area_da <span class="op">=</span> xr.apply_ufunc(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    compute_area_km2,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    lcc_da,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    input_core_dims<span class="op">=</span>[[<span class="st">"y"</span>, <span class="st">"x"</span>]],</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    output_core_dims<span class="op">=</span>[[]],  <span class="co"># scalar per time</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    vectorize<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    dask<span class="op">=</span><span class="st">"parallelized"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    kwargs<span class="op">=</span>{<span class="st">"pixel_size"</span>: <span class="fl">10.0</span>},</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    output_dtypes<span class="op">=</span>[<span class="bu">float</span>],</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Visualize example output from Subsections 2.4 and 2.5</p>
+<div id="62" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(lcc_da.sel(time<span class="op">=</span><span class="st">"2024-05-23"</span>).compute(), cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Largest Connected Component on 2024-05-23 </span><span class="ch">\n</span><span class="ss"> Calculated Area: </span><span class="sc">{</span>area_da<span class="sc">.</span>sel(time<span class="op">=</span><span class="st">"2024-05-23"</span>)<span class="sc">.</span>compute()<span class="sc">:.2f}</span><span class="ss"> km²'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="65_reservoir_surface_monitoring_files/figure-html/cell-20-output-1.png" width="396" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Compute and visualize the estimated areas over time. (Note that the final surface water area time series in the raw GWW algorithm are post-processed with a temporal quantile-based filter)</p>
+<div id="64" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute area time series</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>area_da <span class="op">=</span> area_da.compute()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Plotting the entire time series</p>
+<div id="66" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>area_da.to_pandas().plot(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    marker<span class="op">=</span><span class="st">'x'</span>, </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    ms<span class="op">=</span><span class="dv">4</span>,                </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    markeredgewidth<span class="op">=</span><span class="dv">3</span>,     </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    linestyle<span class="op">=</span><span class="st">' '</span>, </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'darkorange'</span>, </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="st">"Computed"</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Surface Area (km²)'</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>plt.grid()</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="65_reservoir_surface_monitoring_files/figure-html/cell-22-output-1.png" width="814" height="412" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In this notebook, we demonstrated how Sentinel-2 L1C data can be accessed and processed to monitor reservoir water surface area over a historical time series using Earth Observation techniques. To achieve this, we applied parts of the <a href="https://www.globalwaterwatch.earth/">Global Water Watch (GWW)</a> algorithms (detailed description <a href="https://www.nature.com/articles/s41598-022-17074-6">here</a>) to filter images, derive water masks, fill gaps and estimate reservoir surface.</p>
+<p>The workflow relied on the <code>.zarr</code> data format from the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF STAC Catalog</a>, which enables fast, efficient, and scalable data access directly from the cloud, using standard Python tools. Compared to the traditional <code>.safe</code> files/workflows, this approach reduces overhead, allowing us to produce reservoir time series in just a few minutes.</p>
+<p>Overall, this demonstrates the strong potential of this catalog not only for retrospective reservoir monitoring but also for near-real-time operational applications.</p>
+<hr>
+</section>
+<section id="now-it-is-your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="now-it-is-your-turn">💪 Now it is your turn</h2>
+<p>Now that you’re familiar our reservoir detection workflow, based on the zarr format provided by the EOPF Sentinel STAC Catalog, it’s time to put your skills into practice! Below are suggested exercises that scale from replication to comparison and finally to an advanced extension using a different sensor.</p>
+<p><strong>Overview of tasks:</strong> 1. <strong>Try another reservoir</strong> – replicate the workflow for a different reservoir.<br>
+2. <strong>Compare with the official GWW algorithm</strong> – analyze differences between our implementation and the GWW API results.<br>
+3. <strong>Explore SAR-based water extent estimation</strong> – extend the workflow to Sentinel-1 SAR data and compare with optical results.</p>
+<section id="task-1-try-another-reservoir" class="level3">
+<h3 class="anchored" data-anchor-id="task-1-try-another-reservoir">Task 1: Try Another Reservoir</h3>
+<p><strong>Goal:</strong> test how well the workflow generalizes to a different reservoir.</p>
+<p><strong>Steps:</strong> 1. Visit the <a href="https://www.globalwaterwatch.earth/map">Global Water Watch (GWW) interactive viewer</a> and explore reservoirs.<br>
+2. Pick a reservoir you find interesting and click <strong><code>DOWNLOAD.GEOJSON</code></strong> (bottom of the panel) to download its boundary polygon.<br>
+3. Use <strong>GeoPandas</strong> to load the GeoJSON and compute the bounding box (<code>bbox</code>) for your new study area.<br>
+4. Re-run this notebook’s processing pipeline using that bounding box.</p>
+<p><strong>Tips &amp; ideas:</strong> - Choose reservoirs in different climates (e.g., semi-arid vs.&nbsp;humid tropical) to observe how clouds, vegetation and seasonal changes affect detection. - Try several sizes: small vs.&nbsp;large reservoirs to see how morphological operations and the largest connected component step behave. Note that usually very large reservoirs are well measured using in-situ measurements and partial observations of surface area are less indicative of the state of the full reservoir.</p>
+<p>You can use the following code snippet to get the WO dataset directly into a data array for your AOI</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ee</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geemap</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>ee.Authenticate()</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>ee.Initialize()</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>aoi <span class="op">=</span> ee.Geometry.Rectangle([minx, miny, maxx, maxy])</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load and process image</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>water_occurrence <span class="op">=</span> (</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    ee.Image(<span class="st">"JRC/GSW1_4/GlobalSurfaceWater"</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    .select(<span class="st">"occurrence"</span>)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    .unmask(<span class="dv">0</span>)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    .divide(<span class="dv">100</span>)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> geemap.ee_to_xarray(</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    water_occurrence,</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>    geometry<span class="op">=</span>aoi,</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>    scale<span class="op">=</span><span class="dv">30</span>,</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    crs<span class="op">=</span>crs_code,)</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>da <span class="op">=</span> ds[<span class="st">"occurrence"</span>].isel(time<span class="op">=</span><span class="dv">0</span>).transpose(<span class="st">"Y"</span>, <span class="st">"X"</span>).sortby(<span class="st">"Y"</span>, ascending<span class="op">=</span><span class="va">False</span>).drop_vars(<span class="st">"time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="task-2-compare-with-the-official-gww-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="task-2-compare-with-the-official-gww-algorithm">Task 2: Compare with the official GWW algorithm</h3>
+<p><strong>Goal:</strong> explore differences between the current implementation and the official GWW outputs.</p>
+<p>As described earlier in this notebook the GWW algorithm is more complex combining many satellite sources and parts of the classification/filtering techniques/settings are different, for example the largest connected components is not extracted. In addition the resulting surface water area time series in GWW are post-processed with a temporal outlier filtering (quantile-based) to remove the remaining errors. Also one major difference is that in the raw algorithm a long archive is exploited.</p>
+<p><strong>Steps:</strong> 1. Read the GWW API docs: <code>https://api.globalwaterwatch.earth/docs</code>.<br>
+2. Install the API:<br>
+<code>bash    pip install gwwapi</code> 3. Download timeseries for Mita Hills (reservoir id 88643) using the API (or the website) 4. Compare GWW’s reported water area time series with your own estimates extracted from Sentinel-2 in this notebook.</p>
+<p>You can use the following helper function to query the GWW API:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_reservoir_ts_gww(reservoir_id, start_date, end_date):</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Retrieve time series data for a given reservoir ID from the GWW API.</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">    start_date and end_date are strings in 'YYYY-MM-DD' format.</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    base_url <span class="op">=</span> <span class="st">"https://api.globalwaterwatch.earth/v1"</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base_url<span class="sc">}</span><span class="ss">/reservoir/</span><span class="sc">{</span>reservoir_id<span class="sc">}</span><span class="ss">/ts"</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> {</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"start"</span>: <span class="ss">f"</span><span class="sc">{</span>start_date<span class="sc">}</span><span class="ss">T00:00:00"</span>,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"stop"</span>: <span class="ss">f"</span><span class="sc">{</span>end_date<span class="sc">}</span><span class="ss">T23:59:59"</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    resp <span class="op">=</span> requests.get(url, params<span class="op">=</span>params)</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    resp.raise_for_status()</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> resp.json()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="task-3-advanced-explore-water-extent-estimation-with-sar-sentinel-1-level-1-grd" class="level3">
+<h3 class="anchored" data-anchor-id="task-3-advanced-explore-water-extent-estimation-with-sar-sentinel-1-level-1-grd">Task 3 (advanced): Explore water extent estimation with SAR Sentinel-1 Level-1 GRD</h3>
+<p><strong>Goal:</strong><br>
+Adapt the detection workflow you developed for Sentinel-2 optical data to <strong>Sentinel-1 SAR</strong> data, and compare how it performs for the same reservoir.</p>
+<p><strong>Reasoning:</strong></p>
+<p>In this notebook, we used <strong>Sentinel-2 L1C optical data</strong> to estimate reservoir surface area. The same logic - <em>Otsu thresholding</em>, <em>edge detection</em>, <em>morphological filtering</em>, and <em>largest connected component extraction</em> - can also be applied to <strong>Sentinel-1 SAR</strong> data. Since SAR measures <strong>backscatter</strong> instead of reflectance, we can’t compute spectral indices like NDWI. Instead, we use the backscatter values directly to separate wet and dry pixels: water usually appears <strong>dark (e.g.&nbsp;&lt; −16 dB)</strong>. SAR has the advantage of being <strong>cloud-independent</strong>, but can sometimes overestimate water, especially when <strong>dry soil</strong> also produces low backscatter. Also note that SAR requires preprocessing before using it like orbit correction, thermal noise removal, calibration, speckle filtering, terrain correction, conversion to dB etc.</p>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Download and preprocess Sentinel-1 GRD data (see the Flood Mapping - Time Series Analysis in Valencia example).<br>
+</li>
+<li>Adjust the gww function to work with SAR, e.g.&nbsp;apply a simple mask (e.g.&nbsp;<code>backscatter &lt; -16</code>), refine with <strong>Otsu thresholding</strong>, use existing morphological steps to clean the result and extract the reservoir (you can skip the water occurrence filling).</li>
+<li>Compare the SAR-based water area with your Sentinel-2 estimates.</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
+<p>This online resource is under active development. So stay tuned for regular updates 🛰️.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="pagination-link" aria-label="Creating Zarr Overviews">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Creating Zarr Overviews</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="pagination-link" aria-label="Visualising Multiscale Pyramids">
+        <span class="nav-page-text"><span class="chapter-title">Visualising Multiscale Pyramids</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Development Seed, thriveGEO and SparkGeo</p>
+</div>   
+    <div class="nav-footer-center">
+<p>License: Apache 2.0</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link active" href="https://github.com/eopf-toolkit/eopf-101" aria-current="page">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
