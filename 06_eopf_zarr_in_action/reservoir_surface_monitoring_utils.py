@@ -55,7 +55,7 @@ def preprocess_datatree(
     Returns
     -------
     xr.Dataset
-        Dataset with bands 'green' and 'swir' and a time dimension
+        Dataset with bands 'green' and 'nir' and a time dimension
     """
 
     # Extract bands
@@ -88,7 +88,7 @@ def preprocess_datatree(
 
 # Function to apply the core GWW algorithm
 def gww(
-    slice_mndwi: np.ndarray,
+    slice_ndwi: np.ndarray,
     slice_wo: np.ndarray,
     canny_sigma: float = 0.7,
     canny_low: float = 0.5,
@@ -99,7 +99,7 @@ def gww(
     Compute water mask, water fill, and total water mask for a single 2D slice.
 
     Parameters:
-        slice_mndwi: slice_mndwi: 2D numpy array of MNDWI values
+        slice_ndwi: 2D numpy array of NDWI values (green - NIR) / (green + NIR)
         slice_wo: 2D numpy array of auxiliary water occurrence or water probability
 
     Returns:
@@ -108,11 +108,11 @@ def gww(
         total_water: combination of both
     """
     # Mask of invalid pixels
-    nanmask = np.isnan(slice_mndwi)
+    nanmask = np.isnan(slice_ndwi)
 
     # Edge detection
     edge_image = canny(
-        slice_mndwi,
+        slice_ndwi,
         sigma=canny_sigma,
         low_threshold=canny_low,
         high_threshold=canny_high,
@@ -124,20 +124,20 @@ def gww(
     # Mask dilated edges with NaNs
     dilated = np.ma.array(dilated, mask=nanmask, fill_value=np.nan)
 
-    # Mask MNDWI values using dilated edges
-    mndwi_edge = np.ma.array(
-        slice_mndwi, mask=np.logical_or(nanmask, ~dilated), fill_value=np.nan
+    # Mask NDWI values using dilated edges
+    ndwi_edge = np.ma.array(
+        slice_ndwi, mask=np.logical_or(nanmask, ~dilated), fill_value=np.nan
     )
 
     # Flatten for Otsu threshold
-    flat = mndwi_edge[~mndwi_edge.mask]
+    flat = ndwi_edge[~ndwi_edge.mask]
     flat = flat[~np.isnan(flat)]
 
     # Compute Otsu threshold
     th = threshold_otsu(flat) if len(flat) > 0 else 0.0
 
     # Generate sure water mask
-    water = slice_mndwi > th
+    water = slice_ndwi > th
     water[nanmask] = False
 
     # Mask WO values with same edge mask
@@ -155,7 +155,7 @@ def gww(
     water_fill_JRC[nanmask] = False
 
     # Identify non-water pixels from NDWI
-    nonwater = slice_mndwi < nonwater_thresh
+    nonwater = slice_ndwi < nonwater_thresh
 
     # Final filled water mask
     water_fill = np.logical_and(nonwater, water_fill_JRC)
