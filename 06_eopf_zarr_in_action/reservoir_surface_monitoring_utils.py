@@ -1,13 +1,17 @@
-import numpy as np
-import pandas as pd
-import xarray as xr                        
 import warnings
 
+import numpy as np
+import pandas as pd
+import xarray as xr
+from skimage.feature import canny  # Edge detection
+
 # Image processing for water detection
-from skimage.filters import threshold_otsu      # Thresholding (for NDWI classification)
-from skimage.feature import canny               # Edge detection
-from skimage.morphology import dilation         # Edge dilation
-from skimage.measure import label               # Connected components labeling
+from skimage.filters import (
+    threshold_otsu,  # Thresholding (for NDWI classification)
+)
+from skimage.measure import label  # Connected components labeling
+from skimage.morphology import dilation  # Edge dilation
+
 
 # Helper function to collect the found scenes
 def list_found_elements(search_result):
@@ -18,14 +22,13 @@ def list_found_elements(search_result):
         coll.append(item.collection_id)
     return ids, coll
 
+
 # Helper function to load datatrees
 def load_datatrees(path):
     return xr.open_datatree(
-        path,
-        engine="zarr",
-        chunks={},
-        decode_timedelta=False
+        path, engine="zarr", chunks={}, decode_timedelta=False
     )
+
 
 # Function to preprocess a single datatree
 def preprocess_datatree(
@@ -41,40 +44,35 @@ def preprocess_datatree(
     - Clip to UTM bounds
     - Merge bands into one dataset
     - Add time coordinate
-    
+
     Parameters
     ----------
     dtree : xr.DataTree
         Loaded datatree for one scene
     minx_utm, miny_utm, maxx_utm, maxy_utm : float
         Clipping bounds in UTM
-    
+
     Returns
     -------
     xr.Dataset
         Dataset with bands 'green' and 'swir' and a time dimension
     """
-    
+
     # Extract bands
     green_10m = dtree.measurements.reflectance.r10m.ds["b03"]
-    nir_10m  = dtree.measurements.reflectance.r10m.ds["b08"]
-    
+    nir_10m = dtree.measurements.reflectance.r10m.ds["b08"]
+
     # Clip to UTM bounds
     green_clip = green_10m.sel(
-        x=slice(minx_utm, maxx_utm),
-        y=slice(maxy_utm, miny_utm)
+        x=slice(minx_utm, maxx_utm), y=slice(maxy_utm, miny_utm)
     )
     nir_clip = nir_10m.sel(
-        x=slice(minx_utm, maxx_utm),
-        y=slice(maxy_utm, miny_utm)
+        x=slice(minx_utm, maxx_utm), y=slice(maxy_utm, miny_utm)
     )
-        
+
     # Merge bands
-    ds_merged = xr.Dataset({
-        "green": green_clip,
-        "nir": nir_clip
-    })
-    
+    ds_merged = xr.Dataset({"green": green_clip, "nir": nir_clip})
+
     # Add time coordinate
     date_str = dtree.attrs["stac_discovery"]["properties"]["start_datetime"]
     date = pd.to_datetime(date_str).date()
@@ -84,22 +82,26 @@ def preprocess_datatree(
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", UserWarning)
         ds_merged = ds_merged.expand_dims(time=[np.datetime64(date)])
-    
+
     return ds_merged
 
+
 # Function to apply the core GWW algorithm
-def gww(slice_mndwi: np.ndarray, slice_wo: np.ndarray,
-        canny_sigma: float = 0.7,
-        canny_low: float = 0.5,
-        canny_high: float = 1.0,
-        nonwater_thresh: float = -0.15) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+def gww(
+    slice_mndwi: np.ndarray,
+    slice_wo: np.ndarray,
+    canny_sigma: float = 0.7,
+    canny_low: float = 0.5,
+    canny_high: float = 1.0,
+    nonwater_thresh: float = -0.15,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Compute water mask, water fill, and total water mask for a single 2D slice.
-    
+
     Parameters:
-        slice_mndwi: 2D numpy array of MNDWI values
+        slice_mndwi: slice_mndwi: 2D numpy array of MNDWI values
         slice_wo: 2D numpy array of auxiliary water occurrence or water probability
-    
+
     Returns:
         water: sure water mask
         water_fill: water filled from WO dataset
@@ -107,66 +109,75 @@ def gww(slice_mndwi: np.ndarray, slice_wo: np.ndarray,
     """
     # Mask of invalid pixels
     nanmask = np.isnan(slice_mndwi)
-    
+
     # Edge detection
     edge_image = canny(
-        slice_mndwi, 
-        sigma=canny_sigma, 
-        low_threshold=canny_low, 
-        high_threshold=canny_high
-        )
-    
+        slice_mndwi,
+        sigma=canny_sigma,
+        low_threshold=canny_low,
+        high_threshold=canny_high,
+    )
+
     # Dilate edges
     dilated = dilation(edge_image, footprint=np.ones((3, 3)))
-    
+
     # Mask dilated edges with NaNs
     dilated = np.ma.array(dilated, mask=nanmask, fill_value=np.nan)
-    
+
     # Mask MNDWI values using dilated edges
-    mndwi_edge = np.ma.array(slice_mndwi, mask=np.logical_or(nanmask, ~dilated), fill_value=np.nan)
-    
+    mndwi_edge = np.ma.array(
+        slice_mndwi, mask=np.logical_or(nanmask, ~dilated), fill_value=np.nan
+    )
+
     # Flatten for Otsu threshold
     flat = mndwi_edge[~mndwi_edge.mask]
     flat = flat[~np.isnan(flat)]
-    
+
     # Compute Otsu threshold
     th = threshold_otsu(flat) if len(flat) > 0 else 0.0
-    
+
     # Generate sure water mask
     water = slice_mndwi > th
     water[nanmask] = False
-    
+
     # Mask WO values with same edge mask
-    wo_edge = np.ma.array(slice_wo, mask=np.logical_or(nanmask, ~dilated), fill_value=np.nan)
+    wo_edge = np.ma.array(
+        slice_wo, mask=np.logical_or(nanmask, ~dilated), fill_value=np.nan
+    )
     wo_flat = wo_edge[~wo_edge.mask]
     wo_flat = wo_flat[~np.isnan(wo_flat)]
-    
+
     # Compute threshold from WO dataset (80th percentile)
     p = np.percentile(wo_flat, 80) if len(wo_flat) > 0 else 0.0
 
     # Generate water fill from WO dataset
     water_fill_JRC = slice_wo > p
     water_fill_JRC[nanmask] = False
-    
+
     # Identify non-water pixels from NDWI
     nonwater = slice_mndwi < nonwater_thresh
-    
+
     # Final filled water mask
     water_fill = np.logical_and(nonwater, water_fill_JRC)
-    
+
     # Combine sure water and filled water
     total_water = np.logical_or(water, water_fill)
-    
+
     return water, water_fill, total_water
+
 
 # Function to extract largest connected component
 def largest_connected_component(segmentation):
     """Extract the largest connected component from a binary segmentation mask."""
+    if not np.any(segmentation):
+        return np.zeros_like(segmentation, dtype=bool)
+
     labels = label(segmentation, connectivity=2)
     largest_cc = labels == np.argmax(np.bincount(labels[segmentation]))
     return largest_cc
 
+
 # Function to compute area in km² from binary mask
 def compute_area_km2(mask_2d: np.ndarray, pixel_size: float = 10.0) -> float:
     """Compute area (km²) from a binary mask."""
-    return (np.sum(mask_2d) * (pixel_size ** 2)) / 1000000
+    return (np.sum(mask_2d) * (pixel_size**2)) / 1000000

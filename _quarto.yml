@@ -57,6 +57,7 @@ book:
         - 06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb
         - 06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb
         - 06_eopf_zarr_in_action/65_create_overviews.ipynb
+        - 06_eopf_zarr_in_action/65_reservoir_surface_monitoring.ipynb
         - 06_eopf_zarr_in_action/66_use_overviews.ipynb
         # - 06_eopf_zarr_in_action/67_
         # - 06_eopf_zarr_in_action/68_
