@@ -22,7 +22,7 @@ jobs:
 
   build-deploy:
     needs: prepare-docker-image
-    runs-on: ubuntu-latest
+    runs-on: eopf-large
     if: needs.prepare-docker-image.result == 'success'
     container:
       # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
