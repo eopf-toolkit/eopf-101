@@ -1,5 +1,5 @@
 ---
-title: "Accessing EOPF Sentinel Zarr using `Rarr`"
+title: "Access EOPF Sentinel Zarr using `Rarr`"
 format: html
 execute: 
   cache: refresh
@@ -10,7 +10,7 @@ execute:
 This notebook demonstrates how to **retrieve** remotely stored Zarr data using the `Rarr` package in R. We will explore how to **read and visualize** Zarr data (zarrays) and their metadata. For subsequent analysis and visualization we turn the zarray into `stars` objects which are more suitable for spatial data.
 
 ::: {.callout-tip}
-This notebook has a sibling, which demonstrates how to access the same data using the GDAL Zarr driver. You can find it [here](./remote_Zarr_via_GDAL.html).
+This notebook has a sibling, which demonstrates how to access the same data using the GDAL Zarr driver. You can find it [here](./55_zarr_R_gdal.qmd).
 :::
 
 ### What we will learn
@@ -98,7 +98,30 @@ The same information can be retrieved with `sf::gdal_utils('mdiminfo', ...)`.
 
 ## Reading Zarr data with `Rarr`
 
-⛔ `Rarr`, like `stars` and `terra`, is not capable of reading multiple arrays from the remote store simultaneously.
+Reading zarrays from a remote Zarr store with `Rarr` and turning them into useful spatial R objects is not as straightforward as with `GDAL`-based `stars` and `terra` functions. We will demonstrate the current capabilities and limitations of `Rarr` by using a reference object retrieved through the `GDAL` Zarr driver which is loaded in the background.
+
+```{r}
+#| echo: false
+#| warning: false
+
+# parse GDAL-compatible VSI URL
+vsi_url = paste0("ZARR:/vsicurl/", dplyr::as_label(zarr_url)) 
+
+# read from remote and set CRS
+band_variable = "/measurements/reflectance/r60m/b01"
+zz_gdal = read_stars(paste(vsi_url, band_variable, sep = ":"))
+st_crs(zz_gdal) = st_crs(32632)
+```
+
+```{r}
+# GDAL-based reference object
+zz_gdal
+```
+
+We start with an naive attempt to read the entire Zarr store using `Rarr::read_zarr_array`.
+
+
+⛔ Rarr, like `stars` and `terra`, is not capable of reading multiple arrays from the remote Zarr store simultaneously.
 
 ```{r}
 #| error: true
@@ -115,57 +138,147 @@ zarray = read_zarr_array(paste0(zarr_url, band_variable))
 str(zarray)
 ```
 
-However, the function returns a matrix (2D array) lacking any spatial metadata (e.g. Coordinate Reference System) or coordinates. 
+### Raster geometry
+
+The function returns a matrix (2D array) lacking any spatial metadata (e.g. Coordinate Reference System) or map coordinates. Let's plot it together with the reference object for comparison.
+
+```{r}
+#| fig-subcap: 
+#|   - "Rarr (raw zarray)"
+#|   - "GDAL (directly retrieved stars object)"
+#| layout-ncol: 2
+#| fig-height: 7
+
+image(zarray)
+image(zz_gdal$b01)
+```
+
 
 ::: {.callout-warning}
 ## Caution
 
-The raw array has flipped dimensions! But we can access X and Y coordinates for each pixel separately and handle the issue.
+The raw zarray has flipped X- and Y-dimensions! But we can access X and Y coordinates for each pixel separately and handle the issue by transposing them later (using `t()`).
 :::
 
 ```{r}
+# retrieve X and Y coordinates
 zarray_60m_x = paste0(zarr_url, "/measurements/reflectance/r60m/x") |> 
   read_zarr_array()
 zarray_60m_y = paste0(zarr_url, "/measurements/reflectance/r60m/y") |> 
   read_zarr_array()
 
-print(range(zarray_60m_x))
-print(range(zarray_60m_y))
+range(zarray_60m_x)
+range(zarray_60m_y)
 ```
 
-Let's construct a `stars` object from the components found in the Zarr store:
-- data array
-- X and Y coordinates
-- CRS (from metadata)
+Regardless of their ordering, are the coordinate values consistent with those retrieved via GDAL?
 
 ```{r}
-# read CRS from attributes
+range(st_get_dimension_values(zz_gdal, "x"))
+range(st_get_dimension_values(zz_gdal, "y"))
+```
+
+✅ Yes!
+
+### Reflectance values
+
+Before building the spatial object we should also check if the actual data values are consistent between both methods.
+
+```{r}
+head(t(zarray)[1,])     # flipped zarray
+head(zz_gdal$b01[1,])   # reference arrray
+```
+
+::: {.callout-warning}
+## Caution
+
+By comapring the first few values of each array we can observe 2 important differences:
+
+  - `zarray` contains integer values while `zz_gdal` has floating point values scaled with factor 10,000.
+  - after rescaling, min and max for example still differ (0.1299 vs. 0.2299 / 1.6556 vs. 1.7556), indicating an offset of 0.1. 
+
+💡 **Explanation:** *The data provider applies scale and offset to store more memory-efficient integer values. A scale factor of 10,000 preserves 4 decimals, while an offset of 0.1 avoids the multiplication of 0. When reading raw data like that we need to apply scale and offset manually to get the original reflectance values.*
+:::
+
+Scale and offset parameters are important metadata, but currently not accessible via `Rarr`. At this point we can only find it by digging deep into the metadata retrieved by `GDAL`:
+
+```{r}
+# GDAL-comaptible VSI URL
+vsi_url = paste0("ZARR:/vsicurl/", dplyr::as_label(zarr_url)) 
+
+# get entire metadata
+info = sf::gdal_utils("mdiminfo", source = vsi_url, quiet = T) |> fromJSON()
+
+# access scale and offset for 60 meter reflectance bands
+(scale = info$groups$measurements$groups$reflectance$groups$r60m$arrays$b01$scale)
+(offset = info$groups$measurements$groups$reflectance$groups$r60m$arrays$b01$offset)
+```
+
+### Constructing a `stars` object from zarray components
+
+Let's combine all pieces of the puzzle to form a spatial object:
+
+- data array
+- scale and offset
+- X and Y coordinates
+- CRS
+
+```{r}
+# read CRS from Zarr attributes
 zarr_crs = zattrs$stac_discovery$properties$`proj:epsg`
 
 # band name
 var = basename(band_variable)
 
-# read and transpose matrix before converting to stars
-zz = st_as_stars(zarray |> t()) |> 
-  st_set_dimensions(1, names = "X", values = zarray_60m_x) |> 
-  st_set_dimensions(2, names = "Y", values = zarray_60m_y) |> 
+# read and transpose data matrix 
+# apply scale and offset
+# convert to stars
+zz = st_as_stars(t(zarray) * scale + offset) |>
+  st_set_dimensions(1, names = "x", values = zarray_60m_x, is_raster = TRUE) |> 
+  st_set_dimensions(2, names = "y", values = zarray_60m_y, is_raster = TRUE) |> 
   setNames(var)
+
+# assign CRS
 st_crs(zz) = st_crs(zarr_crs)
 
-# display the object
+# print the object
 zz
+```
 
-# plot as a map
+We can compare the newly constructed object with reference read via GDAL. They should have identical geometry and values. 
+
+```{r}
+identical(zz[[1]] |> str(),
+          zz_gdal[[1]] |> str())
+```
+
+Looks good! Let's visualize both objects.
+
+```{r}
+#| fig-subcap: 
+#|   - "Rarr (constructed stars object)"
+#| layout-ncol: 1
+
+# plot as maps
 plot(zz, axes = TRUE)
 ```
 
-The map shows Sentinel-2 band 1 (coastal aerosol band) reflectance at 60m spatial resolution for north-western Italy with the Alps in the West and the city of Torino in the North-East.
+```{r}
+#| fig-subcap: 
+#|   - "GDAL (directly retrieved stars object)"
+#| layout-ncol: 1
 
+plot(zz_gdal, axes = TRUE)
+```
 
-We can enclose these steps in a single function with some flexibility for variable names and resolutions. This allows us to retireve any band at any available resolution from the remote Zarr store.
+The identical maps show Sentinel-2 band 1 (coastal aerosol band) reflectance at 60m spatial resolution for north-western Italy with the Alps in the West and the city of Torino in the North-East.
+
+### Wrapping it all up in a function
+
+We can enclose these steps in a single function with some flexibility for variable names and resolutions. This allows us to retrieve any band at any available resolution from the remote Zarr store. Since scale and offset are not accessible via `Rarr`, we need to provide them as function arguments.
 
 ```{r}
-st_read_zarray = function(path, var, res, ...){
+st_read_zarray = function(path, var, res, scale = 1, offset = 0, ...){
   
   # room for checks and input tests:
   # stopifnot valid zarr url / variable / resolution ...
@@ -174,6 +287,7 @@ st_read_zarray = function(path, var, res, ...){
   zattrs = jsonlite::read_json(file.path(path, ".zattrs"))
   zarr_crs = zattrs$stac_discovery$properties$`proj:epsg`
   
+  # selecte the correct spatial resolution
   # zattrs$stac_discovery$properties$`eopf:resolutions`
   res_char = switch(as.character(res),
     "10" = "r10m",
@@ -182,6 +296,7 @@ st_read_zarray = function(path, var, res, ...){
     stop("Resolution must be one of 10, 20, or 60.")
   )
 
+  # get 2D data array and 1D coordinate arrays
   # ...: make use of index arguments of read_zarr_array if desired
   zarray = file.path(path, "measurements/reflectance", res_char, var) |> 
     read_zarr_array(...)
@@ -189,13 +304,12 @@ st_read_zarray = function(path, var, res, ...){
     read_zarr_array(...)
   zarray_y = file.path(path, "measurements/reflectance", res_char, "y") |> 
     read_zarr_array(...)
-  
-  # transpose matrixe before converting to stars
-  z = zarray |> 
-    t() |> 
-    st_as_stars() |> 
-    st_set_dimensions(1, names = "X", values = zarray_x) |> 
-    st_set_dimensions(2, names = "Y", values = zarray_y) |> 
+    
+  # transpose matrix before converting to stars, apply scale and offset
+  # assign x and y coordinates and CRS
+  z = st_as_stars(t(zarray) * scale + offset) |>
+  st_set_dimensions(1, names = "x", values = zarray_60m_x, is_raster = TRUE) |> 
+  st_set_dimensions(2, names = "y", values = zarray_60m_y, is_raster = TRUE) |> 
     setNames(var)
   st_crs(z) = st_crs(zarr_crs)
   return(z)
@@ -209,15 +323,16 @@ st_read_zarray = function(path, var, res, ...){
 
 ```{r}
 system.time({
-  b01 = st_read_zarray(zarr_url, "b01", 60)
-  b09 = st_read_zarray(zarr_url, "b09", 60)
-  (multi_band = c(b01, b09) |> merge())
+  # scale: 0.0001 = 1 / 10,000
+  b01 = st_read_zarray(zarr_url, "b01", 60, scale=0.0001, offset = 0.1)
+  b09 = st_read_zarray(zarr_url, "b09", 60, scale=0.0001, offset = 0.1)
+  multi_band = c(b01, b09) |> merge(name="band") |> setNames("reflectance")
 })
 
 plot(multi_band, axes = TRUE)
 ```
 
-... or by generating an interactive visualization:
+... or by generating an interactive map:
 
 ```{r}
 #| echo: false
@@ -252,12 +367,13 @@ f_rarr = function(){rr = st_read_zarray(zarr_url, "b01", 60)}
 
 ```{r}
 #| warning: false
+#| cache: true
 
 bench::mark(f_stars(), f_mdim(), f_rast(), f_rarr(), 
   check = F, iterations = 5)
 ```
 
-The benchmark does not reveal a clear winner in terms of speed. However, `Rarr` seems to allocate more memory compared to `stars` and `terra`.
+The benchmark does not reveal a clear winner in terms of speed. However, `Rarr` seems not to be faster than `GDAL` but allocates more memory compared to `stars` and `terra`.
 
 ## 💪 Now it is your turn
 
@@ -273,6 +389,4 @@ In this notebook we have demonstrated how to access remote Zarr stores in R usin
 
 Further tests should evaluate wether data retrieved via `Rarr` versus GDAL are identical in terms of spatial extent and offset.
 
-Explore [this related notebook](./remote_Zarr_via_GDAL.html) which demonstrates how to access the same Zarr data using the GDAL Zarr driver via the `stars` and `terra` packages.
-
-
+Explore [this related notebook](./55_zarr_R_gdal.qmd) which demonstrates how to access the same Zarr data using the GDAL Zarr driver via the `stars` and `terra` packages.
