@@ -1,5 +1,5 @@
 ---
-title: "Accessing EOPF Sentinel Zarr via GDAL in `stars` and `terra`"
+title: "Access EOPF Sentinel Zarr via GDAL in `stars` and `terra`"
 format: html
 execute: 
   cache: refresh
@@ -10,7 +10,7 @@ execute:
 This notebook demonstrates how to **retrieve** remotely stored Zarr data using the Zarr GDAL driver in R. We will explore how to **read and visualize** Zarr data (zarrays) and their metadata using the `stars`, `sf` and `terra` packages as well as their current limitations. 
 
 ::: {.callout-tip}
-This notebook has a sibling, which demonstrates how to access the same Zarr data using the `Rarr` package. You can find it [here](./remote_Zarr_via_Rarr.html).
+This notebook has a sibling, which demonstrates how to access the same Zarr data using the `Rarr` package. You can find it [here](./54_zarr_R_rarr.qmd).
 :::
 
 ### What we will learn
@@ -108,7 +108,7 @@ r = read_stars(vsi_url, sub = 1)
 r = read_stars(vsi_url, sub = band_variable)
 ```
 
-✅ Constructing the full Zarray path from prefix, URL, and band variable.
+✅ Constructing the full zarray path from prefix, URL, and band variable.
 
 ```{r}
 (r = read_stars(paste(vsi_url, band_variable, sep = ":")))
@@ -160,7 +160,7 @@ m = read_mdim(vsi_url, variable = "?") # query array names
 ```
 
 
-✅ Specifying the full Zarray path from prefix, URL, and band variable. Read as proxy object.
+✅ Specifying the full zarray path from prefix, URL, and band variable. Read as a proxy object (just metadata; values are accessed lazily when required).
 ```{r}
 system.time({
   (m = read_mdim(vsi_url, variable = band_variable, proxy = TRUE))
@@ -176,7 +176,7 @@ As for `read_stars()`, the CRS is not automatically recognized and needs to be s
 
 ### `terra::rast()`
 
-✅ / ⛔ Traditional approach for reading all bands/layers at once.
+⛔ Traditional approach for reading all bands/layers at once.
 
 ```{r, error=T}
 (tr = terra::rast(vsi_url))
@@ -185,7 +185,7 @@ tr$b02
 names(tr) # has non-unique names, e.g. three times "b02"
 ```
 
-`terra` reads some of the available bands, but fails to name them uniquely. It likely searches for band names like "b02" and finds the first group of data arrays by order, in this case the 10-meter bands (2, 3, 4, and 8). The Zarr store contains multiple array named by band such as "/measurements/reflectance/r10m/b02", their corresponding masks (e.g. "quality/mask/r10m/b02) and the detector footprint (e.g. "/conditions/mask/detector_footprint/r10m/b02"). All Zarrays share the same name, "b02", leading to non-unique layer names in the resulting `SpatRaster` object. When constructing unique names we can at least visualize the data.
+`terra` reads some of the available bands, but fails to name them uniquely. It likely searches for band names like "b02" and finds the first group of data arrays by order, in this case the 10-meter bands (2, 3, 4, and 8 aka R,G,B, and NIR). The Zarr store contains multiple arrays named after each band such as `/measurements/reflectance/r10m/b02`, a corresponding mask (e.g. `quality/mask/r10m/b02`) and the detector footprint (e.g. `/conditions/mask/detector_footprint/r10m/b02`). All of these zarrays share the same name, `b02`, leading to non-unique layer names in the resulting `SpatRaster` object. When constructing unique names we can at least visualize the data.
 
 ```{r}
 # rename layers to (not meaningful) unique names
@@ -195,17 +195,20 @@ names(tr)
 plot(tr)
 ```
 
-✅ Specifying the full Zarray path from prefix, URL, and band variable as sub-dataset. Read as proxy object.
+✅ Specifying the full zarray path from prefix, URL, and band variable as sub-dataset. Read as proxy object.
 ```{r}
 system.time({
   tr = rast(vsi_url, subds = band_variable)
   })# fast: only reads metadata
 
 crs(tr) # "": empty
-system.time(plot(tr)) # slow: only here the full array is downloaded 
 ```
 
 As for the `stars`-functions, the CRS is not automatically recognized and needs to be set manually.
+
+```{r}
+system.time(plot(tr)) # slow: only here the full array is downloaded 
+```
 
 ## 💪 Now it is your turn
 
@@ -218,4 +221,4 @@ In this notebook we have demonstrated how to access remote Zarr stores using GDA
 
 ## What's next?
 
-Explore [this related notebook](./remote_Zarr_via_Rarr.html) which demonstrates how to access the same Zarr data using the `Rarr` package and building a `stars` object from it.
+Explore [this related notebook](./54_zarr_R_rarr.qmd) which demonstrates how to access the same Zarr data using the `Rarr` package and building a `stars` object from it.
