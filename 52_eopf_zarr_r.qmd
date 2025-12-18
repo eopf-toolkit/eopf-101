@@ -5,6 +5,8 @@ format:
     df-print: tibble
 execute:
   cache: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 ### Introduction
@@ -178,12 +180,16 @@ r20m_x |>
 Or, we can read in the whole array (by not providing any elements to `index`) and view its first few values with `head()`. Of course, reading in the whole array, rather than a small section of it, will take longer.
 
 ```{r x-y-read-head}
+r20m_x <- r20m_x |>
+  read_zarr_array()
+
 r20m_x |>
-  read_zarr_array() |>
   head(5)
 
+r20m_y <- r20m_y |>
+  read_zarr_array()
+
 r20m_y |>
-  read_zarr_array() |>
   head(5)
 ```
 
@@ -211,94 +217,67 @@ b02 |>
   pull(dim)
 ```
 
-## Visualising the RGB quicklook composite
-
-EOPF Zarr assets include quicklook RGB composites, which are readily viewable representations of the satellite image. We will open the 10-metre resolution quicklook and visualise it. This is available as an asset, so we can access it directly from the STAC item.
-
-```{r tci-10m-asset, eval = FALSE}
-tci_10m_asset <- s2_l2a_item |>
-  assets_select(asset_names = "TCI_10m")
-
-tci_10m_url <- tci_10m_asset |>
-  assets_url()
-
-tci_10m_url |>
-  zarr_overview()
-```
-
-From the overview, we can see that the quicklook array has three dimensions to it, each of size 10980 x 10980. The three dimensions correspond to red, green, and blue spectral bands (B04, B03, and B02, respectively), since this is an RGB composite. This information is also available by looking at the assets' bands:
-
-```{r tci-10m-bands, eval = FALSE}
-s2_l2a_item[["assets"]][["TCI_10m"]][["bands"]] |>
-  map_dfr(as_tibble)
-```
-
-We can read in a small chunk of the array to get an idea of its shape, using the same indexing process we've used before. Note that we want to select _all_ of the bands (the first dimension listed). Rather than writing `1:3`, we can simply use `NULL` as the first dimension, indicating to get all data at this dimension. To preview the data, we will just get the first 2 entries (in each dimension) along the three bands.
-
-```{r tci-10m-preview, eval = FALSE}
-tci_10m_preview <- tci_10m_url |>
-  read_zarr_array(list(NULL, 1:2, 1:2))
-
-tci_10m_preview
-```
-
-For visualisation purposes, we need the data in a different configuration --- note the dimensions of the data:
-
-```{r tci-10m-preview-dims, eval = FALSE}
-dim(tci_10m_preview)
-```
-
-Instead, we need to get it into e.g. 2 x 2 x 3, with the _third_ dimension reflecting the number of bands (or layers) To do this, we use the `aperm()` function to transpose an array, with argument `c(2, 3, 1)` -- moving the second dimension to the first, the third to the second, and the first to the third. Then, we can see that the dimensions of the array are correct:
-
-```{r tci-10m-preview-transf, eval = FALSE}
-tci_10m_preview_perm <- tci_10m_preview |>
-  aperm(c(2, 3, 1))
-
-tci_10m_preview_perm
-
-dim(tci_10m_preview_perm)
-```
-
-Let's read in the full TCI array to visualise it.
-
-```{r tci-10m-dims, eval = FALSE}
-tci_10m <- tci_10m_url |>
-  read_zarr_array()
-
-tci_10m_perm <- tci_10m |>
-  aperm(c(2, 3, 1))
-
-dim(tci_10m)
-```
-
-For visualisation, we use `terra`'s `plotRGB()` function, first converting the array into a raster object with `rast()`:
-
-```{r tci-10m-vis, eval = FALSE}
-tci_10m_perm |>
-  rast() |>
-  plotRGB()
-```
-
-We can do the same with the quicklook at the 60-metre resolution, showing the full visualisation process in a single step:
-
-```{r tci-60m-vis, eval = FALSE}
-zarr_store |>
-  filter(array == "/quality/l2a_quicklook/r60m/tci") |>
-  pull(path) |>
-  read_zarr_array() |>
-  aperm(c(2, 3, 1)) |>
-  rast() |>
-  plotRGB()
-```
-
 ## Simple Data Analysis: Calculating NDVI
 
 Let us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).
 
 First, we access the *Red* (B04) and *Near-InfraRed* (B08A) bands, which are needed for calculation of the NDVI, at 20m resolution:
 
-```{r}
+```{r ndvi-data}
+r20m_b04 <- r20m |>
+  filter(str_ends(array, "b04")) |>
+  pull(path) |>
+  read_zarr_array()
 
+r20m_b04[1:5, 1:5]
+
+r20m_b8a <- r20m |>
+  filter(str_ends(array, "b8a")) |>
+  pull(path) |>
+  read_zarr_array()
+
+r20m_b8a[1:5, 1:5]
+```
+
+The function `st_as_stars()` is used to get our data into a format that makes data manipulation and visualisation easy. 
+
+This format is also beneficial because it allows for a quick summary of the data and its attributes, providing information such as the median and mean values of the bands and information on the grid:
+
+```{r ndvi-stars}
+ndvi_data <- st_as_stars(B04 = r20m_b04, B08A = r20m_b8a) |>
+  st_set_dimensions(1, names = "X", values = r20m_x) |>
+  st_set_dimensions(2, names = "Y", values = r20m_y)
+
+ndvi_data
+```
+
+Now, we perform the initial steps for NDVI calculation:
+
+- `sum_bands`: Calculates the sum of the Near-Infrared and Red bands.
+- `diff_bands`: Calculates the difference between the Near-Infrared and Red bands.
+
+```{r ndvi-initial-calculation}
+ndvi_data <- ndvi_data |>
+  mutate(
+    sum_bands = B04 + B08A,
+    diff_bands = B04 - B08A
+  )
+```
+
+Then, we calculate the NDVI, which is `diff_bands` / `sum_bands`. To prevent division by zero errors in areas where both red and NIR bands might be zero (e.g., water bodies or clouds), we also replace any `NaN` values resulting from division by zero with 0. This ensures a clean and robust NDVI product.
+
+```{r ndvi-calculation}
+ndvi_data <- ndvi_data |>
+  mutate(
+    ndvi = diff_bands / sum_bands,
+    ndvi = ifelse(sum_bands == 0, 0, ndvi)
+  )
+```
+
+In a final step, we can visualise the calculated NDVI.
+
+```{r ndvi-vis}
+plot(ndvi_data, as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.colors)
 ```
 
 ## 💪 Now it is your turn
@@ -322,5 +301,3 @@ The EOPF STAC Catalog offers a wealth of data beyond Sentinel-2. Replicate the s
 In this tutorial we established a connection to the [EOPF Sentinel Zarr Sample Service STAC Catalog](stac.browser.user.eopf.eodc.eu_) and directly accessed an EOPF Zarr array with `Rarr`. We explored how to review the full Zarr store, read individual arrays, and gave an understanding of Zarr array chunking and dimensions. We also did a simple visualisation of the Quicklook via the [`stars`] package.
 
 ## What's next?
-
-In the following section we will present several end-to-end workflows, where we will showcase the application of the available Sentinel Products in the EOPF Sentinel Zarr Sample Service STAC Catalog.
