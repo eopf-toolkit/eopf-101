@@ -1,0 +1,307 @@
+---
+title: "Access and analyse EOPF STAC Zarr data with R"
+format:
+  html:
+    df-print: tibble
+jupyter: ir
+---
+
+<a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&branch=main&urlpath=lab/tree/eopf-101/05_zarr_tools/53_eopf_stac_r.ipynb" target="_blank">
+<button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;">
+🚀 Launch this notebook in JupyterLab
+</button>
+</a>
+
+### Introduction
+
+In this tutorial, we will demonstrate how to access EOPF Zarr products directly from the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/) using R. We will introduce R packages that enable us to effectively get an overview of and read Zarr arrays.
+
+### What we will learn
+
+- ☁️ How to overview cloud-optimised datasets from the EOPF Zarr STAC Catalog with the `Rarr` package.
+- 🔎 Read and examine loaded datasets
+- 📊 Perform simple data analyses with the loaded data
+
+### Prerequisites
+
+An R environment is required to follow this tutorial, with R version >= 4.5.0. For local development, we recommend using either [RStudio](https://p!osit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
+
+We will use the following packages in this tutorial:
+- [`rstac`](https://brazil-data-cube.github.io/rstac/) (for accessing the STAC catalog)
+- [`tidyverse`](https://tidyverse.tidyverse.org/) (for data manipulation)
+- [`terra`](https://rspatial.github.io/terra/index.html) (for working with spatial data in raster format)
+- [`stars`](https://r-spatial.github.io/stars/) (for reading, manipulating, and plotting spatiotemporal data)
+
+You can install them directly from CRAN:
+
+```{r install}
+#| eval: false
+install.packages("rstac")
+install.packages("tidyverse")
+install.packages("stars")
+install.packages("terra")
+```
+
+We will also use the `Rarr` package (version >= 1.10.0) to read Zarr data. It must be installed from Bioconductor, so first install the `BiocManager` package:
+
+```{r install-BiocManager}
+#| eval: false
+install.packages("BiocManager")
+```
+
+Then, use this package to install `Rarr`:
+
+```{r install-rarr}
+#| eval: false
+BiocManager::install("Rarr")
+```
+
+Finally, load the packages into your environment:
+
+```{r load, message=FALSE, warning=FALSE}
+#| cache: false
+library(rstac)
+library(tidyverse)
+library(Rarr)
+library(stars)
+library(terra)
+```
+
+## Access Zarr data from the STAC Catalog
+
+The first step of accessing Zarr data is to understand the assets within the EOPF Sample Service STAC catalog. The [first tutorial](https://eopf-toolkit.github.io/eopf-101/51_eopf_stac_r.html) goes into detail on this, so we recommend reviewing it if you have not already.
+
+For the first part of this tutorial, we will be using data from the [Sentinel-2 Level-2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a). We fetch the "product" asset under a given item, and can look at its URL:
+
+```{r access-stac-product}
+s2_l2a_item <- stac("https://stac.core.eopf.eodc.eu/") |>
+  collections(collection_id = "sentinel-2-l2a") |>
+  items(feature_id = "S2A_MSIL2A_20251107T100231_N0511_R122_T33UXP_20251107T113811") |>
+  get_request()
+
+s2_l2a_product <- s2_l2a_item |>
+  assets_select(asset_names = "product")
+
+s2_l2a_product_url <- s2_l2a_product |>
+  assets_url()
+
+s2_l2a_product_url
+```
+
+The product is the "top level" Zarr asset, which contains the full Zarr product hierarchy. We can use `zarr_overview()` to get an overview of it, setting `as_data_frame` to `TRUE` so that we can see the entries in a data frame instead of printed directly to the console. Each entry is a Zarr array; we remove `product_url` from the path to get a better idea of what each array is. Since this is something we will want to do multiple times throughout the tutorial, we create a helper function for this.
+
+```{r overview}
+derive_store_array <- function(store, product_url) {
+  store |>
+    mutate(array = str_remove(path, product_url)) |>
+    relocate(array, .before = path)
+}
+
+zarr_store <- s2_l2a_product_url |>
+  zarr_overview(as_data_frame = TRUE) |>
+  derive_store_array(s2_l2a_product_url)
+
+zarr_store
+```
+
+This shows us the path to access the Zarr array, the number of chunks it contains, the type of data, as well as its dimensions and chunking structure.
+
+We can also look at overviews of individual arrays. First, let's narrow down to measurements taken at 20-metre resolution:
+
+```{r measurements-20m}
+r20m <- zarr_store |>
+  filter(str_starts(array, "/measurements/reflectance/r20m/"))
+
+r20m
+```
+
+Then, we select the B02 array and examine its dimensions and chunking:
+
+```{r array-info}
+r20m |>
+  filter(str_ends(array, "b02")) |>
+  select(path, nchunks, dim, chunk_dim) |>
+  as.list()
+```
+
+We can also see an overview of individual arrays using `zarr_overview()`. With the default setting (where `as_data_frame` is `FALSE`), this prints information on the array directly to the console, in a more digestible way:
+
+```{r array-overview}
+r20m_b02 <- r20m |>
+  filter(str_ends(array, "b02")) |>
+  pull(path)
+
+r20m_b02 |>
+  zarr_overview()
+```
+
+The above overview tells us that the data is two-dimensional, with dimensions 5490 x 5490. Zarr data is split up into **chunks**, which are smaller, independent piece of the larger array. Chunks can be accessed individually, without loading the entire array. In this case, there are 36 chunks in total, with 6 along each of the dimensions, each of size 915 x 915.
+
+# Read Zarr data
+
+To read in Zarr data, we use `read_zarr_array()`, and can pass a list to the `index` argument, describing which elements we want to extract along each dimension. Since this array is two-dimensional, we can think of the dimensions as rows and columns of the data. For example, to select the first 10 rows and the first 5 columns:
+
+```{r read-array-index}
+r20m_b02 |>
+  read_zarr_array(index = list(1:10, 1:5))
+```
+
+### Coordinates
+
+Similarly, we can read in the `x` and `y` coordinates corresponding to data at 10m resolution. These `x` and `y` coordinates do not correspond to latitude and longitude---to understand the coordinate reference system used in each data set, we access the `proj:code` property of the STAC item. In this case, the coordinate reference system is [EPSG:32626](https://epsg.io/32626), which represents metres from the UTM zone's origin.
+
+```{r item-proj}
+s2_l2a_item[["properties"]][["proj:code"]]
+```
+
+We can see that `x` and `y` are one dimensional:
+
+```{r x-y-dims}
+r20m_x <- r20m |>
+  filter(str_ends(array, "x")) |>
+  pull(path)
+
+r20m_x |>
+  zarr_overview()
+
+r20m_y <- r20m |>
+  filter(str_ends(array, "y")) |>
+  pull(path)
+
+r20m_y |>
+  zarr_overview()
+```
+
+Which means that, when combined, they form a grid that describes the location of each point in the 2-dimensional measurements, such as B02. We will go into this more in the examples below.
+
+The `x` and `y` dimensions can be read in using the same logic: by describing which elements we want to extract. Since there is only one dimension, we only need to supply one entry in the indexing list:
+
+```{r x-read-index}
+r20m_x |>
+  read_zarr_array(list(1:5))
+```
+
+Or, we can read in the whole array (by not providing any elements to `index`) and view its first few values with `head()`. Of course, reading in the whole array, rather than a small section of it, will take longer.
+
+```{r x-y-read-head}
+r20m_x <- r20m_x |>
+  read_zarr_array()
+
+r20m_x |>
+  head(5)
+
+r20m_y <- r20m_y |>
+  read_zarr_array()
+
+r20m_y |>
+  head(5)
+```
+
+### Different resolutions
+
+With EOPF data, some measurements are available at multiple resolutions. For example, we can see that the B02 spectral band is available at 10m, 20m, and 60m resolution:
+
+```{r b02-resolutions}
+b02 <- zarr_store |>
+  filter(str_starts(array, "/measurements/reflectance"), str_ends(array, "b02"))
+
+b02 |>
+  select(array)
+```
+
+The resolution affects the dimensions of the data: when measurements are taken at a higher resolution, there will be more data. We can see here that there is more data for the 10m resolution than the 20m resolution (recall, its dimensions are 5490 x 5490), and less for the 60m resolution:
+
+```{r b02-resolutions-dims}
+b02 |>
+  filter(array == "/measurements/reflectance/r10m/b02") |>
+  pull(dim)
+
+b02 |>
+  filter(array == "/measurements/reflectance/r60m/b02") |>
+  pull(dim)
+```
+
+## Simple Data Analysis: Calculating NDVI
+
+Let us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).
+
+First, we access the *Red* (B04) and *Near-InfraRed* (B08A) bands, which are needed for calculation of the NDVI, at 20m resolution:
+
+```{r ndvi-data}
+r20m_b04 <- r20m |>
+  filter(str_ends(array, "b04")) |>
+  pull(path) |>
+  read_zarr_array()
+
+r20m_b04[1:5, 1:5]
+
+r20m_b8a <- r20m |>
+  filter(str_ends(array, "b8a")) |>
+  pull(path) |>
+  read_zarr_array()
+
+r20m_b8a[1:5, 1:5]
+```
+
+The function `st_as_stars()` is used to get our data into a format that makes data manipulation and visualisation easy. 
+
+This format is also beneficial because it allows for a quick summary of the data and its attributes, providing information such as the median and mean values of the bands and information on the grid:
+
+```{r ndvi-stars}
+ndvi_data <- st_as_stars(B04 = r20m_b04, B08A = r20m_b8a) |>
+  st_set_dimensions(1, names = "X", values = r20m_x) |>
+  st_set_dimensions(2, names = "Y", values = r20m_y)
+
+ndvi_data
+```
+
+Now, we perform the initial steps for NDVI calculation:
+
+- `sum_bands`: Calculates the sum of the Near-Infrared and Red bands.
+- `diff_bands`: Calculates the difference between the Near-Infrared and Red bands.
+
+```{r ndvi-initial-calculation}
+ndvi_data <- ndvi_data |>
+  mutate(
+    sum_bands = B04 + B08A,
+    diff_bands = B04 - B08A
+  )
+```
+
+Then, we calculate the NDVI, which is `diff_bands` / `sum_bands`. To prevent division by zero errors in areas where both red and NIR bands might be zero (e.g., water bodies or clouds), we also replace any `NaN` values resulting from division by zero with 0. This ensures a clean and robust NDVI product.
+
+```{r ndvi-calculation}
+ndvi_data <- ndvi_data |>
+  mutate(
+    ndvi = diff_bands / sum_bands,
+    ndvi = ifelse(sum_bands == 0, 0, ndvi)
+  )
+```
+
+In a final step, we can visualise the calculated NDVI.
+
+```{r ndvi-vis}
+plot(ndvi_data, as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.colors)
+```
+
+## 💪 Now it is your turn
+
+The following exercises will help you master the STAC API and understand how to find the data you need.
+
+### Task 1: Explore five additional Sentinel-2 Items
+
+Replicate the RGB quick-look for five additional items from your area of interest and review the spatial changes.
+
+### Task 2: Calculate NDVI
+
+Replicate the NDVI calculation for the additional items.
+
+### Task 3: Applying more advanced analysis techniques
+
+The EOPF STAC Catalog offers a wealth of data beyond Sentinel-2. Replicate the search and data access for data from other collections.
+
+## Conclusion
+
+In this tutorial we established a connection to the [EOPF Sentinel Zarr Sample Service STAC Catalog](stac.browser.user.eopf.eodc.eu_) and directly accessed an EOPF Zarr array with `Rarr`. We explored how to review the full Zarr store, read individual arrays, and gave an understanding of Zarr array chunking and dimensions. We also did a simple calculation and visualisation of NDVI using the [`stars`] package.
+
+## What's next?
