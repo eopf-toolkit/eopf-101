@@ -1,7 +1,7 @@
 """
 Script Name: zarr_s1_utils.py
 Author: Walid Ghariani
-Date: 2026-09-01
+Date: 2026-01-09
 Description: Set of code to process Sentinel-1 data stored in Zarr format for coastal water dynamics analysis.
 Version: 0.0.1 - Support for Sentinel-1 Zarr data processing.
 """
