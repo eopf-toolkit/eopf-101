@@ -46,17 +46,3 @@ jobs:
           make build-and-push-docker-image TAG=release-${{ steps.commit.outputs.hash }} PROJECT="r"
           make tag-docker-image TAG=latest PROJECT="r"
           make push-docker-image TAG=latest PROJECT="r"
-
-      - name: Helm add jupyter repo
-        run: helm repo add jupyterhub https://hub.jupyter.org/helm-chart/
-
-      - name: Helm upgrade with new images
-        working-directory: deployment
-        run: |
-          helm upgrade --cleanup-on-fail \
-          0.0.1 jupyterhub/jupyterhub \
-          --namespace eopf-toolkit-dev \
-          --version=4.2.0 \
-          --values config.yaml \
-          --set-string 'singleuser.image.tag=release-${{ steps.commit.outputs.hash }}' \
-          --set-string 'singleuser.profileList[1].kubespawner_override.image=4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:release-${{ steps.commit.outputs.hash }}'
