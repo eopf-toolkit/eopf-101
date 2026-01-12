@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" rel="next">
-<link href="../05_zarr_tools/52_eopf_stac_qgis.html" rel="prev">
+<link href="../05_zarr_tools/53_eopf_zarr_r.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -292,6 +292,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/53_eopf_zarr_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a>
   </div>
 </li>
       </ul>
@@ -524,7 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-8f190a5c-eae6-11f0-8f80-aaf5311b8903</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-75fd0874-efc4-11f0-9026-4a4c05bbb601</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -550,7 +555,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;" class="anchored">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">3cd53224</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">77a2894a</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -580,12 +585,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;" class="anchored">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-1b6fdc1b-9bed-4dc4-87d7-0178273a69dd</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-b7308c29-25e4-4f10-bf1c-93fbdde7cc86</p>
             
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:39293</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:43203</td>
 <td style="text-align: left;"><strong>Workers:</strong> 0</td>
 </tr>
 <tr class="even">
@@ -619,19 +624,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:39635</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40847</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:37727/status" target="_blank">http://127.0.0.1:37727/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:40523/status" target="_blank">http://127.0.0.1:40523/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:44493</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41869</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-zsev7e2t</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-lpj_4270</td>
 </tr>
 </tbody>
 </table>
@@ -651,19 +656,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40989</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:38387</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:43571/status" target="_blank">http://127.0.0.1:43571/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:38517/status" target="_blank">http://127.0.0.1:38517/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:44067</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:38505</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-q_cx4id1</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-11t9f0fx</td>
 </tr>
 </tbody>
 </table>
@@ -683,19 +688,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:44461</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:33795</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:38015/status" target="_blank">http://127.0.0.1:38015/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34561/status" target="_blank">http://127.0.0.1:34561/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41493</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:40245</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-9anellre</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-d9_4wem2</td>
 </tr>
 </tbody>
 </table>
@@ -715,19 +720,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:44575</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:42295</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:33631/status" target="_blank">http://127.0.0.1:33631/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:37651/status" target="_blank">http://127.0.0.1:37651/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:38033</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:37581</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-4xjz1ey7</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-z41v3aj7</td>
 </tr>
 </tbody>
 </table>
@@ -1758,7 +1763,7 @@ During handling of the above exception, another exception occurred:
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Running Time: '</span>, total_t,<span class="st">' seconds'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total Running Time:  4.478773355484009  seconds</code></pre>
+<pre><code>Total Running Time:  4.258691072463989  seconds</code></pre>
 </div>
 </div>
 <p>As our plots show, the <strong>True Colour Image</strong> reveals a clear change in the state of the vegetation, with an evident burn scar visible on the ground. The <strong>False Colour Image</strong> also highlights a significant change in the spectral response, which precisely encloses the spot where the fire occurred.<br></p>
@@ -2183,8 +2188,8 @@ During handling of the above exception, another exception occurred:
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../05_zarr_tools/52_eopf_stac_qgis.html" class="pagination-link" aria-label="Access EOPF Zarr in QGIS Using STAC">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></span>
+      <a href="../05_zarr_tools/53_eopf_zarr_r.html" class="pagination-link" aria-label="Access and analyse EOPF STAC Zarr data with R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
