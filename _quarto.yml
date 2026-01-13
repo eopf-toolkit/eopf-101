@@ -46,9 +46,9 @@ book:
       chapters:
         - 05_zarr_tools/51_eopf_stac_r.qmd
         - 05_zarr_tools/52_eopf_stac_qgis.qmd
-        # - 05_zarr_tools/53_zarr_R.qmd
-        - 05_zarr_tools/54_zarr_R_rarr.qmd
-        - 05_zarr_tools/55_zarr_R_gdal.qmd
+        - 05_zarr_tools/53_eopf_zarr_r.qmd
+        # - 05_zarr_tools/54_zarr_R_rarr.qmd
+        # - 05_zarr_tools/55_zarr_R_gdal.qmd
         # - 05_zarr_tools/56_titiler.qmd
     - part: "**EOPF Zarr in Action**"
       chapters:
@@ -57,8 +57,8 @@ book:
         - 06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb
         - 06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb
         - 06_eopf_zarr_in_action/65_create_overviews.ipynb
-        - 06_eopf_zarr_in_action/65_reservoir_surface_monitoring.ipynb
         - 06_eopf_zarr_in_action/66_use_overviews.ipynb
+        - 06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb
         # - 06_eopf_zarr_in_action/67_
         # - 06_eopf_zarr_in_action/68_
         # - 06_eopf_zarr_in_action/69_
