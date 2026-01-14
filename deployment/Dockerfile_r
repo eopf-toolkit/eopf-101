@@ -10,6 +10,9 @@ RUN mamba install --yes \
     'r-fs' \
     'r-lobstr' \
     'r-BiocManager' \
+    'r-sf' \
+    'r-gdalcubes' \
+    'r-viridis' \
     'bioconductor-rarr' && \
     mamba clean --all -f -y && \
     fix-permissions "${CONDA_DIR}" && \
