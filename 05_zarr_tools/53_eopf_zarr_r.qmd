@@ -34,8 +34,7 @@ We will use the following packages in this tutorial:
 
 You can install them directly from CRAN:
 
-```{r install}
-#| eval: false
+```{r install, eval = FALSE}
 install.packages("rstac")
 install.packages("tidyverse")
 install.packages("stars")
@@ -44,22 +43,19 @@ install.packages("terra")
 
 We will also use the `Rarr` package (version >= 1.10.0) to read Zarr data. It must be installed from Bioconductor, so first install the `BiocManager` package:
 
-```{r install-BiocManager}
-#| eval: false
+```{r install-BiocManager, eval = FALSE}
 install.packages("BiocManager")
 ```
 
 Then, use this package to install `Rarr`:
 
-```{r install-rarr}
-#| eval: false
+```{r install-rarr, eval = FALSE}
 BiocManager::install("Rarr")
 ```
 
 Finally, load the packages into your environment:
 
-```{r load, message=FALSE, warning=FALSE}
-#| cache: false
+```{r load, message = FALSE, warning = FALSE, cache = FALSE}
 library(rstac)
 library(tidyverse)
 library(Rarr)

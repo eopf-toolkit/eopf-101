@@ -26,15 +26,13 @@ An R environment is required to follow this tutorial, with R version >= 4.4.0. F
 
 The [`rstac` package](https://brazil-data-cube.github.io/rstac/) is required to follow this tutorial. You can install it directly from CRAN:
 
-```{r install}
-#| eval: false
+```{r install, eval = FALSE}
 install.packages("rstac")
 ```
 
 Then load the package into your environment:
 
-```{r load}
-#| cache: false
+```{r load, cache = FALSE}
 library(rstac)
 ```
 
@@ -109,8 +107,7 @@ Within collections, there are _items_. Items are the building blocks for STAC. A
 
 An important thing to note with `rstac` is that you cannot continue to build queries on top of ones that have already had their results returned (via `get_request()`). It may make sense for a typical workflow in R to "get" the collection, then to try to get the items from it, but this will produce an error:
 
-```{r item-error}
-#| eval: false
+```{r item-error, eval = FALSE}
 sentinel_2_l2a_collection <- stac_source |>
   collections(collection_id = "sentinel-2-l2a") |>
   get_request()
