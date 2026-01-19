@@ -172,12 +172,41 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           set -euo pipefail
+
+          rm -rf rendered_preview
+          mkdir -p rendered_preview
+
           while IFS= read -r -d '' f; do
             echo "Rendering (standalone): $f"
             quarto render "$f" --to html
+            # Determine expected html output name
+            base="${f%.*}"
+            html="${base}.html"
+
+            if [[ -f "$html" ]]; then
+              mkdir -p "rendered_preview/$(dirname "$html")"
+              cp -f "$html" "rendered_preview/$html"
+            else
+              echo "WARN: Expected HTML not found at $html (Quarto output-dir or format may differ)"
+            fi
+
+            # Copy assets folder if it exists (Quarto commonly creates <name>_files/)
+            assets="${base}_files"
+            if [[ -d "$assets" ]]; then
+              mkdir -p "rendered_preview/$(dirname "$assets")"
+              cp -r "$assets" "rendered_preview/$assets"
+            fi
           done < changed.lst
         env:
           BUCKET_NAME: ${{ secrets.RENDER_BUCKET_NAME }}
           ACCESS_KEY: ${{ secrets.RENDER_BUCKET_ACCESS_KEY }}
           SECRET_KEY: ${{ secrets.RENDER_BUCKET_SECRET_KEY }}
           BUCKET_ENDPOINT: ${{ secrets.RENDER_BUCKET_ENDPOINT }}
+
+      - name: Upload rendered HTML preview (artifact)
+        if: steps.changed.outputs.none != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: quarto-render-preview
+          path: rendered_preview
+          if-no-files-found: error
