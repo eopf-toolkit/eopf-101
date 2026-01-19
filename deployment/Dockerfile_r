@@ -1,17 +1,10 @@
 FROM quay.io/jupyter/r-notebook:python-3.12.10
 
-RUN mamba install --yes \
-    -c bioconda \
-    'r-rstac' \
-    'r-tidyverse' \
-    'r-stars' \
-    'r-terra' \
-    'r-httr2' \
-    'r-fs' \
-    'r-lobstr' \
-    'r-BiocManager' \
-    'bioconductor-rarr' && \
+COPY ../deployment/environment.yaml environment.yaml
+
+RUN mamba env update -n base -f environment.yaml && \
     mamba clean --all -f -y && \
+    rm environment.yaml && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
