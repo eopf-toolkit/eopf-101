@@ -190,7 +190,7 @@ jobs:
               echo "WARN: Expected HTML not found at $html"
             fi
 
-            assets="../_book/${base}_files"
+            assets="_book/${base}_files"
             if [[ -d "$assets" ]]; then
               mkdir -p "rendered_preview/$(dirname "$base")"
               cp -r "$assets" "rendered_preview/$(dirname "$base")/"
