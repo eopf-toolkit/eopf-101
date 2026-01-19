@@ -181,7 +181,7 @@ jobs:
             quarto render "$f" --to html --execute
 
             base="${f%.*}"
-            html="../_book/${base}.html"
+            html="_book/${base}.html"
 
             if [[ -f "$html" ]]; then
               mkdir -p "rendered_preview/$(dirname "$base")"
