@@ -223,7 +223,7 @@ b02 |>
 
 ## Simple Data Analysis: Calculating NDVI
 
-TestLet us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).
+Let us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).
 
 First, we access the *Red* (B04) and *Near-InfraRed* (B08A) bands, which are needed for calculation of the NDVI, at 20m resolution:
 
