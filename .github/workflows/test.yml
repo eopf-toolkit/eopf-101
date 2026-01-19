@@ -179,22 +179,21 @@ jobs:
           while IFS= read -r -d '' f; do
             echo "Rendering (standalone): $f"
             quarto render "$f" --to html --execute
-            # Determine expected html output name
+
             base="${f%.*}"
-            html="${base}.html"
+            html="../_book/${base}.html"
 
             if [[ -f "$html" ]]; then
-              mkdir -p "rendered_preview/$(dirname "$html")"
-              cp -f "$html" "rendered_preview/$html"
+              mkdir -p "rendered_preview/$(dirname "$base")"
+              cp -f "$html" "rendered_preview/$base.html"
             else
-              echo "WARN: Expected HTML not found at $html (Quarto output-dir or format may differ)"
+              echo "WARN: Expected HTML not found at $html"
             fi
 
-            # Copy assets folder if it exists (Quarto commonly creates <name>_files/)
-            assets="${base}_files"
+            assets="../_book/${base}_files"
             if [[ -d "$assets" ]]; then
-              mkdir -p "rendered_preview/$(dirname "$assets")"
-              cp -r "$assets" "rendered_preview/$assets"
+              mkdir -p "rendered_preview/$(dirname "$base")"
+              cp -r "$assets" "rendered_preview/$(dirname "$base")/"
             fi
           done < changed.lst
         env:
