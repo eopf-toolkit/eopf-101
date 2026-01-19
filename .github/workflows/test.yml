@@ -178,7 +178,7 @@ jobs:
 
           while IFS= read -r -d '' f; do
             echo "Rendering (standalone): $f"
-            quarto render "$f" --to html
+            quarto render "$f" --to html --execute
             # Determine expected html output name
             base="${f%.*}"
             html="${base}.html"
