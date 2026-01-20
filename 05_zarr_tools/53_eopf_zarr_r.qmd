@@ -55,7 +55,7 @@ Then, use this package to install `Rarr`:
 
 Finally, load the packages into your environment:
 
-```{r load, message = FALSE, warning = FALSE, cache = FALSE}
+```{r load, message = FALSE, warning = FALSE}
 library(rstac)
 library(tidyverse)
 library(Rarr)

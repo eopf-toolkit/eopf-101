@@ -31,7 +31,7 @@ The [`rstac` package](https://brazil-data-cube.github.io/rstac/) is required to 
 
 Then load the package into your environment:
 
-```{r load, cache = FALSE}
+```{r load}
 library(rstac)
 ```
 
