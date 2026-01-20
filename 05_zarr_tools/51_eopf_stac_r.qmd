@@ -22,7 +22,7 @@ In this section, we will explore programmatic access of the EOPF Zarr Collection
 
 ### Prerequisites
 
-An R environment is required to follow this tutorial, with R version >= 4.4.0. For local development, we recommend using either [RStudio](https://p!osit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
+  An R environment is required to follow this tutorial, with R version >= 4.4.0. For local development, we recommend using either [RStudio](https://posit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
 
 The [`rstac` package](https://brazil-data-cube.github.io/rstac/) is required to follow this tutorial. You can install it directly from CRAN:
 
