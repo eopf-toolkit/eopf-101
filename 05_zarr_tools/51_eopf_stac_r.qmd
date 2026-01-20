@@ -1,7 +1,6 @@
 ---
 title: "Access the EOPF Zarr STAC API with R"
 format: html
-jupyter: ir
 ---
 
 <a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&branch=main&urlpath=lab/tree/eopf-101/05_zarr_tools/51_eopf_stac_r.ipynb" target="_blank">
@@ -22,12 +21,12 @@ In this section, we will explore programmatic access of the EOPF Zarr Collection
 
 ### Prerequisites
 
-  An R environment is required to follow this tutorial, with R version >= 4.4.0. For local development, we recommend using either [RStudio](https://posit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
+An R environment is required to follow this tutorial, with R version >= 4.4.0. For local development, we recommend using either [RStudio](https://posit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
 
 The [`rstac` package](https://brazil-data-cube.github.io/rstac/) is required to follow this tutorial. You can install it directly from CRAN:
 
-```r
-install.packages("rstac")
+```{r install-packages}
+# install.packages("rstac")
 ```
 
 Then load the package into your environment:
@@ -107,13 +106,13 @@ Within collections, there are _items_. Items are the building blocks for STAC. A
 
 An important thing to note with `rstac` is that you cannot continue to build queries on top of ones that have already had their results returned (via `get_request()`). It may make sense for a typical workflow in R to "get" the collection, then to try to get the items from it, but this will produce an error:
 
-```r
-sentinel_2_l2a_collection <- stac_source |>
-  collections(collection_id = "sentinel-2-l2a") |>
-  get_request()
-
-sentinel_2_l2a_collection |>
-  items()
+```{r item-error}
+# sentinel_2_l2a_collection <- stac_source |>
+#   collections(collection_id = "sentinel-2-l2a") |>
+#   get_request()
+# 
+# sentinel_2_l2a_collection |>
+#   items()
 ```
 
     Error: Invalid rstac_query value.
