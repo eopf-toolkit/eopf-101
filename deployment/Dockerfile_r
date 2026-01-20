@@ -1,17 +1,10 @@
 FROM quay.io/jupyter/r-notebook:python-3.12.10
 
-RUN mamba install --yes \
-    -c bioconda \
-    'r-rstac' \
-    'r-tidyverse' \
-    'r-stars' \
-    'r-terra' \
-    'r-httr2' \
-    'r-fs' \
-    'r-lobstr' \
-    'r-BiocManager' \
-    'bioconductor-rarr' && \
+COPY ../deployment/environment.yaml environment.yaml
+
+RUN mamba env update -n base -f environment.yaml && \
     mamba clean --all -f -y && \
+    rm environment.yaml && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
@@ -23,14 +16,32 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     git \
     openssh-client \
+    build-essential \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
     && rm -rf /var/lib/apt/lists/*
-
-COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
-RUN chown -R ${NB_UID}:${NB_GID} /home/${NB_USER}/deps
 
 USER ${NB_UID}
 
-WORKDIR /home/${NB_USER}/deps 
+ENV R_LIBS_USER=${CONDA_DIR}/lib/R/library
+
+RUN Rscript -e 'options(repos = c(CRAN="https://cloud.r-project.org")); \
+    if (!requireNamespace("BiocManager", quietly=TRUE)) install.packages("BiocManager"); \
+    if (!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes"); \
+    repos <- BiocManager::repositories(); \
+    ok <- TRUE; \
+    tryCatch({ remotes::install_version("Rarr", version="1.10.1", repos=repos, upgrade="never") }, \
+    error=function(e) { message("Pinned install failed, falling back to BiocManager::install('Rarr')"); ok <<- FALSE }); \
+    if (!ok) BiocManager::install("Rarr", ask=FALSE, update=FALSE); \
+    cat("Installed Rarr version:", as.character(packageVersion("Rarr")), "\n")'
+
+COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
+USER root
+RUN chown -R ${NB_UID}:${NB_GID} /home/${NB_USER}/deps
+USER ${NB_UID}
+
+WORKDIR /home/${NB_USER}/deps
 
 RUN pdm config python.use_venv false && \
     pdm lock && \
