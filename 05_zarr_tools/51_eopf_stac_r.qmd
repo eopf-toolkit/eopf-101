@@ -162,8 +162,6 @@ sentinel_2_l2a_first_item[["properties"]] |>
   names()
 ```
 
-The introductory tutorial [further explains the metadata properties](../../stac_zarr.md#eopf-and-stac-extensions) and their extensions.
-
 For example, the EOPF instrument mode:
 
 ```{r item-properties-example}
