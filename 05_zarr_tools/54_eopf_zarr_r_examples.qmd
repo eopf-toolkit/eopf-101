@@ -1,0 +1,293 @@
+---
+title: "Access and analyse EOPF STAC Zarr data with R"
+format:
+  md:
+    df-print: tibble
+execute:
+  cache: true
+---
+
+# Introduction
+
+This tutorial expands on the previous tutorials (XX and YY), going into further details on analysing and visualising Zarr data from the [EOPF Sample Service STAC catalog](https://stac.browser.user.eopf.eodc.eu/) programmatically using R. We recommend reviewing the previous tutorials if you have not done so already.
+
+### What we will learn
+
+TODO
+
+# Prerequisites
+
+An R environment is required to follow this tutorial, with R version >= 4.5.0. We recommend using either [RStudio](https://posit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) (or a cloud computing environment) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
+
+## Dependencies
+
+We will use the following packages in this tutorial: [`rstac`](https://brazil-data-cube.github.io/rstac/) (for accessing the STAC catalog), [`tidyverse`](https://tidyverse.tidyverse.org/) (for data manipulation), [`stars`](https://r-spatial.github.io/stars/)) (for working with spatiotemporal data), and [`terra`](https://rspatial.github.io/terra/index.html) (for working with spatial data in raster format). You can install them directly from CRAN:
+
+```{r install}
+#| eval: false
+install.packages("rstac")
+install.packages("tidyverse")
+install.packages("stars")
+install.packages("terra")
+```
+
+We will also use the `Rarr` package (version >= 1.10.1) to read Zarr data. It must be installed from Bioconductor, so first install the `BiocManager` package:
+
+```{r install-BiocManager}
+#| eval: false
+install.packages("BiocManager")
+```
+
+Then, use this package to install `Rarr`:
+
+```{r install-rarr}
+#| eval: false
+BiocManager::install("Rarr")
+```
+
+Finally, load the packages into your environment:
+
+```{r load, message=FALSE}
+#| cache: false
+library(rstac)
+library(tidyverse)
+library(Rarr)
+library(stars)
+library(terra)
+```
+
+## Sentinel-1
+
+The first example looks at [Sentinel-1 Level 2 Ocean (OCN) data](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l2-ocn), which consists of data for oceanographic study, such as monitoring sea surface conditions, detecting oil spills, and studying ocean currents. This example will show how to access and plot Wind Direction data.
+
+First, select the relevant collection and item from STAC:
+
+```{r sentinel-1-stac}
+l2_ocn <- stac("https://stac.core.eopf.eodc.eu/") |>
+  collections(collection_id = "sentinel-1-l2-ocn") |>
+  items(feature_id = "S1A_IW_OCN__2SDV_20250224T054940_20250224T055005_058034_072A26_160E") |>
+  get_request()
+
+l2_ocn
+```
+
+We can look at each of the assets' titles to understand what the item contains:
+
+```{r l2-ocn-assets}
+l2_ocn |>
+  pluck("assets") |>
+  map("title")
+```
+
+We are interested in the "Ocean Wind field" data, and will hold onto the `owi` key for now.
+
+To access all of the `owi` data, we get the "product" asset and then the full Zarr store, again using our helper function from the previous tutorial to extract array information from the full array path:
+
+```{r l2-ocn-store}
+derive_store_array <- function(store, product_url) {
+  store |>
+    mutate(array = str_remove(path, product_url)) |>
+    relocate(array, .before = path)
+}
+
+l2_ocn_url <- l2_ocn |>
+  assets_select(asset_names = "product") |>
+  assets_url()
+
+l2_ocn_store <- l2_ocn_url |>
+  zarr_overview(as_data_frame = TRUE) |>
+  derive_store_array(l2_ocn_url)
+
+l2_ocn_store
+```
+
+Next, we filter to access `owi` measurement data only:
+
+```{r owi-filter}
+l2_ocn_store |>
+  filter(str_starts(array, "/owi"), str_detect(array, "measurements"))
+```
+
+Since all of these arrays start with `/owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/`, we can remove that to get a clearer idea of what each array is:
+
+```{r owi-arrays}
+owi <- l2_ocn_store |>
+  filter(str_starts(array, "/owi"), str_detect(array, "measurements")) |>
+  mutate(array = str_remove(array, "/owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/"))
+
+owi
+```
+
+We are interested in `wind_direction`, as well as the coordinate arrays (`latitude` and `longitude`). We can get an overview of the arrays' dimensions and structures:
+
+```{r owi-overview}
+owi |>
+  filter(array == "wind_direction") |>
+  pull(path) |>
+  zarr_overview()
+
+owi |>
+  filter(array == "latitude") |>
+  pull(path) |>
+  zarr_overview()
+
+owi |>
+  filter(array == "longitude") |>
+  pull(path) |>
+  zarr_overview()
+```
+
+Here, we can see that all of the arrays are of the same shape: 166 x 264, with only one chunk. Since these are small, we can read all of the data in at once.
+
+```{r owi-read}
+owi_wind_direction <- owi |>
+  filter(array == "wind_direction") |>
+  pull(path) |>
+  read_zarr_array()
+
+owi_wind_direction[1:5, 1:5]
+
+owi_lat <- owi |>
+  filter(array == "latitude") |>
+  pull(path) |>
+  read_zarr_array()
+
+owi_lat[1:5, 1:5]
+
+owi_long <- owi |>
+  filter(array == "longitude") |>
+  pull(path) |>
+  read_zarr_array()
+
+owi_lat[1:5, 1:5]
+```
+
+Note that both `longitude` and `latitude` are 2-dimensional arrays, and they are not evenly spaced. Rather, the data grid is **curvilinear** --- it has grid lines that are not straight, and there is a longitude and latitude for every pixel of the other layers (i.e., `wind_direction`). This format is very common in satellite data.
+
+We use functions from the `stars` package, loaded earlier, to format the data for visualisation. `stars` is specifically designed for reading, manipulating, and plotting spatiotemporal data, such as satellite data.
+
+The function `st_as_stars()` is used to get our data into the correct format for visualisation:
+
+```{r owi-format}
+owi_stars <- st_as_stars(wind_direction = owi_wind_direction) |>
+  st_as_stars(curvilinear = list(X1 = owi_long, X2 = owi_lat))
+```
+
+Getting the data into this format is also beneficial because it allows for a quick summary of the data and its attributes, providing information such as the median and mean `wind_direction`, the number of `NA`s, and information on the grid:
+
+```{r owi-format-show}
+owi_stars
+```
+
+Finally, we can plot this object:
+
+```{r owi-plot}
+plot(owi_stars, main = "Wind Direction", as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.colors)
+```
+
+## Sentinel-3
+
+Next, we look at an example from the Sentinel-3 mission. The Sentinel-3 mission measures sea-surface topography and land- and sea-surface temperature and colour, in support of environmental and climate monitoring. The [Sentinel-3 OLCI L2 LFR](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr?.language=en) product provides this data, computed for full resolution.
+
+Again, we will access a specific item from this collection:
+
+```{r gifapar-item}
+l2_lfr <- stac("https://stac.core.eopf.eodc.eu/") |>
+  collections(collection_id = "sentinel-3-olci-l2-lfr") |>
+  items(feature_id = "S3A_OL_2_LFR____20260123T100657_20260123T100931_20260123T121247_0154_135_179_1980_PS1_O_NR_003") |>
+  get_request()
+
+l2_lfr
+```
+
+To access all of the data, we get the "product" asset and then the full Zarr store, again using our helper function to extract array information from the full array path:
+
+```{r gifapar-store}
+l2_lfr_url <- l2_lfr |>
+  assets_select(asset_names = "product") |>
+  assets_url()
+
+l2_lfr_store <- l2_lfr_url |>
+  zarr_overview(as_data_frame = TRUE) |>
+  derive_store_array(l2_lfr_url)
+
+l2_lfr_store
+```
+
+Next, we filter to access measurement data only:
+
+```{r gifapar-measurements}
+l2_lfr_measurements <- l2_lfr_store |>
+  filter(str_starts(array, "/measurements")) |>
+  mutate(array = str_remove(array, "/measurements/"))
+
+l2_lfr_measurements
+```
+
+Of these, we are interested in `gifapar` as well as `longitude` and `latitude`. We can get an overview of the arrays’ dimensions and structures:
+
+```{r gifapar-overview}
+l2_lfr_measurements |>
+  filter(array == "gifapar") |>
+  pull(path) |>
+  zarr_overview()
+
+l2_lfr_measurements |>
+  filter(array == "longitude") |>
+  pull(path) |>
+  zarr_overview()
+
+l2_lfr_measurements |>
+  filter(array == "latitude") |>
+  pull(path) |>
+  zarr_overview()
+```
+
+Similar to the previous example, we can see that all of the arrays are of the same shape: 3501 x 4865. We read in all of the arrays:
+
+```{r gifapar-read}
+gifapar <- l2_lfr_measurements |>
+  filter(array == "gifapar") |>
+  pull(path) |>
+  read_zarr_array()
+
+gifapar_long <- l2_lfr_measurements |>
+  filter(array == "longitude") |>
+  pull(path) |>
+  read_zarr_array()
+
+gifapar_long[1:5, 1:5]
+
+gifapar_lat <- l2_lfr_measurements |>
+  filter(array == "latitude") |>
+  pull(path) |>
+  read_zarr_array()
+
+gifapar_lat[1:5, 1:5]
+```
+
+Again, both `longitude` and `latitude` are unevenly spaced 2-dimensional arrays. This tells us that the data grid is curvilinear, and we use `st_as_stars()` to get our data into the correct format for visualisation:
+
+```{r gifapar-stars}
+gifapar_stars <- st_as_stars(gifapar = gifapar) |>
+  st_as_stars(curvilinear = list(X1 = gifapar_long, X2 = gifapar_lat))
+
+gifapar_stars
+``` 
+
+Finally, we plot the GIFAPAR:
+
+```{r gifapar-plot}
+#| message: false
+plot(gifapar_stars, as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.colors)
+```
+
+## 💪 Now it is your turn
+
+TODO
+
+## Conclusion
+
+TODO
+
+## What's next?
