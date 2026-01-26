@@ -15,3 +15,4 @@ dependencies:
   - r-jsonlite=2.0.0
   # - bioconductor-rarr==1.10.1 - Currently not supported in bioconda so installed manually in Dockerfile_r
   - sqlite=3.51.2
+  # - bioconductor-rarr==1.10.1 - Currently not supported in bioconda so installed manually in Dockerfile_r
