@@ -65,14 +65,16 @@ book:
         # - 06_eopf_zarr_in_action/69_
     - glossary.qmd
     - references.qmd
+
+execute:
+  eval: true
+  timeout: 300
+  error: false
+  warning: false
+
 format:
   html:
     number-sections: false
-    execute:
-      eval: true
-      timeout: 300
-      error: true
-      warning: false
     theme:
       - cosmo
       - brand
