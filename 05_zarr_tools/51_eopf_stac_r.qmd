@@ -1,10 +1,19 @@
 ---
 title: "Access the EOPF Zarr STAC API with R"
 format: html
-jupyter: ir
 ---
 
-<a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&branch=main&urlpath=lab/tree/eopf-101/05_zarr_tools/51_eopf_stac_r.ipynb" target="_blank">
+```{r, echo = FALSE}
+link_start <- "https://jupyterhub.user.eopf.eodc.eu/hub/login?next=%2Fhub%2Fspawn%3Fnext%3D%252Fhub%252Fuser-redirect%252Fgit-pull%253Frepo%253Dhttps%253A%252F%252Fgithub.com%252Feopf-toolkit%252Feopf-101%2526branch%253Dmain%2526urlpath%253Dlab%252Ftree%252Feopf-101%252F"
+folder <- "05_zarr_tools"
+separator <- "%252F"
+file <- "51_eopf_stac_r.ipynb"
+link_end <- "%23fancy-forms-config=%7B%22profile%22%3A%22choose-your-environment%22%2C%22image%22%3A%22unlisted_choice%22%2C%22image%3Aunlisted_choice%22%3A%224zm3809f.c1.de1.container-registry.ovh.net%2Feopf-toolkit-r%2Feopf-toolkit-r%3Alatest%22%2C%22autoStart%22%3A%22true%22%7D"
+
+jupyterlab_link <- paste0(link_start, folder, separator, file, link_end)
+```
+
+<a href="`r jupyterlab_link`" target="_blank">
 <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;">
 🚀 Launch this notebook in JupyterLab
 </button>
@@ -22,19 +31,17 @@ In this section, we will explore programmatic access of the EOPF Zarr Collection
 
 ### Prerequisites
 
-An R environment is required to follow this tutorial, with R version >= 4.4.0. For local development, we recommend using either [RStudio](https://p!osit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
+An R environment is required to follow this tutorial, with R version >= 4.4.0. For local development, we recommend using either [RStudio](https://posit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
 
 The [`rstac` package](https://brazil-data-cube.github.io/rstac/) is required to follow this tutorial. You can install it directly from CRAN:
 
-```{r install}
-#| eval: false
-install.packages("rstac")
+```{r install-packages}
+# install.packages("rstac")
 ```
 
 Then load the package into your environment:
 
 ```{r load}
-#| cache: false
 library(rstac)
 ```
 
@@ -53,7 +60,7 @@ stac_source |>
 
 ## Browse collections
 
-A STAC _Collection_ exists to relate similar data sets together through space, time, and shared metadata. Each Sentinel mission and the downstream analysis-ready data are examples of STAC Collections. To browse STAC Collections, the `collections()` function is used. We can see that there are 11 collections available in the API:
+A STAC _Collection_ exists to relate similar data sets together through space, time, and shared metadata. Each Sentinel mission and the downstream analysis-ready data are examples of STAC Collections. To browse STAC Collections, the `collections()` function is used. We can see that there are 12 collections available in the API:
 
 ```{r collections}
 stac_collections <- stac_source |>
@@ -110,13 +117,12 @@ Within collections, there are _items_. Items are the building blocks for STAC. A
 An important thing to note with `rstac` is that you cannot continue to build queries on top of ones that have already had their results returned (via `get_request()`). It may make sense for a typical workflow in R to "get" the collection, then to try to get the items from it, but this will produce an error:
 
 ```{r item-error}
-#| eval: false
-sentinel_2_l2a_collection <- stac_source |>
-  collections(collection_id = "sentinel-2-l2a") |>
-  get_request()
-
-sentinel_2_l2a_collection |>
-  items()
+# sentinel_2_l2a_collection <- stac_source |>
+#   collections(collection_id = "sentinel-2-l2a") |>
+#   get_request()
+# 
+# sentinel_2_l2a_collection |>
+#   items()
 ```
 
     Error: Invalid rstac_query value.
@@ -164,8 +170,6 @@ And many more additional properties, with their properties under `"properties"` 
 sentinel_2_l2a_first_item[["properties"]] |>
   names()
 ```
-
-The introductory tutorial [further explains the metadata properties](../../stac_zarr.md#eopf-and-stac-extensions) and their extensions.
 
 For example, the EOPF instrument mode:
 
@@ -472,7 +476,7 @@ The following expercises will help you master the STAC API and understand how to
 
 ### Task 1: Explore Your Area of Interest
 
-- Go to http://bboxfinder.com/ and select an area of interest (AOI) (e.g. your hometown, a research site, etc.)
+- Go to [http://bboxfinder.com/](http://bboxfinder.com/) and select an area of interest (AOI) (e.g. your hometown, a research site, etc.)
 - Copy the bounding box coordinates of your area of interest
 - Change the provided code above to search for data over your AOI
 
