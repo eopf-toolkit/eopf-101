@@ -50,6 +50,7 @@ book:
         # - 05_zarr_tools/54_zarr_R_rarr.qmd
         # - 05_zarr_tools/55_zarr_R_gdal.qmd
         # - 05_zarr_tools/56_titiler.qmd
+        - 05_zarr_tools/57_rstac_gdalcubes.qmd
     - part: "**EOPF Zarr in Action**"
       chapters:
         - 06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb
