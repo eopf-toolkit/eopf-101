@@ -379,7 +379,7 @@ We will look at the assets for a specific item from the Sentinel-2 Level-2A coll
 sentinel_2_l2a_collection_items[["features"]][[1]]
 ```
 
-Or through the STAC catalog of the EOPF Sentinel Zarr Samples Service, on the [page for that item](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a/items/S2A_MSIL2A_20250517T085541_N0511_R064_T35QKA_20250517T112203), under "Source":
+Or through the STAC catalog of the EOPF Sentinel Zarr Samples Service, on the page for that item, under "Source":
 
 ![](./img/51_eopf-stac-access-items-id.png)
 
@@ -388,7 +388,7 @@ To select a single item, supply its ID in the `items()` function:
 ```{r select-item}
 example_item <- stac_source |>
   collections("sentinel-2-l2a") |>
-  items("S2A_MSIL2A_20250517T085541_N0511_R064_T35QKA_20250517T112203") |>
+  items(sentinel_2_l2a_collection_items[["features"]][[1]][["id"]]) |>
   get_request()
 
 example_item

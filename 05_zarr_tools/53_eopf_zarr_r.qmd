@@ -80,9 +80,16 @@ The first step of accessing Zarr data is to understand the assets within the EOP
 For the first part of this tutorial, we will be using data from the [Sentinel-2 Level-2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a). We fetch the "product" asset under a given item, and can look at its URL:
 
 ```{r access-stac-product}
+first_item <- stac("https://stac.core.eopf.eodc.eu/") |>
+  collections(collection_id = "sentinel-2-l2a") |>
+  items(limit = 1) |>
+  get_request()
+
+first_item_id <- first_item[["features"]][[1]][["id"]]
+
 s2_l2a_item <- stac("https://stac.core.eopf.eodc.eu/") |>
   collections(collection_id = "sentinel-2-l2a") |>
-  items(feature_id = "S2A_MSIL2A_20251107T100231_N0511_R122_T33UXP_20251107T113811") |>
+  items(feature_id = first_item_id) |>
   get_request()
 
 s2_l2a_product <- s2_l2a_item |>
