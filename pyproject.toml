@@ -63,7 +63,7 @@ dependencies = [
     "nbgitpuller>=1.2.2",
     "dask-labextension>=7.0.0",
     "jupyter-leaflet>=0.20.0",
-    "jupyterlab-git>=0.51.2"
+    "jupyterlab-git>=0.51.2",
     "geopandas>=1.1.2"
 ]
 
