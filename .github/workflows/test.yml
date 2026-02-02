@@ -22,7 +22,7 @@ jobs:
           git fetch origin ${{ github.base_ref }}
           CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
 
-          if echo "$CHANGED_FILES" | grep -qE '^pyproject\.toml$|^deployment/Dockerfile(_|$)|^deployment/environment\.yaml$'; then
+          if echo "$CHANGED_FILES" | grep -qE '^pyproject\.toml$|^uv\.lock$|^deployment/Dockerfile(_|$)|^deployment/environment\.yaml$'; then
             echo "Building image as we've modified pyproject.toml or deployment Dockerfile in this PR"
             echo "build=true" >> $GITHUB_OUTPUT
             echo "tag=pr-${{ github.run_id }}" >> $GITHUB_OUTPUT
