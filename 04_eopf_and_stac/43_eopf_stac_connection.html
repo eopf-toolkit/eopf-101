@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -299,6 +299,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../05_zarr_tools/53_eopf_zarr_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -332,17 +337,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating Zarr Overviews</span></a>
+  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/65_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
+  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Visualising Multiscale Pyramids</span></a>
+  <a href="../06_eopf_zarr_in_action/67_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
   </div>
 </li>
       </ul>
@@ -1022,7 +1027,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l1-grd"</span>
         </li>
     
             
@@ -1040,7 +1045,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+            <span class="pystac-v">"Sentinel-1 Level-1 GRD"</span>
         </li>
     
             
@@ -1073,7 +1078,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l1-err"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
         </li>
     
             
@@ -1091,7 +1096,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 OLCI Level-1 ERR"</span>
+            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
         </li>
     
             
@@ -1175,7 +1180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-2-l1c"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr"</span>
         </li>
     
             
@@ -1193,7 +1198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-2 Level-1C"</span>
+            <span class="pystac-v">"Sentinel-3 OLCI Level-2 LFR"</span>
         </li>
     
             
@@ -1211,6 +1216,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li><details>
             <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l1-err"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-3 OLCI Level-1 ERR"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1245,57 +1301,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="pystac-row">
             <span class="pystac-k">title</span>
             <span class="pystac-v">"Sentinel-3 OLCI Level-2 LRR"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 OLCI Level-2 LFR"</span>
         </li>
     
             
@@ -1379,6 +1384,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">16</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-2-l1c"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-2 Level-1C"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">17</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
             <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l1-slc"</span>
         </li>
     
@@ -1414,58 +1521,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">16</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l1-grd"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-1 GRD"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">17</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">18</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1500,57 +1556,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="pystac-row">
             <span class="pystac-k">title</span>
             <span class="pystac-v">"Sentinel-3 SLSTR Level-2 FRP"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">18</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
         </li>
     
             
@@ -1980,17 +1985,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>sentinel-2-l2a
-sentinel-1-l2-ocn
-sentinel-3-olci-l1-err
-sentinel-3-slstr-l1-rbt
-sentinel-2-l1c
-sentinel-3-olci-l2-lrr
-sentinel-3-olci-l2-lfr
-sentinel-3-olci-l1-efr
-sentinel-1-l1-slc
 sentinel-1-l1-grd
-sentinel-3-slstr-l2-frp
-sentinel-3-slstr-l2-lst</code></pre>
+sentinel-3-slstr-l2-lst
+sentinel-3-slstr-l1-rbt
+sentinel-3-olci-l2-lfr
+sentinel-3-olci-l1-err
+sentinel-3-olci-l2-lrr
+sentinel-3-olci-l1-efr
+sentinel-1-l2-ocn
+sentinel-2-l1c
+sentinel-1-l1-slc
+sentinel-3-slstr-l2-frp</code></pre>
 </div>
 </div>
 <p>In a next step, we can select one <code>collection</code> and retrieve certain metadata that allow us to get more information about the selected collection, such as keywords, the ID and useful links for resources.</p>
@@ -2025,7 +2030,7 @@ Available Links:  [&lt;Link rel=items target=https://stac.core.eopf.eodc.eu/coll
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Search Results:"</span>)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:  '</span>,<span class="bu">len</span>(time_items[<span class="dv">0</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pystac_client.item_search.ItemSearch object at 0x7f48459ba540&gt;
+<pre><code>&lt;pystac_client.item_search.ItemSearch object at 0x7f6005f73500&gt;
 Search Results:
 Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   1797</code></pre>
 </div>
@@ -2051,7 +2056,7 @@ Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   1
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found:  '</span>,<span class="bu">len</span>(innsbruck_sets[<span class="dv">0</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Search Result:
-Total Items Found:   173</code></pre>
+Total Items Found:   136</code></pre>
 </div>
 </div>
 </section>

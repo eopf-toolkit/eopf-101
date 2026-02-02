@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -58,14 +58,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" rel="next">
+<link href="../05_zarr_tools/57_rstac_gdalcubes.html" rel="next">
 <link href="../05_zarr_tools/52_eopf_stac_qgis.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -111,9 +111,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
   plausible.init()
 </script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -299,6 +296,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../05_zarr_tools/53_eopf_zarr_r.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -332,17 +334,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating Zarr Overviews</span></a>
+  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/65_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
+  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Visualising Multiscale Pyramids</span></a>
+  <a href="../06_eopf_zarr_in_action/67_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
   </div>
 </li>
       </ul>
@@ -410,7 +412,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/05_zarr_tools/53_eopf_stac_r.ipynb" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/login?next=%2Fhub%2Fspawn%3Fnext%3D%252Fhub%252Fuser-redirect%252Fgit-pull%253Frepo%253Dhttps%253A%252F%252Fgithub.com%252Feopf-toolkit%252Feopf-101%2526branch%253Dmain%2526urlpath%253Dlab%252Ftree%252Feopf-101%252F05_zarr_tools%252F53_eopf_zarr_r.ipynb%23fancy-forms-config=%7B%22profile%22%3A%22choose-your-environment%22%2C%22image%22%3A%22unlisted_choice%22%2C%22image%3Aunlisted_choice%22%3A%224zm3809f.c1.de1.container-registry.ovh.net%2Feopf-toolkit-r%2Feopf-toolkit-r%3Alatest%22%2C%22autoStart%22%3A%22true%22%7D" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>In this tutorial, we will demonstrate how to access EOPF Zarr products directly from the <a href="https://stac.browser.user.eopf.eodc.eu/">EOPF Sentinel Zarr Sample Service STAC Catalog</a> using R. We will introduce R packages that enable us to effectively get an overview of and read Zarr arrays.</p>
@@ -425,25 +427,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="prerequisites" class="level3">
 <h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
-<p>An R environment is required to follow this tutorial, with R version &gt;= 4.5.0. For local development, we recommend using either <a href="https://p!osit.co/download/rstudio-desktop/">RStudio</a> or <a href="https://posit.co/products/ide/positron/">Positron</a> and making use of <a href="https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects">RStudio projects</a> for a self-contained coding environment.</p>
-<p>We will use the following packages in this tutorial: - <a href="https://brazil-data-cube.github.io/rstac/"><code>rstac</code></a> (for accessing the STAC catalog) - <a href="https://tidyverse.tidyverse.org/"><code>tidyverse</code></a> (for data manipulation) - <a href="https://rspatial.github.io/terra/index.html"><code>terra</code></a> (for working with spatial data in raster format) - <a href="https://r-spatial.github.io/stars/"><code>stars</code></a> (for reading, manipulating, and plotting spatiotemporal data)</p>
+<p>An R environment is required to follow this tutorial, with R version &gt;= 4.5.0. For local development, we recommend using either <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> or <a href="https://posit.co/products/ide/positron/">Positron</a> and making use of <a href="https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects">RStudio projects</a> for a self-contained coding environment.</p>
+<p>We will use the following packages in this tutorial:</p>
+<ul>
+<li><a href="https://brazil-data-cube.github.io/rstac/"><code>rstac</code></a> (for accessing the STAC catalog)</li>
+<li><a href="https://tidyverse.tidyverse.org/"><code>tidyverse</code></a> (for data manipulation)</li>
+<li><a href="https://rspatial.github.io/terra/index.html"><code>terra</code></a> (for working with spatial data in raster format)</li>
+<li><a href="https://r-spatial.github.io/stars/"><code>stars</code></a> (for reading, manipulating, and plotting spatiotemporal data)</li>
+</ul>
 <p>You can install them directly from CRAN:</p>
-<div id="922d9288" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"rstac"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"stars"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"terra"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("rstac")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("stars")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("terra")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We will also use the <code>Rarr</code> package (version &gt;= 1.10.0) to read Zarr data. It must be installed from Bioconductor, so first install the <code>BiocManager</code> package:</p>
-<div id="fcee8422" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("BiocManager")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Then, use this package to install <code>Rarr</code>:</p>
-<div id="8d6ac6c1" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"Rarr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("Rarr")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Finally, load the packages into your environment:</p>
-<div id="35455762" class="cell" data-cache="false" data-execution_count="4">
+<div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstac)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rarr)</span>
@@ -455,131 +463,127 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="access-zarr-data-from-the-stac-catalog">Access Zarr data from the STAC Catalog</h2>
 <p>The first step of accessing Zarr data is to understand the assets within the EOPF Sample Service STAC catalog. The <a href="https://eopf-toolkit.github.io/eopf-101/51_eopf_stac_r.html">first tutorial</a> goes into detail on this, so we recommend reviewing it if you have not already.</p>
 <p>For the first part of this tutorial, we will be using data from the <a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a">Sentinel-2 Level-2A Collection</a>. We fetch the “product” asset under a given item, and can look at its URL:</p>
-<div id="99bcae5d" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>s2_l2a_item <span class="ot">&lt;-</span> <span class="fu">stac</span>(<span class="st">"https://stac.core.eopf.eodc.eu/"</span>) <span class="sc">|&gt;</span></span>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>first_item <span class="ot">&lt;-</span> <span class="fu">stac</span>(<span class="st">"https://stac.core.eopf.eodc.eu/"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collections</span>(<span class="at">collection_id =</span> <span class="st">"sentinel-2-l2a"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">items</span>(<span class="at">feature_id =</span> <span class="st">"S2A_MSIL2A_20251107T100231_N0511_R122_T33UXP_20251107T113811"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">items</span>(<span class="at">limit =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_request</span>()</span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>s2_l2a_product <span class="ot">&lt;-</span> s2_l2a_item <span class="sc">|&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_select</span>(<span class="at">asset_names =</span> <span class="st">"product"</span>)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>s2_l2a_product_url <span class="ot">&lt;-</span> s2_l2a_product <span class="sc">|&gt;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_url</span>()</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>s2_l2a_product_url</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-'https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202511-s02msil2a-eu/07/products/cpm_v262/S2A_MSIL2A_20251107T100231_N0511_R122_T33UXP_20251107T113811.zarr'
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>first_item_id <span class="ot">&lt;-</span> first_item[[<span class="st">"features"</span>]][[<span class="dv">1</span>]][[<span class="st">"id"</span>]]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>s2_l2a_item <span class="ot">&lt;-</span> <span class="fu">stac</span>(<span class="st">"https://stac.core.eopf.eodc.eu/"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collections</span>(<span class="at">collection_id =</span> <span class="st">"sentinel-2-l2a"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">items</span>(<span class="at">feature_id =</span> first_item_id) <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_request</span>()</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>s2_l2a_product <span class="ot">&lt;-</span> s2_l2a_item <span class="sc">|&gt;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_select</span>(<span class="at">asset_names =</span> <span class="st">"product"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>s2_l2a_product_url <span class="ot">&lt;-</span> s2_l2a_product <span class="sc">|&gt;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_url</span>()</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>s2_l2a_product_url</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/02/products/cpm_v262/S2B_MSIL2A_20260202T112159_N0511_R037_T32WPV_20260202T133421.zarr"</code></pre>
 </div>
 </div>
 <p>The product is the “top level” Zarr asset, which contains the full Zarr product hierarchy. We can use <code>zarr_overview()</code> to get an overview of it, setting <code>as_data_frame</code> to <code>TRUE</code> so that we can see the entries in a data frame instead of printed directly to the console. Each entry is a Zarr array; we remove <code>product_url</code> from the path to get a better idea of what each array is. Since this is something we will want to do multiple times throughout the tutorial, we create a helper function for this.</p>
-<div id="ab10f2d4" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>derive_store_array <span class="ot">&lt;-</span> <span class="cf">function</span>(store, product_url) {</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  store <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">array =</span> <span class="fu">str_remove</span>(path, product_url)) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">relocate</span>(array, <span class="at">.before =</span> path)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>zarr_store <span class="ot">&lt;-</span> s2_l2a_product_url <span class="sc">|&gt;</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>(<span class="at">as_data_frame =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">derive_store_array</span>(s2_l2a_product_url)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>zarr_store</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error: 
-
-Error: 
-Traceback:
-
-1. relocate(mutate(store, array = str_remove(path, product_url)), 
- .     array, .before = path)
-2. mutate(store, array = str_remove(path, product_url))
-3. zarr_overview(s2_l2a_product_url, as_data_frame = TRUE)
-4. read_array_metadata(path = zarr_array_path, s3_client = s3_client)
-5. s3_client$get_object(Bucket = parsed_url$bucket, Key = parsed_url$object)
-6. send_request(request)
-7. retry(request)
-8. run(request, retry)
-9. handler$fn(request)
-10. stop(error)</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>derive_store_array <span class="ot">&lt;-</span> <span class="cf">function</span>(store, product_url) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  store <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">array =</span> <span class="fu">str_remove</span>(path, product_url)) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">relocate</span>(array, <span class="at">.before =</span> path)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>zarr_store <span class="ot">&lt;-</span> s2_l2a_product_url <span class="sc">|&gt;</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>(<span class="at">as_data_frame =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">derive_store_array</span>(s2_l2a_product_url)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>zarr_store</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 124 × 8
+   array           path  data_type endianness compressor dim   chunk_dim nchunks
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;lis&gt; &lt;list&gt;    &lt;list&gt; 
+ 1 /conditions/ge… http… unicode2… little     blosc      &lt;int&gt; &lt;int [1]&gt; &lt;dbl&gt;  
+ 2 /conditions/ge… http… unicode96 little     blosc      &lt;int&gt; &lt;int [1]&gt; &lt;dbl&gt;  
+ 3 /conditions/ge… http… unicode96 little     blosc      &lt;int&gt; &lt;int [1]&gt; &lt;dbl&gt;  
+ 4 /conditions/ge… http… float64   little     blosc      &lt;int&gt; &lt;int [1]&gt; &lt;dbl&gt;  
+ 5 /conditions/ge… http… float64   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 6 /conditions/ge… http… float64   little     blosc      &lt;int&gt; &lt;int [3]&gt; &lt;dbl&gt;  
+ 7 /conditions/ge… http… float64   little     blosc      &lt;int&gt; &lt;int [5]&gt; &lt;dbl&gt;  
+ 8 /conditions/ge… http… float32   little     blosc      &lt;int&gt; &lt;int [1]&gt; &lt;dbl&gt;  
+ 9 /conditions/ge… http… float32   little     blosc      &lt;int&gt; &lt;int [1]&gt; &lt;dbl&gt;  
+10 /conditions/ma… http… uint8     &lt;NA&gt;       blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+# ℹ 114 more rows</code></pre>
 </div>
 </div>
 <p>This shows us the path to access the Zarr array, the number of chunks it contains, the type of data, as well as its dimensions and chunking structure.</p>
 <p>We can also look at overviews of individual arrays. First, let’s narrow down to measurements taken at 20-metre resolution:</p>
-<div id="8bdaff95" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>r20m <span class="ot">&lt;-</span> zarr_store <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(array, <span class="st">"/measurements/reflectance/r20m/"</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>r20m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error: object 'zarr_store' not found
-
-Error: object 'zarr_store' not found
-Traceback:
-
-1. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "object 'zarr_store' not found", base::quote(eval(expr, envir)))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>r20m <span class="ot">&lt;-</span> zarr_store <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(array, <span class="st">"/measurements/reflectance/r20m/"</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>r20m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 8
+   array           path  data_type endianness compressor dim   chunk_dim nchunks
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;lis&gt; &lt;list&gt;    &lt;list&gt; 
+ 1 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 2 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 3 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 4 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 5 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 6 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 7 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 8 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 9 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+10 /measurements/… http… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+11 /measurements/… http… float32   little     blosc      &lt;int&gt; &lt;int [1]&gt; &lt;dbl&gt;  
+12 /measurements/… http… float32   little     blosc      &lt;int&gt; &lt;int [1]&gt; &lt;dbl&gt;  </code></pre>
 </div>
 </div>
 <p>Then, we select the B02 array and examine its dimensions and chunking:</p>
-<div id="c0da13d6" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>r20m <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b02"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(path, nchunks, dim, chunk_dim) <span class="sc">|&gt;</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.list</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'as.list': object 'r20m' not found
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>r20m <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b02"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(path, nchunks, dim, chunk_dim) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.list</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$path
+[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/02/products/cpm_v262/S2B_MSIL2A_20260202T112159_N0511_R037_T32WPV_20260202T133421.zarr/measurements/reflectance/r20m/b02"
 
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'as.list': object 'r20m' not found
-Traceback:
+$nchunks
+$nchunks[[1]]
+[1] 6 6
 
-1. select(filter(r20m, str_ends(array, "b02")), path, nchunks, dim, 
- .     chunk_dim)
-2. filter(r20m, str_ends(array, "b02"))
-3. .handleSimpleError(function (cond) 
- . .Internal(C_tryCatchHelper(addr, 1L, cond)), "object 'r20m' not found", 
- .     base::quote(eval(expr, envir)))
-4. h(simpleError(msg, call))
-5. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "error in evaluating the argument 'x' in selecting a method for function 'as.list': object 'r20m' not found", 
- .     base::quote(h(simpleError(msg, call))))</code></pre>
+
+$dim
+$dim[[1]]
+[1] 5490 5490
+
+
+$chunk_dim
+$chunk_dim[[1]]
+[1] 915 915</code></pre>
 </div>
 </div>
 <p>We can also see an overview of individual arrays using <code>zarr_overview()</code>. With the default setting (where <code>as_data_frame</code> is <code>FALSE</code>), this prints information on the array directly to the console, in a more digestible way:</p>
-<div id="b0d744f5" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>r20m_b02 <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b02"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>r20m_b02 <span class="sc">|&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error: object 'r20m' not found
-
-Error: object 'r20m' not found
-Traceback:
-
-1. filter(r20m, str_ends(array, "b02"))
-2. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "object 'r20m' not found", base::quote(eval(expr, envir)))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>r20m_b02 <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b02"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>r20m_b02 <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type: Array
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/02/products/cpm_v262/S2B_MSIL2A_20260202T112159_N0511_R037_T32WPV_20260202T133421.zarr/measurements/reflectance/r20m/b02
+Shape: 5490 x 5490
+Chunk Shape: 915 x 915
+No. of Chunks: 36 (6 x 6)
+Data Type: uint16
+Endianness: little
+Compressor: blosc</code></pre>
 </div>
 </div>
 <p>The above overview tells us that the data is two-dimensional, with dimensions 5490 x 5490. Zarr data is split up into <strong>chunks</strong>, which are smaller, independent piece of the larger array. Chunks can be accessed individually, without loading the entire array. In this case, there are 36 chunks in total, with 6 along each of the dimensions, each of size 915 x 915.</p>
@@ -587,187 +591,129 @@ Traceback:
 <section id="read-zarr-data" class="level1">
 <h1>Read Zarr data</h1>
 <p>To read in Zarr data, we use <code>read_zarr_array()</code>, and can pass a list to the <code>index</code> argument, describing which elements we want to extract along each dimension. Since this array is two-dimensional, we can think of the dimensions as rows and columns of the data. For example, to select the first 10 rows and the first 5 columns:</p>
-<div id="24db49ef" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>r20m_b02 <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>(<span class="at">index =</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m_b02' not found
-
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m_b02' not found
-Traceback:
-
-1. .normalize_array_path(zarr_array_path)
-2. grepl(x = path, pattern = "^((https?://)|(s3://)).*$")
-3. .handleSimpleError(function (cond) 
- . .Internal(C_tryCatchHelper(addr, 1L, cond)), "object 'r20m_b02' not found", 
- .     base::quote(eval(expr, envir)))
-4. h(simpleError(msg, call))
-5. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m_b02' not found", 
- .     base::quote(h(simpleError(msg, call))))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>r20m_b02 <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>(<span class="at">index =</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      [,1] [,2] [,3] [,4] [,5]
+ [1,]    0    0    0    0    0
+ [2,]    0    0    0    0    0
+ [3,]    0    0    0    0    0
+ [4,]    0    0    0    0    0
+ [5,]    0    0    0    0    0
+ [6,]    0    0    0    0    0
+ [7,]    0    0    0    0    0
+ [8,]    0    0    0    0    0
+ [9,]    0    0    0    0    0
+[10,]    0    0    0    0    0</code></pre>
 </div>
 </div>
 <section id="coordinates" class="level3">
 <h3 class="anchored" data-anchor-id="coordinates">Coordinates</h3>
 <p>Similarly, we can read in the <code>x</code> and <code>y</code> coordinates corresponding to data at 10m resolution. These <code>x</code> and <code>y</code> coordinates do not correspond to latitude and longitude—to understand the coordinate reference system used in each data set, we access the <code>proj:code</code> property of the STAC item. In this case, the coordinate reference system is <a href="https://epsg.io/32626">EPSG:32626</a>, which represents metres from the UTM zone’s origin.</p>
-<div id="5eaada71" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>s2_l2a_item[[<span class="st">"properties"</span>]][[<span class="st">"proj:code"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-'EPSG:32633'
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>s2_l2a_item[[<span class="st">"properties"</span>]][[<span class="st">"proj:code"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "EPSG:32632"</code></pre>
 </div>
 </div>
 <p>We can see that <code>x</code> and <code>y</code> are one dimensional:</p>
-<div id="d7cec86b" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"x"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"y"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="sc">|&gt;</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error: object 'r20m' not found
-
-Error: object 'r20m' not found
-Traceback:
-
-1. filter(r20m, str_ends(array, "x"))
-2. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "object 'r20m' not found", base::quote(eval(expr, envir)))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"x"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type: Array
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/02/products/cpm_v262/S2B_MSIL2A_20260202T112159_N0511_R037_T32WPV_20260202T133421.zarr/measurements/reflectance/r20m/x
+Shape: 5490
+Chunk Shape: 5490
+No. of Chunks: 1 (1)
+Data Type: float32
+Endianness: little
+Compressor: blosc</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"y"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type: Array
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/02/products/cpm_v262/S2B_MSIL2A_20260202T112159_N0511_R037_T32WPV_20260202T133421.zarr/measurements/reflectance/r20m/y
+Shape: 5490
+Chunk Shape: 5490
+No. of Chunks: 1 (1)
+Data Type: float32
+Endianness: little
+Compressor: blosc</code></pre>
 </div>
 </div>
 <p>Which means that, when combined, they form a grid that describes the location of each point in the 2-dimensional measurements, such as B02. We will go into this more in the examples below.</p>
 <p>The <code>x</code> and <code>y</code> dimensions can be read in using the same logic: by describing which elements we want to extract. Since there is only one dimension, we only need to supply one entry in the indexing list:</p>
-<div id="ba2c7cc9" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>(<span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m_x' not found
-
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m_x' not found
-Traceback:
-
-1. .normalize_array_path(zarr_array_path)
-2. grepl(x = path, pattern = "^((https?://)|(s3://)).*$")
-3. .handleSimpleError(function (cond) 
- . .Internal(C_tryCatchHelper(addr, 1L, cond)), "object 'r20m_x' not found", 
- .     base::quote(eval(expr, envir)))
-4. h(simpleError(msg, call))
-5. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m_x' not found", 
- .     base::quote(h(simpleError(msg, call))))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>(<span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 600010 600030 600050 600070 600090</code></pre>
 </div>
 </div>
 <p>Or, we can read in the whole array (by not providing any elements to <code>index</code>) and view its first few values with <code>head()</code>. Of course, reading in the whole array, rather than a small section of it, will take longer.</p>
-<div id="41a12e18" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="ot">&lt;-</span> r20m_x <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="ot">&lt;-</span> r20m_y <span class="sc">|&gt;</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="sc">|&gt;</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m_x' not found
-
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m_x' not found
-Traceback:
-
-1. .normalize_array_path(zarr_array_path)
-2. grepl(x = path, pattern = "^((https?://)|(s3://)).*$")
-3. .handleSimpleError(function (cond) 
- . .Internal(C_tryCatchHelper(addr, 1L, cond)), "object 'r20m_x' not found", 
- .     base::quote(eval(expr, envir)))
-4. h(simpleError(msg, call))
-5. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m_x' not found", 
- .     base::quote(h(simpleError(msg, call))))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="ot">&lt;-</span> r20m_x <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 600010 600030 600050 600070 600090</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="ot">&lt;-</span> r20m_y <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="sc">|&gt;</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7499990 7499970 7499950 7499930 7499910</code></pre>
 </div>
 </div>
 </section>
 <section id="different-resolutions" class="level3">
 <h3 class="anchored" data-anchor-id="different-resolutions">Different resolutions</h3>
 <p>With EOPF data, some measurements are available at multiple resolutions. For example, we can see that the B02 spectral band is available at 10m, 20m, and 60m resolution:</p>
-<div id="f6f2b93d" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>b02 <span class="ot">&lt;-</span> zarr_store <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(array, <span class="st">"/measurements/reflectance"</span>), <span class="fu">str_ends</span>(array, <span class="st">"b02"</span>))</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>b02 <span class="sc">|&gt;</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(array)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error: object 'zarr_store' not found
-
-Error: object 'zarr_store' not found
-Traceback:
-
-1. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "object 'zarr_store' not found", base::quote(eval(expr, envir)))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>b02 <span class="ot">&lt;-</span> zarr_store <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(array, <span class="st">"/measurements/reflectance"</span>), <span class="fu">str_ends</span>(array, <span class="st">"b02"</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>b02 <span class="sc">|&gt;</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(array)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 1
+  array                             
+  &lt;chr&gt;                             
+1 /measurements/reflectance/r10m/b02
+2 /measurements/reflectance/r20m/b02
+3 /measurements/reflectance/r60m/b02</code></pre>
 </div>
 </div>
 <p>The resolution affects the dimensions of the data: when measurements are taken at a higher resolution, there will be more data. We can see here that there is more data for the 10m resolution than the 20m resolution (recall, its dimensions are 5490 x 5490), and less for the 60m resolution:</p>
-<div id="a432706b" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>b02 <span class="sc">|&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"/measurements/reflectance/r10m/b02"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(dim)</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>b02 <span class="sc">|&gt;</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"/measurements/reflectance/r60m/b02"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(dim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error: object 'b02' not found
-
-Error: object 'b02' not found
-Traceback:
-
-1. filter(b02, array == "/measurements/reflectance/r10m/b02")
-2. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "object 'b02' not found", base::quote(eval(expr, envir)))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>b02 <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"/measurements/reflectance/r10m/b02"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(dim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 10980 10980</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>b02 <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"/measurements/reflectance/r60m/b02"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(dim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] 1830 1830</code></pre>
 </div>
 </div>
 </section>
@@ -775,70 +721,54 @@ Traceback:
 <h2 class="anchored" data-anchor-id="simple-data-analysis-calculating-ndvi">Simple Data Analysis: Calculating NDVI</h2>
 <p>Let us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).</p>
 <p>First, we access the <em>Red</em> (B04) and <em>Near-InfraRed</em> (B08A) bands, which are needed for calculation of the NDVI, at 20m resolution:</p>
-<div id="e69f1ec2" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>r20m_b04 <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b04"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>r20m_b04[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>r20m_b8a <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b8a"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>r20m_b8a[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m' not found
-
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m' not found
-Traceback:
-
-1. .normalize_array_path(zarr_array_path)
-2. grepl(x = path, pattern = "^((https?://)|(s3://)).*$")
-3. pull(filter(r20m, str_ends(array, "b04")), path)
-4. filter(r20m, str_ends(array, "b04"))
-5. .handleSimpleError(function (cond) 
- . .Internal(C_tryCatchHelper(addr, 1L, cond)), "object 'r20m' not found", 
- .     base::quote(eval(expr, envir)))
-6. h(simpleError(msg, call))
-7. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "error in evaluating the argument 'x' in selecting a method for function 'grepl': object 'r20m' not found", 
- .     base::quote(h(simpleError(msg, call))))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>r20m_b04 <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b04"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>r20m_b04[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]    0    0    0    0    0
+[2,]    0    0    0    0    0
+[3,]    0    0    0    0    0
+[4,]    0    0    0    0    0
+[5,]    0    0    0    0    0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>r20m_b8a <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b8a"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>r20m_b8a[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]    0    0    0    0    0
+[2,]    0    0    0    0    0
+[3,]    0    0    0    0    0
+[4,]    0    0    0    0    0
+[5,]    0    0    0    0    0</code></pre>
 </div>
 </div>
 <p>The function <code>st_as_stars()</code> is used to get our data into a format that makes data manipulation and visualisation easy.</p>
 <p>This format is also beneficial because it allows for a quick summary of the data and its attributes, providing information such as the median and mean values of the bands and information on the grid:</p>
-<div id="57ba3a0b" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(<span class="at">B04 =</span> r20m_b04, <span class="at">B08A =</span> r20m_b8a) <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_dimensions</span>(<span class="dv">1</span>, <span class="at">names =</span> <span class="st">"X"</span>, <span class="at">values =</span> r20m_x) <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_dimensions</span>(<span class="dv">2</span>, <span class="at">names =</span> <span class="st">"Y"</span>, <span class="at">values =</span> r20m_y)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>ndvi_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error: object 'r20m_b04' not found
-
-Error: object 'r20m_b04' not found
-Traceback:
-
-1. st_set_dimensions(st_as_stars(B04 = r20m_b04, B08A = r20m_b8a), 
- .     1, names = "X", values = r20m_x)
-2. st_as_stars(B04 = r20m_b04, B08A = r20m_b8a)
-3. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "object 'r20m_b04' not found", base::quote(eval(expr, envir)))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(<span class="at">B04 =</span> r20m_b04, <span class="at">B08A =</span> r20m_b8a) <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_dimensions</span>(<span class="dv">1</span>, <span class="at">names =</span> <span class="st">"X"</span>, <span class="at">values =</span> r20m_x) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_dimensions</span>(<span class="dv">2</span>, <span class="at">names =</span> <span class="st">"Y"</span>, <span class="at">values =</span> r20m_y)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>ndvi_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 2 attributes
+attribute(s), summary of first 1e+05 cells:
+      Min. 1st Qu. Median     Mean 3rd Qu.  Max.
+B04      0       0      0 1603.268    3191 16093
+B08A     0       0      0 1540.824    2862 16065
+dimension(s):
+  from   to  offset delta point x/y
+X    1 5490   6e+05    20 FALSE [x]
+Y    1 5490 7499990   -20 FALSE [y]</code></pre>
 </div>
 </div>
 <p>Now, we perform the initial steps for NDVI calculation:</p>
@@ -846,73 +776,30 @@ Traceback:
 <li><code>sum_bands</code>: Calculates the sum of the Near-Infrared and Red bands.</li>
 <li><code>diff_bands</code>: Calculates the difference between the Near-Infrared and Red bands.</li>
 </ul>
-<div id="72497078" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> ndvi_data <span class="sc">|&gt;</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sum_bands =</span> B04 <span class="sc">+</span> B08A,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff_bands =</span> B04 <span class="sc">-</span> B08A</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error: object 'ndvi_data' not found
-
-Error: object 'ndvi_data' not found
-Traceback:
-
-1. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "object 'ndvi_data' not found", base::quote(eval(expr, envir)))</code></pre>
-</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> ndvi_data <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sum_bands =</span> B04 <span class="sc">+</span> B08A,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff_bands =</span> B04 <span class="sc">-</span> B08A</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Then, we calculate the NDVI, which is <code>diff_bands</code> / <code>sum_bands</code>. To prevent division by zero errors in areas where both red and NIR bands might be zero (e.g., water bodies or clouds), we also replace any <code>NaN</code> values resulting from division by zero with 0. This ensures a clean and robust NDVI product.</p>
-<div id="6979fd1d" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> ndvi_data <span class="sc">|&gt;</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ndvi =</span> diff_bands <span class="sc">/</span> sum_bands,</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ndvi =</span> <span class="fu">ifelse</span>(sum_bands <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, ndvi)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error: object 'ndvi_data' not found
-
-Error: object 'ndvi_data' not found
-Traceback:
-
-1. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "object 'ndvi_data' not found", base::quote(eval(expr, envir)))</code></pre>
-</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> ndvi_data <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ndvi =</span> diff_bands <span class="sc">/</span> sum_bands,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ndvi =</span> <span class="fu">ifelse</span>(sum_bands <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, ndvi)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In a final step, we can visualise the calculated NDVI.</p>
-<div id="b6df7470" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ndvi_data, <span class="at">as_points =</span> <span class="cn">FALSE</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">col =</span> hcl.colors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<pre><code>ERROR: Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 'ndvi_data' not found
-
-Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'plot': object 'ndvi_data' not found
-Traceback:
-
-1. .handleSimpleError(function (cond) 
- . .Internal(C_tryCatchHelper(addr, 1L, cond)), "object 'ndvi_data' not found", 
- .     base::quote(eval(expr, envir)))
-2. h(simpleError(msg, call))
-3. .handleSimpleError(function (cnd) 
- . {
- .     watcher$capture_plot_and_output()
- .     cnd &lt;- sanitize_call(cnd)
- .     watcher$push(cnd)
- .     switch(on_error, continue = invokeRestart("eval_continue"), 
- .         stop = invokeRestart("eval_stop"), error = NULL)
- . }, "error in evaluating the argument 'x' in selecting a method for function 'plot': object 'ndvi_data' not found", 
- .     base::quote(h(simpleError(msg, call))))</code></pre>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ndvi_data, <span class="at">as_points =</span> <span class="cn">FALSE</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">col =</span> hcl.colors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="53_eopf_zarr_r_files/figure-html/ndvi-vis-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -934,7 +821,7 @@ Traceback:
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>In this tutorial we established a connection to the <a href="stac.browser.user.eopf.eodc.eu_">EOPF Sentinel Zarr Sample Service STAC Catalog</a> and directly accessed an EOPF Zarr array with <code>Rarr</code>. We explored how to review the full Zarr store, read individual arrays, and gave an understanding of Zarr array chunking and dimensions. We also did a simple calculation and visualisation of NDVI using the [<code>stars</code>] package.</p>
+<p>In this tutorial we established a connection to the <a href="stac.browser.user.eopf.eodc.eu_">EOPF Sentinel Zarr Sample Service STAC Catalog</a> and directly accessed an EOPF Zarr array with <code>Rarr</code>. We explored how to review the full Zarr store, read individual arrays, and gave an understanding of Zarr array chunking and dimensions. We also did a simple calculation and visualisation of NDVI using the <code>stars</code> package.</p>
 </section>
 <section id="whats-next" class="level2">
 <h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
@@ -1351,8 +1238,8 @@ Traceback:
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="pagination-link" aria-label="Fire in Sardinia 2025 - Part 1">
-        <span class="nav-page-text"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="pagination-link" aria-label="Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using `rstac` and `gdalcubes`">
+        <span class="nav-page-text"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

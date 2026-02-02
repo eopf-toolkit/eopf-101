@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -299,6 +299,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../05_zarr_tools/53_eopf_zarr_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -332,17 +337,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating Zarr Overviews</span></a>
+  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 1</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/65_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
+  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 2</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Visualising Multiscale Pyramids</span></a>
+  <a href="../06_eopf_zarr_in_action/67_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
   </div>
 </li>
       </ul>
@@ -484,7 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-7da8b193-efc4-11f0-909a-4a4c05bbb601</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-7b1a6624-004a-11f1-9239-fe7a94213c66</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -501,6 +506,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
         
+            <button style="margin-bottom: 12px;" data-commandlinker-command="dask:populate-and-launch-layout" data-commandlinker-args="{&quot;url&quot;: &quot;http://127.0.0.1:8787/status&quot; }">
+                Launch dashboard in JupyterLab
+            </button>
+        
 
         
             <details>
@@ -510,7 +519,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;" class="anchored">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">301266d7</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">76c2e1e9</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -520,7 +529,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>Total threads:</strong> 8</td>
-<td style="text-align: left;"><strong>Total memory:</strong> 31.35 GiB</td>
+<td style="text-align: left;"><strong>Total memory:</strong> 31.34 GiB</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Status:</strong> running</td>
@@ -540,12 +549,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;" class="anchored">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-3299a525-19a8-4901-b20b-091a31e04b4b</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-c0b59539-9ce7-45c3-b3d5-4f7917e47096</p>
             
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:42877</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:44813</td>
 <td style="text-align: left;"><strong>Workers:</strong> 0</td>
 </tr>
 <tr class="even">
@@ -579,19 +588,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40557</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:45549</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:44347/status" target="_blank">http://127.0.0.1:44347/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34681/status" target="_blank">http://127.0.0.1:34681/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:45779</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41877</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-pka0c1va</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-6gew3qcg</td>
 </tr>
 </tbody>
 </table>
@@ -611,19 +620,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40933</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:42019</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:36587/status" target="_blank">http://127.0.0.1:36587/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34629/status" target="_blank">http://127.0.0.1:34629/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:37973</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:44213</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-5hkc1i6s</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-f7p3u_4m</td>
 </tr>
 </tbody>
 </table>
@@ -643,19 +652,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:37399</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:44167</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:33503/status" target="_blank">http://127.0.0.1:33503/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:40115/status" target="_blank">http://127.0.0.1:40115/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41805</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:43517</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-a73h6cke</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-uvpuv0e9</td>
 </tr>
 </tbody>
 </table>
@@ -675,19 +684,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:40893</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:38169</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34323/status" target="_blank">http://127.0.0.1:34323/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:43783/status" target="_blank">http://127.0.0.1:43783/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:35267</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:39231</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-yxix7q7d</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-pxpfn14r</td>
 </tr>
 </tbody>
 </table>
@@ -1244,7 +1253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l1-grd"</span>
         </li>
     
             
@@ -1262,7 +1271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+            <span class="pystac-v">"Sentinel-1 Level-1 GRD"</span>
         </li>
     
             
@@ -1295,7 +1304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l1-err"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
         </li>
     
             
@@ -1313,7 +1322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 OLCI Level-1 ERR"</span>
+            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
         </li>
     
             
@@ -1397,7 +1406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-2-l1c"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr"</span>
         </li>
     
             
@@ -1415,7 +1424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-2 Level-1C"</span>
+            <span class="pystac-v">"Sentinel-3 OLCI Level-2 LFR"</span>
         </li>
     
             
@@ -1433,6 +1442,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li><details>
             <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l1-err"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-3 OLCI Level-1 ERR"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1467,57 +1527,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="pystac-row">
             <span class="pystac-k">title</span>
             <span class="pystac-v">"Sentinel-3 OLCI Level-2 LRR"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 OLCI Level-2 LFR"</span>
         </li>
     
             
@@ -1601,6 +1610,108 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">16</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-2-l1c"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-2 Level-1C"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">17</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
             <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l1-slc"</span>
         </li>
     
@@ -1636,58 +1747,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">16</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l1-grd"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-1 GRD"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">17</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">18</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1722,57 +1782,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="pystac-row">
             <span class="pystac-k">title</span>
             <span class="pystac-v">"Sentinel-3 SLSTR Level-2 FRP"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">18</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-lst"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 LST"</span>
         </li>
     
             
@@ -2189,8 +2198,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="define-search-paramters">Define search paramters</h3>
 <div id="20" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The timeframe and area of interest for our filtering</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fire_d <span class="op">=</span> <span class="st">'2025-06-11'</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fire_d_s3 <span class="op">=</span> <span class="st">'2025-06-10'</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fire_d <span class="op">=</span> <span class="st">'2025-10-21'</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fire_d_s3 <span class="op">=</span> <span class="st">'2025-10-21'</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>def_collection <span class="op">=</span> <span class="st">''</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>search_bbox <span class="op">=</span> (<span class="fl">8.847198</span>,<span class="fl">40.193395</span>,<span class="fl">8.938865</span>,<span class="fl">40.241895</span>)</span>
@@ -2246,7 +2255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found for Sentinel-3 SLSRT over Sardinia:  '</span>,<span class="bu">len</span>(av_urls))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Search Results:
-Total Items Found for Sentinel-3 SLSRT over Sardinia:   5</code></pre>
+Total Items Found for Sentinel-3 SLSRT over Sardinia:   3</code></pre>
 </div>
 </div>
 <p>After filtering the catalog, we open the <strong>first</strong> available Sentinel-3 SLSTR item, which corresponds to our specific timeframe of the selected day.</p>
@@ -2266,222 +2275,571 @@ Total Items Found for Sentinel-3 SLSRT over Sardinia:   5</code></pre>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>meas_lst <span class="op">=</span> lst_zarr.measurements</span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># The output is the measurements data group</span></span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>meas_lst</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">GroupNotFoundError</span>                        Traceback (most recent call last)
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1868</span>, in <span class="ansi-cyan-fg">_get_open_params</span><span class="ansi-blue-fg">(store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, zarr_version, use_zarr_fill_value_as_mask, zarr_format)</span>
-<span class="ansi-green-fg">   1867</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1868</span>     zarr_root_group = <span class="ansi-yellow-bg">zarr</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_consolidated</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">open_kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1869</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> (<span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>, <span style="font-weight:bold;color:rgb(215,95,95)">KeyError</span>):
-<span class="ansi-green-fg">   1870</span>     <span style="font-style:italic;color:rgb(95,135,135)"># ValueError in zarr-python 3.x, KeyError in 2.x.</span>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
+<defs>
+<symbol id="icon-database" viewbox="0 0 32 32">
+<path d="M16 0c-8.837 0-16 2.239-16 5v4c0 2.761 7.163 5 16 5s16-2.239 16-5v-4c0-2.761-7.163-5-16-5z"></path>
+<path d="M16 17c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+<path d="M16 26c-8.837 0-16-2.239-16-5v6c0 2.761 7.163 5 16 5s16-2.239 16-5v-6c0 2.761-7.163 5-16 5z"></path>
+</symbol>
+<symbol id="icon-file-text2" viewbox="0 0 32 32">
+<path d="M28.681 7.159c-0.694-0.947-1.662-2.053-2.724-3.116s-2.169-2.030-3.116-2.724c-1.612-1.182-2.393-1.319-2.841-1.319h-15.5c-1.378 0-2.5 1.121-2.5 2.5v27c0 1.378 1.122 2.5 2.5 2.5h23c1.378 0 2.5-1.122 2.5-2.5v-19.5c0-0.448-0.137-1.23-1.319-2.841zM24.543 5.457c0.959 0.959 1.712 1.825 2.268 2.543h-4.811v-4.811c0.718 0.556 1.584 1.309 2.543 2.268zM28 29.5c0 0.271-0.229 0.5-0.5 0.5h-23c-0.271 0-0.5-0.229-0.5-0.5v-27c0-0.271 0.229-0.5 0.5-0.5 0 0 15.499-0 15.5 0v7c0 0.552 0.448 1 1 1h7v19.5z"></path>
+<path d="M23 26h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 22h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+<path d="M23 18h-14c-0.552 0-1-0.448-1-1s0.448-1 1-1h14c0.552 0 1 0.448 1 1s-0.448 1-1 1z"></path>
+</symbol>
+</defs>
+</svg>
+<style>/* CSS stylesheet for displaying xarray objects in notebooks */
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/synchronous.py:238</span>, in <span class="ansi-cyan-fg">open_consolidated</span><span class="ansi-blue-fg">(use_consolidated, *args, **kwargs)</span>
-<span class="ansi-green-fg">    234</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    235</span> <span style="font-style:italic" class="ansi-yellow-fg">Alias for [`open_group`][zarr.api.synchronous.open_group] with ``use_consolidated=True``.</span>
-<span class="ansi-green-fg">    236</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    237</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> Group(
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">238</span>     <span class="ansi-yellow-bg">sync</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">async_api</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_consolidated</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    239</span> )
+:root {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base rgba(0, 0, 0, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(0, 0, 0, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, white)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, white) h s calc(l - 15))
+  );
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:159</span>, in <span class="ansi-cyan-fg">sync</span><span class="ansi-blue-fg">(coro, loop, timeout)</span>
-<span class="ansi-green-fg">    158</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">isinstance</span>(return_result, <span style="font-weight:bold;color:rgb(215,95,95)">BaseException</span>):
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">159</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> return_result
-<span class="ansi-green-fg">    160</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
+html[theme="dark"],
+html[data-theme="dark"],
+body[data-theme="dark"],
+body.vscode-dark {
+  --xr-font-color0: var(
+    --jp-content-font-color0,
+    var(--pst-color-text-base, rgba(255, 255, 255, 1))
+  );
+  --xr-font-color2: var(
+    --jp-content-font-color2,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.54))
+  );
+  --xr-font-color3: var(
+    --jp-content-font-color3,
+    var(--pst-color-text-base, rgba(255, 255, 255, 0.38))
+  );
+  --xr-border-color: var(
+    --jp-border-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 10))
+  );
+  --xr-disabled-color: var(
+    --jp-layout-color3,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 40))
+  );
+  --xr-background-color: var(
+    --jp-layout-color0,
+    var(--pst-color-on-background, #111111)
+  );
+  --xr-background-color-row-even: var(
+    --jp-layout-color1,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 5))
+  );
+  --xr-background-color-row-odd: var(
+    --jp-layout-color2,
+    hsl(from var(--pst-color-on-background, #111111) h s calc(l + 15))
+  );
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:119</span>, in <span class="ansi-cyan-fg">_runner</span><span class="ansi-blue-fg">(coro)</span>
-<span class="ansi-green-fg">    118</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">119</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> coro
-<span class="ansi-green-fg">    120</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">Exception</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> ex:
+.xr-wrap {
+  display: block !important;
+  min-width: 300px;
+  max-width: 700px;
+  line-height: 1.6;
+  padding-bottom: 4px;
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/asynchronous.py:415</span>, in <span class="ansi-cyan-fg">open_consolidated</span><span class="ansi-blue-fg">(use_consolidated, *args, **kwargs)</span>
-<span class="ansi-green-fg">    411</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">TypeError</span>(
-<span class="ansi-green-fg">    412</span>         <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">use_consolidated</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> must be </span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">True</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> in </span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">open_consolidated</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">. Use </span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">open</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> with </span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">    413</span>         <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">use_consolidated=False</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> to bypass consolidated metadata.</span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">    414</span>     )
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">415</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> open_group(*args, use_consolidated=use_consolidated, **kwargs)
+.xr-text-repr-fallback {
+  /* fallback to plain text repr when CSS is not injected (untrusted notebook) */
+  display: none;
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/asynchronous.py:881</span>, in <span class="ansi-cyan-fg">open_group</span><span class="ansi-blue-fg">(store, mode, cache_attrs, synchronizer, path, chunk_store, storage_options, zarr_version, zarr_format, meta_array, attributes, use_consolidated)</span>
-<span class="ansi-green-fg">    880</span> msg = <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">No group found in store </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>store<span style="font-weight:bold;color:rgb(175,95,135)">!r}</span><span class="ansi-yellow-fg"> at path </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>store_path.path<span style="font-weight:bold;color:rgb(175,95,135)">!r}</span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">881</span> <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> GroupNotFoundError(msg)
+.xr-header {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
 
-<span class="ansi-red-fg">GroupNotFoundError</span>: No group found in store 'https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202506-s03slslst/10/products/cpm_v256/S3B_SL_2_LST____20250610T091849_20250610T092149_20250611T160034_0179_107_264_2340_ESA_O_NT_004.zarr' at path ''
+.xr-header {
+  border-bottom: solid 1px var(--xr-border-color);
+  margin-bottom: 4px;
+}
 
-During handling of the above exception, another exception occurred:
+.xr-header > div,
+.xr-header > ul {
+  display: inline;
+  margin-top: 0;
+  margin-bottom: 0;
+}
 
-<span class="ansi-red-fg">GroupNotFoundError</span>                        Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[7]</span><span class="ansi-green-fg">, line 2</span>
-<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># Open the last item from the list of URLs as a Zarr data tree</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> lst_zarr = <span class="ansi-yellow-bg">xr</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_datatree</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">      3</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">av_urls</span><span class="ansi-yellow-bg">[</span><span class="ansi-yellow-bg">-</span><span class="ansi-green-fg ansi-yellow-bg">1</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span style="font-style:italic;color:rgb(95,135,135)" class="ansi-yellow-bg"># Input: URL of the last Zarr item in the av_urls list</span>
-<span class="ansi-green-fg">      4</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">engine</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">zarr</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg"> </span><span style="font-style:italic;color:rgb(95,135,135)" class="ansi-yellow-bg"># Specify the Zarr engine for opening the file</span>
-<span class="ansi-green-fg">      5</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">      7</span> <span style="font-style:italic;color:rgb(95,135,135)"># Extract the start date and time from the data tree's metadata</span>
-<span class="ansi-green-fg">      8</span> date_zarr_lst = lst_zarr.attrs[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">stac_discovery</span><span class="ansi-yellow-fg">'</span>][<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">properties</span><span class="ansi-yellow-fg">'</span>][<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">start_datetime</span><span class="ansi-yellow-fg">'</span>][:<span class="ansi-green-fg">10</span>]
+.xr-obj-type,
+.xr-obj-name {
+  margin-left: 2px;
+  margin-right: 10px;
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/api.py:1076</span>, in <span class="ansi-cyan-fg">open_datatree</span><span class="ansi-blue-fg">(filename_or_obj, engine, chunks, cache, decode_cf, mask_and_scale, decode_times, decode_timedelta, use_cftime, concat_characters, decode_coords, drop_variables, create_default_indexes, inline_array, chunked_array_type, from_array_kwargs, backend_kwargs, **kwargs)</span>
-<span class="ansi-green-fg">   1064</span> decoders = _resolve_decoders_kwargs(
-<span class="ansi-green-fg">   1065</span>     decode_cf,
-<span class="ansi-green-fg">   1066</span>     open_backend_dataset_parameters=backend.open_dataset_parameters,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1072</span>     decode_coords=decode_coords,
-<span class="ansi-green-fg">   1073</span> )
-<span class="ansi-green-fg">   1074</span> overwrite_encoded_chunks = kwargs.pop(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">overwrite_encoded_chunks</span><span class="ansi-yellow-fg">"</span>, <span style="font-weight:bold;color:rgb(0,135,0)">None</span>)
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1076</span> backend_tree = <span class="ansi-yellow-bg">backend</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_datatree</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   1077</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1078</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1079</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">decoders</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1080</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1081</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1083</span> tree = _datatree_from_backend_datatree(
-<span class="ansi-green-fg">   1084</span>     backend_tree,
-<span class="ansi-green-fg">   1085</span>     filename_or_obj,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1096</span>     **kwargs,
-<span class="ansi-green-fg">   1097</span> )
-<span class="ansi-green-fg">   1099</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> tree
+.xr-obj-type,
+.xr-group-box-contents > label {
+  color: var(--xr-font-color2);
+  display: block;
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1710</span>, in <span class="ansi-cyan-fg">ZarrBackendEntrypoint.open_datatree</span><span class="ansi-blue-fg">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, synchronizer, consolidated, chunk_store, storage_options, zarr_version, zarr_format)</span>
-<span class="ansi-green-fg">   1689</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">open_datatree</span>(
-<span class="ansi-green-fg">   1690</span>     <span style="color:rgb(0,135,0)">self</span>,
-<span class="ansi-green-fg">   1691</span>     filename_or_obj: T_PathFileOrDataStore,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1707</span>     zarr_format=<span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
-<span class="ansi-green-fg">   1708</span> ) -&gt; DataTree:
-<span class="ansi-green-fg">   1709</span>     filename_or_obj = _normalize_path(filename_or_obj)
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1710</span>     groups_dict = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_groups_as_dict</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   1711</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1712</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mask_and_scale</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mask_and_scale</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1713</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_times</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_times</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1714</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">concat_characters</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">concat_characters</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1715</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_coords</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_coords</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1716</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1717</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">use_cftime</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_cftime</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1718</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_timedelta</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_timedelta</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1719</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1720</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1721</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1722</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1723</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1724</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1725</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1726</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1727</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1729</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> datatree_from_dict_with_io_cleanup(groups_dict)
+.xr-sections {
+  padding-left: 0 !important;
+  display: grid;
+  grid-template-columns: 150px auto auto 1fr 0 20px 0 20px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1759</span>, in <span class="ansi-cyan-fg">ZarrBackendEntrypoint.open_groups_as_dict</span><span class="ansi-blue-fg">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, synchronizer, consolidated, chunk_store, storage_options, zarr_version, zarr_format)</span>
-<span class="ansi-green-fg">   1756</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">   1757</span>     parent = <span style="color:rgb(0,135,0)">str</span>(NodePath(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">/</span><span class="ansi-yellow-fg">"</span>))
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1759</span> stores = <span class="ansi-yellow-bg">ZarrStore</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_store</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   1760</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1761</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">parent</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1762</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1763</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1764</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1765</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">consolidate_on_close</span><span class="ansi-yellow-bg">=</span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">False</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1766</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1767</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1768</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1769</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1770</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1772</span> groups_dict = {}
-<span class="ansi-green-fg">   1773</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> path_group, store <span style="font-weight:bold;color:rgb(175,0,255)">in</span> stores.items():
+.xr-section-item {
+  display: contents;
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:645</span>, in <span class="ansi-cyan-fg">ZarrStore.open_store</span><span class="ansi-blue-fg">(cls, store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, append_dim, write_region, safe_chunks, align_chunks, zarr_version, zarr_format, use_zarr_fill_value_as_mask, write_empty, cache_members)</span>
-<span class="ansi-green-fg">    619</span> <span style="color:rgb(175,0,255)">@classmethod</span>
-<span class="ansi-green-fg">    620</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">open_store</span>(
-<span class="ansi-green-fg">    621</span>     <span style="color:rgb(0,135,0)">cls</span>,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    638</span>     cache_members: <span style="color:rgb(0,135,0)">bool</span> = <span style="font-weight:bold;color:rgb(0,135,0)">True</span>,
-<span class="ansi-green-fg">    639</span> ):
-<span class="ansi-green-fg">    640</span>     (
-<span class="ansi-green-fg">    641</span>         zarr_group,
-<span class="ansi-green-fg">    642</span>         consolidate_on_close,
-<span class="ansi-green-fg">    643</span>         close_store_on_close,
-<span class="ansi-green-fg">    644</span>         use_zarr_fill_value_as_mask,
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">645</span>     ) = <span class="ansi-yellow-bg">_get_open_params</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    646</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    647</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    648</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    649</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    650</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    651</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">consolidate_on_close</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidate_on_close</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    652</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    653</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    654</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    655</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">use_zarr_fill_value_as_mask</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_zarr_fill_value_as_mask</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    656</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    657</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    659</span>     <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">zarr</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> Group
-<span class="ansi-green-fg">    661</span>     group_members: <span style="color:rgb(0,135,0)">dict</span>[<span style="color:rgb(0,135,0)">str</span>, Group] = {}
+.xr-section-item > input,
+.xr-group-box-contents > input,
+.xr-array-wrap > input {
+  display: block;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1872</span>, in <span class="ansi-cyan-fg">_get_open_params</span><span class="ansi-blue-fg">(store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, zarr_version, use_zarr_fill_value_as_mask, zarr_format)</span>
-<span class="ansi-green-fg">   1869</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> (<span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>, <span style="font-weight:bold;color:rgb(215,95,95)">KeyError</span>):
-<span class="ansi-green-fg">   1870</span>     <span style="font-style:italic;color:rgb(95,135,135)"># ValueError in zarr-python 3.x, KeyError in 2.x.</span>
-<span class="ansi-green-fg">   1871</span>     <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1872</span>         zarr_root_group = <span class="ansi-yellow-bg">zarr</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_group</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">open_kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1873</span>         emit_user_level_warning(
-<span class="ansi-green-fg">   1874</span>             <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Failed to open Zarr store with consolidated metadata, </span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">   1875</span>             <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">but successfully read with non-consolidated metadata. </span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1885</span>             <span style="font-weight:bold;color:rgb(215,95,95)">RuntimeWarning</span>,
-<span class="ansi-green-fg">   1886</span>         )
-<span class="ansi-green-fg">   1887</span>     <span style="font-weight:bold;color:rgb(0,135,0)">except</span> missing_exc <span style="font-weight:bold;color:rgb(0,135,0)">as</span> err:
+.xr-section-item > input + label,
+.xr-var-item > input + label {
+  color: var(--xr-disabled-color);
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/synchronous.py:549</span>, in <span class="ansi-cyan-fg">open_group</span><span class="ansi-blue-fg">(store, mode, cache_attrs, synchronizer, path, chunk_store, storage_options, zarr_version, zarr_format, meta_array, attributes, use_consolidated)</span>
-<span class="ansi-green-fg">    478</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">open_group</span>(
-<span class="ansi-green-fg">    479</span>     store: StoreLike | <span style="font-weight:bold;color:rgb(0,135,0)">None</span> = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
-<span class="ansi-green-fg">    480</span>     *,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    491</span>     use_consolidated: <span style="color:rgb(0,135,0)">bool</span> | <span style="color:rgb(0,135,0)">str</span> | <span style="font-weight:bold;color:rgb(0,135,0)">None</span> = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
-<span class="ansi-green-fg">    492</span> ) -&gt; Group:
-<span class="ansi-green-fg">    493</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""Open a group using file-mode-like semantics.</span>
-<span class="ansi-green-fg">    494</span> 
-<span class="ansi-green-fg">    495</span> <span style="font-style:italic" class="ansi-yellow-fg">    Parameters</span>
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    546</span> <span style="font-style:italic" class="ansi-yellow-fg">        The new group.</span>
-<span class="ansi-green-fg">    547</span> <span style="font-style:italic" class="ansi-yellow-fg">    """</span>
-<span class="ansi-green-fg">    548</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> Group(
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">549</span>         <span class="ansi-yellow-bg">sync</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    550</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">async_api</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_group</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    551</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    552</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    553</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">cache_attrs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">cache_attrs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    554</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    555</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">path</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">path</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    556</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    557</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    558</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    559</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    560</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">meta_array</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">meta_array</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    561</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">attributes</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">attributes</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    562</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    563</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    564</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    565</span>     )
+.xr-section-item > input:enabled + label,
+.xr-var-item > input:enabled + label,
+.xr-array-wrap > input:enabled + label,
+.xr-group-box-contents > input:enabled + label {
+  cursor: pointer;
+  color: var(--xr-font-color2);
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:159</span>, in <span class="ansi-cyan-fg">sync</span><span class="ansi-blue-fg">(coro, loop, timeout)</span>
-<span class="ansi-green-fg">    156</span> return_result = <span style="color:rgb(0,135,0)">next</span>(<span style="color:rgb(0,135,0)">iter</span>(finished)).result()
-<span class="ansi-green-fg">    158</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">isinstance</span>(return_result, <span style="font-weight:bold;color:rgb(215,95,95)">BaseException</span>):
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">159</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> return_result
-<span class="ansi-green-fg">    160</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">    161</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> return_result
+.xr-section-item > input:focus-visible + label,
+.xr-var-item > input:focus-visible + label,
+.xr-array-wrap > input:focus-visible + label,
+.xr-group-box-contents > input:focus-visible + label {
+  outline: auto;
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:119</span>, in <span class="ansi-cyan-fg">_runner</span><span class="ansi-blue-fg">(coro)</span>
-<span class="ansi-green-fg">    114</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    115</span> <span style="font-style:italic" class="ansi-yellow-fg">Await a coroutine and return the result of running it. If awaiting the coroutine raises an</span>
-<span class="ansi-green-fg">    116</span> <span style="font-style:italic" class="ansi-yellow-fg">exception, the exception will be returned.</span>
-<span class="ansi-green-fg">    117</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    118</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">119</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> coro
-<span class="ansi-green-fg">    120</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">Exception</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> ex:
-<span class="ansi-green-fg">    121</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> ex
+.xr-section-item > input:enabled + label:hover,
+.xr-var-item > input:enabled + label:hover,
+.xr-array-wrap > input:enabled + label:hover,
+.xr-group-box-contents > input:enabled + label:hover {
+  color: var(--xr-font-color0);
+}
 
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/asynchronous.py:881</span>, in <span class="ansi-cyan-fg">open_group</span><span class="ansi-blue-fg">(store, mode, cache_attrs, synchronizer, path, chunk_store, storage_options, zarr_version, zarr_format, meta_array, attributes, use_consolidated)</span>
-<span class="ansi-green-fg">    874</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> AsyncGroup.from_store(
-<span class="ansi-green-fg">    875</span>         store_path,
-<span class="ansi-green-fg">    876</span>         zarr_format=_zarr_format,
-<span class="ansi-green-fg">    877</span>         overwrite=overwrite,
-<span class="ansi-green-fg">    878</span>         attributes=attributes,
-<span class="ansi-green-fg">    879</span>     )
-<span class="ansi-green-fg">    880</span> msg = <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">No group found in store </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>store<span style="font-weight:bold;color:rgb(175,95,135)">!r}</span><span class="ansi-yellow-fg"> at path </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>store_path.path<span style="font-weight:bold;color:rgb(175,95,135)">!r}</span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">881</span> <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> GroupNotFoundError(msg)
+.xr-section-summary {
+  grid-column: 1;
+  color: var(--xr-font-color2);
+  font-weight: 500;
+  white-space: nowrap;
+}
 
-<span class="ansi-red-fg">GroupNotFoundError</span>: No group found in store 'https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202506-s03slslst/10/products/cpm_v256/S3B_SL_2_LST____20250610T091849_20250610T092149_20250611T160034_0179_107_264_2340_ESA_O_NT_004.zarr' at path ''</pre>
-</div>
+.xr-section-summary > em {
+  font-weight: normal;
+}
+
+.xr-span-grid {
+  grid-column-end: -1;
+}
+
+.xr-section-summary > span {
+  display: inline-block;
+  padding-left: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label > span {
+  display: inline-block;
+  padding-left: 0.6em;
+}
+
+.xr-section-summary-in:disabled + label {
+  color: var(--xr-font-color2);
+}
+
+.xr-section-summary-in + label:before {
+  display: inline-block;
+  content: "►";
+  font-size: 11px;
+  width: 15px;
+  text-align: center;
+}
+
+.xr-section-summary-in:disabled + label:before {
+  color: var(--xr-disabled-color);
+}
+
+.xr-section-summary-in:checked + label:before {
+  content: "▼";
+}
+
+.xr-section-summary-in:checked + label > span {
+  display: none;
+}
+
+.xr-section-summary,
+.xr-section-inline-details,
+.xr-group-box-contents > label {
+  padding-top: 4px;
+}
+
+.xr-section-inline-details {
+  grid-column: 2 / -1;
+}
+
+.xr-section-details {
+  grid-column: 1 / -1;
+  margin-top: 4px;
+  margin-bottom: 5px;
+}
+
+.xr-section-summary-in ~ .xr-section-details {
+  display: none;
+}
+
+.xr-section-summary-in:checked ~ .xr-section-details {
+  display: contents;
+}
+
+.xr-children {
+  display: inline-grid;
+  grid-template-columns: 100%;
+  grid-column: 1 / -1;
+  padding-top: 4px;
+}
+
+.xr-group-box {
+  display: inline-grid;
+  grid-template-columns: 0px 30px auto;
+}
+
+.xr-group-box-vline {
+  grid-column-start: 1;
+  border-right: 0.2em solid;
+  border-color: var(--xr-border-color);
+  width: 0px;
+}
+
+.xr-group-box-hline {
+  grid-column-start: 2;
+  grid-row-start: 1;
+  height: 1em;
+  width: 26px;
+  border-bottom: 0.2em solid;
+  border-color: var(--xr-border-color);
+}
+
+.xr-group-box-contents {
+  grid-column-start: 3;
+  padding-bottom: 4px;
+}
+
+.xr-group-box-contents > label::before {
+  content: "📂";
+  padding-right: 0.3em;
+}
+
+.xr-group-box-contents > input:checked + label::before {
+  content: "📁";
+}
+
+.xr-group-box-contents > input:checked + label {
+  padding-bottom: 0px;
+}
+
+.xr-group-box-contents > input:checked ~ .xr-sections {
+  display: none;
+}
+
+.xr-group-box-contents > input + label > span {
+  display: none;
+}
+
+.xr-group-box-ellipsis {
+  font-size: 1.4em;
+  font-weight: 900;
+  color: var(--xr-font-color2);
+  letter-spacing: 0.15em;
+  cursor: default;
+}
+
+.xr-array-wrap {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 20px auto;
+}
+
+.xr-array-wrap > label {
+  grid-column: 1;
+  vertical-align: top;
+}
+
+.xr-preview {
+  color: var(--xr-font-color3);
+}
+
+.xr-array-preview,
+.xr-array-data {
+  padding: 0 5px !important;
+  grid-column: 2;
+}
+
+.xr-array-data,
+.xr-array-in:checked ~ .xr-array-preview {
+  display: none;
+}
+
+.xr-array-in:checked ~ .xr-array-data,
+.xr-array-preview {
+  display: inline-block;
+}
+
+.xr-dim-list {
+  display: inline-block !important;
+  list-style: none;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.xr-dim-list li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.xr-dim-list:before {
+  content: "(";
+}
+
+.xr-dim-list:after {
+  content: ")";
+}
+
+.xr-dim-list li:not(:last-child):after {
+  content: ",";
+  padding-right: 5px;
+}
+
+.xr-has-index {
+  font-weight: bold;
+}
+
+.xr-var-list,
+.xr-var-item {
+  display: contents;
+}
+
+.xr-var-item > div,
+.xr-var-item label,
+.xr-var-item > .xr-var-name span {
+  background-color: var(--xr-background-color-row-even);
+  border-color: var(--xr-background-color-row-odd);
+  margin-bottom: 0;
+  padding-top: 2px;
+}
+
+.xr-var-item > .xr-var-name:hover span {
+  padding-right: 5px;
+}
+
+.xr-var-list > li:nth-child(odd) > div,
+.xr-var-list > li:nth-child(odd) > label,
+.xr-var-list > li:nth-child(odd) > .xr-var-name span {
+  background-color: var(--xr-background-color-row-odd);
+  border-color: var(--xr-background-color-row-even);
+}
+
+.xr-var-name {
+  grid-column: 1;
+}
+
+.xr-var-dims {
+  grid-column: 2;
+}
+
+.xr-var-dtype {
+  grid-column: 3;
+  text-align: right;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-preview {
+  grid-column: 4;
+}
+
+.xr-index-preview {
+  grid-column: 2 / 5;
+  color: var(--xr-font-color2);
+}
+
+.xr-var-name,
+.xr-var-dims,
+.xr-var-dtype,
+.xr-preview,
+.xr-attrs dt {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
+}
+
+.xr-var-name:hover,
+.xr-var-dims:hover,
+.xr-var-dtype:hover,
+.xr-attrs dt:hover {
+  overflow: visible;
+  width: auto;
+  z-index: 1;
+}
+
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  display: none;
+  border-top: 2px dotted var(--xr-background-color);
+  padding-bottom: 20px !important;
+  padding-top: 10px !important;
+}
+
+.xr-var-attrs-in + label,
+.xr-var-data-in + label,
+.xr-index-data-in + label {
+  padding: 0 1px;
+}
+
+.xr-var-attrs-in:checked ~ .xr-var-attrs,
+.xr-var-data-in:checked ~ .xr-var-data,
+.xr-index-data-in:checked ~ .xr-index-data {
+  display: block;
+}
+
+.xr-var-data > table {
+  float: right;
+}
+
+.xr-var-data > pre,
+.xr-index-data > pre,
+.xr-var-data > table > tbody > tr {
+  background-color: transparent !important;
+}
+
+.xr-var-name span,
+.xr-var-data,
+.xr-index-name div,
+.xr-index-data,
+.xr-attrs {
+  padding-left: 25px !important;
+}
+
+.xr-attrs,
+.xr-var-attrs,
+.xr-var-data,
+.xr-index-data {
+  grid-column: 1 / -1;
+}
+
+dl.xr-attrs {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 125px auto;
+}
+
+.xr-attrs dt,
+.xr-attrs dd {
+  padding: 0;
+  margin: 0;
+  float: left;
+  padding-right: 10px;
+  width: auto;
+}
+
+.xr-attrs dt {
+  font-weight: normal;
+  grid-column: 1;
+}
+
+.xr-attrs dt:hover span {
+  display: inline-block;
+  background: var(--xr-background-color);
+  padding-right: 10px;
+}
+
+.xr-attrs dd {
+  grid-column: 2;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.xr-icon-database,
+.xr-icon-file-text2,
+.xr-no-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 1em;
+  height: 1.5em !important;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+.xr-var-attrs-in:checked + label > .xr-icon-file-text2,
+.xr-var-data-in:checked + label > .xr-icon-database,
+.xr-index-data-in:checked + label > .xr-icon-database {
+  color: var(--xr-font-color0);
+  filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
+  stroke-width: 0.8px;
+}
+</style><pre class="xr-text-repr-fallback">&lt;xarray.DataTree 'measurements'&gt;
+Group: /measurements
+│   Dimensions:    (rows: 1200, columns: 1500)
+│   Coordinates:
+│     * rows       (rows) int64 10kB 0 1 2 3 4 5 6 ... 1194 1195 1196 1197 1198 1199
+│     * columns    (columns) int64 12kB 0 1 2 3 4 5 ... 1495 1496 1497 1498 1499
+│       latitude   (rows, columns) float64 14MB ...
+│       longitude  (rows, columns) float64 14MB ...
+│       x          (rows, columns) float64 14MB ...
+│       y          (rows, columns) float64 14MB ...
+│   Data variables:
+│       lst        (rows, columns) float64 14MB ...
+└── Group: /measurements/orphan
+        Dimensions:    (rows: 1200, orphan_pixels: 187)
+        Coordinates:
+            latitude   (rows, orphan_pixels) float64 2MB ...
+            longitude  (rows, orphan_pixels) float64 2MB ...
+            x          (rows, orphan_pixels) float64 2MB ...
+            y          (rows, orphan_pixels) float64 2MB ...
+        Dimensions without coordinates: orphan_pixels
+        Data variables:
+            lst        (rows, orphan_pixels) float64 2MB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataTree</div><div class="xr-obj-name">'measurements'</div></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-children"><div class="xr-group-box"><div class="xr-group-box-vline" style="height: 1.2em"></div><div class="xr-group-box-hline"></div><div class="xr-group-box-contents"><input id="group-fc9a4f46-6070-4fac-b3c5-6f69b939efde" type="checkbox"><label for="group-fc9a4f46-6070-4fac-b3c5-6f69b939efde" title="Expand/collapse group">/measurements/orphan<span>(5)</span></label><ul class="xr-sections"><li class="xr-section-item"><input id="section-3952243a-a026-443a-b44f-1c484fa0677c" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-3952243a-a026-443a-b44f-1c484fa0677c" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">rows</span>: 1200</li><li><span class="xr-has-index">columns</span>: 1500</li><li><span>orphan_pixels</span>: 187</li></ul></div></li><li class="xr-section-item"><input id="section-123db9c3-69ea-4eee-976a-608fbc8d5361" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-123db9c3-69ea-4eee-976a-608fbc8d5361" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-d12bad92-7f11-4024-a17f-279c15295198" class="xr-var-attrs-in" type="checkbox"><label for="attrs-d12bad92-7f11-4024-a17f-279c15295198" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-33742d35-5b3c-4885-8153-38f5390e5406" class="xr-var-data-in" type="checkbox"><label for="data-33742d35-5b3c-4885-8153-38f5390e5406" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'orphan_pixels']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-2147483648</dd><dt><span>long_name :</span></dt><dd>latitude of detector FOV centre on the earth's surface</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90000000</dd><dt><span>valid_min :</span></dt><dd>-90000000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-a0ddd486-e10e-4628-b2c2-8f0e60e7d5c6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a0ddd486-e10e-4628-b2c2-8f0e60e7d5c6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-288424e7-a453-4bc9-8d05-60a35ba59602" class="xr-var-data-in" type="checkbox"><label for="data-288424e7-a453-4bc9-8d05-60a35ba59602" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'orphan_pixels']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-2147483648</dd><dt><span>long_name :</span></dt><dd>longitude of detector FOV centre on the earth's surface</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180000000</dd><dt><span>valid_min :</span></dt><dd>-180000000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>x</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-78a9d814-c8ad-42b1-ba81-bd880a3bdef6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-78a9d814-c8ad-42b1-ba81-bd880a3bdef6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-1333d5aa-8f5c-44b0-9ef3-71cecdc8419a" class="xr-var-data-in" type="checkbox"><label for="data-1333d5aa-8f5c-44b0-9ef3-71cecdc8419a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'orphan_pixels']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-1000000</dd><dt><span>long_name :</span></dt><dd>geolocated x (across track) coordinate of detector FOV centre</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>1000000</dd><dt><span>valid_min :</span></dt><dd>-500000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>y</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c3cfb3b6-b706-4c8c-8827-417d486d68d7" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c3cfb3b6-b706-4c8c-8827-417d486d68d7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-81d20a5d-c445-4c9e-b1bd-fc1bffb2b9cc" class="xr-var-data-in" type="checkbox"><label for="data-81d20a5d-c445-4c9e-b1bd-fc1bffb2b9cc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'orphan_pixels']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-5000000</dd><dt><span>long_name :</span></dt><dd>geolocated y (along track) coordinate of detector FOV centre</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>50000000</dd><dt><span>valid_min :</span></dt><dd>-1000000</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-0631a3de-337e-4335-9d3a-9c5b9cd42f60" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-0631a3de-337e-4335-9d3a-9c5b9cd42f60" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lst</span></div><div class="xr-var-dims">(rows, orphan_pixels)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-522d3124-ee1e-4758-9f50-524d51e996e6" class="xr-var-attrs-in" type="checkbox"><label for="attrs-522d3124-ee1e-4758-9f50-524d51e996e6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-77154e29-4667-4bd2-9b07-0343e3d024b4" class="xr-var-data-in" type="checkbox"><label for="data-77154e29-4667-4bd2-9b07-0343e3d024b4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': 290.0, 'coordinates': ['x', 'y', 'latitude', 'longitude'], 'dimensions': ['rows', 'orphan_pixels'], 'dtype': '&lt;i2', 'eopf_is_masked': True, 'eopf_target_dtype': '&lt;f4', 'fill_value': -32768, 'long_name': 'ungridded land surface temperature', 'scale_factor': 0.0020000000949949026, 'short_name': 'lst_orphan', 'standard_name': 'surface_temperature', 'units': 'K', 'valid_max': 32767, 'valid_min': -32767}</dd><dt><span>dtype :</span></dt><dd>&lt;i2</dd><dt><span>long_name :</span></dt><dd>ungridded land surface temperature</dd><dt><span>standard_name :</span></dt><dd>surface_temperature</dd><dt><span>units :</span></dt><dd>K</dd></dl></div><div class="xr-var-data"><pre>[224400 values with dtype=float64]</pre></div></li></ul></div></li></ul></div></div></div></li><li class="xr-section-item"><input id="section-073fec98-62f6-4eed-960e-7ade480121c0" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-073fec98-62f6-4eed-960e-7ade480121c0" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">rows</span>: 1200</li><li><span class="xr-has-index">columns</span>: 1500</li></ul></div></li><li class="xr-section-item"><input id="section-6ec602c6-26c1-4227-b559-87882f2716c4" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-6ec602c6-26c1-4227-b559-87882f2716c4" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(6)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">rows</span></div><div class="xr-var-dims">(rows)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0 1 2 3 4 ... 1196 1197 1198 1199</div><input id="attrs-f25083e5-93d7-4a19-9992-6fe96b43837f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f25083e5-93d7-4a19-9992-6fe96b43837f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-19a6c3fa-ea22-4168-a984-d7aee5a94f17" class="xr-var-data-in" type="checkbox"><label for="data-19a6c3fa-ea22-4168-a984-d7aee5a94f17" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows']</dd><dt><span>dtype :</span></dt><dd>&lt;i8</dd><dt><span>long_name :</span></dt><dd>rows of image nadir view</dd></dl></div><div class="xr-var-data"><pre>array([   0,    1,    2, ..., 1197, 1198, 1199], shape=(1200,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">columns</span></div><div class="xr-var-dims">(columns)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0 1 2 3 4 ... 1496 1497 1498 1499</div><input id="attrs-feb74859-6452-4d97-984a-8f85b035fda4" class="xr-var-attrs-in" type="checkbox"><label for="attrs-feb74859-6452-4d97-984a-8f85b035fda4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fc4fdf8c-b338-444a-b643-9c8a63427b15" class="xr-var-data-in" type="checkbox"><label for="data-fc4fdf8c-b338-444a-b643-9c8a63427b15" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i8</dd><dt><span>long_name :</span></dt><dd>columns of image nadir view</dd></dl></div><div class="xr-var-data"><pre>array([   0,    1,    2, ..., 1497, 1498, 1499], shape=(1500,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-f581730b-cf32-491d-8280-c657bd9df54f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f581730b-cf32-491d-8280-c657bd9df54f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-344897ce-ce76-4e9d-b5dc-2ca0b9f2ae2e" class="xr-var-data-in" type="checkbox"><label for="data-344897ce-ce76-4e9d-b5dc-2ca0b9f2ae2e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-2147483648</dd><dt><span>long_name :</span></dt><dd>latitude of detector FOV centre on the earth's surface</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90000000</dd><dt><span>valid_min :</span></dt><dd>-90000000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-1db33cf7-4cd2-4395-b379-4822d983bb11" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1db33cf7-4cd2-4395-b379-4822d983bb11" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-0acd850a-ceb2-473d-ba08-6b371c27bc3f" class="xr-var-data-in" type="checkbox"><label for="data-0acd850a-ceb2-473d-ba08-6b371c27bc3f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-2147483648</dd><dt><span>long_name :</span></dt><dd>longitude of detector FOV centre on the earth's surface</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180000000</dd><dt><span>valid_min :</span></dt><dd>-180000000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>x</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-4ca1611a-4f7f-4833-86ee-d378a5b8831c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4ca1611a-4f7f-4833-86ee-d378a5b8831c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c13b50ed-4412-4a17-9bcd-b5446ee6af41" class="xr-var-data-in" type="checkbox"><label for="data-c13b50ed-4412-4a17-9bcd-b5446ee6af41" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-1000000</dd><dt><span>long_name :</span></dt><dd>geolocated x (across track) coordinate of detector FOV centre</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>1000000</dd><dt><span>valid_min :</span></dt><dd>-500000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>y</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-6b2a2aea-5cad-4269-a463-d6e247795eaa" class="xr-var-attrs-in" type="checkbox"><label for="attrs-6b2a2aea-5cad-4269-a463-d6e247795eaa" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a4c56ad3-2bf6-47ce-ba18-99a044718e01" class="xr-var-data-in" type="checkbox"><label for="data-a4c56ad3-2bf6-47ce-ba18-99a044718e01" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-5000000</dd><dt><span>long_name :</span></dt><dd>geolocated y (along track) coordinate of detector FOV centre</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>50000000</dd><dt><span>valid_min :</span></dt><dd>-1000000</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-47590c30-ccd1-4196-b612-cfb4d6e9386d" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-47590c30-ccd1-4196-b612-cfb4d6e9386d" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>lst</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-25736c12-d1ba-499c-9d80-a8142eaefc75" class="xr-var-attrs-in" type="checkbox"><label for="attrs-25736c12-d1ba-499c-9d80-a8142eaefc75" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8743412d-a08d-402d-923c-1110de50a34b" class="xr-var-data-in" type="checkbox"><label for="data-8743412d-a08d-402d-923c-1110de50a34b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': 290.0, 'coordinates': ['rows', 'columns', 'x', 'y', 'latitude', 'longitude'], 'dimensions': ['rows', 'columns'], 'dtype': '&lt;i2', 'eopf_is_masked': True, 'eopf_target_dtype': '&lt;f4', 'fill_value': -32768, 'long_name': 'gridded land surface temperature', 'scale_factor': 0.0020000000949949026, 'short_name': 'lst', 'standard_name': 'surface_temperature', 'units': 'K', 'valid_max': 32767, 'valid_min': -32767}</dd><dt><span>dtype :</span></dt><dd>&lt;i2</dd><dt><span>long_name :</span></dt><dd>gridded land surface temperature</dd><dt><span>standard_name :</span></dt><dd>surface_temperature</dd><dt><span>units :</span></dt><dd>K</dd></dl></div><div class="xr-var-data"><pre>[1800000 values with dtype=float64]</pre></div></li></ul></div></li></ul></div></div>
 </div>
 </div>
 <p>To effectively overlay the data, we first need to process the Land Surface Temperature (LST) asset to cover the same area of interest. We can accomplish this by applying our pre-defined masking functions. Since the LST data is presented in <strong>EPSG:4326</strong>, we will use the <code>zarr_mask_latlon()</code> function to generate the boolean mask of interest over the data, followed by the <code>mask_sub_latlon()</code> function, which clips it to our area of interest.</p>
@@ -2502,26 +2860,6 @@ During handling of the above exception, another exception occurred:
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>lat_lst <span class="op">=</span> mask_sub_latlon(meas_lst[<span class="st">'latitude'</span>],rows_lst, cols_lst).values</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># The longitude data is clipped using the same mask indices</span></span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>lon_lst <span class="op">=</span> mask_sub_latlon(meas_lst[<span class="st">'longitude'</span>],rows_lst, cols_lst).values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[8]</span><span class="ansi-green-fg">, line 4</span>
-<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># The zarr_mask_latlon function is used to create a mask based on a bounding box and the measurements data</span>
-<span class="ansi-green-fg">      2</span> cols_lst , rows_lst = zarr_mask_latlon(
-<span class="ansi-green-fg">      3</span>     bbox_vis, <span style="font-style:italic;color:rgb(95,135,135)"># The input bounding box</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">4</span>     <span class="ansi-yellow-bg">meas_lst</span> <span style="font-style:italic;color:rgb(95,135,135)"># The measurements group from the zarr data tree</span>
-<span class="ansi-green-fg">      5</span>     )
-<span class="ansi-green-fg">      6</span> <span style="font-style:italic;color:rgb(95,135,135)"># The mask_sub_latlon function then clips the land surface temperature data</span>
-<span class="ansi-green-fg">      7</span> lst_clip = mask_sub_latlon(
-<span class="ansi-green-fg">      8</span>     meas_lst.lst, <span style="font-style:italic;color:rgb(95,135,135)"># The land surface temperature band from the measurements group</span>
-<span class="ansi-green-fg">      9</span>     rows_lst, <span style="font-style:italic;color:rgb(95,135,135)"># The row indices for the mask</span>
-<span class="ansi-green-fg">     10</span>     cols_lst <span style="font-style:italic;color:rgb(95,135,135)"># The column indices for the mask</span>
-<span class="ansi-green-fg">     11</span>     ).values
-
-<span class="ansi-red-fg">NameError</span>: name 'meas_lst' is not defined</pre>
-</div>
-</div>
 </div>
 <p>After clipping the data to our defined area of interest, we apply the <strong>temperature threshold</strong> to the data, filtering for only those pixels with <strong>temperatures above 312 Kelvin</strong>. This temperature range is a strong indicator of heat anomalies, which are often associated with active or developing fires.</p>
 <div id="31" class="cell" data-execution_count="9">
@@ -2531,21 +2869,6 @@ During handling of the above exception, another exception occurred:
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    np.nan, <span class="co"># The value to assign if the condition is true</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    lst_clip <span class="co"># The value to assign if the condition is false</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[9]</span><span class="ansi-green-fg">, line 3</span>
-<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># To clip the data and prepare the array for an overlay with the TCI:</span>
-<span class="ansi-green-fg">      2</span> lstf_clip = np.where(
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span>     <span class="ansi-yellow-bg">lst_clip</span> &lt;= <span class="ansi-green-fg">312</span>, <span style="font-style:italic;color:rgb(95,135,135)"># values less than or equal to 312 K</span>
-<span class="ansi-green-fg">      4</span>     np.nan, <span style="font-style:italic;color:rgb(95,135,135)"># The value to assign if the condition is true</span>
-<span class="ansi-green-fg">      5</span>     lst_clip <span style="font-style:italic;color:rgb(95,135,135)"># The value to assign if the condition is false</span>
-<span class="ansi-green-fg">      6</span>     )
-
-<span class="ansi-red-fg">NameError</span>: name 'lst_clip' is not defined</pre>
-</div>
-</div>
 </div>
 <p>Creating a custom colour map that uses shades of red, with the most <strong>vibrant red</strong> indicating the <strong>hottest</strong> areas will enhance our visualisation. This colour map is applied to the LST data, allowing us to clearly and intuitively see the heat signatures that correspond with potential fire activity when the two layers are overlayed.</p>
 <div id="33" class="cell" data-execution_count="10">
@@ -2575,24 +2898,10 @@ During handling of the above exception, another exception occurred:
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>fig.tight_layout()</span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[11]</span><span class="ansi-green-fg">, line 3</span>
-<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># Create a figure to plot</span>
-<span class="ansi-green-fg">      2</span> fig, axs = plt.subplots(<span class="ansi-green-fg">1</span>, <span class="ansi-green-fg">2</span>)
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">3</span> axs[<span class="ansi-green-fg">0</span>].imshow(<span class="ansi-yellow-bg">lst_clip</span>)
-<span class="ansi-green-fg">      4</span> axs[<span class="ansi-green-fg">0</span>].set_title(<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">Clipped LST</span><span class="ansi-yellow-fg">'</span>)
-<span class="ansi-green-fg">      5</span> <span style="font-style:italic;color:rgb(95,135,135)"># Plot the filtered land surface temperature data on the second subplot</span>
-
-<span class="ansi-red-fg">NameError</span>: name 'lst_clip' is not defined</pre>
-</div>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="62_sardinia_s3_lst_files/figure-html/cell-12-output-2.png" width="581" height="416" class="figure-img"></p>
+<p><img src="62_sardinia_s3_lst_files/figure-html/cell-12-output-1.png" width="662" height="284" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -2616,7 +2925,7 @@ During handling of the above exception, another exception occurred:
 <span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(av_urls)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[]</code></pre>
+<pre><code>['https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202510-s02msil2a-eu/21/products/cpm_v256/S2A_MSIL2A_20251021T101101_N0511_R022_T32TMK_20251021T115713.zarr']</code></pre>
 </div>
 </div>
 <p>As we can see, there is no capture available for the day on which the fire occurred. This is because <strong>Sentinel-2 L2A</strong> has a <strong>revisit time</strong> of <strong>five</strong> days at the equator, making it possible that, even when the constellation is synchronously retrieving data, the day in question may not be available.<br> In this case, we define the capture date as the one closest to the event, the <strong>11th June 2025</strong>.</p>
@@ -2633,7 +2942,7 @@ During handling of the above exception, another exception occurred:
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>av_urls <span class="op">=</span> [item.assets[<span class="st">"product"</span>].href <span class="cf">for</span> item <span class="kw">in</span> s2_col] </span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>av_urls</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>['https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202506-s02msil2a/11/products/cpm_v256/S2C_MSIL2A_20250611T101041_N0511_R022_T32TMK_20250611T175918.zarr']</code></pre>
+<pre><code>['https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202510-s02msil2a-eu/21/products/cpm_v256/S2A_MSIL2A_20251021T101101_N0511_R022_T32TMK_20251021T115713.zarr']</code></pre>
 </div>
 </div>
 <p>Once we have obtained the available items from the <strong>Sentinel-2 L2A</strong> collection, we can open the asset as a xarray.DataTree.</p>
@@ -2652,231 +2961,13 @@ During handling of the above exception, another exception occurred:
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Store interest parameters for further plotting:</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>date <span class="op">=</span> s2_zarr.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'start_datetime'</span>][:<span class="dv">10</span>]</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>time_zarr <span class="op">=</span> s2_zarr.attrs[<span class="st">'stac_discovery'</span>][<span class="st">'properties'</span>][<span class="st">'start_datetime'</span>][<span class="dv">11</span>:<span class="dv">19</span>]</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>target_crs <span class="op">=</span> s2_zarr.attrs[<span class="st">"stac_discovery"</span>][<span class="st">"properties"</span>][<span class="st">"proj:epsg"</span>]</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># target_crs = s2_zarr.attrs["stac_discovery"]["properties"]["proj:epsg"]</span></span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the resolution group we are interested to analyse over:</span></span>
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>zarr_meas <span class="op">=</span> s2_zarr.measurements.reflectance.r20m</span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the cloud free mask at 20m resolution:</span></span>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>l2a_class_20m <span class="op">=</span> s2_zarr.conditions.mask.l2a_classification.r20m.scl</span>
 <span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>valid_mask <span class="op">=</span> validate_scl(l2a_class_20m)  <span class="co"># Boolean mask (10980x10980)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">GroupNotFoundError</span>                        Traceback (most recent call last)
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1868</span>, in <span class="ansi-cyan-fg">_get_open_params</span><span class="ansi-blue-fg">(store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, zarr_version, use_zarr_fill_value_as_mask, zarr_format)</span>
-<span class="ansi-green-fg">   1867</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1868</span>     zarr_root_group = <span class="ansi-yellow-bg">zarr</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_consolidated</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">open_kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1869</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> (<span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>, <span style="font-weight:bold;color:rgb(215,95,95)">KeyError</span>):
-<span class="ansi-green-fg">   1870</span>     <span style="font-style:italic;color:rgb(95,135,135)"># ValueError in zarr-python 3.x, KeyError in 2.x.</span>
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/synchronous.py:238</span>, in <span class="ansi-cyan-fg">open_consolidated</span><span class="ansi-blue-fg">(use_consolidated, *args, **kwargs)</span>
-<span class="ansi-green-fg">    234</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    235</span> <span style="font-style:italic" class="ansi-yellow-fg">Alias for [`open_group`][zarr.api.synchronous.open_group] with ``use_consolidated=True``.</span>
-<span class="ansi-green-fg">    236</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    237</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> Group(
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">238</span>     <span class="ansi-yellow-bg">sync</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">async_api</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_consolidated</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">args</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    239</span> )
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:159</span>, in <span class="ansi-cyan-fg">sync</span><span class="ansi-blue-fg">(coro, loop, timeout)</span>
-<span class="ansi-green-fg">    158</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">isinstance</span>(return_result, <span style="font-weight:bold;color:rgb(215,95,95)">BaseException</span>):
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">159</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> return_result
-<span class="ansi-green-fg">    160</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:119</span>, in <span class="ansi-cyan-fg">_runner</span><span class="ansi-blue-fg">(coro)</span>
-<span class="ansi-green-fg">    118</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">119</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> coro
-<span class="ansi-green-fg">    120</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">Exception</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> ex:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/asynchronous.py:415</span>, in <span class="ansi-cyan-fg">open_consolidated</span><span class="ansi-blue-fg">(use_consolidated, *args, **kwargs)</span>
-<span class="ansi-green-fg">    411</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> <span style="font-weight:bold;color:rgb(215,95,95)">TypeError</span>(
-<span class="ansi-green-fg">    412</span>         <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">use_consolidated</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> must be </span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">True</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> in </span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">open_consolidated</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">. Use </span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">open</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> with </span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">    413</span>         <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">use_consolidated=False</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg"> to bypass consolidated metadata.</span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">    414</span>     )
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">415</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> open_group(*args, use_consolidated=use_consolidated, **kwargs)
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/asynchronous.py:881</span>, in <span class="ansi-cyan-fg">open_group</span><span class="ansi-blue-fg">(store, mode, cache_attrs, synchronizer, path, chunk_store, storage_options, zarr_version, zarr_format, meta_array, attributes, use_consolidated)</span>
-<span class="ansi-green-fg">    880</span> msg = <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">No group found in store </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>store<span style="font-weight:bold;color:rgb(175,95,135)">!r}</span><span class="ansi-yellow-fg"> at path </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>store_path.path<span style="font-weight:bold;color:rgb(175,95,135)">!r}</span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">881</span> <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> GroupNotFoundError(msg)
-
-<span class="ansi-red-fg">GroupNotFoundError</span>: No group found in store 'https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202506-s02msil2a/11/products/cpm_v256/S2C_MSIL2A_20250611T101041_N0511_R022_T32TMK_20250611T175918.zarr' at path ''
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">GroupNotFoundError</span>                        Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[14]</span><span class="ansi-green-fg">, line 2</span>
-<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># We are interested in the datasets contained in the measurements bands for True Colour and False Colour Composites.</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> s2_zarr = <span class="ansi-yellow-bg">xr</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_datatree</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">      3</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">av_urls</span><span class="ansi-yellow-bg">[</span><span class="ansi-green-fg ansi-yellow-bg">0</span><span class="ansi-yellow-bg">]</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">engine</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-fg ansi-yellow-bg">zarr</span><span class="ansi-yellow-fg ansi-yellow-bg">"</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span style="font-style:italic;color:rgb(95,135,135)" class="ansi-yellow-bg">#we always get the earliest one (the first available item goes last)</span>
-<span class="ansi-green-fg">      4</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">chunks</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">{</span><span class="ansi-yellow-bg">}</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">      5</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">decode_timedelta</span><span class="ansi-yellow-bg">=</span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">False</span>
-<span class="ansi-green-fg">      6</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">      8</span> <span style="font-style:italic;color:rgb(95,135,135)"># Store interest parameters for further plotting:</span>
-<span class="ansi-green-fg">      9</span> date = s2_zarr.attrs[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">stac_discovery</span><span class="ansi-yellow-fg">'</span>][<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">properties</span><span class="ansi-yellow-fg">'</span>][<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">start_datetime</span><span class="ansi-yellow-fg">'</span>][:<span class="ansi-green-fg">10</span>]
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/api.py:1076</span>, in <span class="ansi-cyan-fg">open_datatree</span><span class="ansi-blue-fg">(filename_or_obj, engine, chunks, cache, decode_cf, mask_and_scale, decode_times, decode_timedelta, use_cftime, concat_characters, decode_coords, drop_variables, create_default_indexes, inline_array, chunked_array_type, from_array_kwargs, backend_kwargs, **kwargs)</span>
-<span class="ansi-green-fg">   1064</span> decoders = _resolve_decoders_kwargs(
-<span class="ansi-green-fg">   1065</span>     decode_cf,
-<span class="ansi-green-fg">   1066</span>     open_backend_dataset_parameters=backend.open_dataset_parameters,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1072</span>     decode_coords=decode_coords,
-<span class="ansi-green-fg">   1073</span> )
-<span class="ansi-green-fg">   1074</span> overwrite_encoded_chunks = kwargs.pop(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">overwrite_encoded_chunks</span><span class="ansi-yellow-fg">"</span>, <span style="font-weight:bold;color:rgb(0,135,0)">None</span>)
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1076</span> backend_tree = <span class="ansi-yellow-bg">backend</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_datatree</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   1077</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1078</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1079</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">decoders</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1080</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">kwargs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1081</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1083</span> tree = _datatree_from_backend_datatree(
-<span class="ansi-green-fg">   1084</span>     backend_tree,
-<span class="ansi-green-fg">   1085</span>     filename_or_obj,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1096</span>     **kwargs,
-<span class="ansi-green-fg">   1097</span> )
-<span class="ansi-green-fg">   1099</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> tree
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1710</span>, in <span class="ansi-cyan-fg">ZarrBackendEntrypoint.open_datatree</span><span class="ansi-blue-fg">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, synchronizer, consolidated, chunk_store, storage_options, zarr_version, zarr_format)</span>
-<span class="ansi-green-fg">   1689</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">open_datatree</span>(
-<span class="ansi-green-fg">   1690</span>     <span style="color:rgb(0,135,0)">self</span>,
-<span class="ansi-green-fg">   1691</span>     filename_or_obj: T_PathFileOrDataStore,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1707</span>     zarr_format=<span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
-<span class="ansi-green-fg">   1708</span> ) -&gt; DataTree:
-<span class="ansi-green-fg">   1709</span>     filename_or_obj = _normalize_path(filename_or_obj)
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1710</span>     groups_dict = <span style="color:rgb(0,135,0)" class="ansi-yellow-bg">self</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_groups_as_dict</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   1711</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1712</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mask_and_scale</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mask_and_scale</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1713</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_times</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_times</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1714</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">concat_characters</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">concat_characters</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1715</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_coords</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_coords</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1716</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">drop_variables</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1717</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">use_cftime</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_cftime</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1718</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">decode_timedelta</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">decode_timedelta</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1719</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1720</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1721</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1722</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1723</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1724</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1725</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1726</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1727</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1729</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> datatree_from_dict_with_io_cleanup(groups_dict)
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1759</span>, in <span class="ansi-cyan-fg">ZarrBackendEntrypoint.open_groups_as_dict</span><span class="ansi-blue-fg">(self, filename_or_obj, mask_and_scale, decode_times, concat_characters, decode_coords, drop_variables, use_cftime, decode_timedelta, group, mode, synchronizer, consolidated, chunk_store, storage_options, zarr_version, zarr_format)</span>
-<span class="ansi-green-fg">   1756</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">   1757</span>     parent = <span style="color:rgb(0,135,0)">str</span>(NodePath(<span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">/</span><span class="ansi-yellow-fg">"</span>))
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1759</span> stores = <span class="ansi-yellow-bg">ZarrStore</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_store</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">   1760</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">filename_or_obj</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1761</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">parent</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1762</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1763</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1764</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1765</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">consolidate_on_close</span><span class="ansi-yellow-bg">=</span><span style="font-weight:bold;color:rgb(0,135,0)" class="ansi-yellow-bg">False</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1766</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1767</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1768</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1769</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">   1770</span> <span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1772</span> groups_dict = {}
-<span class="ansi-green-fg">   1773</span> <span style="font-weight:bold;color:rgb(0,135,0)">for</span> path_group, store <span style="font-weight:bold;color:rgb(175,0,255)">in</span> stores.items():
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:645</span>, in <span class="ansi-cyan-fg">ZarrStore.open_store</span><span class="ansi-blue-fg">(cls, store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, append_dim, write_region, safe_chunks, align_chunks, zarr_version, zarr_format, use_zarr_fill_value_as_mask, write_empty, cache_members)</span>
-<span class="ansi-green-fg">    619</span> <span style="color:rgb(175,0,255)">@classmethod</span>
-<span class="ansi-green-fg">    620</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">open_store</span>(
-<span class="ansi-green-fg">    621</span>     <span style="color:rgb(0,135,0)">cls</span>,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    638</span>     cache_members: <span style="color:rgb(0,135,0)">bool</span> = <span style="font-weight:bold;color:rgb(0,135,0)">True</span>,
-<span class="ansi-green-fg">    639</span> ):
-<span class="ansi-green-fg">    640</span>     (
-<span class="ansi-green-fg">    641</span>         zarr_group,
-<span class="ansi-green-fg">    642</span>         consolidate_on_close,
-<span class="ansi-green-fg">    643</span>         close_store_on_close,
-<span class="ansi-green-fg">    644</span>         use_zarr_fill_value_as_mask,
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">645</span>     ) = <span class="ansi-yellow-bg">_get_open_params</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    646</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    647</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    648</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    649</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">group</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    650</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    651</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">consolidate_on_close</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">consolidate_on_close</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    652</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    653</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    654</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    655</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">use_zarr_fill_value_as_mask</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_zarr_fill_value_as_mask</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    656</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    657</span> <span class="ansi-yellow-bg">    </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    659</span>     <span style="font-weight:bold;color:rgb(0,135,0)">from</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg ansi-bold">zarr</span><span style="color:rgb(188,188,188)"> </span><span style="font-weight:bold;color:rgb(0,135,0)">import</span> Group
-<span class="ansi-green-fg">    661</span>     group_members: <span style="color:rgb(0,135,0)">dict</span>[<span style="color:rgb(0,135,0)">str</span>, Group] = {}
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/xarray/backends/zarr.py:1872</span>, in <span class="ansi-cyan-fg">_get_open_params</span><span class="ansi-blue-fg">(store, mode, synchronizer, group, consolidated, consolidate_on_close, chunk_store, storage_options, zarr_version, use_zarr_fill_value_as_mask, zarr_format)</span>
-<span class="ansi-green-fg">   1869</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> (<span style="font-weight:bold;color:rgb(215,95,95)">ValueError</span>, <span style="font-weight:bold;color:rgb(215,95,95)">KeyError</span>):
-<span class="ansi-green-fg">   1870</span>     <span style="font-style:italic;color:rgb(95,135,135)"># ValueError in zarr-python 3.x, KeyError in 2.x.</span>
-<span class="ansi-green-fg">   1871</span>     <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1872</span>         zarr_root_group = <span class="ansi-yellow-bg">zarr</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_group</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">*</span><span class="ansi-yellow-bg">open_kwargs</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">   1873</span>         emit_user_level_warning(
-<span class="ansi-green-fg">   1874</span>             <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">Failed to open Zarr store with consolidated metadata, </span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">   1875</span>             <span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">but successfully read with non-consolidated metadata. </span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">   1885</span>             <span style="font-weight:bold;color:rgb(215,95,95)">RuntimeWarning</span>,
-<span class="ansi-green-fg">   1886</span>         )
-<span class="ansi-green-fg">   1887</span>     <span style="font-weight:bold;color:rgb(0,135,0)">except</span> missing_exc <span style="font-weight:bold;color:rgb(0,135,0)">as</span> err:
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/synchronous.py:549</span>, in <span class="ansi-cyan-fg">open_group</span><span class="ansi-blue-fg">(store, mode, cache_attrs, synchronizer, path, chunk_store, storage_options, zarr_version, zarr_format, meta_array, attributes, use_consolidated)</span>
-<span class="ansi-green-fg">    478</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">open_group</span>(
-<span class="ansi-green-fg">    479</span>     store: StoreLike | <span style="font-weight:bold;color:rgb(0,135,0)">None</span> = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
-<span class="ansi-green-fg">    480</span>     *,
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    491</span>     use_consolidated: <span style="color:rgb(0,135,0)">bool</span> | <span style="color:rgb(0,135,0)">str</span> | <span style="font-weight:bold;color:rgb(0,135,0)">None</span> = <span style="font-weight:bold;color:rgb(0,135,0)">None</span>,
-<span class="ansi-green-fg">    492</span> ) -&gt; Group:
-<span class="ansi-green-fg">    493</span> <span style="color:rgb(188,188,188)">    </span><span style="font-style:italic" class="ansi-yellow-fg">"""Open a group using file-mode-like semantics.</span>
-<span class="ansi-green-fg">    494</span> 
-<span class="ansi-green-fg">    495</span> <span style="font-style:italic" class="ansi-yellow-fg">    Parameters</span>
-<span class="ansi-green-fg">   (...)</span><span class="ansi-green-fg">    546</span> <span style="font-style:italic" class="ansi-yellow-fg">        The new group.</span>
-<span class="ansi-green-fg">    547</span> <span style="font-style:italic" class="ansi-yellow-fg">    """</span>
-<span class="ansi-green-fg">    548</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> Group(
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">549</span>         <span class="ansi-yellow-bg">sync</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    550</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">async_api</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">open_group</span><span class="ansi-yellow-bg">(</span>
-<span class="ansi-green-fg">    551</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    552</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    553</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">cache_attrs</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">cache_attrs</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    554</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">synchronizer</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    555</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">path</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">path</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    556</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">chunk_store</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    557</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">storage_options</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    558</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_version</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    559</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">zarr_format</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    560</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">meta_array</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">meta_array</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    561</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">attributes</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">attributes</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    562</span> <span class="ansi-yellow-bg">                </span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">use_consolidated</span><span class="ansi-yellow-bg">,</span>
-<span class="ansi-green-fg">    563</span> <span class="ansi-yellow-bg">            </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    564</span> <span class="ansi-yellow-bg">        </span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg">    565</span>     )
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:159</span>, in <span class="ansi-cyan-fg">sync</span><span class="ansi-blue-fg">(coro, loop, timeout)</span>
-<span class="ansi-green-fg">    156</span> return_result = <span style="color:rgb(0,135,0)">next</span>(<span style="color:rgb(0,135,0)">iter</span>(finished)).result()
-<span class="ansi-green-fg">    158</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> <span style="color:rgb(0,135,0)">isinstance</span>(return_result, <span style="font-weight:bold;color:rgb(215,95,95)">BaseException</span>):
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">159</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> return_result
-<span class="ansi-green-fg">    160</span> <span style="font-weight:bold;color:rgb(0,135,0)">else</span>:
-<span class="ansi-green-fg">    161</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> return_result
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/core/sync.py:119</span>, in <span class="ansi-cyan-fg">_runner</span><span class="ansi-blue-fg">(coro)</span>
-<span class="ansi-green-fg">    114</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    115</span> <span style="font-style:italic" class="ansi-yellow-fg">Await a coroutine and return the result of running it. If awaiting the coroutine raises an</span>
-<span class="ansi-green-fg">    116</span> <span style="font-style:italic" class="ansi-yellow-fg">exception, the exception will be returned.</span>
-<span class="ansi-green-fg">    117</span> <span style="font-style:italic" class="ansi-yellow-fg">"""</span>
-<span class="ansi-green-fg">    118</span> <span style="font-weight:bold;color:rgb(0,135,0)">try</span>:
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">119</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> coro
-<span class="ansi-green-fg">    120</span> <span style="font-weight:bold;color:rgb(0,135,0)">except</span> <span style="font-weight:bold;color:rgb(215,95,95)">Exception</span> <span style="font-weight:bold;color:rgb(0,135,0)">as</span> ex:
-<span class="ansi-green-fg">    121</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> ex
-
-<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">/opt/conda/lib/python3.12/site-packages/zarr/api/asynchronous.py:881</span>, in <span class="ansi-cyan-fg">open_group</span><span class="ansi-blue-fg">(store, mode, cache_attrs, synchronizer, path, chunk_store, storage_options, zarr_version, zarr_format, meta_array, attributes, use_consolidated)</span>
-<span class="ansi-green-fg">    874</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span style="font-weight:bold;color:rgb(0,135,0)">await</span> AsyncGroup.from_store(
-<span class="ansi-green-fg">    875</span>         store_path,
-<span class="ansi-green-fg">    876</span>         zarr_format=_zarr_format,
-<span class="ansi-green-fg">    877</span>         overwrite=overwrite,
-<span class="ansi-green-fg">    878</span>         attributes=attributes,
-<span class="ansi-green-fg">    879</span>     )
-<span class="ansi-green-fg">    880</span> msg = <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">No group found in store </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>store<span style="font-weight:bold;color:rgb(175,95,135)">!r}</span><span class="ansi-yellow-fg"> at path </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>store_path.path<span style="font-weight:bold;color:rgb(175,95,135)">!r}</span><span class="ansi-yellow-fg">"</span>
-<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">881</span> <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> GroupNotFoundError(msg)
-
-<span class="ansi-red-fg">GroupNotFoundError</span>: No group found in store 'https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202506-s02msil2a/11/products/cpm_v256/S2C_MSIL2A_20250611T101041_N0511_R022_T32TMK_20250611T175918.zarr' at path ''</pre>
-</div>
-</div>
 </div>
 </section>
 <section id="clipping-to-aoi" class="level4">
@@ -2898,20 +2989,6 @@ During handling of the above exception, another exception occurred:
 <span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract row and column indices where the mask is True</span></span>
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>cols, rows <span class="op">=</span> np.where(bbox_mask)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[15]</span><span class="ansi-green-fg">, line 7</span>
-<span class="ansi-green-fg">      4</span> tc_blue = <span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">b02</span><span class="ansi-yellow-fg">'</span>
-<span class="ansi-green-fg">      6</span> <span style="font-style:italic;color:rgb(95,135,135)"># Boolean mask for the 'x' dimension (longitude/easting)</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">7</span> x_mask = (<span class="ansi-yellow-bg">zarr_meas</span>[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">x</span><span class="ansi-yellow-fg">'</span>] &gt;= bbox_utm[<span class="ansi-green-fg">0</span>]) &amp; (zarr_meas[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">x</span><span class="ansi-yellow-fg">'</span>] &lt;= bbox_utm[<span class="ansi-green-fg">2</span>])
-<span class="ansi-green-fg">      8</span> <span style="font-style:italic;color:rgb(95,135,135)"># Boolean mask for the 'y' dimension (latitude/northing)</span>
-<span class="ansi-green-fg">      9</span> y_mask = (zarr_meas[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">y</span><span class="ansi-yellow-fg">'</span>] &gt;= bbox_utm[<span class="ansi-green-fg">1</span>]) &amp; (zarr_meas[<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">y</span><span class="ansi-yellow-fg">'</span>] &lt;= bbox_utm[<span class="ansi-green-fg">3</span>])
-
-<span class="ansi-red-fg">NameError</span>: name 'zarr_meas' is not defined</pre>
-</div>
-</div>
 </div>
 </section>
 <section id="band-selection-normalisation-composite-creation-and-equalisation" class="level4">
@@ -2956,17 +3033,14 @@ During handling of the above exception, another exception occurred:
 <span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>plt.imshow(fire_tc)</span>
 <span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Equalised Composite'</span>) <span class="co"># Add a title for clarity</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[16]</span><span class="ansi-green-fg">, line 2</span>
-<span class="ansi-green-fg">      1</span> <span style="font-style:italic;color:rgb(95,135,135)"># The tc_red, tc_green, and tc_blue variables are inputs specifying the band names</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">2</span> red = <span class="ansi-yellow-bg">zarr_meas</span>[tc_red].where(valid_mask)
-<span class="ansi-green-fg">      3</span> gre =  zarr_meas[tc_green].where(valid_mask)
-<span class="ansi-green-fg">      4</span> blu =  zarr_meas[tc_blue].where(valid_mask)
-
-<span class="ansi-red-fg">NameError</span>: name 'zarr_meas' is not defined</pre>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>Text(0.5, 1.0, 'Equalised Composite')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="62_sardinia_s3_lst_files/figure-html/cell-17-output-2.png" width="552" height="431" class="figure-img"></p>
+</figure>
 </div>
 </div>
 </div>
@@ -2976,58 +3050,38 @@ During handling of the above exception, another exception occurred:
 <h3 class="anchored" data-anchor-id="overlay-sentinel-2-true-color-composite-with-sentinel-3-lst-data">Overlay Sentinel-2 True-Color composite with Sentinel-3 LST data</h3>
 <p>And finally, we can <strong>georeference</strong> and overlay the two datasets, the True-Color composite from Sentinel-2 as well as the Land Surface Temperature information from Sentinel-3.</p>
 <div id="52" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Overlay</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the coordinate reference system (CRS) for latitude/longitude</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>data_ll <span class="op">=</span> ccrs.PlateCarree()</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>data_ll)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the Sentinel-2 true-colour composite (TCI) image</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>img <span class="op">=</span> ax.imshow(fire_tc, origin<span class="op">=</span><span class="st">'upper'</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>                extent<span class="op">=</span>[map_ext_deg[<span class="dv">0</span>],map_ext_deg[<span class="dv">2</span>],map_ext_deg[<span class="dv">1</span>],map_ext_deg[<span class="dv">3</span>]],  <span class="co"># item</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>                transform<span class="op">=</span>data_ll)</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the land surface temperature (LST) data as an overlay</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>im2 <span class="op">=</span> ax.imshow(lstf_clip, origin<span class="op">=</span><span class="st">'upper'</span>,</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>                extent<span class="op">=</span>[np.nanmin(lon_lst), np.nanmax(lon_lst),</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                        np.nanmin(lat_lst), np.nanmax(lat_lst)],</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>                transform<span class="op">=</span>data_ll, <span class="co"># coordinates</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>                cmap<span class="op">=</span>col_map,  norm<span class="op">=</span>norm) <span class="co"># The custom colour map for LST</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>cbar <span class="op">=</span> plt.colorbar(im2,ticks<span class="op">=</span>bounds, shrink<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>cbar.set_label(<span class="st">"Land Surface Temperature (K)"</span>)</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co"># features</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>ax.add_geometries(map_box, crs<span class="op">=</span>data_ll, facecolor<span class="op">=</span><span class="st">'none'</span>, edgecolor<span class="op">=</span><span class="st">'yellow'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>ax.gridlines(draw_labels<span class="op">=</span><span class="va">True</span>, dms<span class="op">=</span><span class="va">True</span>, x_inline<span class="op">=</span><span class="va">False</span>, y_inline<span class="op">=</span><span class="va">False</span>) <span class="co"># Add gridlines and labels</span></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust title and plot parameters for a tight layout</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Sentinel-2 L2A TCI + LST for the </span><span class="sc">{</span>fire_d_s3<span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-error">
-<div class="ansi-escaped-output">
-<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[17]</span><span class="ansi-green-fg">, line 8</span>
-<span class="ansi-green-fg">      6</span> ax = plt.axes(projection=data_ll)
-<span class="ansi-green-fg">      7</span> <span style="font-style:italic;color:rgb(95,135,135)"># Display the Sentinel-2 true-colour composite (TCI) image</span>
-<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">8</span> img = ax.imshow(<span class="ansi-yellow-bg">fire_tc</span>, origin=<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">upper</span><span class="ansi-yellow-fg">'</span>,
-<span class="ansi-green-fg">      9</span>                 extent=[map_ext_deg[<span class="ansi-green-fg">0</span>],map_ext_deg[<span class="ansi-green-fg">2</span>],map_ext_deg[<span class="ansi-green-fg">1</span>],map_ext_deg[<span class="ansi-green-fg">3</span>]],  <span style="font-style:italic;color:rgb(95,135,135)"># item</span>
-<span class="ansi-green-fg">     10</span>                 transform=data_ll)
-<span class="ansi-green-fg">     11</span> <span style="font-style:italic;color:rgb(95,135,135)"># Display the land surface temperature (LST) data as an overlay</span>
-<span class="ansi-green-fg">     12</span> im2 = ax.imshow(lstf_clip, origin=<span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">upper</span><span class="ansi-yellow-fg">'</span>,
-<span class="ansi-green-fg">     13</span>                 extent=[np.nanmin(lon_lst), np.nanmax(lon_lst),
-<span class="ansi-green-fg">     14</span>                         np.nanmin(lat_lst), np.nanmax(lat_lst)],
-<span class="ansi-green-fg">     15</span>                 transform=data_ll, <span style="font-style:italic;color:rgb(95,135,135)"># coordinates</span>
-<span class="ansi-green-fg">     16</span>                 cmap=col_map,  norm=norm) <span style="font-style:italic;color:rgb(95,135,135)"># The custom colour map for LST</span>
-
-<span class="ansi-red-fg">NameError</span>: name 'fire_tc' is not defined</pre>
-</div>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Overlay</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">8</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the coordinate reference system (CRS) for latitude/longitude</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>data_ll <span class="op">=</span> ccrs.PlateCarree()</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.axes(projection<span class="op">=</span>data_ll)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the Sentinel-2 true-colour composite (TCI) image</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>img <span class="op">=</span> ax.imshow(fire_tc, origin<span class="op">=</span><span class="st">'upper'</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                extent<span class="op">=</span>[map_ext_deg[<span class="dv">0</span>],map_ext_deg[<span class="dv">2</span>],map_ext_deg[<span class="dv">1</span>],map_ext_deg[<span class="dv">3</span>]],  <span class="co"># item</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                transform<span class="op">=</span>data_ll)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the land surface temperature (LST) data as an overlay</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>im2 <span class="op">=</span> ax.imshow(lstf_clip, origin<span class="op">=</span><span class="st">'upper'</span>,</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>                extent<span class="op">=</span>[np.nanmin(lon_lst), np.nanmax(lon_lst),</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>                        np.nanmin(lat_lst), np.nanmax(lat_lst)],</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>                transform<span class="op">=</span>data_ll, <span class="co"># coordinates</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>                cmap<span class="op">=</span>col_map,  norm<span class="op">=</span>norm) <span class="co"># The custom colour map for LST</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>cbar <span class="op">=</span> plt.colorbar(im2,ticks<span class="op">=</span>bounds, shrink<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>cbar.set_label(<span class="st">"Land Surface Temperature (K)"</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="co"># features</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>ax.add_geometries(map_box, crs<span class="op">=</span>data_ll, facecolor<span class="op">=</span><span class="st">'none'</span>, edgecolor<span class="op">=</span><span class="st">'yellow'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>ax.gridlines(draw_labels<span class="op">=</span><span class="va">True</span>, dms<span class="op">=</span><span class="va">True</span>, x_inline<span class="op">=</span><span class="va">False</span>, y_inline<span class="op">=</span><span class="va">False</span>) <span class="co"># Add gridlines and labels</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust title and plot parameters for a tight layout</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Sentinel-2 L2A TCI + LST for the </span><span class="sc">{</span>fire_d_s3<span class="sc">}</span><span class="ss">'</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="62_sardinia_s3_lst_files/figure-html/cell-18-output-2.png" width="1061" height="540" class="figure-img"></p>
+<p><img src="62_sardinia_s3_lst_files/figure-html/cell-18-output-1.png" width="1210" height="686" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -3038,13 +3092,13 @@ During handling of the above exception, another exception occurred:
 <section id="calculating-processing-time" class="level3">
 <h3 class="anchored" data-anchor-id="calculating-processing-time">Calculating processing time</h3>
 <div id="55" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>et <span class="op">=</span> time.time()</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>total_t <span class="op">=</span> et <span class="op">-</span> st</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Running Time: '</span>, total_t,<span class="st">' seconds'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>et <span class="op">=</span> time.time()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>total_t <span class="op">=</span> et <span class="op">-</span> st</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Running Time: '</span>, total_t,<span class="st">' seconds'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total Running Time:  4.365678310394287  seconds</code></pre>
+<pre><code>Total Running Time:  23.474175214767456  seconds</code></pre>
 </div>
 </div>
 <p>A significant takeaway from this process is its remarkable speed. The entire workflow, from data access to visualisation, is completed in under two minutes. Here is the key evident advantage of using <code>.zarr</code> encoding for wildfire detection. <br> EOPF enables us to quickly access and combine Sentinel data directly from the cloud without the need to download large volumes of data.</p>
