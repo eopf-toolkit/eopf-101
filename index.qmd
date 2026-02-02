@@ -90,7 +90,7 @@ There are different ways you can get involved and engaged:
 
 <h3> Join the EOPF Toolkit Notebook Competition </h3>
 
-Get ready and participate in the EOPF Toolkit Notebook Competition! The competition will kick-off in October 2025 and run until January 2026. It is your chance to get hands-on with EOPF Zarr products, get expert input and guidance to show the community the great work you can do.
+Get ready and participate in the EOPF Toolkit Notebook Competition! The competition will kick-off in October 2025 and run until March 2026. It is your chance to get hands-on with EOPF Zarr products, get expert input and guidance to show the community the great work you can do.
 
 <h4>How to Participate?</h4>
 
@@ -107,7 +107,7 @@ To get some ideas on how to get started with your development, watch the introdu
 
 <h5>Step 3: Notebook Submission</h5>
 
-Submit your completed Jupyter Notebook via [GitHub](https://github.com/eopf-toolkit/community-notebook-competition/tree/main/submissions) once complete, between 1 November 2025 and 30 January 2026 (23:59 UTC+1). Stay tuned!
+Submit your completed Jupyter Notebook via [GitHub](https://github.com/eopf-toolkit/community-notebook-competition/tree/main/submissions) once complete, between 1 November 2025 and 15 March 2026 (23:59 UTC+1). Stay tuned!
 
 <h5>Judging & Evaluation</h5>
 
@@ -115,7 +115,7 @@ A panel of expert judges will evaluate each submission based on technical soundn
 
 <h5>Awards & Showcase</h5>
 
-The competition culminates in an online awards taking place on 18 February 2026! Winners and highly commended entries will be announced.<br>
+The competition culminates in an online awards taking during April 2026! Winners and highly commended entries will be announced.<br>
 
 The top notebooks will be featured in the **EOPF 101** as new case studies and you will be given the chance to be a co-author of a publication on **EOPF 101**. 
 
