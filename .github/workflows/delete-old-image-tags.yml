@@ -2,6 +2,8 @@ name: Delete old image tags from Harbor
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 9 * * *"
 
 jobs:
   delete-old-tags:
@@ -18,6 +20,7 @@ jobs:
           HARBOR_PROJECT_NAME: eopf-toolkit-python
           VERSION_PATTERN: ^(release-.*|latest|competition)$
           TEST_RETENTION_DAYS: 7
+          DRY_RUN: false
 
       - name: Delete old eopf-toolkit-r image tags from Harbor
         uses: developmentseed/container-registry-cleanup@v0.2.0
@@ -30,3 +33,4 @@ jobs:
           HARBOR_PROJECT_NAME: eopf-toolkit-r
           VERSION_PATTERN: ^(release-.*|latest|competition)$
           TEST_RETENTION_DAYS: 7
+          DRY_RUN: false
