@@ -54,7 +54,6 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          exit 1
           quarto render
         env:
           BUCKET_NAME: ${{ secrets.RENDER_BUCKET_NAME }}
