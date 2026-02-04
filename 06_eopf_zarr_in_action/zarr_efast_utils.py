@@ -5,6 +5,7 @@ import numpy as np
 from pyresample import geometry, kd_tree
 from tqdm import tqdm
 import xarray as xr
+import rioxarray
 
 from zarr_wf_utils import validate_scl
 

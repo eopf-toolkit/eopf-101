@@ -37,9 +37,9 @@ def validate_scl(scl):
     boolean mask for valid pixels
 
     """
-# A list of SCL values to be considered invalid
+    # A list of SCL values to be considered invalid
     invalid = [0, 1, 3, 7, 8, 9]
-# Return a boolean mask where True indicates a valid pixel (i.e., not in the invalid list)
+    # Return a boolean mask where True indicates a valid pixel (i.e., not in the invalid list)
     return ~scl.isin(invalid)
 
 # This variation masks water bodies
@@ -60,9 +60,9 @@ def validate_scl_w(scl):
     boolean mask for valid pixels
 
     """
-# A list of SCL values to be considered invalid
+    # A list of SCL values to be considered invalid
     invalid = [0, 1, 3, 6, 7, 8, 9]
-# Return a boolean mask where True indicates a valid pixel (i.e., not in the invalid list)
+    # Return a boolean mask where True indicates a valid pixel (i.e., not in the invalid list)
     return ~scl.isin(invalid)
 
 
@@ -83,13 +83,13 @@ def mask_sub_utm(zarr_asset, rows, cols):
 
     """
 
-# Calculates the minimum and maximum row and column indices
+    # Calculates the minimum and maximum row and column indices
     row_min, row_max = rows.min(), rows.max()
     col_min, col_max = cols.min(), cols.max()
-# It then subsets the zarr_asset using these indices
+    # It then subsets the zarr_asset using these indices
     masked_asset = zarr_asset.isel(
-    y=slice(row_min, row_max + 1), x=slice(col_min, col_max + 1)
-)
+    y=slice(row_min, row_max + 1), x=slice(col_min, col_max + 1))
+
     return masked_asset
 
 
@@ -156,7 +156,7 @@ def lat_lon_to_utm_box(bot_left,top_right,transformer):
 
 
 
-def zarr_mask_utm ( bounding_box, zarr):
+def zarr_mask_utm(bounding_box, zarr):
 
     """
     This function creates a boolean mask to identify the rows and columns within a Zarr dataset that fall within a specified bounding box, assuming UTM coordinates.
@@ -168,14 +168,14 @@ def zarr_mask_utm ( bounding_box, zarr):
     Returns: 
     boolean mask for utm bbox defined pixels
     """
-# Unpack the bounding box coordinates for clarity
+    # Unpack the bounding box coordinates for clarity
     min_lon, min_lat, max_lon, max_lat = bounding_box
-# Create boolean masks for longitude and latitude dimensions based on the bounding box
+    # Create boolean masks for longitude and latitude dimensions based on the bounding box
     lon_mask = (zarr['x'] >= min_lon) & (zarr['x'] <= max_lon)
     lat_mask = (zarr['y'] >= min_lat) & (zarr['y'] <= max_lat)
-# Combine the individual masks to create a single bounding box mask
+    # Combine the individual masks to create a single bounding box mask
     bbox_mask = lon_mask & lat_mask
-# Find the columns and row indices where the combined mask is True
+    # Find the columns and row indices where the combined mask is True
     cols, rows  = np.where(bbox_mask)
 
     return cols, rows
@@ -194,17 +194,17 @@ def mask_sub_latlon(zarr_asset, rows, cols):
     Returns:
     boolean mask for lat and lon bbox defined pixels
     """
-# Calculates the minimum and maximum row and column indices
+    # Calculates the minimum and maximum row and column indices
     row_min, row_max = rows.min(), rows.max()
     col_min, col_max = cols.min(), cols.max()
-# It then subsets the zarr_asset using these indices
+    # It then subsets the zarr_asset using these indices
     masked_asset = zarr_asset.isel(
-    rows=slice(row_min, row_max + 1), columns=slice(col_min, col_max + 1)
-)
+    rows=slice(row_min, row_max + 1), columns=slice(col_min, col_max + 1))
+
     return masked_asset
 
 
-def zarr_mask_latlon ( bounding_box, zarr):
+def zarr_mask_latlon(bounding_box, zarr):
 
     """
     Allows the creation of a boolean mask to identify the rows and columns within a Zarr dataset that fall within a specified bounding box, assuming latitude and longitude dimensions.
@@ -217,14 +217,14 @@ def zarr_mask_latlon ( bounding_box, zarr):
     Returns:
     boolean mask for lat lon bbox defined pixels 
     """
-# Unpack the bounding box coordinates for clarity
+    # Unpack the bounding box coordinates for clarity
     min_lon, min_lat, max_lon, max_lat = bounding_box
-# Create boolean masks for longitude and latitude dimensions based on the bounding box
+    # Create boolean masks for longitude and latitude dimensions based on the bounding box
     lon_mask = (zarr['longitude'] >= min_lon) & (zarr['longitude'] <= max_lon)
     lat_mask = (zarr['latitude'] >= min_lat) & (zarr['latitude'] <= max_lat)
-# Combine the individual masks to create a single bounding box mask
+    # Combine the individual masks to create a single bounding box mask
     bbox_mask = lon_mask & lat_mask
-# Find the row and column indices where the combined mask is True
+    # Find the row and column indices where the combined mask is True
     cols, rows  = np.where(bbox_mask)
 
     return rows, cols
