@@ -318,3 +318,5 @@ The EOPF STAC Catalog offers a wealth of data beyond Sentinel-2. Replicate the s
 In this tutorial we established a connection to the [EOPF Sentinel Zarr Sample Service STAC Catalog](stac.browser.user.eopf.eodc.eu_) and directly accessed an EOPF Zarr array with `Rarr`. We explored how to review the full Zarr store, read individual arrays, and gave an understanding of Zarr array chunking and dimensions. We also did a simple calculation and visualisation of NDVI using the `stars` package.
 
 ## What's next?
+
+In the following [notebook](./57_rstac_gdalcubes.qmd) we will present a workflow that makes use of  `rstac` and `gdalcubes` in `R` to create a raster data cube and visualize an aggregated RGB plot!
