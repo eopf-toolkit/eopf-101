@@ -431,17 +431,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-we-will-learn" class="level3">
 <h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
 <ul>
-<li><p>Retrieve Sentinel-2 L1C data from the EOPF STAC Catalog</p></li>
-<li><p>Preprocess Sentinel-2 L1C imagery and filter out low-quality scenes</p></li>
-<li><p>Compute the Normalized Difference Water Index (NDWI) to highlight water bodies</p></li>
-<li><p>Apply the GWW algorithm to Sentinel-2 L1C data to generate water masks and fill missing water pixels (e.g., due to clouds or shadows) with auxiliary data</p></li>
-<li><p>Extract the largest connected component and estimate the water surface area</p></li>
-<li><p>Efficiently process large image collections using parallel computing techniques with Dask</p></li>
+<li>How to retrieve Sentinel-2 L1C data from the EOPF STAC Catalog?</li>
+<li>Preprocess Sentinel-2 L1C imagery and filter out low-quality scenes</li>
+<li>Compute the Normalized Difference Water Index (NDWI) to highlight water bodies</li>
+<li>How to apply the GWW algorithm to Sentinel-2 L1C data to generate water masks and fill missing water pixels (e.g., due to clouds or shadows) with auxiliary data?</li>
+<li>To extract the largest connected component and estimate the water surface area</li>
+<li>How to efficiently process large image collections using parallel computing techniques with <strong>Dask</strong>?</li>
 </ul>
 </section>
 <section id="prerequisites" class="level3">
 <h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
-<p>This notebook uses Sentinel-2 L1C reflectance data from the EOPF STAC Catalog and requires a Water Occurrence dataset subset (provided in the <code>data</code> folder).</p>
+<p>This notebook uses Sentinel-2 L1C reflectance data from the EOPF STAC Catalog and requires a Water Occurrence dataset subset (provided <a href="https://github.com/eopf-toolkit/eopf-101/tree/main/06_eopf_zarr_in_action/data">here</a>).</p>
 <hr>
 <section id="import-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
@@ -498,7 +498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client.dashboard_link)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;Client: 'tcp://127.0.0.1:40637' processes=4 threads=8, memory=31.34 GiB&gt;
+<pre><code>&lt;Client: 'tcp://127.0.0.1:45357' processes=4 threads=8, memory=31.34 GiB&gt;
 http://127.0.0.1:8787/status</code></pre>
 </div>
 </div>
