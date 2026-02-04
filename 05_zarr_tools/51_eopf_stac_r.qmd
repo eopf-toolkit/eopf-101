@@ -497,4 +497,4 @@ This tutorial has provided a clear and practical introduction on how you can pro
 
 ## What's next?
 
-In the following [chapter](./52_eopf_stac_qgis.qmd), we will provide a glimpse of the actual status on how to integrate the **Sentinel Products** of the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) in **Qgis**
+In the following [section](./52_eopf_stac_qgis.qmd), we will provide a glimpse of the actual status on how to integrate the **Sentinel Products** of the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) in **Qgis**

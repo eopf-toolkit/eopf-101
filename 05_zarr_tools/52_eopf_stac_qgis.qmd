@@ -132,4 +132,4 @@ This tutorial demonstrated how to integrate and visualise EOPF Zarr items in QGI
 
 ## What's next?
 
-In the following [section](./53_eopf_zarr_r.qmd) we will explore the use of `rstac`, `terra` and `stars` to showcase the calculation of Vegegation Indices with **Sentinel-2 L2A Products** and `R`.
+In the following [notebook](./53_eopf_zarr_r.qmd) we will explore the use of `rstac`, `terra` and `stars` to showcase the calculation of Vegegation Indices with **Sentinel-2 L2A Products** and `R`.
