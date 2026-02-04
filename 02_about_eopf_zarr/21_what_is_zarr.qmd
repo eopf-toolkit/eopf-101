@@ -88,4 +88,4 @@ The EOPF Zarr structure allows for efficient access to individual bands or speci
 
 ## What's next?
 
-Now that you have a theoretical grasp of the **Zarr** format, the next section [Discover EOPF Zarr - Sentinel-1 GRD](./22_zarr_structure_S1GRD.ipynb) will provide a first hands-on experience opening an EOPF Zarr product. We will transition to our first **Jupyter Notebook** where you will directly interact with a Zarr store.
+Now that you have a theoretical grasp of the **Zarr** format, the next notebook [Discover EOPF Zarr - Sentinel-1 GRD](./22_zarr_structure_S1GRD.ipynb) will provide a first hands-on experience opening an EOPF Zarr product. We will transition to our first **Jupyter Notebook** where you will directly interact with a Zarr store.

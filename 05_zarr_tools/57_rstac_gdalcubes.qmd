@@ -246,3 +246,5 @@ plot(ndvi_change, main = "NDVI Change April 2025 - June 2025")
 
 ## Conclusion
 In this notebook, we have demonstrated how to create a raster data cube from STAC items of the EOPF Sentinel Zarr Samples Service using the `rstac` and `gdalcubes` packages in R. We retrieved Sentinel-2 images for a specified area and time range, created an image collection from these items, and then constructed a raster cube with a defined spatio-temporal geometry. We visualized an RGB composite and computed the NDVI for the area of interest. We have seen that currently some manual adjustments are necessary to work with the EOPF Sentinel Zarr Samples Service using `gdalcubes`, but this will be streamlined in future releases of the package.
+
+In the following [chapter](./../06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb) we will present several **end-to-end** workflows, where we will showcase the application of the available **Sentinel Products** in the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).

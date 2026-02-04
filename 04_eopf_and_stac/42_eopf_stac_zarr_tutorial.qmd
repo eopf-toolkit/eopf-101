@@ -127,4 +127,4 @@ This section walked you through the web interface of the [EOPF Sentinel Zarr Sam
 By understanding the structure and components of a STAC catalog, we are able to efficiently access re-engineered EOPF Zarr assets.
 
 ## What's next?
-In the next [section](./43_eopf_stac_connection.ipynb), we will explore how to programmatically connect to and search through the EOPF Sentinel Zarr Samples Service STAC API with the help of the `pystac` and the `pystac-client` Python libraries.
+In the following [notebook](./43_eopf_stac_connection.ipynb), we will explore how to programmatically connect to and search through the EOPF Sentinel Zarr Samples Service STAC API with the help of the `pystac` and the `pystac-client` Python libraries.
