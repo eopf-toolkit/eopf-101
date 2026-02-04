@@ -21,9 +21,9 @@ It's likely the next `Publish` will fail unless these are fixed.
 
 
 if __name__ == "__main__":
-    token = os.env["SLACKBOT_TOKEN"]
-    slack_channel = os.env["SLACKBOT_CHANNEL"]
-    run_url = os.env["RUN_URL"]
+    token = os.environ["SLACKBOT_TOKEN"]
+    slack_channel = os.environ["SLACKBOT_CHANNEL"]
+    run_url = os.environ["RUN_URL"]
     session = Session()
     session.headers.update({"Authorization": f"Bearer {token}"})
     post_alert_to_slack(session=session, slack_channel=slack_channel, run_url=run_url)
