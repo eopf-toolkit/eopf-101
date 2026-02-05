@@ -1,4 +1,4 @@
-name: Build and update JupyterHub Notebook images on pyproject.toml or deployment changes
+name: Build and update JupyterHub Notebook images on pyproject.toml, uv.lock, or deployment changes
 
 on:
   push:
@@ -6,7 +6,10 @@ on:
       - main
     paths:
       - 'pyproject.toml'
-      - 'deployment/**'
+      - 'uv.lock'
+      - 'deployment/Dockerfile_python'
+      - 'deployment/Dockerfile_r'
+      - 'deployment/environment.yaml'
 
 jobs:
   build-and-deploy:
