@@ -50,6 +50,7 @@ book:
         # - 05_zarr_tools/54_zarr_R_rarr.qmd
         # - 05_zarr_tools/55_zarr_R_gdal.qmd
         # - 05_zarr_tools/56_titiler.qmd
+        - 05_zarr_tools/57_rstac_gdalcubes.qmd
     - part: "**EOPF Zarr in Action**"
       chapters:
         - 06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb
@@ -64,14 +65,16 @@ book:
         # - 06_eopf_zarr_in_action/69_
     - glossary.qmd
     - references.qmd
+
+execute:
+  eval: true
+  timeout: 300
+  error: false
+  warning: false
+
 format:
   html:
     number-sections: false
-    execute:
-      eval: true
-      timeout: 300
-      error: true
-      warning: false
     theme:
       - cosmo
       - brand

@@ -39,7 +39,8 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
 * **Chapter 5 - Tools to work with EOPF Zarr** -- *more coming soon!*
   * [Access the EOPF Zarr STAC API with R](./05_zarr_tools/51_eopf_stac_r.qmd)
   * [Access the EOPF Zarr STAC API with QGIS](./05_zarr_tools/52_eopf_stac_qgis.qmd)
-  * [Access and analyse EOPF STAC Zarr data with R](./05_zarr_tools/53/eopf_zarr_r.qmd)
+  * [Access and analyse EOPF STAC Zarr data with R](./05_zarr_tools/53_eopf_zarr_r.ipynb)
+  <!-- * [Raster cube with rstac](./05_eopf_zarr_in_action/57_rstac_gdalcubes.qmd) -->
 
 * **Chapter 6 - EOPF Zarr in Action**
   * [Fire in Sardinia 2025 - Part 1](./06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb)
@@ -48,6 +49,7 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
   * [Flood Mapping - Time Series Analysis in Valencia](./06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb)
   * [Zarr Overviews - Part 1](./06_eopf_zarr_in_action/65_create_overviews.ipynb)
   * [Zarr Overviews - Part 2](./06_eopf_zarr_in_action/66_use_overviews.ipynb)
+  * [Reservoir Surface Monitoring](./06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb)
 
 
 <h2>💡 How best to use EOPF 101 </h2>
@@ -88,7 +90,7 @@ There are different ways you can get involved and engaged:
 
 <h3> Join the EOPF Toolkit Notebook Competition </h3>
 
-Get ready and participate in the EOPF Toolkit Notebook Competition! The competition will kick-off in October 2025 and run until January 2026. It is your chance to get hands-on with EOPF Zarr products, get expert input and guidance to show the community the great work you can do.
+Get ready and participate in the EOPF Toolkit Notebook Competition! The competition will kick-off in October 2025 and run until March 2026. It is your chance to get hands-on with EOPF Zarr products, get expert input and guidance to show the community the great work you can do.
 
 <h4>How to Participate?</h4>
 
@@ -105,7 +107,7 @@ To get some ideas on how to get started with your development, watch the introdu
 
 <h5>Step 3: Notebook Submission</h5>
 
-Submit your completed Jupyter Notebook via [GitHub](https://github.com/eopf-toolkit/community-notebook-competition/tree/main/submissions) once complete, between 1 November 2025 and 30 January 2026 (23:59 UTC+1). Stay tuned!
+Submit your completed Jupyter Notebook via [GitHub](https://github.com/eopf-toolkit/community-notebook-competition/tree/main/submissions) once complete, between 1 November 2025 and 15 March 2026 (23:59 UTC+1). Stay tuned!
 
 <h5>Judging & Evaluation</h5>
 
@@ -113,7 +115,7 @@ A panel of expert judges will evaluate each submission based on technical soundn
 
 <h5>Awards & Showcase</h5>
 
-The competition culminates in an online awards taking place on 18 February 2026! Winners and highly commended entries will be announced.<br>
+The competition culminates in an online awards taking during April 2026! Winners and highly commended entries will be announced.<br>
 
 The top notebooks will be featured in the **EOPF 101** as new case studies and you will be given the chance to be a co-author of a publication on **EOPF 101**. 
 
