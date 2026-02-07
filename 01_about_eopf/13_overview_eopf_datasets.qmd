@@ -31,7 +31,7 @@ Sentinel-1 is a radar imaging mission that is composed of a constellation of two
 | Product | Instrument | Description | Available at |
 |:---------|:---------|:---------|:---------|
 | Level-1 GRD| Ground Range Detected | The Sentinel-1 Level-1 GRD products consist of focused SAR data that has been detected, multi-looked and projected to ground range using the Earth ellipsoid model WGS84. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-grd?.language=en) |
-| Level-1 SLC | Single Look Complex ( | The Sentinel-1 Level-1 SLC products consist of focused SAR data, geo-referenced using orbit and attitude data from the satellite, and provided in slant-range geometry. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-slc?.language=en) |
+| Level-1 SLC | Single Look Complex | The Sentinel-1 Level-1 SLC products consist of focused SAR data, geo-referenced using orbit and attitude data from the satellite, and provided in slant-range geometry. | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l1-slc?.language=en) |
 | Level-2 OCN | Ocean | The Sentinel-1 Level-2 OCN products for wind, wave and currents applications may contain the following geophysical components derived from the SAR data: Ocean Wind field (OWI), Ocean Swell spectra (OSW), Surface Radial Velocity (RVL). | [this link](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l2-ocn?.language=en) |
 
 
@@ -70,4 +70,4 @@ In this section, we provide an overview of the available **Sentinel Missions** t
 
 
 ## What's next?
-In the following [chapter](/02_about_eopf_zarr/21_what_is_zarr.qmd), we will dive deep into `EOPF Zarr` format and understand why it can provide an optimal and efficient application.
+In the following [chapter](./../02_about_eopf_zarr/21_what_is_zarr.qmd), we will dive deep into `EOPF Zarr` format and understand why it can provide an optimal and efficient application.
