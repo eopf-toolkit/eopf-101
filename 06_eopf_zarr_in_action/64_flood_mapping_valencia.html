@@ -384,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#assigning-latitude-and-longitude-coordinates" id="toc-assigning-latitude-and-longitude-coordinates" class="nav-link" data-scroll-target="#assigning-latitude-and-longitude-coordinates">Assigning latitude and longitude coordinates</a></li>
   <li><a href="#computing-backscatter" id="toc-computing-backscatter" class="nav-link" data-scroll-target="#computing-backscatter">Computing backscatter</a></li>
   <li><a href="#create-a-datacube-to-prepare-for-time-series-analysis" id="toc-create-a-datacube-to-prepare-for-time-series-analysis" class="nav-link" data-scroll-target="#create-a-datacube-to-prepare-for-time-series-analysis">Create a datacube to prepare for time series analysis</a></li>
-  <li><a href="#coordinate-alignment" id="toc-coordinate-alignment" class="nav-link" data-scroll-target="#coordinate-alignment">Coordinate alignment</a></li>
+  <li><a href="#geocoding-onto-regular-grid" id="toc-geocoding-onto-regular-grid" class="nav-link" data-scroll-target="#geocoding-onto-regular-grid">Geocoding onto regular grid</a></li>
   </ul></li>
   <li><a href="#flood-mapping-and-time-series-analysis" id="toc-flood-mapping-and-time-series-analysis" class="nav-link" data-scroll-target="#flood-mapping-and-time-series-analysis">Flood mapping and time series analysis</a>
   <ul class="collapse">
@@ -449,9 +449,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> plt</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask                             <span class="co"># these last two libraries are imported to open the datasets faster</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.distributed <span class="im">import</span> Client     <span class="co"># and in the end take advantage of the optimized .zarr format</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.interpolate <span class="im">import</span> griddata</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask                             <span class="co"># these last two libraries are imported to open the datasets faster</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.distributed <span class="im">import</span> Client     <span class="co"># and in the end take advantage of the optimized .zarr format</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <hr>
 </section>
@@ -513,12 +514,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of scenes we are working with for the time series analysis</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>DATASET_NUMBER <span class="op">=</span> <span class="bu">len</span>(datatrees) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>If we run the following commented out code line we will be able to see how each datatree is organized within its groups and subgroups (as explained in this <a href="../02_about_eopf_zarr/22_zarr_structure_S1GRD.html">section</a>). From this datatree, we took the groups and subgroups constant <code>ID</code> numbers used to open specific grouos and variables such as: - Measurements group = 7 so, in order to open this group, on the first element of our list of scenes, over the first polarization <code>VV</code>, we do <code>datatrees[0][datatrees[0].groups[7]]</code> - Calibration group = 33 so, in order to open this group, on the first element of our list of scenes, over the first polarization <code>VV</code>, we do <code>datatrees[0][datatrees[0].groups[33]]</code></p>
+<p>If we run the following commented out code line we will be able to see how each datatree is organized within its groups and subgroups (as explained in this <a href="../02_about_eopf_zarr/22_zarr_structure_S1GRD.html">section</a>). From this datatree, we took the groups and subgroups constant <code>ID</code> numbers used to open specific groups and variables such as: - Measurements group = 7 so, in order to open this group, on the first element of our list of scenes, over the first polarization <code>VV</code>, we do <code>datatrees[0][datatrees[0].groups[7]]</code> - GCP group = 28 so, in order to open this group, on the first element of our list of scenes, over the first polarization <code>VV</code>, we do <code>datatrees[0][datatrees[0].groups[28]]</code> - Calibration group = 33 so, in order to open this group, on the first element of our list of scenes, over the first polarization <code>VV</code>, we do <code>datatrees[0][datatrees[0].groups[33]]</code></p>
 <p>Over the course of this notebook these <code>IDs</code> will be used to call variables and compute some other functions.</p>
 <div id="24" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Opening the measurements group from the datatree</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>datatrees[<span class="dv">0</span>][datatrees[<span class="dv">0</span>].groups[<span class="dv">7</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># datatrees[0].groups</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="25" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Opening the measurements group from the datatree</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>datatrees[<span class="dv">0</span>][datatrees[<span class="dv">0</span>].groups[<span class="dv">7</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -1070,10 +1074,10 @@ Group: /S01SIWGRD_20241007T180256_0025_A320_D46B_06D943_VV/measurements
       * ground_range  (ground_range) float64 208kB 0.0 10.0 ... 2.606e+05 2.606e+05
         pixel         (ground_range) int64 208kB dask.array&lt;chunksize=(26061,), meta=np.ndarray&gt;
     Data variables:
-        grd           (azimuth_time, ground_range) uint16 869MB dask.array&lt;chunksize=(4096, 8192), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataTree</div><div class="xr-obj-name">'measurements'</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-aff532ad-335f-462d-9bcd-1f020a110e1f" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-aff532ad-335f-462d-9bcd-1f020a110e1f" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 16677</li><li><span class="xr-has-index">ground_range</span>: 26061</li></ul></div></li><li class="xr-section-item"><input id="section-4d7c0756-5a25-4fd6-976a-f20ddbf7667d" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-4d7c0756-5a25-4fd6-976a-f20ddbf7667d" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2024-10-07T18:02:56.455660 ... 2...</div><input id="attrs-77c00015-f8db-49e4-b3e3-271020257905" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-77c00015-f8db-49e4-b3e3-271020257905" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f9fb22ab-c294-48b8-8658-815183df504c" class="xr-var-data-in" type="checkbox"><label for="data-f9fb22ab-c294-48b8-8658-815183df504c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-10-07T18:02:56.455660000', '2024-10-07T18:02:56.457159057',
+        grd           (azimuth_time, ground_range) uint16 869MB dask.array&lt;chunksize=(4096, 8192), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataTree</div><div class="xr-obj-name">'measurements'</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-67c1db1e-74f2-4d89-9019-76a40bcd956e" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-67c1db1e-74f2-4d89-9019-76a40bcd956e" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">azimuth_time</span>: 16677</li><li><span class="xr-has-index">ground_range</span>: 26061</li></ul></div></li><li class="xr-section-item"><input id="section-d18d9102-c262-485a-9819-7ead3b8c911f" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d18d9102-c262-485a-9819-7ead3b8c911f" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2024-10-07T18:02:56.455660 ... 2...</div><input id="attrs-9a1dd510-0aef-4bd8-8a74-0c00275fccff" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-9a1dd510-0aef-4bd8-8a74-0c00275fccff" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6cf37d15-1b12-48d0-9f32-eea2af3b4ce1" class="xr-var-data-in" type="checkbox"><label for="data-6cf37d15-1b12-48d0-9f32-eea2af3b4ce1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-10-07T18:02:56.455660000', '2024-10-07T18:02:56.457159057',
        '2024-10-07T18:02:56.458658115', ..., '2024-10-07T18:03:21.450952884',
        '2024-10-07T18:03:21.452451942', '2024-10-07T18:03:21.453951000'],
-      shape=(16677,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(16677,), meta=np.ndarray&gt;</div><input id="attrs-9a48ae6b-36d0-4f58-832f-c342120969d6" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-9a48ae6b-36d0-4f58-832f-c342120969d6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ba1c4d2a-95ae-425b-96a8-adf0dca2c5f7" class="xr-var-data-in" type="checkbox"><label for="data-ba1c4d2a-95ae-425b-96a8-adf0dca2c5f7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+      shape=(16677,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(16677,), meta=np.ndarray&gt;</div><input id="attrs-b7da2233-efe3-4352-a681-886794947649" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b7da2233-efe3-4352-a681-886794947649" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-978b57b8-3fc4-4356-a15d-a68561a170b4" class="xr-var-data-in" type="checkbox"><label for="data-978b57b8-3fc4-4356-a15d-a68561a170b4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1116,8 +1120,8 @@ Group: /S01SIWGRD_20241007T180256_0025_A320_D46B_06D943_VV/measurements
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 10.0 ... 2.606e+05 2.606e+05</div><input id="attrs-baa20af0-e20d-492c-8929-b5cd653bdeed" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-baa20af0-e20d-492c-8929-b5cd653bdeed" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b791eaf4-cae2-4892-9461-0ddfcc9e96e7" class="xr-var-data-in" type="checkbox"><label for="data-b791eaf4-cae2-4892-9461-0ddfcc9e96e7" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([0.0000e+00, 1.0000e+01, 2.0000e+01, ..., 2.6058e+05, 2.6059e+05,
-       2.6060e+05], shape=(26061,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(26061,), meta=np.ndarray&gt;</div><input id="attrs-6055ab94-0377-4128-b1b0-18dcfc50ff70" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-6055ab94-0377-4128-b1b0-18dcfc50ff70" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-28289ce7-806f-4c86-a32b-6e50a1175d84" class="xr-var-data-in" type="checkbox"><label for="data-28289ce7-806f-4c86-a32b-6e50a1175d84" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">0.0 10.0 ... 2.606e+05 2.606e+05</div><input id="attrs-c29b97b1-efa7-4b62-b9b4-281307429531" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-c29b97b1-efa7-4b62-b9b4-281307429531" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a3389aa4-a77b-4c7a-aea6-dc17aff19507" class="xr-var-data-in" type="checkbox"><label for="data-a3389aa4-a77b-4c7a-aea6-dc17aff19507" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([0.0000e+00, 1.0000e+01, 2.0000e+01, ..., 2.6058e+05, 2.6059e+05,
+       2.6060e+05], shape=(26061,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(26061,), meta=np.ndarray&gt;</div><input id="attrs-8285c028-eaf5-4713-8a42-85f2c4e8228b" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-8285c028-eaf5-4713-8a42-85f2c4e8228b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b8f0ed79-1863-43fb-a2e8-fb44e1869b45" class="xr-var-data-in" type="checkbox"><label for="data-b8f0ed79-1863-43fb-a2e8-fb44e1869b45" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1160,7 +1164,7 @@ Group: /S01SIWGRD_20241007T180256_0025_A320_D46B_06D943_VV/measurements
 </tr>
 </tbody>
 </table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-0bdd36e7-b6d6-4bab-b174-9fe347028ddd" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-0bdd36e7-b6d6-4bab-b174-9fe347028ddd" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>grd</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(4096, 8192), meta=np.ndarray&gt;</div><input id="attrs-b2173d5a-be70-4f35-bf91-432d4380cf91" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b2173d5a-be70-4f35-bf91-432d4380cf91" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7c167b9c-cb55-4d56-b8b1-269567cbe4ef" class="xr-var-data-in" type="checkbox"><label for="data-7c167b9c-cb55-4d56-b8b1-269567cbe4ef" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;u2', 'long_name': 'measurement data set for GRD IW'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>measurement data set for GRD IW</dd></dl></div><div class="xr-var-data">
+</div></li></ul></div></li><li class="xr-section-item"><input id="section-46cb8fa1-d7c2-4f4c-bd0c-f061ef93cad3" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-46cb8fa1-d7c2-4f4c-bd0c-f061ef93cad3" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>grd</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">uint16</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(4096, 8192), meta=np.ndarray&gt;</div><input id="attrs-f8ebec61-f3cd-441f-88a7-dd6081182e23" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f8ebec61-f3cd-441f-88a7-dd6081182e23" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3f63e433-702e-4194-9816-9d13d92cfb58" class="xr-var-data-in" type="checkbox"><label for="data-3f63e433-702e-4194-9816-9d13d92cfb58" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;u2', 'long_name': 'measurement data set for GRD IW'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>measurement data set for GRD IW</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -1206,21 +1210,24 @@ Group: /S01SIWGRD_20241007T180256_0025_A320_D46B_06D943_VV/measurements
 </div></li></ul></div></li></ul></div></div>
 </div>
 </div>
-<div id="25" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Some other important constant ID numbers </span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>MEASUREMENTS_GROUP_ID <span class="op">=</span> <span class="dv">7</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>GCP_GROUP_ID <span class="op">=</span> <span class="dv">28</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>CALIBRATION_GROUP_ID <span class="op">=</span> <span class="dv">33</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="26" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Some other important constant ID numbers </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>MEASUREMENTS_GROUP_ID <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>GCP_GROUP_ID <span class="op">=</span> <span class="dv">28</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>CALIBRATION_GROUP_ID <span class="op">=</span> <span class="dv">33</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We now define the thresholds that will be used for the flood mapping analysis. These values are not fixed and they can be calibrated and adjusted to achieve a better fit for different regions or flood events.<br></p>
 <p>In SAR imagery, open water surfaces typically appear very dark because they reflect the radar signal away from the sensor. This results in low backscatter values. In our case, pixels with a backscatter lower than approximately –15 dB are likely to correspond to water.</p>
-<div id="27" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>WATER_THRESHOLD_DB <span class="op">=</span> <span class="op">-</span><span class="dv">15</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="28" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>WATER_THRESHOLD_DB <span class="op">=</span> <span class="op">-</span><span class="dv">15</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>It is interesting to study the flood event over a specific point within the area of interest.<br> Therefore, we are storing the coordinates of an anchor point inside the area which is not usually covered by water. After the heavy rain, it became flooded for a few weeks.</p>
-<div id="29" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>TARGET_LAT <span class="op">=</span> <span class="fl">39.28</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>TARGET_LONG <span class="op">=</span> <span class="op">-</span><span class="fl">0.30</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>It is interesting to study the flood event over a specific point within the area of interest.<br> Therefore, we are storing the coordinates of an anchor point inside the area which is not usually covered by water. After the heavy rain, it became flooded for a few weeks - this will be the point in which we study the evolution of the flood event.</p>
+<div id="30" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>TARGET_LAT <span class="op">=</span> <span class="fl">39.28</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>TARGET_LONG <span class="op">=</span> <span class="op">-</span><span class="fl">0.30</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define bounding box for Valencia area (min_lon, min_lat, max_lon, max_lat)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>bbox <span class="op">=</span> [<span class="op">-</span><span class="fl">0.45</span>, <span class="fl">39.15</span>, <span class="op">-</span><span class="fl">0.15</span>, <span class="fl">39.40</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -1228,77 +1235,125 @@ Group: /S01SIWGRD_20241007T180256_0025_A320_D46B_06D943_VV/measurements
 <h2 class="anchored" data-anchor-id="extracting-information-from-the-.zarr">Extracting information from the <code>.zarr</code></h2>
 <p>As explained in the <a href="23_S1_basic_operations.ipynb">S1 basic operations tutorial</a>, we will perform over all the selected data the following operations:</p>
 <ul>
-<li>Slicing the data to meet our area of interest and decimate it</li>
 <li>Assigning latitude and longitude coordinates to the dataset</li>
 <li>Computing the backscatter</li>
 </ul>
+<p>Also, we’ll slice the data to meet our area of interest and decimate it!</p>
 <section id="slicing-and-decimating-grd-variable" class="level3">
 <h3 class="anchored" data-anchor-id="slicing-and-decimating-grd-variable">Slicing and decimating GRD variable</h3>
 <p>To begin with, we access all our <code>.zarr</code> items <code>measurements</code> groups by creating a list storing all of them.</p>
-<div id="34" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>measurements <span class="op">=</span> []</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the measurements list with only the measurements groups of each dataset on the datatree list</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    measurements.append(datatrees[i][datatrees[i].groups[MEASUREMENTS_GROUP_ID]].to_dataset())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="35" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>measurements <span class="op">=</span> []</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the measurements list with only the measurements groups of each dataset on the datatree list</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    measurements.append(datatrees[i][datatrees[i].groups[MEASUREMENTS_GROUP_ID]].to_dataset())</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Execute it and store it in variable, instead of being lazy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>We continue by decimating <code>grd</code>’s data. As we are only interested into a specific area (Valencia).</p>
-<p>Because we haven’t assigned latitude and longitude coordinates yet, we can not crop the data acording to coordinates. On top of this, even though different products have the same shape and dimensions (<code>azimuth_time</code> and <code>ground_range</code>), the values for the same indexes number don’t match so either ways, it wouldn’t be doable to slice the data acording to coordinate values (which would always be different for different products).</p>
-<div id="36" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the first decimated GRD product from our list, corresponding to the whole scene</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>measurements[<span class="dv">0</span>].grd.isel(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        azimuth_time<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">20</span>),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        ground_range<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">20</span>)).plot(vmax<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We continue by slicing <code>grd</code>’s data to focus on a specific area (Valencia).</p>
+<p>To properly slice the data for multiple products that will be combined into a time series, we need to use Ground Control Points (GCPs) to create a spatial mask based on latitude and longitude coordinates. This ensures that pixels across different acquisition dates correspond to the same ground locations. This is essential and speciallly necessary for accurate time series analysis since we’ll need to stack the scenes on top of one another.</p>
+<div id="37" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the first decimated GRD product from our list, corresponding to the whole scene</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>measurements[<span class="dv">0</span>].grd.isel(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        azimuth_time<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">20</span>),</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        ground_range<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">20</span>)).plot(vmax<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="64_flood_mapping_valencia_files/figure-html/cell-12-output-1.png" width="636" height="429" class="figure-img"></p>
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-13-output-1.png" width="636" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="37" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Azimuth time has"</span>, measurements[<span class="dv">0</span>].grd.shape[<span class="dv">0</span>], <span class="st">"values."</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ground range has"</span>, measurements[<span class="dv">0</span>].grd.shape[<span class="dv">1</span>], <span class="st">"values."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="38" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Azimuth time has"</span>, measurements[<span class="dv">0</span>].grd.shape[<span class="dv">0</span>], <span class="st">"values."</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Ground range has"</span>, measurements[<span class="dv">0</span>].grd.shape[<span class="dv">1</span>], <span class="st">"values."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Azimuth time has 16677 values.
 Ground range has 26061 values.</code></pre>
 </div>
 </div>
-<p>The solution found is to slice the data by the coordinates index positon using <code>isel()</code> function. Just before, a rought plotting was done in order to visualize the whole image. it was also plotted the <code>azimuth_time</code> and <code>ground_range</code> shape. Considering the are we are interested, and after a few tests and direct proportion calculations, we see that we need: - for <code>azimuth_time</code>, more or less from the last 10000 positions to the last 4500; - for <code>ground_range</code>, more or less from the last 7000 positions to the last 2000;</p>
-<div id="39" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>grd <span class="op">=</span> []</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the grd list with only the grd subgroups of each dataset on the </span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># datatree list while simultaneaously slicing the data to match our AOI and decimating it</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    grd_group <span class="op">=</span> measurements[i].grd</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    azimuth_time_len <span class="op">=</span> grd_group.sizes[<span class="st">'azimuth_time'</span>]</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    ground_range_len <span class="op">=</span> grd_group.sizes[<span class="st">'ground_range'</span>]</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    grd.append(grd_group.isel(</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        azimuth_time<span class="op">=</span><span class="bu">slice</span>((azimuth_time_len <span class="op">-</span> <span class="dv">10000</span>),    <span class="co"># beginning of the slice</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>                           (azimuth_time_len <span class="op">-</span> <span class="dv">4500</span>),     <span class="co"># end of the slice</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>                           <span class="dv">10</span>),                           <span class="co"># interval of the slice/decimation</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        ground_range<span class="op">=</span><span class="bu">slice</span>((ground_range_len <span class="op">-</span> <span class="dv">7000</span>), </span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                           (ground_range_len <span class="op">-</span> <span class="dv">2000</span>), </span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>                           <span class="dv">10</span>)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<p>We use GCPs to create a spatial mask based on our bounding box, then use that mask to find the corresponding slice in SAR geometry (azimuth_time and ground_range). This approach ensures that each pixel represents the same ground location across different products, which is crucial for time series analysis.</p>
 <div id="40" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>grd[<span class="dv">1</span>].shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>(550, 500)</code></pre>
-</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>grd <span class="op">=</span> []</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>gcp <span class="op">=</span> []</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the grd list with GCP-based spatial slicing</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load GCPs first</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    gcps <span class="op">=</span> datatrees[i][datatrees[i].groups[GCP_GROUP_ID]].to_dataset()[[<span class="st">"latitude"</span>, <span class="st">"longitude"</span>]]</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create spatial mask based on bounding box</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    mask <span class="op">=</span> (</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        (gcps.latitude <span class="op">&lt;</span> bbox[<span class="dv">3</span>]) <span class="op">&amp;</span> (gcps.latitude <span class="op">&gt;</span> bbox[<span class="dv">1</span>]) <span class="op">&amp;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        (gcps.longitude <span class="op">&lt;</span> bbox[<span class="dv">2</span>]) <span class="op">&amp;</span> (gcps.longitude <span class="op">&gt;</span> bbox[<span class="dv">0</span>])</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find indices where mask is True</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> np.where(mask <span class="op">==</span> <span class="dv">1</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">len</span>(idx[<span class="dv">0</span>]) <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> <span class="bu">len</span>(idx[<span class="dv">1</span>]) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">continue</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Build slice with offset to ensure we capture the full area</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    offset <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    i0 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">min</span>(idx[<span class="dv">0</span>]))</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    i1 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">max</span>(idx[<span class="dv">0</span>]))</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>    j0 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">min</span>(idx[<span class="dv">1</span>]))</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>    j1 <span class="op">=</span> <span class="bu">int</span>(<span class="bu">max</span>(idx[<span class="dv">1</span>]))</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    azimuth_time_slice <span class="op">=</span> <span class="bu">slice</span>(<span class="bu">max</span>(<span class="dv">0</span>, i0 <span class="op">-</span> offset), <span class="bu">min</span>(mask.shape[<span class="dv">0</span>], i1 <span class="op">+</span> offset <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    ground_range_slice <span class="op">=</span> <span class="bu">slice</span>(<span class="bu">max</span>(<span class="dv">0</span>, j0 <span class="op">-</span> offset), <span class="bu">min</span>(mask.shape[<span class="dv">1</span>], j1 <span class="op">+</span> offset <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Slice GCPs</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    gcps_crop <span class="op">=</span> gcps.isel(</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>        azimuth_time<span class="op">=</span>azimuth_time_slice,</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>        ground_range<span class="op">=</span>ground_range_slice</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get min/max values from sliced GCPs for SAR geometry slicing</span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>    azimuth_time_min <span class="op">=</span> gcps_crop.azimuth_time.<span class="bu">min</span>().values</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    azimuth_time_max <span class="op">=</span> gcps_crop.azimuth_time.<span class="bu">max</span>().values</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>    ground_range_min <span class="op">=</span> gcps_crop.ground_range.<span class="bu">min</span>().values</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>    ground_range_max <span class="op">=</span> gcps_crop.ground_range.<span class="bu">max</span>().values</span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Slice GRD data using SAR geometry coordinates</span></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>    grd_crop <span class="op">=</span> measurements[i].grd.sel(</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>        azimuth_time<span class="op">=</span><span class="bu">slice</span>(azimuth_time_min, azimuth_time_max),</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>        ground_range<span class="op">=</span><span class="bu">slice</span>(ground_range_min, ground_range_max)</span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Decimate if needed (step=10 for faster processing)</span></span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>    grd_crop <span class="op">=</span> grd_crop.isel(</span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>        azimuth_time<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">10</span>),</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>        ground_range<span class="op">=</span><span class="bu">slice</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">10</span>)</span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Interpolate GCPs to match the sliced and decimated GRD</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>    gcps_crop_interp <span class="op">=</span> gcps_crop.interp_like(grd_crop)</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create final mask on interpolated coordinates</span></span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>    mask_2 <span class="op">=</span> (</span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>        (gcps_crop_interp.latitude <span class="op">&lt;</span> bbox[<span class="dv">3</span>]) <span class="op">&amp;</span> (gcps_crop_interp.latitude <span class="op">&gt;</span> bbox[<span class="dv">1</span>]) <span class="op">&amp;</span></span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a>        (gcps_crop_interp.longitude <span class="op">&lt;</span> bbox[<span class="dv">2</span>]) <span class="op">&amp;</span> (gcps_crop_interp.longitude <span class="op">&gt;</span> bbox[<span class="dv">0</span>])</span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Apply mask and drop masked values</span></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>    grd_crop <span class="op">=</span> grd_crop.where(mask_2.compute(), drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>    <span class="co"># We load all the variables already because we will use them in lots of future computations</span></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>    grd.append(grd_crop.load())</span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>    gcp.append(gcps_crop_interp.load())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="41" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the second sliced and decimated GRD product from our list </span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>grd[<span class="dv">1</span>].plot(vmax<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Sliced GRD product for the area of interest"</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the first sliced and decimated GRD product from our list </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>grd[<span class="dv">0</span>].plot(vmax<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Sliced GRD product for the area of interest"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="64_flood_mapping_valencia_files/figure-html/cell-16-output-1.png" width="636" height="449" class="figure-img"></p>
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-16-output-1.png" width="669" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1309,28 +1364,21 @@ Ground range has 26061 values.</code></pre>
 <p>We will execute the following step to assign latitude and longitude coordinates to our datasets: 1. Creating a <code>gcp</code> dataset interpolated with the <code>grd</code> dataset; 2. Assigning the latitude and longitude coordinates to the <code>grd</code> dataset;</p>
 <p>These steps are very important because we are computing a georeferenced image, which allows direct comparison with other spatial datasets. Until now, the image coordinates were expressed in <code>azimuth_time</code> and <code>ground_range</code>, which makes sense in a SAR context but not for geographical analyses.</p>
 <div id="44" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>gcp <span class="op">=</span> []</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the gcp list with only the gcp subgroups of each dataset on the datatree list</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    gcp.append(datatrees[i][datatrees[i].groups[GCP_GROUP_ID]].to_dataset())</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    gcp[i] <span class="op">=</span> gcp[i].interp_like(grd[i]) <span class="co"># interpolate gcp to match the decimation done before</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GCPs are now loaded and interpolated during the slicing step above</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to assign the latitude and longitude coordinates to grd </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    grd[i] <span class="op">=</span> grd[i].assign_coords({<span class="st">"latitude"</span>: gcp[i].latitude, </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"longitude"</span>: gcp[i].longitude})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="45" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to assign the latitude and longitude coordinates to grd </span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    grd[i] <span class="op">=</span> grd[i].assign_coords({<span class="st">"latitude"</span>: gcp[i].latitude, </span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"longitude"</span>: gcp[i].longitude})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="46" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the third sliced and decimated GRD product from our list with latitude and longitude coordinates</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>grd[<span class="dv">2</span>].plot(x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>, vmax<span class="op">=</span><span class="dv">300</span>)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"GRD product with latitude and longitude coordinates"</span>)</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the third sliced and decimated GRD product from our list with latitude and longitude coordinates</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>grd[<span class="dv">0</span>].plot(x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>, vmax<span class="op">=</span><span class="dv">300</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"GRD product with latitude and longitude coordinates"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="64_flood_mapping_valencia_files/figure-html/cell-19-output-1.png" width="606" height="449" class="figure-img"></p>
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-18-output-1.png" width="614" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1339,33 +1387,93 @@ Ground range has 26061 values.</code></pre>
 <section id="computing-backscatter" class="level3">
 <h3 class="anchored" data-anchor-id="computing-backscatter">Computing backscatter</h3>
 <p>Again, the following steps are just recreating what was done before, but this time over more datasets. For further detailed information, take a look at this <a href="../02_about_eopf_zarr/23_S1_basic_operations.html">chapter</a>.</p>
-<p>Firstly we access the variables concerning the <code>calibration</code> values. These are the values that are going to be used for the backscatter computation. Because we´ve decimated the <code>grd</code> dataset, we also need to decimate the <code>calibration</code> variables in the same way.</p>
-<p>After it, using the <code>xarray_sentinel</code> library, we compute the backscatter for each dataset. As input variables, we use the <code>grd</code> dataset and the <code>calibration</code> variables we´ve just accessed.</p>
+<p>Firstly we access the variables concerning the <code>calibration</code> values. These are the values that are going to be used for the backscatter computation.</p>
+<p>We use manual calibration with <code>sigma_nought</code> instead of <code>xarray_sentinel.calibrate_intensity()</code> because of known issues with the product format (see <a href="https://forum.step.esa.int/t/constant-offset-for-grd-calibration/45194/9">forum discussion</a> and <a href="https://gitlab.eopf.copernicus.eu/cpm/eopf-cpm/-/issues/887#note_55104">GitLab issue</a>). A function is created to make all the steps more automatic but you’ll see that all the procedures done inside the <code>intensity_calibration</code> were already explained on the <a href="23_S1_basic_operations.ipynb">previous tutorial</a>. The manual approach uses <code>line</code> and <code>pixel</code> dimensions for interpolation, which correctly handles the calibration coefficients.</p>
+<div id="48" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>calibration <span class="op">=</span> []</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the calibration list with only the calibration groups of each dataset on the datatree list</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    calibration.append(datatrees[i][datatrees[i].groups[CALIBRATION_GROUP_ID]].to_dataset())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <div id="49" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>calibration <span class="op">=</span> []</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the calibration list with only the calibration groups of each dataset on the datatree list</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    calibration.append(datatrees[i][datatrees[i].groups[CALIBRATION_GROUP_ID]].to_dataset())</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    calibration[i] <span class="op">=</span> calibration[i].interp_like(grd[i]) <span class="co"># interpolate calibration to match the decimation done before</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> intensity_calibration(calibration, grd):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Computes the calibrated backscatter intensity from the GRD data and the calibration information.</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">    calibration : xarray.Dataset</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">        Calibration data (e.g., sigma_nought).</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">    grd : xarray.DataArray</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">        GRD data to be calibrated.</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">    calibrated_intensity : xarray.DataArray</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co">        Calibrated backscatter intensity in dB.</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Accessing the sigma_nought values</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    sigma_nought <span class="op">=</span> calibration.sigma_nought </span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we reacreate the sigma_nought array with line and pixel dimensions for easier interpolation</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    sigma_nought_line_pixel <span class="op">=</span> xr.DataArray(</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>sigma_nought.data,</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>        dims<span class="op">=</span>[<span class="st">"line"</span>, <span class="st">"pixel"</span>],</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>        coords<span class="op">=</span><span class="bu">dict</span>(</span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>            line<span class="op">=</span>([<span class="st">"line"</span>], sigma_nought.line.values),</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>            pixel<span class="op">=</span>([<span class="st">"pixel"</span>], sigma_nought.pixel.values),</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># just like for the sigma_nought, we reacreate the grd array with line and pixel dimensions for easier interpolation</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>    grd_line_pixel <span class="op">=</span> xr.DataArray(</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>grd.data,</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>        dims<span class="op">=</span>[<span class="st">"line"</span>, <span class="st">"pixel"</span>],</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>        coords<span class="op">=</span><span class="bu">dict</span>(</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>            line<span class="op">=</span>([<span class="st">"line"</span>], grd.line.values),</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>            pixel<span class="op">=</span>([<span class="st">"pixel"</span>], grd.pixel.values),</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># we interpolate the sigma_nought with the grd geometry</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>    sigma_nought_interp_line_pixel <span class="op">=</span> sigma_nought_line_pixel.interp_like(grd_line_pixel, method<span class="op">=</span><span class="st">"linear"</span>)</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>    sigma_nought_interp <span class="op">=</span> xr.DataArray(</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>sigma_nought_interp_line_pixel.data,</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>        dims<span class="op">=</span>[<span class="st">"azimuth_time"</span>, <span class="st">"ground_range"</span>],</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>        coords<span class="op">=</span><span class="bu">dict</span>(</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>            azimuth_time<span class="op">=</span>([<span class="st">"azimuth_time"</span>], grd.azimuth_time.values),</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>            ground_range<span class="op">=</span>([<span class="st">"ground_range"</span>], grd.ground_range.values),</span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>    intensity <span class="op">=</span> <span class="dv">10</span> <span class="op">*</span> np.log10(np.maximum(((<span class="bu">abs</span>(grd.astype(np.float32)) <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> (sigma_nought_interp<span class="op">**</span><span class="dv">2</span>)), <span class="fl">1e-10</span>))</span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> intensity</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="50" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>intensity <span class="op">=</span> []</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the intensity list with the calibrated intensity array originated from xarray_sentinel.calibrate_intensity function</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    intensity.append(xarray_sentinel.calibrate_intensity(</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>        grd[i], </span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        calibration[i].beta_nought, </span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        as_db<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>intensity <span class="op">=</span> []</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the calibration list with only the calibration groups of each dataset on the datatree list</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    intensity.append(intensity_calibration(calibration[i], grd[i]).load())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="51" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the backscatter intensity for the second dataset on the list</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>intensity[<span class="dv">1</span>].plot(x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>, vmin<span class="op">=-</span><span class="dv">25</span>, vmax<span class="op">=</span><span class="dv">5</span>)</span>
+<p>In case we prefer to keep it more simple and calculate the intensity values with <code>xarray_sentinel</code> we can just uncomment the following cell and run it.</p>
+<div id="52" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># intensity = []</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # Looping to populate the intensity list with the calibrated intensity array originated from xarray_sentinel.calibrate_intensity function</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># for i in range(DATASET_NUMBER):</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     intensity.append(xarray_sentinel.calibrate_intensity(</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#         grd[i], </span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#         calibration[i].beta_nought, </span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#         as_db=True))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="53" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting the backscatter intensity for the first dataset on the list</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>intensity[<span class="dv">0</span>].plot(x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>, vmin<span class="op">=-</span><span class="dv">25</span>, vmax<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Computed backscatter intensity"</span>)</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="64_flood_mapping_valencia_files/figure-html/cell-22-output-1.png" width="669" height="449" class="figure-img"></p>
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-23-output-1.png" width="617" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1375,13 +1483,13 @@ Ground range has 26061 values.</code></pre>
 <h3 class="anchored" data-anchor-id="create-a-datacube-to-prepare-for-time-series-analysis">Create a datacube to prepare for time series analysis</h3>
 <p>Since we are performing a time series with <code>.zarr</code>, instead of analysing individual items stored in a list, we can create a combined dataset, containing all the data, stacked together by a new dimension <code>time</code>. Through the stacking, we are building a three-dimensional datacube.</p>
 <p>To get values for the new dimension <code>time</code>, we need to extract the acquisiton dates for each product.</p>
-<div id="54" class="cell" data-execution_count="22">
+<div id="56" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> []</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the data list with all the acquisition dates from the datatree</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(intensity)):</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    data.append(intensity[i].azimuth_time.values[<span class="dv">1</span>].astype(<span class="st">'datetime64[D]'</span>))</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>[np.datetime64('2024-10-07'),
  np.datetime64('2024-10-19'),
  np.datetime64('2024-10-31'),
@@ -1399,32 +1507,123 @@ Ground range has 26061 values.</code></pre>
 </div>
 </div>
 </section>
-<section id="coordinate-alignment" class="level3">
-<h3 class="anchored" data-anchor-id="coordinate-alignment">Coordinate alignment</h3>
-<p>The next step is sensitive. In order to stack data into an array, the dimension values need to match perfectly, which is not the case (Sentinel-1 GRD data dimension values differ from one product to the other).</p>
-<p>⚠️ <strong>Important Note on Methodology:</strong></p>
-<p>The approach used here is a <strong>simplified coordinate assignment technique</strong>, not true coregistration. We are forcing all images to use the same coordinate grid from a reference image, without performing proper geometric alignment or geocoding.</p>
-<p>This method has significant limitations: - Pixels across different dates may not correspond to the exact same ground locations - It works reasonably well for this specific case (large flooded area analysis) but may produce incorrect results for other applications - For production-quality time series analysis, proper geocoding onto a regular grid is recommended - For a more robust approach, see <a href="https://elisecolin.medium.com/what-is-coregistration-in-remote-sensing-7d76d48d337d">this example</a> which demonstrates proper calibration and geocoding for time series data.</p>
-<p>Since the GRD images we are working with already have the same dimensions (cropped during the initial steps of the tutorial), we can perform a basic coordinate assignment. This process involves: - Keeping the coordinates of one <code>intensity</code> dataset as the reference - Resetting the coordinates of the other datasets - Reassigning the coordinates to match the reference dataset so they can overlay</p>
-<p>To do so we will use the function <code>reset_coords()</code> to reset the original coordinates and then use the <code>assign_coords</code> function after.</p>
-<div id="57" class="cell" data-execution_count="23">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>reference_coords <span class="op">=</span> intensity[<span class="dv">0</span>].coords <span class="co"># setting the first coordinate values as reference</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>datasets_aligned <span class="op">=</span> []</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Looping to populate the datasets_aligned list with the newly assigned coordinate values</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ds <span class="kw">in</span> intensity:</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    ds_no_coords <span class="op">=</span> ds.reset_coords(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    datasets_aligned.append(ds_no_coords.assign_coords(reference_coords))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Now, the data is prepared to be stacked into a new array that contains all the datasets. They share the same coordinate values and can be combined along a third dimension, <code>time</code>. Note that while the coordinate values now match, this does not guarantee that pixels correspond to the exact same ground locations across different acquisition dates. To stack all the datasets into only one we will use the <code>concat()</code> function from the <code>xarray</code> library.</p>
+<section id="geocoding-onto-regular-grid" class="level3">
+<h3 class="anchored" data-anchor-id="geocoding-onto-regular-grid">Geocoding onto regular grid</h3>
+<p>In order to stack data into a time series datacube, we need to ensure that pixels across different acquisition dates correspond to the exact same ground locations. Since each Sentinel-1 GRD product has lat/lon coordinates on an irregular grid (due to SAR geometry), we need to geocode all products onto a common regular grid.</p>
+<p>This process involves: 1. Creating a regular coordinate grid that covers all products 2. Interpolating each product’s backscatter values from its irregular lat/lon coordinates to the common regular grid 3. Stacking the geocoded products into a time series datacube</p>
+<p>This ensures proper alignment for accurate time series analysis, where each pixel represents the same ground location across all dates.</p>
 <div id="59" class="cell" data-execution_count="24">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating the data cube, stacking all the datasets over a new time dimension</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>intensity_data_cube <span class="op">=</span> xr.concat(datasets_aligned, dim<span class="op">=</span>xr.DataArray(data, dims<span class="op">=</span><span class="st">"time"</span>))</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># There is a new dimension coordinate (time) </span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>intensity_data_cube</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_regular_grid(min_x, max_x, min_y, max_y, spatialres):</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Create a regular coordinate grid given bounding box limits.</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co">    min_x, max_x : float</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co">        Minimum and maximum X coordinates (e.g., longitude).</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co">    min_y, max_y : float</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="co">        Minimum and maximum Y coordinates (e.g., latitude).</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">    spatialres : float</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">        Desired spatial resolution (in same units as x/y).</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="co">    grid_x_regular : ndarray</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="co">        2D array of regularly spaced X coordinates.</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="co">    grid_y_regular : ndarray</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="co">        2D array of regularly spaced Y coordinates.</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ensure positive dimensions and consistent spacing</span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    width <span class="op">=</span> <span class="bu">int</span>(np.ceil((max_x <span class="op">-</span> min_x) <span class="op">/</span> spatialres))</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>    height <span class="op">=</span> <span class="bu">int</span>(np.ceil((max_y <span class="op">-</span> min_y) <span class="op">/</span> spatialres))</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute grid centers (half-pixel offset)</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>    half_pixel <span class="op">=</span> spatialres <span class="op">/</span> <span class="fl">2.0</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>    x_regular <span class="op">=</span> np.linspace(</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>        min_x <span class="op">+</span> half_pixel, max_x <span class="op">-</span> half_pixel, width, dtype<span class="op">=</span>np.float32</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>    y_regular <span class="op">=</span> np.linspace(</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>        min_y <span class="op">+</span> half_pixel, max_y <span class="op">-</span> half_pixel, height, dtype<span class="op">=</span>np.float32</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>    grid_x_regular, grid_y_regular <span class="op">=</span> np.meshgrid(x_regular, y_regular)</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> grid_x_regular, grid_y_regular</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> geocode_grd(sigma_0, grid_x_regular, grid_y_regular, time_val):</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a><span class="co">    Geocode GRD backscatter from irregular lat/lon grid to regular grid.</span></span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="co">    sigma_0 : xarray.DataArray</span></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a><span class="co">        Backscatter intensity with latitude and longitude coordinates.</span></span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="co">    grid_x_regular : ndarray</span></span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="co">        2D array of regular X (longitude) coordinates.</span></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a><span class="co">    grid_y_regular : ndarray</span></span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a><span class="co">        2D array of regular Y (latitude) coordinates.</span></span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a><span class="co">    time_val : datetime64</span></span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a><span class="co">        Time value for this product.</span></span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a><span class="co">    ds : xarray.Dataset</span></span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a><span class="co">        Geocoded dataset with regular x and y coordinates.</span></span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>    grid_lat <span class="op">=</span> sigma_0.latitude.values</span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a>    grid_lon <span class="op">=</span> sigma_0.longitude.values</span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Set border values to zero to avoid border artifacts with nearest interpolator</span></span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a>    sigma_0_data <span class="op">=</span> sigma_0.data.copy()</span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a>    sigma_0_data[[<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>], :] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a>    sigma_0_data[:, [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>]] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Interpolate from irregular to regular grid</span></span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a>    interpolated_values <span class="op">=</span> griddata(</span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a>        (grid_lon.flatten(), grid_lat.flatten()),</span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a>        sigma_0_data.flatten(),</span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a>        (grid_x_regular, grid_y_regular),</span>
+<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a>        method<span class="op">=</span><span class="st">"nearest"</span>,</span>
+<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-74"><a href="#cb27-74" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Create xarray Dataset with regular coordinates</span></span>
+<span id="cb27-75"><a href="#cb27-75" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> xr.Dataset(</span>
+<span id="cb27-76"><a href="#cb27-76" aria-hidden="true" tabindex="-1"></a>        coords<span class="op">=</span><span class="bu">dict</span>(</span>
+<span id="cb27-77"><a href="#cb27-77" aria-hidden="true" tabindex="-1"></a>            time<span class="op">=</span>([<span class="st">"time"</span>], [time_val]),</span>
+<span id="cb27-78"><a href="#cb27-78" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span>([<span class="st">"y"</span>], grid_y_regular[:, <span class="dv">0</span>]),</span>
+<span id="cb27-79"><a href="#cb27-79" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span>([<span class="st">"x"</span>], grid_x_regular[<span class="dv">0</span>, :]),</span>
+<span id="cb27-80"><a href="#cb27-80" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb27-81"><a href="#cb27-81" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb27-82"><a href="#cb27-82" aria-hidden="true" tabindex="-1"></a>    ds[<span class="st">"intensity"</span>] <span class="op">=</span> ((<span class="st">"time"</span>, <span class="st">"y"</span>, <span class="st">"x"</span>), np.expand_dims(interpolated_values, <span class="dv">0</span>))</span>
+<span id="cb27-83"><a href="#cb27-83" aria-hidden="true" tabindex="-1"></a>    ds <span class="op">=</span> ds.where(ds <span class="op">!=</span> <span class="dv">0</span>)</span>
+<span id="cb27-84"><a href="#cb27-84" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-85"><a href="#cb27-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ds</span>
+<span id="cb27-86"><a href="#cb27-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-87"><a href="#cb27-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-88"><a href="#cb27-88" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract bounds from all intensity products to create common regular grid</span></span>
+<span id="cb27-89"><a href="#cb27-89" aria-hidden="true" tabindex="-1"></a>min_lat <span class="op">=</span> <span class="bu">min</span>([i.latitude.<span class="bu">min</span>().values.item() <span class="cf">for</span> i <span class="kw">in</span> intensity])</span>
+<span id="cb27-90"><a href="#cb27-90" aria-hidden="true" tabindex="-1"></a>max_lat <span class="op">=</span> <span class="bu">max</span>([i.latitude.<span class="bu">max</span>().values.item() <span class="cf">for</span> i <span class="kw">in</span> intensity])</span>
+<span id="cb27-91"><a href="#cb27-91" aria-hidden="true" tabindex="-1"></a>min_lon <span class="op">=</span> <span class="bu">min</span>([i.longitude.<span class="bu">min</span>().values.item() <span class="cf">for</span> i <span class="kw">in</span> intensity])</span>
+<span id="cb27-92"><a href="#cb27-92" aria-hidden="true" tabindex="-1"></a>max_lon <span class="op">=</span> <span class="bu">max</span>([i.longitude.<span class="bu">max</span>().values.item() <span class="cf">for</span> i <span class="kw">in</span> intensity])</span>
+<span id="cb27-93"><a href="#cb27-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-94"><a href="#cb27-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Create common regular grid (resolution: 0.0001 degrees ≈ 11 meters)</span></span>
+<span id="cb27-95"><a href="#cb27-95" aria-hidden="true" tabindex="-1"></a>grid_x_regular, grid_y_regular <span class="op">=</span> create_regular_grid(</span>
+<span id="cb27-96"><a href="#cb27-96" aria-hidden="true" tabindex="-1"></a>    min_lon, max_lon, min_lat, max_lat, <span class="fl">0.0001</span></span>
+<span id="cb27-97"><a href="#cb27-97" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now we geocode all products onto the common regular grid and stack them into a time series datacube. Each pixel now corresponds to the exact same ground location across all acquisition dates, enabling accurate time series analysis.</p>
+<div id="61" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Geocode all products onto the common regular grid</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>geocoded <span class="op">=</span> []</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(intensity)):</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    geocoded.append(geocode_grd(intensity[i], grid_x_regular, grid_y_regular, data[i]))</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the data cube by stacking all geocoded products</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>intensity_data_cube <span class="op">=</span> xr.concat(geocoded, dim<span class="op">=</span><span class="st">"time"</span>).sortby(<span class="st">"time"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co"># There is a new dimension coordinate (time) </span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>intensity_data_cube</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
 <div><svg style="position: absolute; width: 0; height: 0; overflow: hidden">
 <defs>
 <symbol id="icon-database" viewbox="0 0 32 32">
@@ -1967,243 +2166,60 @@ dl.xr-attrs {
   filter: drop-shadow(1px 1px 5px var(--xr-font-color2));
   stroke-width: 0.8px;
 }
-</style><pre class="xr-text-repr-fallback">&lt;xarray.DataArray (time: 14, azimuth_time: 550, ground_range: 500)&gt; Size: 15MB
-dask.array&lt;concatenate, shape=(14, 550, 500), dtype=float32, chunksize=(1, 398, 500), chunktype=numpy.ndarray&gt;
+</style><pre class="xr-text-repr-fallback">&lt;xarray.Dataset&gt; Size: 1GB
+Dimensions:    (time: 14, y: 3239, x: 4047)
 Coordinates:
-  * time          (time) datetime64[s] 112B 2024-10-07 2024-10-19 ... 2025-03-24
-  * azimuth_time  (azimuth_time) datetime64[ns] 4kB 2024-10-07T18:03:06.46487...
-    line          (azimuth_time) float64 4kB dask.array&lt;chunksize=(550,), meta=np.ndarray&gt;
-  * ground_range  (ground_range) float64 4kB 1.906e+05 1.907e+05 ... 2.405e+05
-    pixel         (ground_range) float64 4kB dask.array&lt;chunksize=(500,), meta=np.ndarray&gt;
-    latitude      (azimuth_time, ground_range) float64 2MB dask.array&lt;chunksize=(550, 500), meta=np.ndarray&gt;
-    longitude     (azimuth_time, ground_range) float64 2MB dask.array&lt;chunksize=(550, 500), meta=np.ndarray&gt;
-Attributes:
-    _eopf_attrs:  {'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_r...
-    dtype:        &lt;u2
-    long_name:    beta nought calibration vector (this array contains the cou...
-    units:        dB</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name"></div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 14</li><li><span class="xr-has-index">azimuth_time</span>: 550</li><li><span class="xr-has-index">ground_range</span>: 500</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-9f59bc5e-3315-4228-98a7-1a2c507333d4" class="xr-array-in" type="checkbox" checked=""><label for="section-9f59bc5e-3315-4228-98a7-1a2c507333d4" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 152, 500), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<td></td>
-<th data-quarto-table-cell-role="th">Array</th>
-<th data-quarto-table-cell-role="th">Chunk</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Bytes</th>
-<td>14.69 MiB</td>
-<td>777.34 kiB</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Shape</th>
-<td>(14, 550, 500)</td>
-<td>(1, 398, 500)</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">28 chunks in 451 graph layers</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Data type</th>
-<td colspan="2">float32 numpy.ndarray</td>
-</tr>
-</tbody>
-</table></td>
-<td><svg width="186" height="187" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="10" y1="0" x2="27" y2="17" style="stroke-width:2"></line> <line x1="10" y1="33" x2="27" y2="51"></line> <line x1="10" y1="120" x2="27" y2="137" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="10" y2="120" style="stroke-width:2"></line> <line x1="11" y1="1" x2="11" y2="121"></line> <line x1="12" y1="2" x2="12" y2="122"></line> <line x1="13" y1="3" x2="13" y2="123"></line> <line x1="15" y1="5" x2="15" y2="125"></line> <line x1="16" y1="6" x2="16" y2="126"></line> <line x1="17" y1="7" x2="17" y2="127"></line> <line x1="18" y1="8" x2="18" y2="128"></line> <line x1="20" y1="10" x2="20" y2="130"></line> <line x1="21" y1="11" x2="21" y2="131"></line> <line x1="22" y1="12" x2="22" y2="132"></line> <line x1="24" y1="14" x2="24" y2="134"></line> <line x1="25" y1="15" x2="25" y2="135"></line> <line x1="26" y1="16" x2="26" y2="136"></line> <line x1="27" y1="17" x2="27" y2="137" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 27.8922659592756,17.8922659592756 27.8922659592756,137.8922659592756 10.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="10" y1="0" x2="119" y2="0" style="stroke-width:2"></line> <line x1="11" y1="1" x2="120" y2="1"></line> <line x1="12" y1="2" x2="121" y2="2"></line> <line x1="13" y1="3" x2="122" y2="3"></line> <line x1="15" y1="5" x2="124" y2="5"></line> <line x1="16" y1="6" x2="125" y2="6"></line> <line x1="17" y1="7" x2="126" y2="7"></line> <line x1="18" y1="8" x2="128" y2="8"></line> <line x1="20" y1="10" x2="129" y2="10"></line> <line x1="21" y1="11" x2="130" y2="11"></line> <line x1="22" y1="12" x2="131" y2="12"></line> <line x1="24" y1="14" x2="133" y2="14"></line> <line x1="25" y1="15" x2="134" y2="15"></line> <line x1="26" y1="16" x2="135" y2="16"></line> <line x1="27" y1="17" x2="136" y2="17" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="10" y1="0" x2="27" y2="17" style="stroke-width:2"></line> <line x1="119" y1="0" x2="136" y2="17" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="10.0,0.0 119.09090909090908,0.0 136.98317505018468,17.8922659592756 27.8922659592756,17.8922659592756" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Horizontal lines --> <line x1="27" y1="17" x2="136" y2="17" style="stroke-width:2"></line> <line x1="27" y1="51" x2="136" y2="51"></line> <line x1="27" y1="137" x2="136" y2="137" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="27" y1="17" x2="27" y2="137" style="stroke-width:2"></line> <line x1="136" y1="17" x2="136" y2="137" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="27.8922659592756,17.8922659592756 136.98317505018468,17.8922659592756 136.98317505018468,137.8922659592756 27.8922659592756,137.8922659592756" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="82.43772050473014" y="157.8922659592756" font-size="1.0rem" font-weight="100" text-anchor="middle">500</text> <text x="156.98317505018468" y="77.89226595927559" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,156.98317505018468,77.89226595927559)">550</text> <text x="8.946132979637802" y="148.94613297963778" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(45,8.946132979637802,148.94613297963778)">14</text>
-</svg></td>
-</tr>
-</tbody>
-</table>
-</div></div></li><li class="xr-section-item"><input id="section-78f92a91-92a8-4efb-b91d-9eb053beb4cf" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-78f92a91-92a8-4efb-b91d-9eb053beb4cf" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(7)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[s]</div><div class="xr-var-preview xr-preview">2024-10-07 ... 2025-03-24</div><input id="attrs-352c24e1-d614-4b37-8660-e49e1cbce50a" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-352c24e1-d614-4b37-8660-e49e1cbce50a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e7979dce-a970-4360-8e66-daf8cd18badc" class="xr-var-data-in" type="checkbox"><label for="data-e7979dce-a970-4360-8e66-daf8cd18badc" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-10-07T00:00:00', '2024-10-19T00:00:00', '2024-10-31T00:00:00',
+  * time       (time) datetime64[s] 112B 2024-10-07 2024-10-19 ... 2025-03-24
+  * y          (y) float32 13kB 39.11 39.11 39.11 39.11 ... 39.44 39.44 39.44
+  * x          (x) float32 16kB -0.5029 -0.5028 -0.5027 ... -0.09841 -0.09831
+Data variables:
+    intensity  (time, y, x) float64 1GB nan nan nan nan nan ... nan nan nan nan</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-18a1d096-d9ae-41d0-9831-d444d6d6d21d" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-18a1d096-d9ae-41d0-9831-d444d6d6d21d" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 14</li><li><span class="xr-has-index">y</span>: 3239</li><li><span class="xr-has-index">x</span>: 4047</li></ul></div></li><li class="xr-section-item"><input id="section-dd397178-4fb9-4c5b-a7e8-143b1b63ec1f" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-dd397178-4fb9-4c5b-a7e8-143b1b63ec1f" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[s]</div><div class="xr-var-preview xr-preview">2024-10-07 ... 2025-03-24</div><input id="attrs-78422d16-f42a-42b7-937c-122bdd53d857" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-78422d16-f42a-42b7-937c-122bdd53d857" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6b3116ed-0ab5-46f1-99a2-3b8c8cbdcba5" class="xr-var-data-in" type="checkbox"><label for="data-6b3116ed-0ab5-46f1-99a2-3b8c8cbdcba5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-10-07T00:00:00', '2024-10-19T00:00:00', '2024-10-31T00:00:00',
        '2024-11-12T00:00:00', '2024-11-24T00:00:00', '2024-12-06T00:00:00',
        '2024-12-18T00:00:00', '2024-12-30T00:00:00', '2025-01-11T00:00:00',
        '2025-01-23T00:00:00', '2025-02-04T00:00:00', '2025-02-16T00:00:00',
-       '2025-03-12T00:00:00', '2025-03-24T00:00:00'], dtype='datetime64[s]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">azimuth_time</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2024-10-07T18:03:06.464870182 .....</div><input id="attrs-d1073780-a4f6-417e-b638-1640f553b25f" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-d1073780-a4f6-417e-b638-1640f553b25f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7f45281b-e549-4ee7-a3bd-371d4387d8a5" class="xr-var-data-in" type="checkbox"><label for="data-7f45281b-e549-4ee7-a3bd-371d4387d8a5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-10-07T18:03:06.464870182', '2024-10-07T18:03:06.479860762',
-       '2024-10-07T18:03:06.494851342', ..., '2024-10-07T18:03:14.664717374',
-       '2024-10-07T18:03:14.679707954', '2024-10-07T18:03:14.694698534'],
-      shape=(550,), dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>line</span></div><div class="xr-var-dims">(azimuth_time)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(550,), meta=np.ndarray&gt;</div><input id="attrs-86459572-2736-420f-a6a9-1be1a6eeac8d" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-86459572-2736-420f-a6a9-1be1a6eeac8d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ba0ffce2-a827-4bfb-bcdd-29b2e00a0c5d" class="xr-var-data-in" type="checkbox"><label for="data-ba0ffce2-a827-4bfb-bcdd-29b2e00a0c5d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<td></td>
-<th data-quarto-table-cell-role="th">Array</th>
-<th data-quarto-table-cell-role="th">Chunk</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Bytes</th>
-<td>4.30 kiB</td>
-<td>4.30 kiB</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Shape</th>
-<td>(550,)</td>
-<td>(550,)</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">1 chunks in 11 graph layers</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Data type</th>
-<td colspan="2">float64 numpy.ndarray</td>
-</tr>
-</tbody>
-</table></td>
-<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.0" y="45.41261651458248" font-size="1.0rem" font-weight="100" text-anchor="middle">550</text> <text x="140.0" y="12.706308257291242" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.0,12.706308257291242)">1</text>
-</svg></td>
-</tr>
-</tbody>
-</table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">ground_range</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">1.906e+05 1.907e+05 ... 2.405e+05</div><input id="attrs-144f8799-f5ca-431b-a891-a27c7cb527d0" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-144f8799-f5ca-431b-a891-a27c7cb527d0" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5e7f0d9a-53b7-4a54-a72d-5198c18cdf57" class="xr-var-data-in" type="checkbox"><label for="data-5e7f0d9a-53b7-4a54-a72d-5198c18cdf57" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([190610., 190710., 190810., ..., 240310., 240410., 240510.], shape=(500,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>pixel</span></div><div class="xr-var-dims">(ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(500,), meta=np.ndarray&gt;</div><input id="attrs-7fafdb57-1d9d-406b-8c44-3a4967ed1cff" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-7fafdb57-1d9d-406b-8c44-3a4967ed1cff" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-834b2926-0d9c-4477-804c-2342a0ba3ec9" class="xr-var-data-in" type="checkbox"><label for="data-834b2926-0d9c-4477-804c-2342a0ba3ec9" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<td></td>
-<th data-quarto-table-cell-role="th">Array</th>
-<th data-quarto-table-cell-role="th">Chunk</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Bytes</th>
-<td>3.91 kiB</td>
-<td>3.91 kiB</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Shape</th>
-<td>(500,)</td>
-<td>(500,)</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">1 chunks in 11 graph layers</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Data type</th>
-<td colspan="2">float64 numpy.ndarray</td>
-</tr>
-</tbody>
-</table></td>
-<td><svg width="170" height="75" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="120" y2="0" style="stroke-width:2"></line> <line x1="0" y1="25" x2="120" y2="25" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="25" style="stroke-width:2"></line> <line x1="120" y1="0" x2="120" y2="25" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 120.0,0.0 120.0,25.412616514582485 0.0,25.412616514582485" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="60.0" y="45.41261651458248" font-size="1.0rem" font-weight="100" text-anchor="middle">500</text> <text x="140.0" y="12.706308257291242" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(0,140.0,12.706308257291242)">1</text>
-</svg></td>
-</tr>
-</tbody>
-</table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(550, 500), meta=np.ndarray&gt;</div><input id="attrs-ea365e07-9063-4474-b3eb-dc1ed1231793" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ea365e07-9063-4474-b3eb-dc1ed1231793" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ac647457-25d8-4c85-9586-a97985454c30" class="xr-var-data-in" type="checkbox"><label for="data-ac647457-25d8-4c85-9586-a97985454c30" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<td></td>
-<th data-quarto-table-cell-role="th">Array</th>
-<th data-quarto-table-cell-role="th">Chunk</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Bytes</th>
-<td>2.10 MiB</td>
-<td>2.10 MiB</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Shape</th>
-<td>(550, 500)</td>
-<td>(550, 500)</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">1 chunks in 22 graph layers</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Data type</th>
-<td colspan="2">float64 numpy.ndarray</td>
-</tr>
-</tbody>
-</table></td>
-<td><svg width="159" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="109" y2="0" style="stroke-width:2"></line> <line x1="0" y1="120" x2="109" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="109" y1="0" x2="109" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 109.09090909090908,0.0 109.09090909090908,120.0 0.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="54.54545454545454" y="140.0" font-size="1.0rem" font-weight="100" text-anchor="middle">500</text> <text x="129.09090909090907" y="60.0" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.09090909090907,60.0)">550</text>
-</svg></td>
-</tr>
-</tbody>
-</table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(azimuth_time, ground_range)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(550, 500), meta=np.ndarray&gt;</div><input id="attrs-c22a9a01-c6b5-497c-ace1-40d237611594" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c22a9a01-c6b5-497c-ace1-40d237611594" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c34a9aee-2f9a-4e66-86bd-002e41f277b5" class="xr-var-data-in" type="checkbox"><label for="data-c34a9aee-2f9a-4e66-86bd-002e41f277b5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'ground_range', 'line', 'pixel'], 'dimensions': ['azimuth_time', 'ground_range']}</dd></dl></div><div class="xr-var-data">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><table class="caption-top table table-sm table-striped small">
-<thead>
-<tr class="header">
-<td></td>
-<th data-quarto-table-cell-role="th">Array</th>
-<th data-quarto-table-cell-role="th">Chunk</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Bytes</th>
-<td>2.10 MiB</td>
-<td>2.10 MiB</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Shape</th>
-<td>(550, 500)</td>
-<td>(550, 500)</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">Dask graph</th>
-<td colspan="2">1 chunks in 22 graph layers</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">Data type</th>
-<td colspan="2">float64 numpy.ndarray</td>
-</tr>
-</tbody>
-</table></td>
-<td><svg width="159" height="170" style="stroke:rgb(0,0,0);stroke-width:1">
-<!-- Horizontal lines --> <line x1="0" y1="0" x2="109" y2="0" style="stroke-width:2"></line> <line x1="0" y1="120" x2="109" y2="120" style="stroke-width:2"></line> <!-- Vertical lines --> <line x1="0" y1="0" x2="0" y2="120" style="stroke-width:2"></line> <line x1="109" y1="0" x2="109" y2="120" style="stroke-width:2"></line> <!-- Colored Rectangle --> <polygon points="0.0,0.0 109.09090909090908,0.0 109.09090909090908,120.0 0.0,120.0" style="fill:#ECB172A0;stroke-width:0"></polygon> <!-- Text --> <text x="54.54545454545454" y="140.0" font-size="1.0rem" font-weight="100" text-anchor="middle">500</text> <text x="129.09090909090907" y="60.0" font-size="1.0rem" font-weight="100" text-anchor="middle" transform="rotate(-90,129.09090909090907,60.0)">550</text>
-</svg></td>
-</tr>
-</tbody>
-</table>
-</div></li></ul></div></li><li class="xr-section-item"><input id="section-4b2115cf-2d68-4ab9-a6cb-bcb76ec36b64" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-4b2115cf-2d68-4ab9-a6cb-bcb76ec36b64" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'coordinates': ['azimuth_time', 'line', 'pixel', 'ground_range'], 'dimensions': ['azimuth_time', 'ground_range'], 'dtype': '&lt;u2', 'long_name': 'measurement data set for GRD IW'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>beta nought calibration vector (this array contains the count attribute number of floating point values; the values in this vector are aligned with the pixel vector)</dd><dt><span>units :</span></dt><dd>dB</dd></dl></div></li></ul></div></div>
+       '2025-03-12T00:00:00', '2025-03-24T00:00:00'], dtype='datetime64[s]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">39.11 39.11 39.11 ... 39.44 39.44</div><input id="attrs-a05b11f5-b4b7-4fe2-8b01-91ae7621d925" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-a05b11f5-b4b7-4fe2-8b01-91ae7621d925" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6d71b06e-7d19-4ce0-93dd-562534bc6797" class="xr-var-data-in" type="checkbox"><label for="data-6d71b06e-7d19-4ce0-93dd-562534bc6797" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([39.11285 , 39.11295 , 39.11305 , ..., 39.436386, 39.436485, 39.436584],
+      shape=(3239,), dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">-0.5029 -0.5028 ... -0.09831</div><input id="attrs-382aeb3f-94c4-4cec-9b1f-4a5974d4025c" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-382aeb3f-94c4-4cec-9b1f-4a5974d4025c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a1732f65-4e02-408c-8c1a-f48ec382a7b2" class="xr-var-data-in" type="checkbox"><label for="data-a1732f65-4e02-408c-8c1a-f48ec382a7b2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-0.502901, -0.502801, -0.502701, ..., -0.098507, -0.098407, -0.098307],
+      shape=(4047,), dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-c1d671d1-f9c8-476f-abcc-0b6c24f5f4bf" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-c1d671d1-f9c8-476f-abcc-0b6c24f5f4bf" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>intensity</span></div><div class="xr-var-dims">(time, y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">nan nan nan nan ... nan nan nan nan</div><input id="attrs-acfb1e8e-672f-46c4-862a-bdf0fed30506" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-acfb1e8e-672f-46c4-862a-bdf0fed30506" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-eb1d3e85-efe3-4e87-ad0e-7ee19bc2f142" class="xr-var-data-in" type="checkbox"><label for="data-eb1d3e85-efe3-4e87-ad0e-7ee19bc2f142" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([[[nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        ...,
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan]],
+
+       [[nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        ...,
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan]],
+
+       [[nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        ...,
+...
+        ...,
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan]],
+
+       [[nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        ...,
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan]],
+
+       [[nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        ...,
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan],
+        [nan, nan, nan, ..., nan, nan, nan]]], shape=(14, 3239, 4047))</pre></div></li></ul></div></li></ul></div></div>
 </div>
 </div>
 </section>
@@ -2216,22 +2232,22 @@ Attributes:
 <p>First, we can plot all the datasets simply to create a visualisation of the flood. In addition to these plots, we are also plotting a chosen latitude and longitude point (as defined at beginning of this tutorial). The coordinate serves as a measure of comparison between all the datasets and from within different analysis methods.</p>
 <p>When we look over all the items plotted, we can clearly see that the significant flood event happened between the 19th and the 31st of October (it occurred on the 29th of October 2024).</p>
 <p>Additionally, we can see that the backscatter displaying the water presence was only going back to normal ranges around mid-February 2025.</p>
-<div id="64" class="cell" data-execution_count="25">
+<div id="66" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>cols <span class="op">=</span> <span class="dv">4</span>    <span class="co"># setting up column number</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> <span class="bu">int</span>(np.ceil(DATASET_NUMBER <span class="op">/</span> cols))  <span class="co"># setting up row number according to clumn number</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> <span class="bu">int</span>(np.ceil(<span class="bu">len</span>(geocoded) <span class="op">/</span> cols))  <span class="co"># setting up row number according to column number</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(rows, cols, figsize<span class="op">=</span>(<span class="dv">4</span><span class="op">*</span>cols, <span class="dv">4</span><span class="op">*</span>rows))  </span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()  </span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(geocoded)):</span>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    intensity_data_cube[i].plot(    <span class="co"># plotting all the datasets stored in the data cube</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    intensity_data_cube.isel(time<span class="op">=</span>i).intensity.plot(    <span class="co"># plotting all the datasets stored in the data cube</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"x"</span>, y<span class="op">=</span><span class="st">"y"</span>,</span>
 <span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        vmin<span class="op">=-</span><span class="dv">25</span>, vmax<span class="op">=</span><span class="dv">5</span>,</span>
 <span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax,  </span>
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        add_colorbar<span class="op">=</span><span class="va">False</span>  </span>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    ax.scatter(TARGET_LONG, TARGET_LAT, color<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"o"</span>, s<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">"Selected Point"</span>)  <span class="co"># also plotting the known point defined before</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
 <span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(axes)):</span>
 <span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    axes[j].axis(<span class="st">'off'</span>)     <span class="co"># to avoid having empty cells</span></span>
@@ -2241,7 +2257,7 @@ Attributes:
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="64_flood_mapping_valencia_files/figure-html/cell-26-output-1.png" width="1525" height="1526" class="figure-img"></p>
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-27-output-1.png" width="1526" height="1526" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -2252,20 +2268,20 @@ Attributes:
 <p>It is known through <a href="https://www.researchgate.net/figure/VV-and-VH-threshold-statistics-1-obtained-via-graphical-interpretation-and-2_tbl4_360412209">literature</a> and other <a href="https://mbonnema.github.io/GoogleEarthEngine/07-SAR-Water-Classification/?utm_source=chatgpt.com">sources</a> that water appears as darker pixels, typically with values lower than <strong>-15 dB</strong>. This is a very good method for identifying water because separating the pixels within this threshold value will give us almost a <code>True</code> and <code>False</code> map for pixels which are greater or smaller than the defined threshold.</p>
 <p>In the plots below, we classify the pixels with backscatter values equal to or lower than -15 in yellow. Conversely, in purple, we see the pixels that have backscatter values greater than -15.</p>
 <p>This type of visualisation allows us to easily identify flooded and non-flooded areas.</p>
-<div id="67" class="cell" data-execution_count="26">
+<div id="69" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(rows, cols, figsize<span class="op">=</span>(<span class="dv">4</span><span class="op">*</span>cols, <span class="dv">4</span><span class="op">*</span>rows))  </span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> axes.flatten()  </span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(DATASET_NUMBER):</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(geocoded)):</span>
 <span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> axes[i]</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    water_mask <span class="op">=</span> (intensity_data_cube[i] <span class="op">&lt;=</span> WATER_THRESHOLD_DB)     <span class="co"># defining the water mask from the threshold</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    water_mask <span class="op">=</span> (intensity_data_cube.isel(time<span class="op">=</span>i).intensity <span class="op">&lt;=</span> WATER_THRESHOLD_DB)     <span class="co"># defining the water mask from the threshold</span></span>
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    water_mask.plot(        <span class="co"># plotting all the water masks </span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>,</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">"x"</span>, y<span class="op">=</span><span class="st">"y"</span>,</span>
 <span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        ax<span class="op">=</span>ax,  </span>
 <span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        add_colorbar<span class="op">=</span><span class="va">False</span>  </span>
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    ax.scatter(TARGET_LONG, TARGET_LAT, color<span class="op">=</span><span class="st">"red"</span>, marker<span class="op">=</span><span class="st">"o"</span>, s<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">"Selected Point"</span>) <span class="co"># again plotting the known point defined before</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
 <span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(i<span class="op">+</span><span class="dv">1</span>, <span class="bu">len</span>(axes)):</span>
 <span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    axes[j].axis(<span class="st">'off'</span>)</span>
@@ -2275,7 +2291,7 @@ Attributes:
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="64_flood_mapping_valencia_files/figure-html/cell-27-output-1.png" width="1525" height="1526" class="figure-img"></p>
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-28-output-1.png" width="1526" height="1526" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -2286,15 +2302,15 @@ Attributes:
 <p>Knowing the exact flood date, which we have, and from the images plotted previously, we can easily see that the second image is the one right before the flood event and that the third image is the one directly after it. These two images show significant differences in the flooded areas and backscatter values, ranging from <strong>-5 dB</strong> (in the image before the event) to <strong>-20 dB</strong> (in the image directly after the event).</p>
 <p>For this reason, when we compute the difference between the two images, we will mostly get: - Values around 0 dB for areas that did not change - Values ranging from -15 dB to -20 dB in the precise flooded areas.</p>
 <p>This is an excellent way to determine precisely which areas were flooded. As we are comparing an image from before the event with another one taken at the highest possible flooding point, the differences between them will be extreme.</p>
-<div id="70" class="cell" data-execution_count="27">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dif <span class="op">=</span> (intensity_data_cube[<span class="dv">1</span>]<span class="op">-</span>intensity_data_cube[<span class="dv">2</span>])   <span class="co"># computing the difference between third and second dataset</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>dif.plot(x<span class="op">=</span><span class="st">"longitude"</span>, y<span class="op">=</span><span class="st">"latitude"</span>, vmin<span class="op">=-</span><span class="dv">10</span>, vmax<span class="op">=</span><span class="dv">20</span>)</span>
+<div id="72" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>dif <span class="op">=</span> (intensity_data_cube.isel(time<span class="op">=</span><span class="dv">1</span>).intensity <span class="op">-</span> intensity_data_cube.isel(time<span class="op">=</span><span class="dv">2</span>).intensity)   <span class="co"># computing the difference between third and second dataset</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>dif.plot(x<span class="op">=</span><span class="st">"x"</span>, y<span class="op">=</span><span class="st">"y"</span>, vmin<span class="op">=-</span><span class="dv">10</span>, vmax<span class="op">=</span><span class="dv">20</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Flooded area right after the heavy rains"</span>)</span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="64_flood_mapping_valencia_files/figure-html/cell-28-output-1.png" width="668" height="449" class="figure-img"></p>
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-29-output-1.png" width="602" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -2304,33 +2320,32 @@ Attributes:
 <h3 class="anchored" data-anchor-id="create-a-time-series-plot-of-one-location-within-the-flood">Create a time-series plot of one location within the flood</h3>
 <p>Taking advantage of the data cube we have created over a new <code>time</code> dimension, it is much easier to plot the data over this new dimension, as in a time series plot.<br> As our data now shares same dimensions and shape, we can choose to plot a backscatter analysis over the specific latitude and longitude point we defined earlier.<br></p>
 <p>As these coordinates might not be exactly the ones shown on the dimension values, we need to perform some operations to find the closest values to the desired coordinates.<br> We will now change the latitude and longitude coordinate values and see how the corresponding <code>azimuth_time</code> and <code>ground_range</code> values and indexes change.</p>
-<div id="73" class="cell" data-execution_count="28">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find how far each pixel's latitude and longitude is from the target point</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>abs_error <span class="op">=</span> np.<span class="bu">abs</span>(intensity_data_cube.latitude <span class="op">-</span> TARGET_LAT) <span class="op">+</span> np.<span class="bu">abs</span>(intensity_data_cube.longitude <span class="op">-</span> TARGET_LONG)  </span>
+<div id="75" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find how far each pixel's coordinates are from the target point</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>abs_error <span class="op">=</span> np.<span class="bu">abs</span>(intensity_data_cube.y <span class="op">-</span> TARGET_LAT) <span class="op">+</span> np.<span class="bu">abs</span>(intensity_data_cube.x <span class="op">-</span> TARGET_LONG)  </span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the indexes of the closest point</span></span>
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>i, j <span class="op">=</span> np.unravel_index(np.argmin(abs_error.values), abs_error.shape)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>azimuth_time_index <span class="op">=</span> i</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>ground_range_index <span class="op">=</span> j</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>y_index <span class="op">=</span> i</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>x_index <span class="op">=</span> j</span>
 <span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the coordinate values of the closest point</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>azimuth_time_value <span class="op">=</span> intensity_data_cube.azimuth_time[i].values</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>ground_range_value <span class="op">=</span> intensity_data_cube.ground_range[j].values</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>y_value <span class="op">=</span> intensity_data_cube.y[i].values</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>x_value <span class="op">=</span> intensity_data_cube.x[j].values</span>
 <span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nearest azimuth_time:"</span>, azimuth_time_value, <span class="st">", with index:"</span>, azimuth_time_index)</span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nearest ground_range:"</span>, ground_range_value, <span class="st">", with index:"</span>, ground_range_index)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nearest y (latitude):"</span>, y_value, <span class="st">", with index:"</span>, y_index)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nearest x (longitude):"</span>, x_value, <span class="st">", with index:"</span>, x_index)</span>
 <span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Slice the data cube in order to get only the pixel that corresponds to the target point</span></span>
-<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>target_point <span class="op">=</span> intensity_data_cube.isel(ground_range<span class="op">=</span>ground_range_index, </span>
-<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>                                        azimuth_time<span class="op">=</span>azimuth_time_index)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>target_point <span class="op">=</span> intensity_data_cube.isel(y<span class="op">=</span>y_index, x<span class="op">=</span>x_index).intensity</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Nearest azimuth_time: 2024-10-07T18:03:10.977034725 , with index: 301
-Nearest ground_range: 217810.0 , with index: 272</code></pre>
+<pre><code>Nearest y (latitude): 39.280018 , with index: 1672
+Nearest x (longitude): -0.3000041 , with index: 2029</code></pre>
 </div>
 </div>
 <p>Now we can plot the data cube, showing the backscatter intensity over the target point we defined earlier. Since the datasets are stacked along the time dimension, it becomes much easier to plot the evolution of water backscatter at a specific location. This provides an effective way to monitor the flooding status at that point.</p>
 <p>We can also add a line representing the water threshold we defined. Any point with a backscatter value below this threshold will be classified as water, thus flooded.</p>
-<div id="75" class="cell" data-execution_count="29">
+<div id="77" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the sliced data cube</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>target_point.plot(label<span class="op">=</span><span class="st">'Time series backscatter'</span>) </span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2349,7 +2364,7 @@ Nearest ground_range: 217810.0 , with index: 272</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="64_flood_mapping_valencia_files/figure-html/cell-30-output-1.png" width="694" height="449" class="figure-img"></p>
+<p><img src="64_flood_mapping_valencia_files/figure-html/cell-31-output-1.png" width="619" height="449" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -2362,15 +2377,15 @@ Nearest ground_range: 217810.0 , with index: 272</code></pre>
 <p>While using the optimised <code>.zarr</code> format saves a lot of time and makes creating workflows relatively simple and achievable, there are still a few challenges to handle and to keep in mind:</p>
 <ul>
 <li><p>Sentinel-1 GRD Data Availability: For <strong>Sentinel-1 GRD</strong>, most of the datasets are not yet available on the STAC catalogue. This makes searching and data handling harder because, in the end, only a few products are correctly converted.</p></li>
-<li><p>Backscatter Computation Libraries: There are only a few working Python libraries that handle backscatter computation. When considering the <code>.zarr</code> format, the list becomes even smaller. <code>xarray_sentinel</code> is a very good library that handles intensity backscatter computation with <code>.zarr</code>.</p></li>
-<li><p>Terrain Correction: With the available libraries, it is very difficult to perform geometric and radiometric terrain correction. The existing tools that support the .<code>zarr</code> format are not yet fully operational and do not accept the format as it is.</p></li>
-<li><p>Image Coregistration: As discussed previously, the .<code>zarr</code> format is perfect for handling multiple datasets simultaneously and, thus, for time series analysis. The problem is that there is no library or package that performs proper <strong>coregistration</strong> of Sentinel images, especially with the <code>.zarr</code> format. In this tutorial, we used a simplified coordinate assignment approach rather than true coregistration, which works for our specific use case but has limitations. Proper coregistration remains a significant challenge because it is an important step for most production SAR workflows.</p></li>
+<li><p>Backscatter Computation: The <code>xarray_sentinel</code> library has known issues with certain product formats, requiring manual calibration using <code>sigma_nought</code> with <code>line</code> and <code>pixel</code> dimension interpolation. This tutorial demonstrates the correct manual calibration approach.</p></li>
+<li><p>Geocoding: Proper geocoding onto a regular grid is essential for accurate time series analysis. This tutorial uses <code>scipy.interpolate.griddata</code> to geocode products from irregular SAR geometry coordinates to a common regular grid, ensuring pixels correspond to the same ground locations across all dates.</p></li>
+<li><p>Terrain Correction: With the available libraries, it is very difficult to perform geometric and radiometric terrain correction. The existing tools that support the <code>.zarr</code> format are not yet fully operational and do not accept the format as it is.</p></li>
 </ul>
 <hr>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>The <code>.zarr</code> format is particularly well suited for hazard analysis because it enables multiple datasets to be combined into a single structure, either as a data cube or as a list of datatrees. This makes it ideal for rapid, multi-temporal, and multi-spatial monitoring. Unlike the <code>.SAFE</code> format, which required downloading entire products, <code>.zarr</code> only loads the specific groups needed, while the rest is accessed on the fly. As a result, both data handling and subsequent operations are much faster and more efficient.</p>
+<p>The <code>.zarr</code> format is particularly well suited for hazard analysis because it enables multiple datasets to be combined into a single structure, either as a data cube or as a list of datatrees. This makes it ideal for rapid, multi-temporal, and multi-spatial monitoring. Unlike the <code>.SAFE</code> format, which required downloading entire products, <code>.zarr</code> only loads the specific groups needed, while the rest is accessed on the fly. As a result, both data handling and subsequent operations are much faster and more efficient. The <code>.load()</code> helps a lot on these situations.</p>
 <p>Although the ecosystem for <code>.zarr</code> is still evolving, there are already promising developments. In the past, <code>.SAFE</code> products could be fully processed on applications like SNAP, but similar completeness has not yet been reached for <code>.zarr</code>. Nevertheless, libraries such as <code>xarray_sentinel</code> and are beginning to cover essential SAR operations. This potential is illustrated in the Valencia flood case study, where Sentinel-1 backscatter sensitivity to water enabled clear mapping of flood extent and duration. The same workflow can be adapted to other flood events by adjusting the relevant thresholds and parameters to match local conditions.</p>
 <hr>
 </section>
