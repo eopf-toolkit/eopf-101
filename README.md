@@ -42,7 +42,7 @@ Together with a group of champion users, we will developed and publish technical
 
 
 ### Notebook competition
-Between October 2025 and January 2026, we will run a notebook competition. During this time, we will invite Sentinel data users to work with the live sample data reprocessed as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/).
+Between October 2025 and March 2026, we will run a notebook competition. During this time, we will invite Sentinel data users to work with the live sample data reprocessed as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/).
 
 [Express your interest](https://thrivegeo.com/eopf-toolkit-competition/) today and do not miss any updates related to the notebook competition.
 
@@ -90,13 +90,13 @@ By March 2026, we will have develped a community resource where you can learn ho
 
 * `June 2025`: Launch of first version during Living Planet Symposium
 * `2nd half of 2025`: Development of thematic case studies together with champion users
-* `Oct 2025 to Jan 2026`: EOPF Notebook competition
+* `Oct 2025 to Mar 2026`: EOPF Notebook competition
 * `throughout`: Communications and outreach through social media and conference presence
 
 ## Get involved
 We welcome to join you in this community effort in the following ways:
 * Follow us here on [Github](https://github.com/eopf-toolkit)
-* Participate in the upcoming notebook competition (Oct 2025 to Jan 2026) ([Express your interest](https://thrivegeo.com/eopf-toolkit-competition/))
+* Participate in the upcoming notebook competition (Oct 2025 to Mar 2026) ([Express your interest](https://thrivegeo.com/eopf-toolkit-competition/))
 
 ## Install dependencies
 We use uv to install the packages and dependencies. If you want to recreatre this environment run the following command.
