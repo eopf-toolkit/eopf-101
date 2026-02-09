@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Analyzing Forest Vegetation Anomalies Using Sentinel-2 Zarr Data Cubes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../glossary.html" rel="next">
+<link href="../06_eopf_zarr_in_action/67_reservoir_surface_monitoring.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async="" src="https://plausible.io/js/pa-IdJjKOvKq9lif5cw4UK5i.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><strong>EOPF Zarr in Action</strong></a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/68_vegetation_anomalies.html"><span class="chapter-title">Analyzing Forest Vegetation Anomalies Using Sentinel-2 Zarr Data Cubes</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/eopf-toolkit/eopf-101" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About EOPF</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01_about_eopf/11_about_eopf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the EOPF</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01_about_eopf/12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About cloud-optimised formats</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01_about_eopf/13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About EOPF Zarr</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/21_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/22_zarr_structure_S1GRD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/23_S1_basic_operations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operations with EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/24_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/25_zarr_struct_S3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About Chunking</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03_about_chunking/31_zarr_chunking_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">An introduction to Chunking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03_about_chunking/32_zarr_chunking_strat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>EOPF and STAC</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/41_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/43_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/44_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Tools to work with EOPF Zarr</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/53_eopf_zarr_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>EOPF Zarr in Action</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/67_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/68_vegetation_anomalies.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Analyzing Forest Vegetation Anomalies Using Sentinel-2 Zarr Data Cubes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>References</strong></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a></li>
+  <li><a href="#vegetation-anomalies-in-the-hainich-national-park" id="toc-vegetation-anomalies-in-the-hainich-national-park" class="nav-link" data-scroll-target="#vegetation-anomalies-in-the-hainich-national-park">Vegetation Anomalies in the Hainich National Park</a>
+  <ul class="collapse">
+  <li><a href="#load-the-gpp-data" id="toc-load-the-gpp-data" class="nav-link" data-scroll-target="#load-the-gpp-data">Load the GPP data</a></li>
+  <li><a href="#create-the-sentinel-2-l2a-data-cube" id="toc-create-the-sentinel-2-l2a-data-cube" class="nav-link" data-scroll-target="#create-the-sentinel-2-l2a-data-cube">Create the Sentinel-2 L2A Data Cube</a></li>
+  <li><a href="#compute-vegetation-indices" id="toc-compute-vegetation-indices" class="nav-link" data-scroll-target="#compute-vegetation-indices">Compute Vegetation Indices</a></li>
+  <li><a href="#calculate-vegetation-anomalies" id="toc-calculate-vegetation-anomalies" class="nav-link" data-scroll-target="#calculate-vegetation-anomalies">Calculate Vegetation Anomalies</a></li>
+  <li><a href="#visualize-time-series" id="toc-visualize-time-series" class="nav-link" data-scroll-target="#visualize-time-series">Visualize Time Series</a></li>
+  </ul></li>
+  <li><a href="#now-it-is-your-turn" id="toc-now-it-is-your-turn" class="nav-link" data-scroll-target="#now-it-is-your-turn">💪 Now it is your turn</a>
+  <ul class="collapse">
+  <li><a href="#task-1-create-a-data-cube-for-de-tha" id="toc-task-1-create-a-data-cube-for-de-tha" class="nav-link" data-scroll-target="#task-1-create-a-data-cube-for-de-tha">Task 1: Create a data cube for DE-Tha</a></li>
+  <li><a href="#task-2-compute-vegetation-indices" id="toc-task-2-compute-vegetation-indices" class="nav-link" data-scroll-target="#task-2-compute-vegetation-indices">Task 2: Compute Vegetation Indices</a></li>
+  <li><a href="#task-3-calculate-vegetation-anomalies" id="toc-task-3-calculate-vegetation-anomalies" class="nav-link" data-scroll-target="#task-3-calculate-vegetation-anomalies">Task 3: Calculate Vegetation Anomalies</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
+  <ul class="collapse">
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><strong>EOPF Zarr in Action</strong></a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/68_vegetation_anomalies.html"><span class="chapter-title">Analyzing Forest Vegetation Anomalies Using Sentinel-2 Zarr Data Cubes</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Analyzing Forest Vegetation Anomalies Using Sentinel-2 Zarr Data Cubes</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/06_eopf_zarr_in_action/65_vegetation_anomalies" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<p>Forests are the largest terrestrial carbon sinks, playing a critical role in regulating the global carbon cycle through sustained CO<span class="math inline">\(_2\)</span> uptake. However, extreme climate events (such as heatwaves and droughts) can disrupt forest functioning, reducing photosynthetic activity and, in severe cases, causing tree mortality.</p>
+<p>While in situ measurements provide valuable information on forest health, collecting such data over large areas is costly, time-consuming, and logistically challenging. Scalable and continuous monitoring therefore requires more efficient approaches.</p>
+<p>In this case study, we will explore how to use <strong>Sentinel-2 L2A data stored as Zarr data cubes</strong> to analyze vegetation anomalies in forest ecosystems in Germany. Specifically, we will focus on two ICOS sites affected by the drought of 2018: <a href="https://meta.icos-cp.eu/resources/stations/ES_DE-Hai">DE-Hai</a> and <a href="https://meta.icos-cp.eu/resources/stations/ES_DE-Tha">DE-Tha</a>, with DE-Tha left for learners to explore on their own.</p>
+<p>By leveraging <strong>spatiotemporal data cubes</strong>, we will compute spectral indices and derive anomaly time series to evaluate forest responses to extreme events in CO<span class="math inline">\(_2\)</span> uptake (Gross Primary Production, GPP, from ICOS). This notebook will guide you through a <strong>modular workflow</strong> for:</p>
+<ol type="1">
+<li>Accessing Sentinel-2 Zarr data from STAC.<br>
+</li>
+<li>Calculating vegetation indices.<br>
+</li>
+<li>Detecting anomalies in time series.<br>
+</li>
+<li>Visualizing forest responses to environmental extremes.</li>
+</ol>
+<p>Through this study case, you will see the potential of <strong>Zarr-based data cubes</strong> for scalable forest monitoring.</p>
+</section>
+<section id="what-we-will-learn" class="level3">
+<h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
+<p>In this notebook, you will gain hands-on experience with the following:</p>
+<ul>
+<li>🚀 <strong>Creating Sentinel-2 L2A data cubes</strong> from the <a href="https://stac.core.eopf.eodc.eu/">EOPF Zarr STAC</a>.<br>
+</li>
+<li>🔎 <strong>Operating on data cubes</strong>, including resampling and interpolation.<br>
+</li>
+<li>🌿 <strong>Computing spectral indices</strong> using <a href="https://github.com/awesome-spectral-indices/awesome-spectral-indices">Awesome Spectral Indices</a>.<br>
+</li>
+<li>📈 <strong>Deriving vegetation anomalies</strong> from time series data.<br>
+</li>
+<li>📊 <strong>Visualizing time series</strong> and comparing results against GPP measurements from <a href="https://www.icos-cp.eu/">ICOS</a>.</li>
+</ul>
+</section>
+<section id="prerequisites" class="level3">
+<h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
+<p>To analyze vegetation anomalies, we will work with <strong>vegetation indices</strong>. To leverage the full power of <code>xarray</code>, we will use the <strong><code>spyndex</code> Python package</strong>, which provides a Python API for the <strong>Awesome Spectral Indices</strong> catalogue. This gives access to <strong>over 200 spectral indices</strong>, which can be computed directly on various Python data types, including <code>xarray</code> datasets and data arrays.</p>
+<p>For more details, refer to the <a href="https://doi.org/10.1038/s41597-023-02096-0">Awesome Spectral Indices paper in <em>Scientific Data</em></a>.</p>
+<hr>
+<section id="import-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
+<div id="7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> spyndex</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.distributed <span class="im">import</span> Client</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="helper-functions" class="level4">
+<h4 class="anchored" data-anchor-id="helper-functions">Helper functions</h4>
+<p>Helper functions were defined in the <code>vegetation_anomalies_utils.py</code> file. Here we import all of the functions and explain their role.</p>
+<div id="10" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vegetation_anomalies_utils <span class="im">import</span> <span class="op">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="get_items" class="level5">
+<h5 class="anchored" data-anchor-id="get_items"><code>get_items</code></h5>
+<p>This function <strong>queries the EOPF STAC API</strong> for <strong>Sentinel-2 L2A items</strong> that intersect a specified latitude/longitude point within a given <strong>date range</strong>.</p>
+</section>
+<section id="latlon_to_buffer_bbox" class="level5">
+<h5 class="anchored" data-anchor-id="latlon_to_buffer_bbox"><code>latlon_to_buffer_bbox</code></h5>
+<p>This function <strong>converts a latitude/longitude point</strong> to a specified <strong>projected coordinate system (EPSG)</strong> and then generates a <strong>square bounding box</strong> centered on that point.</p>
+<p>This helper is not used directly as it is incorporated in the next helper function.</p>
+</section>
+<section id="open_and_curate_data" class="level5">
+<h5 class="anchored" data-anchor-id="open_and_curate_data"><code>open_and_curate_data</code></h5>
+<p>This function <strong>opens a Sentinel-2 STAC item (Zarr)</strong>, performs a <strong>spatial subset</strong> around a given point, applies <strong>SCL-based masking</strong>, and returns an <strong><code>xarray.Dataset</code></strong> containing only the selected reflectance bands (e.g.&nbsp;<code>B04</code>, <code>B8A</code>) with a <strong>time dimension</strong>. It uses the <code>validate_scl</code> function from <code>Zarr_wf_utils.py</code>.</p>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> This function is a <strong>delayed Dask object</strong>, meaning it will only be executed when explicitly triggered through Dask.</p>
+</blockquote>
+</section>
+<section id="curate_gpp" class="level5">
+<h5 class="anchored" data-anchor-id="curate_gpp"><code>curate_gpp</code></h5>
+<p>This function <strong>loads a GPP time series</strong>, computes <strong>weekly anomalies</strong>, identifies <strong>extreme low-GPP events</strong>, and filters these extremes to retain only events lasting at least a specified number of <strong>consecutive weeks</strong>.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="vegetation-anomalies-in-the-hainich-national-park" class="level2">
+<h2 class="anchored" data-anchor-id="vegetation-anomalies-in-the-hainich-national-park">Vegetation Anomalies in the Hainich National Park</h2>
+<p>We will start the notebook with a forest ecosystem that was severely affacted by the drought of 2018: DE-Hai.</p>
+<div id="18" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DE-Hai Coordinates</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>HAI_LAT <span class="op">=</span> <span class="fl">51.079212</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>HAI_LON <span class="op">=</span> <span class="fl">10.452168</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Initialize a <strong>Dask distributed client</strong> to enable parallel and delayed computation. This will manage the execution of tasks, such as loading and processing large Sentinel-2 Zarr datasets, efficiently.</p>
+<div id="20" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client()</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>client</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="load-the-gpp-data" class="level3">
+<h3 class="anchored" data-anchor-id="load-the-gpp-data">Load the GPP data</h3>
+<p>Load the <strong>GPP time series</strong> for the DE-Hai site and compute <strong>weekly anomalies</strong>, identifying extreme low-GPP events.</p>
+<ul>
+<li>The following helper function just needs one of two possible inputs: “DE-Hai” (this example), or “DE-Tha” (for learners to explore).</li>
+</ul>
+<p>The obtained dataframe contains the following columns:</p>
+<ul>
+<li><code>GPP_NT_VUT_REF</code>: Gross Primary Production (GPP) values per week.</li>
+<li><code>weekofyear</code>: Number of the week of the year [1-53].</li>
+<li><code>anomaly</code>: GPP anomalies, computed as the deviation from the mean seasonal cycle.</li>
+<li><code>extreme</code>: Whether the specific value was a extreme or not (1 = extreme, 0 = normal).</li>
+</ul>
+<div id="23" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>HAI_df <span class="op">=</span> curate_gpp(<span class="st">"DE-Hai"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="create-the-sentinel-2-l2a-data-cube" class="level3">
+<h3 class="anchored" data-anchor-id="create-the-sentinel-2-l2a-data-cube">Create the Sentinel-2 L2A Data Cube</h3>
+<p>First, query the <strong>EOPF STAC API</strong> to retrieve Sentinel-2 L2A items for the DE-Hai site.</p>
+<ul>
+<li>We specify for the following helper function the coordinates of the site (<code>lat</code>, <code>lon</code>), and we set <code>return_as_dicts</code> to <em>True</em> to avoid ocnflicts when a <em>href</em> link is not present in an asset of the retrieved items.</li>
+</ul>
+<div id="25" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get all items as a list of dicts</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>HAI_items <span class="op">=</span> get_items(HAI_LAT,HAI_LON,return_as_dicts<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>For each item, <strong>open and curate</strong> the data by subsetting around the site coordinates and selecting the relevant bands:</p>
+<ul>
+<li>The <code>item</code> parameter is a dictionary obtained from each item in <code>HAI_items</code>.</li>
+<li>We specify the coordinates of the site (<code>lat</code>, <code>lon</code>).</li>
+<li>The <code>bands</code> parameter is a list of the bands you want to retrive, in this case we just want the red and near-infrared bands (b04 and b8a).</li>
+<li>The <code>resolution</code> we will use is 20 m: This must be one of 10, 20 or 60.</li>
+<li>The <code>buffer</code> parameter us set to 500 m (a bounding box is constructed from this parameter as well as from the <code>lat</code>, <code>lon</code> parameters).</li>
+<li>Finally, <code>items_as_dicts</code> is set to <em>True</em> since we defined it in the previous code cell.</li>
+</ul>
+<p>After this, datasets are <strong>computed in parallel with Dask</strong>.</p>
+<div id="27" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the delayed Dask objects</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>HAI_ds <span class="op">=</span> [open_and_curate_data(item,lat<span class="op">=</span>HAI_LAT,lon<span class="op">=</span>HAI_LON,bands<span class="op">=</span>[<span class="st">"b04"</span>,<span class="st">"b8a"</span>],resolution<span class="op">=</span><span class="dv">20</span>,<span class="bu">buffer</span><span class="op">=</span><span class="dv">500</span>,items_as_dicts<span class="op">=</span><span class="va">True</span>) <span class="cf">for</span> item <span class="kw">in</span> HAI_items]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the delayed objects in parallel. This outputs a list of xarray.Dataset objects</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>HAI_data <span class="op">=</span> dask.compute(<span class="op">*</span>HAI_ds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>After computed, datasets are concatenated along the <strong>time dimension</strong>, sorted by time, and finally <strong>loaded into memory</strong> as a single <code>xarray.Dataset</code>.</p>
+<div id="29" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate the previous list using the time dimension and sort it</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>HAI_ds <span class="op">=</span> xr.concat(HAI_data,dim<span class="op">=</span><span class="st">"time"</span>).sortby(<span class="st">"time"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load it into memory</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>HAI_ds <span class="op">=</span> HAI_ds.compute()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="compute-vegetation-indices" class="level3">
+<h3 class="anchored" data-anchor-id="compute-vegetation-indices">Compute Vegetation Indices</h3>
+<p>Compute <strong>spectral indices</strong> for the DE-Hai dataset using the <a href="https://github.com/awesome-spectral-indices/spyndex"><code>spyndex</code> package</a>. In this example, we calculate <strong>NDVI</strong> and <strong>kernel NDVI (kNDVI)</strong>.</p>
+<ul>
+<li><a href="https://ntrs.nasa.gov/citations/19740022614"><strong>NDVI (Normalized Difference Vegetation Index)</strong></a> is a widely used index to monitor vegetation health and greenness. It is calculated as:</li>
+</ul>
+<p><span class="math display">\[\text{NDVI} = \frac{N - R}{N + R}\]</span></p>
+<p>where <code>N</code> is the near-infrared band (<code>B8A</code>) and <code>R</code> is the red band (<code>B04</code>).</p>
+<ul>
+<li><a href="https://doi.org/10.1126/sciadv.abc7447"><strong>kNDVI (Kernel NDVI)</strong></a> is a kernelized version of NDVI. Here, an <strong>RBF (Radial Basis Function) kernel</strong> is applied:</li>
+</ul>
+<p><span class="math display">\[\text{kNDVI} = \frac{k(N,N) - k(N,R)}{k(N,N) + k(N,R)}\]</span></p>
+<p>where <span class="math inline">\(k(a,b)\)</span> is the RBF kernel:</p>
+<p><span class="math display">\[k(N,N) = 1\]</span></p>
+<p><span class="math display">\[k(N,R) = \exp\left(-\frac{(N-R)^2}{2 \sigma^2}\right)\]</span></p>
+<p>Here, <span class="math inline">\(\sigma\)</span> is claculated as the median in the time dimension of <span class="math inline">\(0.5(N+R)\)</span>.</p>
+<p>The <code>spyndex.computeIndex</code> function computes both indices across the time series and stores them in an <strong><code>xarray.Dataset</code></strong> named <code>idx</code> for subsequent anomaly analysis.</p>
+<p>The <code>spyndex.computeKernel</code> function computes the kernel for the kNDVI.</p>
+<p>Note that in both cases <code>spyndex</code> just requires the data for computing the indices without the need of hard-coding the formulas.</p>
+<div id="31" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> spyndex.computeIndex(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"NDVI"</span>,<span class="st">"kNDVI"</span>], <span class="co"># Indices to compute</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> HAI_ds[<span class="st">"b8a"</span>], <span class="co"># NIR band</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    R <span class="op">=</span> HAI_ds[<span class="st">"b04"</span>], <span class="co"># Red band</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    kNN <span class="op">=</span> <span class="fl">1.0</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    kNR <span class="op">=</span> spyndex.computeKernel(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"RBF"</span>, <span class="co"># RBF kernel</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        a <span class="op">=</span> HAI_ds[<span class="st">"b8a"</span>],</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        b <span class="op">=</span> HAI_ds[<span class="st">"b04"</span>],</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        sigma <span class="op">=</span> ((HAI_ds[<span class="st">"b8a"</span>] <span class="op">+</span> HAI_ds[<span class="st">"b04"</span>])<span class="op">/</span><span class="fl">2.0</span>).median(<span class="st">"time"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>).to_dataset(<span class="st">"index"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Add the name and units of each index to the attributes according to the CF conventions.</p>
+<div id="33" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>idx.NDVI.attrs[<span class="st">"long_name"</span>] <span class="op">=</span> spyndex.indices.NDVI.long_name</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>idx.NDVI.attrs[<span class="st">"units"</span>] <span class="op">=</span> <span class="st">"1"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>idx.kNDVI.attrs[<span class="st">"long_name"</span>] <span class="op">=</span> spyndex.indices.kNDVI.long_name</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>idx.kNDVI.attrs[<span class="st">"units"</span>] <span class="op">=</span> <span class="st">"1"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Resample the NDVI and kNDVI time series to <strong>weekly frequency</strong>, taking the <strong>median</strong> within each week. After resampling, fill temporal gaps by applying <strong>cubic interpolation</strong> along the time dimension. This produces smooth, continuous weekly index time series suitable for anomaly computation.</p>
+<div id="35" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> idx.resample(time<span class="op">=</span><span class="st">"1W"</span>).median().interpolate_na(dim<span class="op">=</span><span class="st">"time"</span>,method<span class="op">=</span><span class="st">"cubic"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="calculate-vegetation-anomalies" class="level3">
+<h3 class="anchored" data-anchor-id="calculate-vegetation-anomalies">Calculate Vegetation Anomalies</h3>
+<p>Compute the <strong>median seasonal cycle</strong> (MSC) for NDVI and kNDVI.</p>
+<p>By grouping the time series by <code>weekofyear</code> and taking the <strong>median across years</strong>, this step produces a climatological baseline that represents the typical vegetation state for each week of the year.</p>
+<p>The MSC will be used later to derive vegetation anomalies.</p>
+<div id="37" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>msc <span class="op">=</span> idx.groupby(<span class="st">"time.weekofyear"</span>).median(<span class="st">"time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Plot the MSC of the NDVI.</p>
+<div id="39" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>msc.NDVI.plot.imshow(col <span class="op">=</span> <span class="st">"weekofyear"</span>,cmap <span class="op">=</span> <span class="st">"viridis"</span>,col_wrap <span class="op">=</span> <span class="dv">8</span>,vmin<span class="op">=</span><span class="dv">0</span>,vmax<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Plot the MSC of the kNDVI.</p>
+<div id="41" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>msc.kNDVI.plot.imshow(col <span class="op">=</span> <span class="st">"weekofyear"</span>,cmap <span class="op">=</span> <span class="st">"viridis"</span>,col_wrap <span class="op">=</span> <span class="dv">8</span>,vmin<span class="op">=</span><span class="dv">0</span>,vmax<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Compute <strong>vegetation anomalies</strong> by subtracting the <strong>median seasonal cycle (MSC)</strong> from the weekly NDVI and kNDVI values. This step isolates deviations from the expected seasonal pattern, allowing us to identify abnormal vegetation conditions potentially linked to stress or extreme events.</p>
+<div id="43" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>idx_anomalies <span class="op">=</span> idx.groupby(<span class="st">"time.weekofyear"</span>) <span class="op">-</span> msc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Add the name and units of each index anomaly to the attributes according to the CF conventions.</p>
+<div id="45" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>idx_anomalies.NDVI.attrs[<span class="st">"long_name"</span>] <span class="op">=</span> spyndex.indices.NDVI.long_name <span class="op">+</span> <span class="st">" Anomaly"</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>idx_anomalies.NDVI.attrs[<span class="st">"units"</span>] <span class="op">=</span> <span class="st">"1"</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>idx_anomalies.kNDVI.attrs[<span class="st">"long_name"</span>] <span class="op">=</span> spyndex.indices.kNDVI.long_name <span class="op">+</span> <span class="st">" Anomaly"</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>idx_anomalies.kNDVI.attrs[<span class="st">"units"</span>] <span class="op">=</span> <span class="st">"1"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="visualize-time-series" class="level3">
+<h3 class="anchored" data-anchor-id="visualize-time-series">Visualize Time Series</h3>
+<p>We will use time series for visualization. Let’s first aggregate the indices in space using the median to produce a time series.</p>
+<div id="47" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>idx_agg <span class="op">=</span> idx.median([<span class="st">"x"</span>,<span class="st">"y"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Here, we defined the colors to use for our indices.</p>
+<div id="49" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Colors for indices</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>NDVI_COLOR <span class="op">=</span> <span class="st">'limegreen'</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>kNDVI_COLOR <span class="op">=</span> <span class="st">'darkviolet'</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Color for zero line in anomalies</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ZERO_COLOR <span class="op">=</span> <span class="st">'red'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, we will plot the NDVI and kNDVI time series together with the GPP measurements for the DE-Hai site. A secondary axis will be used to display GPP, allowing direct visual comparison between vegetation dynamics and ecosystem productivity. Extreme low-GPP events are highlighted as shaded red intervals: These events are defined as <strong>periods of at least two consecutive days</strong> in which GPP anomalies fall <strong>below the 10th percentile</strong> of the lower tail of the distribution. This information is contained in the <code>HAI_df</code> dataframe created via <code>curate_gpp</code> helper function.</p>
+<p>This visualization helps link vegetation index to observed reductions in carbon uptake, revealing how forest canopy responses relate to ecosystem-scale stress signals.</p>
+<div id="51" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">3</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ax.plot(idx_agg.time, idx_agg[<span class="st">"NDVI"</span>],  color<span class="op">=</span>NDVI_COLOR,  label<span class="op">=</span><span class="st">"NDVI"</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>ax.plot(idx_agg.time, idx_agg[<span class="st">"kNDVI"</span>], color<span class="op">=</span>kNDVI_COLOR, label<span class="op">=</span><span class="st">"kNDVI"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylim([<span class="op">-</span><span class="fl">0.15</span>,<span class="fl">1.2</span>])</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"VI"</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax.twinx()</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>ax2.scatter(df.index, df[<span class="st">"GPP_NT_VUT_REF"</span>], </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>            s<span class="op">=</span><span class="dv">20</span>, color<span class="op">=</span><span class="st">"grey"</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"GPP"</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>ax2.set_ylim([<span class="op">-</span><span class="fl">3.5</span>,<span class="fl">17.5</span>])</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"GPP"</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>ax2.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>extreme_mask <span class="op">=</span> df[<span class="st">"extreme"</span>] <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> (extreme_mask <span class="op">!=</span> extreme_mask.shift()).cumsum()</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, group <span class="kw">in</span> df[extreme_mask].groupby(groups):</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> group.index.<span class="bu">min</span>()</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    end   <span class="op">=</span> group.index.<span class="bu">max</span>()</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    ax.axvspan(start, end, color<span class="op">=</span><span class="st">"red"</span>, alpha<span class="op">=</span><span class="fl">0.15</span>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"NDVI, kNDVI, GPP and Extreme Events"</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now, let’s do the same for the anomalies by aggregating the anomalies of the indices in space using the median to produce a time series.</p>
+<div id="53" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>idx_anomalies_agg <span class="op">=</span> idx_anomalies.median([<span class="st">"x"</span>,<span class="st">"y"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now we can visualize the <strong>anomaly time series</strong> of NDVI, kNDVI, and GPP for the DE-Hai site. Here, both vegetation indices and GPP have been transformed into <strong>weekly anomalies</strong>, representing deviations from their typical seasonal cycles. A horizontal line at zero indicates the expected baseline. A secondary axis displays <strong>GPP anomalies</strong>, allowing direct comparison between canopy-level spectral responses and ecosystem-level carbon uptake changes. Extreme low-GPP events are shown as shaded red intervals.</p>
+<p>This plot highlights how vegetation index anomalies co-occur with (e.g.&nbsp;2021) or diverge (e.g.&nbsp;2018) from carbon uptake anomalies, offering insight into forest responses to stress events.</p>
+<div id="55" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">3</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ax.plot(idx_anomalies_agg.time, idx_anomalies_agg[<span class="st">"NDVI"</span>],  color<span class="op">=</span>NDVI_COLOR,  label<span class="op">=</span><span class="st">"NDVI"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>ax.plot(idx_anomalies_agg.time, idx_anomalies_agg[<span class="st">"kNDVI"</span>], color<span class="op">=</span>kNDVI_COLOR, label<span class="op">=</span><span class="st">"kNDVI"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>ax.axhline(<span class="dv">0</span>, color<span class="op">=</span>ZERO_COLOR, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>ax.set_ylim([<span class="op">-</span><span class="fl">0.45</span>,<span class="fl">0.45</span>])</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"VI Anomaly"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>ax.legend(loc<span class="op">=</span><span class="st">"upper left"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax.twinx()</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>ax2.scatter(df.index, df[<span class="st">"anomaly"</span>], </span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>            s<span class="op">=</span><span class="dv">20</span>, color<span class="op">=</span><span class="st">"grey"</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"GPP"</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>ax2.set_ylim([<span class="op">-</span><span class="fl">6.5</span>,<span class="fl">6.5</span>])</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">"GPP Anomaly"</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>ax2.legend(loc<span class="op">=</span><span class="st">"upper right"</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>extreme_mask <span class="op">=</span> df[<span class="st">"extreme"</span>] <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> (extreme_mask <span class="op">!=</span> extreme_mask.shift()).cumsum()</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _, group <span class="kw">in</span> df[extreme_mask].groupby(groups):</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    start <span class="op">=</span> group.index.<span class="bu">min</span>()</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    end   <span class="op">=</span> group.index.<span class="bu">max</span>()</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    ax.axvspan(start, end, color<span class="op">=</span><span class="st">"red"</span>, alpha<span class="op">=</span><span class="fl">0.15</span>)</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"NDVI, kNDVI, GPP Anomalies and Extreme Events"</span>)</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="now-it-is-your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="now-it-is-your-turn">💪 Now it is your turn</h2>
+<p>The following exercises will help you reproduce the previous workflow for another dataset.</p>
+<section id="task-1-create-a-data-cube-for-de-tha" class="level3">
+<h3 class="anchored" data-anchor-id="task-1-create-a-data-cube-for-de-tha">Task 1: Create a data cube for DE-Tha</h3>
+<ul>
+<li>Use the coordinates of DE-Tha (provided in the cell below) to create a data cube for this site.</li>
+<li>Retrieve the red edge bands in addition to the NIR and red bands.</li>
+<li>Modify the code as you need.</li>
+</ul>
+<div id="59" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DE-Tha Coordinates</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>THA_LAT <span class="op">=</span> <span class="fl">50.9625</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>THA_LON <span class="op">=</span> <span class="fl">13.56515</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Get all items as a list of dicts</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_items = get_items(THA_LAT,THA_LON,return_as_dicts=True)</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the delayed Dask objects</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_ds = [open_and_curate_data(..., bands=["b04", "b05", "b06", "b07", "b8a"]) for ...]</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-2-compute-vegetation-indices" class="level3">
+<h3 class="anchored" data-anchor-id="task-2-compute-vegetation-indices">Task 2: Compute Vegetation Indices</h3>
+<ul>
+<li>Select a vegetation index from <a href="https://github.com/awesome-spectral-indices/awesome-spectral-indices">Awesome Spectral Indices</a> that uses the Red Edge bands.</li>
+<li>Modify the code as you need.</li>
+</ul>
+<div id="61" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Indices that include any of the red edge bands</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, attrs <span class="kw">in</span> spyndex.indices.items():</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">any</span>(item <span class="kw">in</span> [<span class="st">"RE1"</span>,<span class="st">"RE2"</span>,<span class="st">"RE3"</span>] <span class="cf">for</span> item <span class="kw">in</span> attrs.bands):</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(idx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="task-3-calculate-vegetation-anomalies" class="level3">
+<h3 class="anchored" data-anchor-id="task-3-calculate-vegetation-anomalies">Task 3: Calculate Vegetation Anomalies</h3>
+<ul>
+<li>Calculate anomalies for the selected index and compare them against the GPP anomalies of DE-Tha.</li>
+</ul>
+<div id="63" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>THA_df <span class="op">=</span> curate_gpp(<span class="st">"DE-Tha"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["GPP_NT_VUT_REF"] -&gt; GPP values</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["time"] -&gt; time simension</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["anomaly"] -&gt; Anomalies</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["extreme"] -&gt; Extreme = 1, Normal condition = 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In this notebook, we explored how <strong>Sentinel-2 L2A Zarr data cubes</strong> can be used to monitor forest vegetation dynamics and detect anomalous behavior linked to ecosystem stress. By leveraging Zarr, STAC-based discovery, and <code>xarray</code>/<code>Dask</code> for scalable computation, we built an end-to-end workflow that included:</p>
+<ul>
+<li>Accessing Sentinel-2 data from the EOPF Zarr STAC<br>
+</li>
+<li>Creating spatiotemporal data cubes centered on forest monitoring sites<br>
+</li>
+<li>Computing spectral indices (NDVI, kNDVI) using the Awesome Spectral Indices catalogue<br>
+</li>
+<li>Constructing weekly time series and climatological baselines<br>
+</li>
+<li>Deriving vegetation anomalies and comparing them with GPP anomalies from ICOS<br>
+</li>
+<li>Identifying and visualizing extreme low-GPP events</li>
+</ul>
+<p>Through the joint analysis of <strong>spectral indices</strong> and <strong>ecosystem productivity</strong>, we demonstrated how remote sensing can reveal (or not) signals of forest stress and complement flux tower observations. This workflow illustrates the value of <strong>Zarr-based EO data</strong>, <strong>open standards (STAC)</strong>, and <strong>modern geospatial Python tools</strong> for reproducible and scalable environmental monitoring.</p>
+<section id="acknowledgements" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h3>
+<p>We would like to thank ICOS for providing the data on the Ecosystem stations DE-Hai [1] and DE-Tha [2].</p>
+</section>
+<section id="references" class="level3">
+<h3 class="anchored" data-anchor-id="references">References</h3>
+<p>[1] Knohl, A., Schulze, E.-D., Kolle, O., &amp; Buchmann, N. (2003). Large carbon uptake by an unmanaged 250-year-old deciduous forest in Central Germany. Agricultural and Forest Meteorology, 118(3–4), 151–167. https://doi.org/10.1016/s0168-1923(03)00115-1</p>
+<p>[2] Grünwald, T., &amp; Bernhofer, C. (2007). A decade of carbon, water and energy flux measurements of an old spruce forest at the Anchor Station Tharandt. Tellus B: Chemical and Physical Meteorology, 59(3), 387. https://doi.org/10.1111/j.1600-0889.2007.00259.x</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../06_eopf_zarr_in_action/67_reservoir_surface_monitoring.html" class="pagination-link" aria-label="Reservoir Surface Monitoring">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Reservoir Surface Monitoring</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../glossary.html" class="pagination-link" aria-label="**Glossary**">
+        <span class="nav-page-text"><span class="chapter-title"><strong>Glossary</strong></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Development Seed, thriveGEO and SparkGeo</p>
+</div>   
+    <div class="nav-footer-center">
+<p>License: Apache 2.0</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link active" href="https://github.com/eopf-toolkit/eopf-101" aria-current="page">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
