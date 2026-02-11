@@ -2,6 +2,8 @@
 title: "Access EOPF Zarr in QGIS Using STAC"
 ---
 
+**By:** *[@captaincoordinates](https://github.com/captaincoordinates)*
+
 ### Introduction
 
 The following page will demonstrate how to access the [EOPF STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) in QGIS. We will utilise QGIS's native **STAC** capabilities to add **Sentinel-2 L2A Zarr** items delivered from **EOPF STAC Catalog** to a **QGIS** project.

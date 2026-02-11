@@ -19,6 +19,8 @@ jupyterlab_link <- paste0(link_start, folder, separator, file, link_end)
 </button>
 </a>
 
+**By:** *[@sharlagelfand](https://github.com/sharlagelfand)*
+
 ### Introduction
 
 In this section, we will explore programmatic access of the EOPF Zarr Collections available in the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/) using R. We will introduce R packages that enable us to effectively access and search through STAC catalogs.

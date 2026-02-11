@@ -21,6 +21,8 @@ jupyterlab_link <- paste0(link_start, folder, separator, file, link_end)
 </button>
 </a>
 
+**By:** *[@sharlagelfand](https://github.com/sharlagelfand)*
+
 ### Introduction
 
 In this tutorial, we will demonstrate how to access EOPF Zarr products directly from the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/) using R. We will introduce R packages that enable us to effectively get an overview of and read Zarr arrays.

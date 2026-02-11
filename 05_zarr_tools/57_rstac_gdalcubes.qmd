@@ -4,6 +4,7 @@ format: html
 self-contained: true
 ---
 
+**By:** *[@DaChro](https://github.com/DaChro)*
 
 ### Introduction
 
