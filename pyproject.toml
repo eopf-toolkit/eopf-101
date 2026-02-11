@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=67.0.0", "wheel"]
+requires = ["setuptools==81.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -30,6 +30,7 @@ keywords = [
 ]
 
 dependencies = [
+    "setuptools==81.0.0",
     "jupyter>=1.1.1",
     "zarr>=3.1.1",
     "pystac>=1.13.0",
