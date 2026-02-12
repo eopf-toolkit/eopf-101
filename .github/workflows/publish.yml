@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login to OVH Harbor docker registry
-        if: ${{ needs.detect-changes.outputs.image_changes }}
+        if: needs.detect-changes.outputs.image_changes == 'true'
         uses: docker/login-action@v3
         with:
           registry: ${{ secrets.OVH_HARBOR_REGISTRY }}
@@ -40,17 +40,17 @@ jobs:
           password: ${{ secrets.OVH_HARBOR_PASSWORD }}
 
       - name: Checkout code
-        if: ${{ needs.detect-changes.outputs.image_changes }}
+        if: needs.detect-changes.outputs.image_changes == 'true'
         uses: actions/checkout@v4
 
       - name: Extract short commit hash
-        if: ${{ needs.detect-changes.outputs.image_changes }}
+        if: needs.detect-changes.outputs.image_changes == 'true'
         id: commit
         run: echo "hash=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Build and push python docker image
         working-directory: deployment
-        if: ${{ needs.detect-changes.outputs.image_changes }}
+        if: needs.detect-changes.outputs.image_changes == 'true'
         run: |
           make build-and-push-docker-image TAG=release-${{ steps.commit.outputs.hash }} PROJECT="python"
           make tag-docker-image TAG=latest PROJECT="python"
@@ -58,7 +58,7 @@ jobs:
 
       - name: Build and push r docker image
         working-directory: deployment
-        if: ${{ needs.detect-changes.outputs.image_changes }}
+        if: needs.detect-changes.outputs.image_changes == 'true'
         run: |
           make build-and-push-docker-image TAG=release-${{ steps.commit.outputs.hash }} PROJECT="r"
           make tag-docker-image TAG=latest PROJECT="r"
