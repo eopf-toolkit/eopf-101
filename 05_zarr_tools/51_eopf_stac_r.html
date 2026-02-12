@@ -475,6 +475,8 @@ type, id, title, description, stac_version, conformsTo, links, stac_extensions</
 - collections (12 item(s)):
   - sentinel-2-l2a
   - sentinel-1-l1-grd
+  - sentinel-3-slstr-l1-rbt
+  - sentinel-3-olci-l2-lfr
   - sentinel-3-slstr-l2-lst
   - sentinel-3-slstr-l2-frp
   - sentinel-3-olci-l2-lrr
@@ -483,8 +485,6 @@ type, id, title, description, stac_version, conformsTo, links, stac_extensions</
   - sentinel-1-l1-slc
   - sentinel-3-olci-l1-err
   - sentinel-1-l2-ocn
-  - sentinel-3-slstr-l1-rbt
-  - sentinel-3-olci-l2-lfr
 - field(s): collections, links, numberMatched, numberReturned</code></pre>
 </div>
 </div>
@@ -527,10 +527,10 @@ id, type, links, title, assets, extent, license, keywords, providers, summaries,
 
 [[3]]
 ###Collection
-- id: sentinel-3-slstr-l2-lst
-- title: Sentinel-3 SLSTR Level-2 LST
+- id: sentinel-3-slstr-l1-rbt
+- title: Sentinel-3 SLSTR Level-1 RBT
 - description: 
-The Sentinel-3 SLSTR Level-2 LST product provides land surface temperature.
+The Sentinel-3 SLSTR Level-1B RBT product provides radiances and brightness temperatures for each pixel in a regular image grid for each view and SLSTR channel. In addition, it also contains annotations data associated with each image pixels.
 - field(s): 
 id, type, links, title, assets, extent, license, keywords, providers, summaries, description, item_assets, stac_version, stac_extensions</code></pre>
 </div>
@@ -603,16 +603,16 @@ id, type, links, title, assets, extent, license, keywords, providers, summaries,
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (10 item(s)):
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TPE_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TNF_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TNE_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TMF_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TME_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TLE_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPD_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPC_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPB_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPA_20260210T120313
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UFA_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UEC_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UEB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UEA_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UDC_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UDB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UDA_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UCB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UCA_20260212T104509
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -628,16 +628,16 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (20 item(s)):
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TPE_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TNF_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TNE_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TMF_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TME_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TLE_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPD_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPC_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPB_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPA_20260210T120313
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UFA_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UEC_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UEB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UEA_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UDC_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UDB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UDA_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UCB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UCA_20260212T104509
   - ... with 10 more feature(s).
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
@@ -654,10 +654,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 ###Item
-- id: S2A_MSIL2A_20260210T090921_N0512_R007_T35TPE_20260210T120313
+- id: S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509
 - collection: sentinel-2-l2a
-- bbox: xmin: 28.16567, ymin: 39.64154, xmax: 29.32207, ymax: 40.58671
-- datetime: 2026-02-10T09:09:21.024000Z
+- bbox: xmin: 22.40872, ymin: 50.43472, xmax: 23.75129, ymax: 51.21636
+- datetime: 2026-02-12T09:46:41.024000Z
 - assets: 
 SR_10m, SR_20m, SR_60m, AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, SCL_20m, TCI_10m, WVP_10m, product, zipped_product, product_metadata
 - item's fields: 
@@ -665,10 +665,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 
 [[2]]
 ###Item
-- id: S2A_MSIL2A_20260210T090921_N0512_R007_T35TNF_20260210T120313
+- id: S2A_MSIL2A_20260212T094641_N0512_R036_T34UFA_20260212T104509
 - collection: sentinel-2-l2a
-- bbox: xmin: 26.99976, ymin: 40.55547, xmax: 28.29674, ymax: 40.81320
-- datetime: 2026-02-10T09:09:21.024000Z
+- bbox: xmin: 22.39259, ymin: 49.72290, xmax: 23.54807, ymax: 50.54374
+- datetime: 2026-02-12T09:46:41.024000Z
 - assets: 
 SR_10m, SR_20m, SR_60m, AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, SCL_20m, TCI_10m, WVP_10m, product, zipped_product, product_metadata
 - item's fields: 
@@ -681,7 +681,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sentinel_2_l2a_first_item[[<span class="st">"bbox"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 28.16567 39.64154 29.32207 40.58671</code></pre>
+<pre><code>[1] 22.40872 50.43472 23.75129 51.21636</code></pre>
 </div>
 </div>
 <p>And many more additional properties, with their properties under <code>"properties"</code> in an individual item.</p>
@@ -768,6 +768,8 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (10 item(s)):
+  - S2C_MSIL2A_20260210T095141_N0512_R079_T33UXP_20260210T132914
+  - S2C_MSIL2A_20260210T095141_N0512_R079_T33UWP_20260210T132914
   - S2B_MSIL2A_20260208T100049_N0512_R122_T33UXP_20260208T134756
   - S2B_MSIL2A_20260208T100049_N0512_R122_T33UWP_20260208T134756
   - S2B_MSIL2A_20260205T095109_N0512_R079_T33UXP_20260205T152522
@@ -776,8 +778,6 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
   - S2C_MSIL2A_20260203T100221_N0511_R122_T33UWP_20260203T132812
   - S2C_MSIL2A_20260131T095231_N0511_R079_T33UXP_20260131T135211
   - S2C_MSIL2A_20260131T095231_N0511_R079_T33UWP_20260131T135211
-  - S2B_MSIL2A_20260126T095159_N0511_R079_T33UXP_20260126T133947
-  - S2B_MSIL2A_20260126T095159_N0511_R079_T33UWP_20260126T133947
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -837,16 +837,16 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (10 item(s)):
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TPE_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TNF_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TNE_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TMF_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TME_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35TLE_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPD_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPC_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPB_20260210T120313
-  - S2A_MSIL2A_20260210T090921_N0512_R007_T35SPA_20260210T120313
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UFA_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UEC_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UEB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UEA_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UDC_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UDB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UDA_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UCB_20260212T104509
+  - S2A_MSIL2A_20260212T094641_N0512_R036_T34UCA_20260212T104509
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -944,16 +944,16 @@ $gsd
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (10 item(s)):
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26TLL_20260209T152301
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26TLK_20260209T152301
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26TKL_20260209T152301
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26TKK_20260209T152301
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26SLJ_20260209T152301
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26SLH_20260209T152301
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26SKJ_20260209T152301
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26SKH_20260209T152301
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26SKG_20260209T152301
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T25TGF_20260209T152301
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WEU_20260212T115326
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WET_20260212T115326
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WES_20260212T115326
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WDU_20260212T115326
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WDT_20260212T115326
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WDS_20260212T115326
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WDR_20260212T115326
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WDQ_20260212T115326
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WCV_20260212T115326
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T36WXV_20260212T115326
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -989,7 +989,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (1 item(s)):
-  - S2B_MSIL2A_20260209T130029_N0512_R138_T26TLL_20260209T152301
+  - S2B_MSIL2A_20260212T094029_N0512_R036_T37WEU_20260212T115326
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -1004,7 +1004,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">post_request</span>() <span class="sc">|&gt;</span></span>
 <span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_first_item_property</span>(<span class="st">"eo:cloud_cover"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 25.03559</code></pre>
+<pre><code>[1] 36.98742</code></pre>
 </div>
 </div>
 <p>If we want to search for items where <code>instruments</code> is “msi”, we use the <code>a_contains()</code> function. We need to use this instead of <code>==</code> because <code>instruments</code> is an <code>array</code>, as seen above. This means it operates like a list within R, and can contain multiple values – <code>a_contains()</code> searches for the value <code>"msi"</code> within the list of values that is <code>instruments</code>.</p>
@@ -1064,10 +1064,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>sentinel_2_l2a_collection_items[[<span class="st">"features"</span>]][[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>###Item
-- id: S2A_MSIL2A_20260210T090921_N0512_R007_T35TPE_20260210T120313
+- id: S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509
 - collection: sentinel-2-l2a
-- bbox: xmin: 28.16567, ymin: 39.64154, xmax: 29.32207, ymax: 40.58671
-- datetime: 2026-02-10T09:09:21.024000Z
+- bbox: xmin: 22.40872, ymin: 50.43472, xmax: 23.75129, ymax: 51.21636
+- datetime: 2026-02-12T09:46:41.024000Z
 - assets: 
 SR_10m, SR_20m, SR_60m, AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, SCL_20m, TCI_10m, WVP_10m, product, zipped_product, product_metadata
 - item's fields: 
@@ -1086,10 +1086,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>example_item</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>###Item
-- id: S2A_MSIL2A_20260210T090921_N0512_R007_T35TPE_20260210T120313
+- id: S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509
 - collection: sentinel-2-l2a
-- bbox: xmin: 28.16567, ymin: 39.64154, xmax: 29.32207, ymax: 40.58671
-- datetime: 2026-02-10T09:09:21.024000Z
+- bbox: xmin: 22.40872, ymin: 50.43472, xmax: 23.75129, ymax: 51.21636
+- datetime: 2026-02-12T09:46:41.024000Z
 - assets: 
 SR_10m, SR_20m, SR_60m, AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, SCL_20m, TCI_10m, WVP_10m, product, zipped_product, product_metadata
 - item's fields: 
@@ -1118,10 +1118,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>sr_10m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>###Item
-- id: S2A_MSIL2A_20260210T090921_N0512_R007_T35TPE_20260210T120313
+- id: S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509
 - collection: sentinel-2-l2a
-- bbox: xmin: 28.16567, ymin: 39.64154, xmax: 29.32207, ymax: 40.58671
-- datetime: 2026-02-10T09:09:21.024000Z
+- bbox: xmin: 22.40872, ymin: 50.43472, xmax: 23.75129, ymax: 51.21636
+- datetime: 2026-02-12T09:46:41.024000Z
 - assets: SR_10m
 - item's fields: 
 assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac_version, type</code></pre>
@@ -1133,7 +1133,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_select</span>(<span class="at">asset_names =</span> <span class="st">"product"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_url</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/10/products/cpm_v262/S2A_MSIL2A_20260210T090921_N0512_R007_T35TPE_20260210T120313.zarr"</code></pre>
+<pre><code>[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/12/products/cpm_v262/S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509.zarr"</code></pre>
 </div>
 </div>
 <p>It is also helpful to know which assets actually contain Zarr data. Assets can be <em>Zarr groups</em>, which share common dimensions and coordinates, and contain Zarr arrays within them. An asset can also be an individual Zarr array.</p>
@@ -1154,7 +1154,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 [1] 10
 
 $href
-[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/10/products/cpm_v262/S2A_MSIL2A_20260210T090921_N0512_R007_T35TPE_20260210T120313.zarr/measurements/reflectance/r10m"
+[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/12/products/cpm_v262/S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509.zarr/measurements/reflectance/r10m"
 
 $type
 [1] "application/vnd+zarr"
