@@ -153,7 +153,7 @@ r20m_b02 |>
 
 The above overview tells us that the data is two-dimensional, with dimensions 5490 x 5490. Zarr data is split up into **chunks**, which are smaller, independent piece of the larger array. Chunks can be accessed individually, without loading the entire array. In this case, there are 36 chunks in total, with 6 along each of the dimensions, each of size 915 x 915.
 
-# Read Zarr data
+## Read Zarr data
 
 To read in Zarr data, we use `read_zarr_array()`, and can pass a list to the `index` argument, describing which elements we want to extract along each dimension. Since this array is two-dimensional, we can think of the dimensions as rows and columns of the data. For example, to select the first 10 rows and the first 5 columns:
 
@@ -162,7 +162,7 @@ r20m_b02 |>
   read_zarr_array(index = list(1:10, 1:5))
 ```
 
-## Coordinates
+### Coordinates
 
 Similarly, we can read in the `x` and `y` coordinates corresponding to data at 10m resolution. These `x` and `y` coordinates do not correspond to latitude and longitude---to understand the coordinate reference system used in each data set, we access the `proj:code` property of the STAC item. In this case, the coordinate reference system is [EPSG:32626](https://epsg.io/32626), which represents metres from the UTM zone's origin.
 
@@ -213,7 +213,7 @@ r20m_y |>
   head(5)
 ```
 
-## Different resolutions
+### Different resolutions
 
 With EOPF data, some measurements are available at multiple resolutions. For example, we can see that the B02 spectral band is available at 10m, 20m, and 60m resolution:
 
@@ -237,7 +237,7 @@ b02 |>
   pull(dim)
 ```
 
-# Scaling data
+## Scaling data
 
 Zarr data arrays are often packed or compressed in order to limit space. Because of this, when we read in the data, we also need to check whether the values need to be scaled or offset to their actual physical units or meaningful values. This information is contained in the metadata associated with the Zarr store. We create a helper function to obtain these values, setting the `offset` to 0 and `scale` to 1 if they do not need to be offset or scaled.
 
@@ -284,7 +284,7 @@ get_scale_and_offset(
 )
 ```
 
-# Simple Data Analysis: Calculating NDVI
+## Simple Data Analysis: Calculating NDVI
 
 Let us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).
 
