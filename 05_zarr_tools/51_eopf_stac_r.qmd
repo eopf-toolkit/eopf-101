@@ -92,7 +92,7 @@ stac_collections[["collections"]][[1]]
 
 However, the best way to access a specific collection is to search for it directly using the collection ID. The ID, "sentinel-2-l2a", is visible in the Collection output above. It is also accessible in the browsable STAC catalog of the EOPF Sentinel Zarr Samples Service, on the [page for that collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a), under "Source."
 
-![](./img/51_eopf-stac-access-collections-id.png)
+![](../img/51_eopf-stac-access-collections-id.png)
 
 The collection ID can be supplied directly in the `collections()` function. If we look at the query without getting the result, we can see that it has been formed using the `collection_id`, "sentinel-2-l2a", as a filter parameter.
 
@@ -381,7 +381,7 @@ sentinel_2_l2a_collection_items[["features"]][[1]]
 
 Or through the STAC catalog of the EOPF Sentinel Zarr Samples Service, on the page for that item, under "Source":
 
-![](./img/51_eopf-stac-access-items-id.png)
+![](../img/51_eopf-stac-access-items-id.png)
 
 To select a single item, supply its ID in the `items()` function:
 
