@@ -7,6 +7,11 @@ execute:
   cache: FALSE
 ---
 
+```{r, echo = FALSE}
+options(scipen = 999)
+```
+
+
 # Introduction
 
 This tutorial expands on the previous tutorials ([Access the EOPF Zarr STAC API with R](https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/51_eopf_stac_r.html) and [Access and analyse EOPF STAC Zarr data with R](https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/53_eopf_zarr_r.html)), going into further details on analysing and visualising Zarr data from the [EOPF Sample Service STAC catalog](https://stac.browser.user.eopf.eodc.eu/) programmatically using R. We recommend reviewing the previous tutorials if you have not done so already.
@@ -166,6 +171,52 @@ owi_long <- owi |>
 owi_lat[1:5, 1:5]
 ```
 
+As described in the previous R section, Zarr data arrays are often packed or compressed in order to limit space, and may need to be scaled or offset to their actual physical units or meaningful values. 
+
+This information is contained in the metadata associated with the Zarr store. In the previous R section, we created a helper function to obtain these values, setting the `offset` to 0 and `scale` to 1 if they do not need to be offset or scaled.
+
+```{r scale-factor-offset}
+get_scale_and_offset <- function(zarr_url, array) {
+  metadata <- Rarr:::.read_zmetadata(
+    zarr_url,
+    s3_client = Rarr:::.create_s3_client(zarr_url)
+  )
+
+  metadata <- metadata[["metadata"]]
+
+  array_metadata <- metadata[[paste0(array, "/.zattrs")]]
+
+  scale <- array_metadata[["scale_factor"]]
+  scale <- ifelse(is.null(scale), 1, scale)
+
+  offset <- array_metadata[["add_offset"]]
+  offset <- ifelse(is.null(offset), 0, offset)
+
+
+  list(
+    scale = scale,
+    offset = offset
+  )
+}
+
+get_scale_and_offset(
+  l2_ocn_url,
+  "owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/wind_direction"
+)
+
+get_scale_and_offset(
+  l2_ocn_url,
+  "owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/latitude"
+)
+
+get_scale_and_offset(
+  l2_ocn_url,
+  "owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/longitude"
+)
+```
+
+None of this data need to be scaled or offset.
+
 Note that both `longitude` and `latitude` are 2-dimensional arrays, and they are not evenly spaced. Rather, the data grid is **curvilinear** --- it has grid lines that are not straight, and there is a longitude and latitude for every pixel of the other layers (i.e., `wind_direction`). This format is very common in satellite data.
 
 We use functions from the `stars` package, loaded earlier, to format the data for visualisation. `stars` is specifically designed for reading, manipulating, and plotting spatiotemporal data, such as satellite data.
@@ -195,8 +246,6 @@ Next, we look at an example from the Sentinel-3 mission. The Sentinel-3 mission 
 
 Again, we will access a specific item from this collection:
 
-# TODO -> having trouble with lat/long here, why is it not in that format when I pull the data down?
-
 ```{r gifapar-item}
 l2_lfr <- stac("https://stac.core.eopf.eodc.eu/") |>
   collections(collection_id = "sentinel-3-olci-l2-lfr") |>
@@ -209,7 +258,12 @@ l2_lfr
 To access all of the data, we get the "product" asset and then the full Zarr store, again using our helper function to extract array information from the full array path:
 
 ```{r gifapar-store}
-## 
+derive_store_array <- function(store, product_url) {
+  store |>
+    mutate(array = str_remove(path, product_url)) |>
+    relocate(array, .before = path)
+}
+
 l2_lfr_url <- l2_lfr |>
   assets_select(asset_names = "product") |>
   assets_url()
@@ -224,7 +278,6 @@ l2_lfr_store
 Next, we filter to access measurement data only:
 
 ```{r gifapar-measurements}
-##
 l2_lfr_measurements <- l2_lfr_store |>
   filter(str_starts(array, "/measurements")) |>
   mutate(array = str_remove(array, "/measurements/"))
@@ -235,7 +288,6 @@ l2_lfr_measurements
 Of these, we are interested in Green Instantaneous FAPAR (GIFAPAR). FAPAR is the fraction of absorbed photosynthetically active radiation in the plant canopy. We extract `gifapar` as well as `longitude` and `latitude`. We can get an overview of the arrays' dimensions and structures:
 
 ```{r gifapar-overview}
-##
 l2_lfr_measurements |>
   filter(array == "gifapar") |>
   pull(path) |>
@@ -255,7 +307,6 @@ l2_lfr_measurements |>
 Similar to the previous example, we can see that all of the arrays are of the same shape: 4091 x 4865. We read in all of the arrays:
 
 ```{r gifapar-read}
-##
 gifapar <- l2_lfr_measurements |>
   filter(array == "gifapar") |>
   pull(path) |>
@@ -264,7 +315,7 @@ gifapar <- l2_lfr_measurements |>
 gifapar_long <- l2_lfr_measurements |>
   filter(array == "longitude") |>
   pull(path) |>
-  read_zarr_array(list(1:5, 1:5))
+  read_zarr_array()
 
 gifapar_long[1:5, 1:5]
 
@@ -276,12 +327,28 @@ gifapar_lat <- l2_lfr_measurements |>
 gifapar_lat[1:5, 1:5]
 ```
 
-Again, both `longitude` and `latitude` are unevenly spaced 2-dimensional arrays. This tells us that the data grid is curvilinear, and we use `st_as_stars()` to get our data into the correct format for visualisation:
+We can immediately tell that the `longitude` and `latitude` will need to be scaled, since they are not typical values. We again find the scale and offset values for this data:
+
+```{r gifapar-scale-offset}
+gifapar_scale_offset <- get_scale_and_offset(l2_lfr_url, "measurements/gifapar")
+gifapar_scale_offset
+
+long_scale_offset <- get_scale_and_offset(l2_lfr_url, "measurements/longitude")
+long_scale_offset
+
+lat_scale_offset <- get_scale_and_offset(l2_lfr_url, "measurements/latitude")
+lat_scale_offset
+```
+
+Again, both `longitude` and `latitude` are unevenly spaced 2-dimensional arrays. This tells us that the data grid is curvilinear, and we use `st_as_stars()` to get our data into the correct format for visualisation, and scale it:
 
 ```{r gifapar-stars}
-##
 gifapar_stars <- st_as_stars(gifapar = gifapar) |>
-  st_as_stars(curvilinear = list(X1 = gifapar_long, X2 = gifapar_lat))
+  st_as_stars(curvilinear = list(
+    X1 = gifapar_long * long_scale_offset[["scale"]],
+    X2 = gifapar_lat * lat_scale_offset[["scale"]]
+  )) |>
+  mutate(gifapar = gifapar * gifapar_scale_offset[["scale"]])
 
 gifapar_stars
 ``` 
@@ -289,7 +356,6 @@ gifapar_stars
 Finally, we plot the GIFAPAR:
 
 ```{r gifapar-plot, message = FALSE, warning = FALSE}
-##
 plot(gifapar_stars, as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.colors)
 ```
 
