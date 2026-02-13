@@ -3,14 +3,11 @@ title: "Access and analyse EOPF STAC Zarr data with R"
 format:
   html:
     df-print: tibble
-execute:
-  cache: FALSE
 ---
 
-```{r, echo = FALSE}
+```{r setup, echo = FALSE}
 options(scipen = 999)
 ```
-
 
 # Introduction
 
@@ -72,9 +69,16 @@ The first example looks at [Sentinel-1 Level 2 Ocean (OCN) data](https://stac.br
 First, select the relevant collection and item from STAC:
 
 ```{r sentinel-1-stac}
+first_item <- stac("https://stac.core.eopf.eodc.eu/") |>
+  collections(collection_id = "sentinel-1-l2-ocn") |>
+  items(limit = 1) |>
+  get_request()
+
+first_item_id <- first_item[["features"]][[1]][["id"]]
+
 l2_ocn <- stac("https://stac.core.eopf.eodc.eu/") |>
   collections(collection_id = "sentinel-1-l2-ocn") |>
-  items(feature_id = "S1A_IW_OCN__2SDV_20250224T054940_20250224T055005_058034_072A26_160E") |>
+  items(feature_id = first_item_id) |>
   get_request()
 
 l2_ocn
@@ -117,12 +121,21 @@ l2_ocn_store |>
   filter(str_starts(array, "/owi"), str_detect(array, "measurements"))
 ```
 
-Since all of these arrays start with `/owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/`, we can remove that to get a clearer idea of what each array is:
+Since all of these arrays start with a long ID, we can remove that to get a clearer idea of what each array is:
 
 ```{r owi-arrays}
 owi <- l2_ocn_store |>
-  filter(str_starts(array, "/owi"), str_detect(array, "measurements")) |>
-  mutate(array = str_remove(array, "/owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/"))
+  filter(str_starts(array, "/owi"), str_detect(array, "measurements"))
+
+array_id_prefix <- str_split(owi[["array"]], "measurements", simplify = TRUE)[, 1] %>%
+  unique()
+
+array_id_prefix
+
+array_id_prefix <- paste0(array_id_prefix, "measurements/")
+
+owi <- owi |>
+  mutate(array = str_remove(array, array_id_prefix))
 
 owi
 ```
@@ -171,9 +184,9 @@ owi_long <- owi |>
 owi_lat[1:5, 1:5]
 ```
 
-As described in the previous R section, Zarr data arrays are often packed or compressed in order to limit space, and may need to be scaled or offset to their actual physical units or meaningful values. 
+As described in the previous R tutorial, Zarr data arrays are often packed or compressed in order to limit space, and may need to be scaled or offset to their actual physical units or meaningful values. 
 
-This information is contained in the metadata associated with the Zarr store. In the previous R section, we created a helper function to obtain these values, setting the `offset` to 0 and `scale` to 1 if they do not need to be offset or scaled.
+This information is contained in the metadata associated with the Zarr store. We created a helper function to obtain these values, setting the `offset` to 0 and `scale` to 1 if they do not need to be offset or scaled.
 
 ```{r scale-factor-offset}
 get_scale_and_offset <- function(zarr_url, array) {
@@ -199,20 +212,11 @@ get_scale_and_offset <- function(zarr_url, array) {
   )
 }
 
-get_scale_and_offset(
-  l2_ocn_url,
-  "owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/wind_direction"
-)
+get_scale_and_offset(l2_ocn_url, paste0(array_id_prefix, "wind_direction"))
 
-get_scale_and_offset(
-  l2_ocn_url,
-  "owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/latitude"
-)
+get_scale_and_offset(l2_ocn_url, paste0(array_id_prefix, "latitude"))
 
-get_scale_and_offset(
-  l2_ocn_url,
-  "owi/S01SIWOCN_20250224T054940_0025_A332_160E_072A26_VV/measurements/longitude"
-)
+get_scale_and_offset(l2_ocn_url, paste0(array_id_prefix, "longitude"))
 ```
 
 None of this data need to be scaled or offset.
