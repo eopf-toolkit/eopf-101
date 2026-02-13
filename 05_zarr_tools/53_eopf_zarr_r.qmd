@@ -31,7 +31,7 @@ In this tutorial, we will demonstrate how to access EOPF Zarr products directly 
 ### What we will learn
 
 - ☁️ How to overview cloud-optimised datasets from the EOPF Zarr STAC Catalog with the `Rarr` package.
-- 🔎 Read and examine loaded datasets
+- 🔎 Read, examine, and scale loaded datasets
 - 📊 Perform simple data analyses with the loaded data
 
 ### Prerequisites
