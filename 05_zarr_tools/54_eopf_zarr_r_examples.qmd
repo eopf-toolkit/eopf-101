@@ -23,20 +23,20 @@ jupyterlab_link <- paste0(link_start, folder, separator, file, link_end)
 </button>
 </a>
 
-# Introduction
+## Introduction
 
 This tutorial expands on the previous tutorials ([Access the EOPF Zarr STAC API with R](https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/51_eopf_stac_r.html) and [Access and analyse EOPF STAC Zarr data with R](https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/53_eopf_zarr_r.html)), going into further details on analysing and visualising Zarr data from the [EOPF Sample Service STAC catalog](https://stac.browser.user.eopf.eodc.eu/) programmatically using R. We recommend reviewing the previous tutorials if you have not done so already.
 
-### What we will learn
+## What we will learn
 
 - 🗂 How to extract measurements, such as Ocean Wind field and GIFAPAR, along with latitude and longitude
-- 📊 How to format and visualise satellite data on a curvillinear grid
+- 📊 How to format, scale, and visualise satellite data on a curvillinear grid
 
-# Prerequisites
+## Prerequisites
 
 An R environment is required to follow this tutorial, with R version >= 4.5.0. We recommend using either [RStudio](https://posit.co/download/rstudio-desktop/) or [Positron](https://posit.co/products/ide/positron/) (or a cloud computing environment) and making use of [RStudio projects](https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects) for a self-contained coding environment.
 
-## Dependencies
+### Dependencies
 
 We will use the following packages in this tutorial:
 
@@ -379,10 +379,18 @@ plot(gifapar_stars, as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.
 
 ## 💪 Now it is your turn
 
-TODO
+The following exercises will help you understand how to analyse and visualise different measurements.
+
+### Task 1: Visualise Ocean Swell spectra
+
+Following the steps from the Ocean Wind field analysis, extract the Ocean Swell spectra data and visualise it. Check if the data needs to be scaled or offset, and do so if necessary.
+
+### Task 2: Visualise another measurement from Sentinel-3 OLCI Level-2 LFR
+
+Review the [Sentinel-3 OLCI Level-2 LFR page](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr?.language=en) from the EOPF Sentinel Zarr Sample Service STAC Catalog and choose another measurement of interest, then visualise it.
 
 ## Conclusion
 
-In this section, we accessed additional Zarr data from the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) using `rstac` and `Rarr`. We extracted measurement variables and curvillinear coordinates, formatted them using the `stars` package's `st_as_stars()` function, and visualised the data.
+In this section, we accessed additional Zarr data from the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) using `rstac` and `Rarr`. We extracted measurement variables and curvillinear coordinates, formatted and scaled them using the `stars` package's `st_as_stars()` function, and visualised the data.
 
 ## What's next?
