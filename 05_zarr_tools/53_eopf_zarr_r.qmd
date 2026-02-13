@@ -385,8 +385,6 @@ plot(ndvi_data, as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.colo
 
 ## 💪 Now it is your turn
 
-The following exercises will help you master the STAC API and understand how to find the data you need.
-
 ### Task 1: Explore five additional Sentinel-2 Items
 
 Replicate the RGB quick-look for five additional items from your area of interest and review the spatial changes.
