@@ -9,6 +9,7 @@ from typing import Tuple, NamedTuple
 
 import numpy as np
 import xarray as xr
+import rioxarray
 from odc.geo.geobox import GeoBox
 from scipy.interpolate import griddata
 from scipy.ndimage import uniform_filter
