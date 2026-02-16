@@ -6,6 +6,9 @@ format:
 ---
 
 ```{r, echo = FALSE}
+# Don't print in scientific notation
+options(scipen = 999)
+
 link_start <- "https://jupyterhub.user.eopf.eodc.eu/hub/login?next=%2Fhub%2Fspawn%3Fnext%3D%252Fhub%252Fuser-redirect%252Fgit-pull%253Frepo%253Dhttps%253A%252F%252Fgithub.com%252Feopf-toolkit%252Feopf-101%2526branch%253Dmain%2526urlpath%253Dlab%252Ftree%252Feopf-101%252F"
 folder <- "05_zarr_tools"
 separator <- "%252F"
@@ -28,7 +31,7 @@ In this tutorial, we will demonstrate how to access EOPF Zarr products directly 
 ### What we will learn
 
 - ☁️ How to overview cloud-optimised datasets from the EOPF Zarr STAC Catalog with the `Rarr` package.
-- 🔎 Read and examine loaded datasets
+- 🔎 Read, examine, and scale loaded datasets
 - 📊 Perform simple data analyses with the loaded data
 
 ### Prerequisites
@@ -150,7 +153,7 @@ r20m_b02 |>
 
 The above overview tells us that the data is two-dimensional, with dimensions 5490 x 5490. Zarr data is split up into **chunks**, which are smaller, independent piece of the larger array. Chunks can be accessed individually, without loading the entire array. In this case, there are 36 chunks in total, with 6 along each of the dimensions, each of size 915 x 915.
 
-# Read Zarr data
+## Read Zarr data
 
 To read in Zarr data, we use `read_zarr_array()`, and can pass a list to the `index` argument, describing which elements we want to extract along each dimension. Since this array is two-dimensional, we can think of the dimensions as rows and columns of the data. For example, to select the first 10 rows and the first 5 columns:
 
@@ -234,6 +237,53 @@ b02 |>
   pull(dim)
 ```
 
+## Scaling data
+
+Zarr data arrays are often packed or compressed in order to limit space. Because of this, when we read in the data, we also need to check whether the values need to be scaled or offset to their actual physical units or meaningful values. This information is contained in the metadata associated with the Zarr store. We create a helper function to obtain these values, setting the `offset` to 0 and `scale` to 1 if they do not need to be offset or scaled.
+
+```{r scale-factor-offset}
+get_scale_and_offset <- function(zarr_url, array) {
+  metadata <- Rarr:::.read_zmetadata(
+    zarr_url,
+    s3_client = Rarr:::.create_s3_client(zarr_url)
+  )
+
+  metadata <- metadata[["metadata"]]
+
+  array_metadata <- metadata[[paste0(array, "/.zattrs")]]
+
+  scale <- array_metadata[["scale_factor"]]
+  scale <- ifelse(is.null(scale), 1, scale)
+
+  offset <- array_metadata[["add_offset"]]
+  offset <- ifelse(is.null(offset), 0, offset)
+
+
+  list(
+    scale = scale,
+    offset = offset
+  )
+}
+```
+
+Then, we can check the scale and offset of the B02 spectral band, which tells us that we need to multiply the values by 0.0001 and offset them by -0.1.
+
+```{r scale-offset-b02}
+get_scale_and_offset(
+  s2_l2a_product_url,
+  "measurements/reflectance/r20m/b02"
+)
+```
+
+We can also check for the `x` dimensions. This tells us that no scaling or offsetting needs to be done.
+
+```{r scale-offset-x}
+get_scale_and_offset(
+  s2_l2a_product_url,
+  "measurements/reflectance/r20m/x"
+)
+```
+
 ## Simple Data Analysis: Calculating NDVI
 
 Let us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).
@@ -256,14 +306,50 @@ r20m_b8a <- r20m |>
 r20m_b8a[1:5, 1:5]
 ```
 
-The function `st_as_stars()` is used to get our data into a format that makes data manipulation and visualisation easy. 
+Then, we access the scale and offset for the bands and for the coordinates:
+
+```{r ndvi-scale-offset}
+r20m_b04_scale_offset <- get_scale_and_offset(
+  s2_l2a_product_url,
+  "measurements/reflectance/r20m/b04"
+)
+
+r20m_b04_scale_offset
+
+r20m_b8a_scale_offset <- get_scale_and_offset(
+  s2_l2a_product_url,
+  "measurements/reflectance/r20m/b8a"
+)
+
+r20m_b8a_scale_offset
+
+r20m_x_scale_offset <- get_scale_and_offset(
+  s2_l2a_product_url,
+  "measurements/reflectance/r20m/x"
+)
+
+r20m_x_scale_offset
+
+r20m_y_scale_offset <- get_scale_and_offset(
+  s2_l2a_product_url,
+  "measurements/reflectance/r20m/y"
+)
+
+r20m_y_scale_offset
+```
+
+The function `st_as_stars()` is used to get our data into a format that makes data manipulation and visualisation easy. In particular, it is easy to use `mutate()` to apply the necessary `scale` and `offset` factors to the data.
 
 This format is also beneficial because it allows for a quick summary of the data and its attributes, providing information such as the median and mean values of the bands and information on the grid:
 
 ```{r ndvi-stars}
 ndvi_data <- st_as_stars(B04 = r20m_b04, B08A = r20m_b8a) |>
   st_set_dimensions(1, names = "X", values = r20m_x) |>
-  st_set_dimensions(2, names = "Y", values = r20m_y)
+  st_set_dimensions(2, names = "Y", values = r20m_y) |>
+  mutate(
+    B04 = B04 * r20m_b04_scale_offset[["scale"]] + r20m_b04_scale_offset[["offset"]],
+    B08A = B08A * r20m_b8a_scale_offset[["scale"]] + r20m_b8a_scale_offset[["offset"]]
+  )
 
 ndvi_data
 ```
@@ -298,8 +384,6 @@ plot(ndvi_data, as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.colo
 ```
 
 ## 💪 Now it is your turn
-
-The following exercises will help you master the STAC API and understand how to find the data you need.
 
 ### Task 1: Explore five additional Sentinel-2 Items
 
