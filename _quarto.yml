@@ -61,7 +61,9 @@ book:
         - 06_eopf_zarr_in_action/66_use_overviews.ipynb
         - 06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb
         - 06_eopf_zarr_in_action/68_vegetation_anomalies.ipynb
-        # - 06_eopf_zarr_in_action/69_
+        - 06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.ipynb
+        # - 06_eopf_zarr_in_action/69_ 
+    
     - glossary.qmd
     - references.qmd
 
