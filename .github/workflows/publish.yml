@@ -1,4 +1,4 @@
-name: Quarto Publish
+name: Publish Docker Images and Book
 
 on:
   push:
@@ -10,20 +10,64 @@ permissions:
   pages: write
 
 jobs:
-  prepare-docker-image:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      image_changes: ${{ steps.filter.outputs.image_changes }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check changed paths
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            image_changes:
+              - 'pyproject.toml'
+              - 'uv.lock'
+              - 'deployment/(Dockerfile_*|environment*)'
+
+  publish-images:
+    needs: detect-changes
     runs-on: ubuntu-latest
     steps:
       - name: Login to OVH Harbor docker registry
+        if: needs.detect-changes.outputs.image_changes == 'true'
         uses: docker/login-action@v3
         with:
           registry: ${{ secrets.OVH_HARBOR_REGISTRY }}
           username: ${{ secrets.OVH_HARBOR_USERNAME }}
           password: ${{ secrets.OVH_HARBOR_PASSWORD }}
 
-  build-deploy:
-    needs: prepare-docker-image
+      - name: Checkout code
+        if: needs.detect-changes.outputs.image_changes == 'true'
+        uses: actions/checkout@v4
+
+      - name: Extract short commit hash
+        if: needs.detect-changes.outputs.image_changes == 'true'
+        id: commit
+        run: echo "hash=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push python docker image
+        working-directory: deployment
+        if: needs.detect-changes.outputs.image_changes == 'true'
+        run: |
+          make build-and-push-docker-image TAG=release-${{ steps.commit.outputs.hash }} PROJECT="python"
+          make tag-docker-image TAG=latest PROJECT="python"
+          make push-docker-image TAG=latest PROJECT="python"
+
+      - name: Build and push r docker image
+        working-directory: deployment
+        if: needs.detect-changes.outputs.image_changes == 'true'
+        run: |
+          make build-and-push-docker-image TAG=release-${{ steps.commit.outputs.hash }} PROJECT="r"
+          make tag-docker-image TAG=latest PROJECT="r"
+          make push-docker-image TAG=latest PROJECT="r"
+
+  publish-book:
+    needs: publish-images
     runs-on: eopf-large
-    if: needs.prepare-docker-image.result == 'success'
+    if: needs.publish-images.result == 'success'
     container:
       # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
       image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:latest
