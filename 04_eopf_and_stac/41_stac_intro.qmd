@@ -45,7 +45,7 @@ STAC has evolved into a vast ecosystem offering various resources and tools for 
 ## STAC components
 Now, let us start exploring the structure of STAC. STAC consists of four main components: (i) `Catalog`, (ii) `Collection`, (iii) `Item` and (iv) `Asset`. See the figure below for the principal organisation of the STAC components.
 
-![STAC structure](img/stac_example.png){fig-align="center"}
+![STAC structure](./../img/stac_example.png){fig-align="center"}
 
 <br>
 
@@ -69,7 +69,7 @@ It is recommended to use `Collections` for what you want users to find and `Cata
 ### Item
 An `Item` is the fundamental element of STAC and typically represents a single scene at one place and time. It is a `GeoJSON` supplemented with additional metadata, which serves as an index to `Assets`.
 
-![Item entity](img/item_inf.png){fig-align="center"}
+![Item entity](./../img/item_inf.png){fig-align="center"}
 
 ### Asset
 An `Asset` is the smallest element inside a STAC and represents the individual data file that is linked in a STAC `Item`.
@@ -95,7 +95,7 @@ Each of these collections contains specific drinks, which are analogous to STAC 
 
 The STAC structure allows us to easily navigate a vast amount of data, just as a well-organised menu helps a customer quickly find their desired drink.
 
-![Drinks Menu as a STAC analogy](img/drinks_menu.png){fig-align="center"}
+![Drinks Menu as a STAC analogy](./../img/drinks_menu.png){fig-align="center"}
 
 
 ## Conclusion

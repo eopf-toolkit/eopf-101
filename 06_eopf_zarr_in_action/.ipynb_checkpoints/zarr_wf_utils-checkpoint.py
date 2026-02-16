@@ -4,11 +4,9 @@ Utility functions for EOPF Zarr Wild Fire Workflow.
 This module provides helper functions for processing, reprojecting and analysing Sentinel-2 and Sentinel-3 data.
 """
 
-from typing import Tuple, List, Union
 from distributed import LocalCluster
 from pystac_client import Client
 import numpy as np
-import numpy.typing as npt
 import xarray as xr
 import time
 import matplotlib.pyplot as plt
@@ -21,12 +19,12 @@ from shapely.geometry import box
 
 
 
-def validate_scl(scl: xr.DataArray) -> xr.DataArray:
+def validate_scl(scl):
 
-    """
+    """ 
     Creates a boolean mask to identify valid pixels in a Sentinel-2 Scene Classification (SCL) dataset by excluding invalid land cover types.
     0: No Data
-    1: Saturated / Defective Pixel
+    1: Saturated / Defective Pixel 
     3: Cloud Shadows
     7: Low probability Cloud
     8: Medium probability Cloud
@@ -45,11 +43,11 @@ def validate_scl(scl: xr.DataArray) -> xr.DataArray:
     return ~scl.isin(invalid)
 
 # This variation masks water bodies
-def validate_scl_w(scl: xr.DataArray) -> xr.DataArray:
-    """
+def validate_scl_w(scl):
+    """ 
     Creates a boolean mask to identify valid pixels in a Sentinel-2 Scene Classification (SCL) dataset by excluding invalid land cover types.
     0: No Data
-    1: Saturated / Defective Pixel
+    1: Saturated / Defective Pixel 
     3: Cloud Shadows
     6: Water
     7: Low probability Cloud
@@ -69,7 +67,7 @@ def validate_scl_w(scl: xr.DataArray) -> xr.DataArray:
 
 
 
-def mask_sub_utm(zarr_asset: xr.DataArray, rows: npt.NDArray, cols: npt.NDArray) -> xr.DataArray:
+def mask_sub_utm(zarr_asset, rows, cols):
 
     """
     Performs the masking over a `.zarr` asset by subsetting it to a specified rectangular area defined by row and column indices.
@@ -95,7 +93,7 @@ def mask_sub_utm(zarr_asset: xr.DataArray, rows: npt.NDArray, cols: npt.NDArray)
     return masked_asset
 
 
-def normalisation_str_gm(band_array: npt.NDArray, p_min: float, p_max: float, gamma_val: float) -> npt.NDArray:
+def normalisation_str_gm(band_array, p_min, p_max, gamma_val):
 
     """
     Applies percentile-based contrast stretching and gamma correction to a band.
@@ -133,7 +131,7 @@ def normalisation_str_gm(band_array: npt.NDArray, p_min: float, p_max: float, ga
     return gamma_corrected_band
 
 
-def lat_lon_to_utm_box(bot_left: Tuple[float, float], top_right: Tuple[float, float], transformer: Transformer) -> List[float]:
+def lat_lon_to_utm_box(bot_left,top_right,transformer):
 
     """
     Converts the latitude and longitude coordinates of a bounding box from a geographic system to the UTM (Universal Transverse Mercator) coordinate system.
@@ -142,7 +140,7 @@ def lat_lon_to_utm_box(bot_left: Tuple[float, float], top_right: Tuple[float, fl
 
     - bot_left (tuple) : A tuple or list containing the longitude and latitude of the bottom-left corner.
     - top_right (tuple) : A tuple or list containing the longitude and latitude of the top-right corner.
-    - transformer: The
+    - transformer: The 
 
     Returns:
     tuple with resulting utm values
@@ -158,7 +156,7 @@ def lat_lon_to_utm_box(bot_left: Tuple[float, float], top_right: Tuple[float, fl
 
 
 
-def zarr_mask_utm(bounding_box: Union[Tuple[float, float, float, float], List[float]], zarr: xr.Dataset) -> Tuple[npt.NDArray, npt.NDArray]:
+def zarr_mask_utm ( bounding_box, zarr):
 
     """
     This function creates a boolean mask to identify the rows and columns within a Zarr dataset that fall within a specified bounding box, assuming UTM coordinates.
@@ -166,8 +164,8 @@ def zarr_mask_utm(bounding_box: Union[Tuple[float, float, float, float], List[fl
     Recieves:
     - bounding_box (tuple/list) : A tuple or list containing (min_longitude, min_latitude, max_longitude, max_latitude).
     - zarr (xarray): The input Zarr dataset, expected to have 'x' and 'y' dimensions corresponding to longitude and latitude/UTM coordinates.
-
-    Returns:
+    
+    Returns: 
     boolean mask for utm bbox defined pixels
     """
 # Unpack the bounding box coordinates for clarity
@@ -183,7 +181,7 @@ def zarr_mask_utm(bounding_box: Union[Tuple[float, float, float, float], List[fl
     return cols, rows
 
 
-def mask_sub_latlon(zarr_asset: xr.DataArray, rows: npt.NDArray, cols: npt.NDArray) -> xr.DataArray:
+def mask_sub_latlon(zarr_asset, rows, cols):
     """
     Masks a `.zarr` asset by subsetting it to a specified rectangular area defined by row and column indices. It is intended for datasets where the dimensions are labelled as 'rows' and 'columns'.
 
@@ -192,7 +190,7 @@ def mask_sub_latlon(zarr_asset: xr.DataArray, rows: npt.NDArray, cols: npt.NDArr
     - zarr_asset (xarray.DataArray): The input `.zarr` array asset.
     - rows (list/array): A list or array of row indices defining the vertical extent.
     - cols (list/array): A list or array of column indices defining the horizontal extent.
-
+    
     Returns:
     boolean mask for lat and lon bbox defined pixels
     """
@@ -206,7 +204,7 @@ def mask_sub_latlon(zarr_asset: xr.DataArray, rows: npt.NDArray, cols: npt.NDArr
     return masked_asset
 
 
-def zarr_mask_latlon(bounding_box: Union[Tuple[float, float, float, float], List[float]], zarr: xr.Dataset) -> Tuple[npt.NDArray, npt.NDArray]:
+def zarr_mask_latlon ( bounding_box, zarr):
 
     """
     Allows the creation of a boolean mask to identify the rows and columns within a Zarr dataset that fall within a specified bounding box, assuming latitude and longitude dimensions.
@@ -215,9 +213,9 @@ def zarr_mask_latlon(bounding_box: Union[Tuple[float, float, float, float], List
 
     - bounding_box (tuple): A tuple or list containing (min_longitude, min_latitude, max_longitude, max_latitude).
     - zarr (xarray): The input Zarr dataset, expected to have 'longitude' and 'latitude' dimensions.
-
+    
     Returns:
-    boolean mask for lat lon bbox defined pixels
+    boolean mask for lat lon bbox defined pixels 
     """
 # Unpack the bounding box coordinates for clarity
     min_lon, min_lat, max_lon, max_lat = bounding_box

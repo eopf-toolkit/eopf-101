@@ -1,0 +1,73 @@
+name: Nightly Render
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  test-render:
+    runs-on: eopf-large
+    container:
+      # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
+      image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:latest
+      options: --entrypoint "" --user root
+
+    steps:
+      # Quarto uses these but we probably don't want them baked into our image
+      - name: Install quarto system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+          git \
+          gh \
+          curl \
+          jq \
+          libfontconfig1 \
+          libfreetype6 \
+          libx11-6 \
+          libxrender1 \
+          libxext6 \
+          ghostscript \
+          zlib1g
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install quarto python dependencies
+        run: |
+          pip install uv
+          uv sync
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+
+      - name: Trust git repo
+        run: |
+          git config --global --add safe.directory /__w/eopf-101/eopf-101
+
+      - name: Render files
+        shell: bash
+        working-directory: ${{ github.workspace }}
+        run: |
+          quarto render
+        env:
+          BUCKET_NAME: ${{ secrets.RENDER_BUCKET_NAME }}
+          ACCESS_KEY: ${{ secrets.RENDER_BUCKET_ACCESS_KEY }}
+          SECRET_KEY: ${{ secrets.RENDER_BUCKET_SECRET_KEY }}
+          BUCKET_ENDPOINT: ${{ secrets.RENDER_BUCKET_ENDPOINT }}
+
+      - name: Post to Slack if failed
+        if: failure()
+        working-directory: ${{ github.workspace }}/.github/workflows
+        run: |
+          python nightly_render_alert.py
+        env:
+          SLACKBOT_TOKEN: ${{ secrets.SLACKBOT_TOKEN }}
+          SLACKBOT_CHANNEL: "#esa-eopf-toolkit"
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+

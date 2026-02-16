@@ -1,4 +1,4 @@
-.PHONY: build-and-push-docker-image build-docker-image tag-docker-image push-docker-image things
+.PHONY: build-and-push-docker-image build-docker-image tag-docker-image push-docker-image
 
 # Either python, julia, or r
 PROJECT := $(or $(PROJECT), "dev")
@@ -7,7 +7,7 @@ TAG := $(or $(TAG),$(shell date +%Y%m%d%H%M))
 ROOT_DIR=$(realpath ..)
 
 build-docker-image:
-	DOCKER_DEFAULT_PLATFORM="linux/amd64" docker build -f $(ROOT_DIR)/deployment/Dockerfile_$(PROJECT) -t eopf-toolkit-$(PROJECT) $(ROOT_DIR)
+	DOCKER_DEFAULT_PLATFORM="linux/amd64" docker build --no-cache -f $(ROOT_DIR)/deployment/Dockerfile_$(PROJECT) -t eopf-toolkit-$(PROJECT) $(ROOT_DIR)
 
 tag-docker-image:
 	docker tag eopf-toolkit-$(PROJECT) 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-$(PROJECT)/eopf-toolkit-$(PROJECT):$(TAG)
