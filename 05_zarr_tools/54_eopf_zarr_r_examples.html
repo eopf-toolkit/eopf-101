@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Access and analyse EOPF STAC Zarr data with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../05_zarr_tools/57_rstac_gdalcubes.html" rel="next">
+<link href="../05_zarr_tools/53_eopf_zarr_r.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async="" src="https://plausible.io/js/pa-IdJjKOvKq9lif5cw4UK5i.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../05_zarr_tools/51_eopf_stac_r.html"><strong>Tools to work with EOPF Zarr</strong></a></li><li class="breadcrumb-item"><a href="../05_zarr_tools/54_eopf_zarr_r_examples.html"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../img/EOPF_FINAL_LOGO.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/eopf-toolkit/eopf-101" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>ESA EOPF 101</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About EOPF</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01_about_eopf/11_about_eopf.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to the EOPF</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01_about_eopf/12_about_cloudoptimized_formats.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">About cloud-optimised formats</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../01_about_eopf/13_overview_eopf_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of EOPF Zarr Products</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About EOPF Zarr</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/21_what_is_zarr.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Overview of the EOPF Zarr format</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/22_zarr_structure_S1GRD.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/23_S1_basic_operations.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Operations with EOPF Zarr - Sentinel-1 GRD</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/24_zarr_struct_S2L2A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-2 L2A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../02_about_eopf_zarr/25_zarr_struct_S3.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Discover EOPF Zarr - Sentinel-3 SLSTR Level-2 LST</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>About Chunking</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03_about_chunking/31_zarr_chunking_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">An introduction to Chunking</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../03_about_chunking/32_zarr_chunking_strat.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Best practices and Chunking optimisation in EOPF</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>EOPF and STAC</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/41_stac_intro.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Introduction to STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/42_eopf_stac_zarr_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Explore the web interface of the EOPF Zarr STAC Catalog</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/43_eopf_stac_connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with Python</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../04_eopf_and_stac/44_eopf_stac_xarray_tutorial.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">From STAC to Data: Accessing EOPF Zarr with xarray</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Tools to work with EOPF Zarr</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/53_eopf_zarr_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/54_eopf_zarr_r_examples.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>EOPF Zarr in Action</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/67_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/68_vegetation_anomalies.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Analyzing Forest Vegetation Anomalies Using Sentinel-2 Zarr Data Cubes</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../glossary.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>Glossary</strong></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link"><span class="chapter-title"><strong>References</strong></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#what-we-will-learn" id="toc-what-we-will-learn" class="nav-link" data-scroll-target="#what-we-will-learn">What we will learn</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link" data-scroll-target="#prerequisites">Prerequisites</a>
+  <ul class="collapse">
+  <li><a href="#dependencies" id="toc-dependencies" class="nav-link" data-scroll-target="#dependencies">Dependencies</a></li>
+  </ul></li>
+  <li><a href="#sentinel-1" id="toc-sentinel-1" class="nav-link" data-scroll-target="#sentinel-1">Sentinel-1</a></li>
+  <li><a href="#sentinel-3" id="toc-sentinel-3" class="nav-link" data-scroll-target="#sentinel-3">Sentinel-3</a></li>
+  <li><a href="#now-it-is-your-turn" id="toc-now-it-is-your-turn" class="nav-link" data-scroll-target="#now-it-is-your-turn">💪 Now it is your turn</a>
+  <ul class="collapse">
+  <li><a href="#task-1-visualise-ocean-swell-spectra" id="toc-task-1-visualise-ocean-swell-spectra" class="nav-link" data-scroll-target="#task-1-visualise-ocean-swell-spectra">Task 1: Visualise Ocean Swell spectra</a></li>
+  <li><a href="#task-2-visualise-another-measurement-from-sentinel-3-olci-level-2-lfr" id="toc-task-2-visualise-another-measurement-from-sentinel-3-olci-level-2-lfr" class="nav-link" data-scroll-target="#task-2-visualise-another-measurement-from-sentinel-3-olci-level-2-lfr">Task 2: Visualise another measurement from Sentinel-3 OLCI Level-2 LFR</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../05_zarr_tools/51_eopf_stac_r.html"><strong>Tools to work with EOPF Zarr</strong></a></li><li class="breadcrumb-item"><a href="../05_zarr_tools/54_eopf_zarr_r_examples.html"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/login?next=%2Fhub%2Fspawn%3Fnext%3D%252Fhub%252Fuser-redirect%252Fgit-pull%253Frepo%253Dhttps%253A%252F%252Fgithub.com%252Feopf-toolkit%252Feopf-101%2526branch%253Dmain%2526urlpath%253Dlab%252Ftree%252Feopf-101%252F05_zarr_tools%252F54_eopf_zarr_r_examples.ipynb%23fancy-forms-config=%7B%22profile%22%3A%22choose-your-environment%22%2C%22image%22%3A%22unlisted_choice%22%2C%22image%3Aunlisted_choice%22%3A%224zm3809f.c1.de1.container-registry.ovh.net%2Feopf-toolkit-r%2Feopf-toolkit-r%3Alatest%22%2C%22autoStart%22%3A%22true%22%7D" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This tutorial expands on the previous tutorials (<a href="https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/51_eopf_stac_r.html">Access the EOPF Zarr STAC API with R</a> and <a href="https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/53_eopf_zarr_r.html">Access and analyse EOPF STAC Zarr data with R</a>), going into further details on analysing and visualising Zarr data from the <a href="https://stac.browser.user.eopf.eodc.eu/">EOPF Sample Service STAC catalog</a> programmatically using R. We recommend reviewing the previous tutorials if you have not done so already.</p>
+</section>
+<section id="what-we-will-learn" class="level2">
+<h2 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h2>
+<ul>
+<li>🗂 How to extract measurements, such as Ocean Wind field and GIFAPAR, along with latitude and longitude</li>
+<li>📊 How to format, scale, and visualise satellite data on a curvillinear grid</li>
+</ul>
+</section>
+<section id="prerequisites" class="level2">
+<h2 class="anchored" data-anchor-id="prerequisites">Prerequisites</h2>
+<p>An R environment is required to follow this tutorial, with R version &gt;= 4.5.0. We recommend using either <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> or <a href="https://posit.co/products/ide/positron/">Positron</a> (or a cloud computing environment) and making use of <a href="https://support.posit.co/hc/en-us/articles/200526207-Using-RStudio-Projects">RStudio projects</a> for a self-contained coding environment.</p>
+<section id="dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="dependencies">Dependencies</h3>
+<p>We will use the following packages in this tutorial:</p>
+<ul>
+<li><a href="https://brazil-data-cube.github.io/rstac/"><code>rstac</code></a> (for accessing the STAC catalog)</li>
+<li><a href="https://tidyverse.tidyverse.org/"><code>tidyverse</code></a> (for data manipulation)</li>
+<li><a href="https://r-spatial.github.io/stars/"><code>stars</code></a>) (for working with spatiotemporal data)</li>
+<li><a href="https://rspatial.github.io/terra/index.html"><code>terra</code></a> (for working with spatial - data in raster format)</li>
+</ul>
+<p>You can install them directly from CRAN:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("rstac")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("tidyverse")</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("stars")</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("terra")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We will also use the <code>Rarr</code> package (version &gt;= 1.10.1) to read Zarr data. It must be installed from Bioconductor, so first install the <code>BiocManager</code> package:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("BiocManager")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Then, use this package to install <code>Rarr</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BiocManager::install("Rarr")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Finally, load the packages into your environment:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstac)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Rarr)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stars)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="sentinel-1" class="level2">
+<h2 class="anchored" data-anchor-id="sentinel-1">Sentinel-1</h2>
+<p>The first example looks at <a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-1-l2-ocn">Sentinel-1 Level 2 Ocean (OCN) data</a>, which consists of data for oceanographic study, such as monitoring sea surface conditions, detecting oil spills, and studying ocean currents. This example will show how to access and plot Wind Direction data.</p>
+<p>First, select the relevant collection and item from STAC:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>first_item <span class="ot">&lt;-</span> <span class="fu">stac</span>(<span class="st">"https://stac.core.eopf.eodc.eu/"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collections</span>(<span class="at">collection_id =</span> <span class="st">"sentinel-1-l2-ocn"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">items</span>(<span class="at">limit =</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_request</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>first_item_id <span class="ot">&lt;-</span> first_item[[<span class="st">"features"</span>]][[<span class="dv">1</span>]][[<span class="st">"id"</span>]]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>l2_ocn <span class="ot">&lt;-</span> <span class="fu">stac</span>(<span class="st">"https://stac.core.eopf.eodc.eu/"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collections</span>(<span class="at">collection_id =</span> <span class="st">"sentinel-1-l2-ocn"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">items</span>(<span class="at">feature_id =</span> first_item_id) <span class="sc">|&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_request</span>()</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>l2_ocn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>###Item
+- id: S1C_IW_OCN__2SDH_20250921T194014_20250921T194043_004227_008634_1302
+- collection: sentinel-1-l2-ocn
+- bbox: xmin: -36.82763, ymin: 66.72476, xmax: -29.99337, ymax: 68.93933
+- datetime: 2025-09-21T19:40:29.291309Z
+- assets: osw, owi, rvl, product, zipped_product, product_metadata
+- item's fields: 
+assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac_version, type</code></pre>
+</div>
+</div>
+<p>We can look at each of the assets’ titles to understand what the item contains:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>l2_ocn <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pluck</span>(<span class="st">"assets"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="st">"title"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$osw
+[1] "Ocean Swell spectra"
+
+$owi
+[1] "Ocean Wind field"
+
+$rvl
+[1] "Surface Radial Velocity"
+
+$product
+[1] "EOPF Product"
+
+$zipped_product
+[1] "Zipped EOPF Product"
+
+$product_metadata
+[1] "Consolidated Metadata"</code></pre>
+</div>
+</div>
+<p>We are interested in the “Ocean Wind field” data, and will hold onto the <code>owi</code> key for now.</p>
+<p>To access all of the <code>owi</code> data, we get the “product” asset and then the full Zarr store, again using our helper function from the previous tutorial to extract array information from the full array path:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>derive_store_array <span class="ot">&lt;-</span> <span class="cf">function</span>(store, product_url) {</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  store <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">array =</span> <span class="fu">str_remove</span>(path, product_url)) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">relocate</span>(array, <span class="at">.before =</span> path)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>l2_ocn_url <span class="ot">&lt;-</span> l2_ocn <span class="sc">|&gt;</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_select</span>(<span class="at">asset_names =</span> <span class="st">"product"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_url</span>()</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>l2_ocn_store <span class="ot">&lt;-</span> l2_ocn_url <span class="sc">|&gt;</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>(<span class="at">as_data_frame =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">derive_store_array</span>(l2_ocn_url)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>l2_ocn_store</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 114 × 8
+   array           path  data_type endianness compressor dim   chunk_dim nchunks
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;lis&gt; &lt;list&gt;    &lt;list&gt; 
+ 1 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [3]&gt; &lt;dbl&gt;  
+ 2 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 3 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 4 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 5 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 6 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 7 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [5]&gt; &lt;dbl&gt;  
+ 8 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [5]&gt; &lt;dbl&gt;  
+ 9 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [3]&gt; &lt;dbl&gt;  
+10 /osw/S01SIWOCN… http… float32   little     blosc      &lt;int&gt; &lt;int [3]&gt; &lt;dbl&gt;  
+# ℹ 104 more rows</code></pre>
+</div>
+</div>
+<p>Next, we filter to access <code>owi</code> measurement data only:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>l2_ocn_store <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(array, <span class="st">"/owi"</span>), <span class="fu">str_detect</span>(array, <span class="st">"measurements"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 8
+  array            path  data_type endianness compressor dim   chunk_dim nchunks
+  &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;lis&gt; &lt;list&gt;    &lt;list&gt; 
+1 /owi/S01SIWOCN_… http… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+2 /owi/S01SIWOCN_… http… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+3 /owi/S01SIWOCN_… http… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+4 /owi/S01SIWOCN_… http… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  </code></pre>
+</div>
+</div>
+<p>Since all of these arrays start with a long ID, we can remove that to get a clearer idea of what each array is:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>owi <span class="ot">&lt;-</span> l2_ocn_store <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(array, <span class="st">"/owi"</span>), <span class="fu">str_detect</span>(array, <span class="st">"measurements"</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>array_id_prefix <span class="ot">&lt;-</span> <span class="fu">str_split</span>(owi[[<span class="st">"array"</span>]], <span class="st">"measurements"</span>, <span class="at">simplify =</span> <span class="cn">TRUE</span>)[, <span class="dv">1</span>] <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>()</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>array_id_prefix</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "/owi/S01SIWOCN_20250921T194014_0029_C024_1302_008634_HH/"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>array_id_prefix <span class="ot">&lt;-</span> <span class="fu">paste0</span>(array_id_prefix, <span class="st">"measurements/"</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>owi <span class="ot">&lt;-</span> owi <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">array =</span> <span class="fu">str_remove</span>(array, array_id_prefix))</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>owi</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 8
+  array          path    data_type endianness compressor dim   chunk_dim nchunks
+  &lt;chr&gt;          &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;lis&gt; &lt;list&gt;    &lt;list&gt; 
+1 latitude       https:… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+2 longitude      https:… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+3 wind_direction https:… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+4 wind_speed     https:… float32   little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  </code></pre>
+</div>
+</div>
+<p>We are interested in <code>wind_direction</code>, as well as the coordinate arrays (<code>latitude</code> and <code>longitude</code>). We can get an overview of the arrays’ dimensions and structures:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>owi <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"wind_direction"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type: Array
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202509-s01siwocn-eu/21/products/cpm_v256/S1C_IW_OCN__2SDH_20250921T194014_20250921T194043_004227_008634_1302.zarr/owi/S01SIWOCN_20250921T194014_0029_C024_1302_008634_HH/measurements/wind_direction
+Shape: 194 x 254
+Chunk Shape: 194 x 254
+No. of Chunks: 1 (1 x 1)
+Data Type: float32
+Endianness: little
+Compressor: blosc</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>owi <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"latitude"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type: Array
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202509-s01siwocn-eu/21/products/cpm_v256/S1C_IW_OCN__2SDH_20250921T194014_20250921T194043_004227_008634_1302.zarr/owi/S01SIWOCN_20250921T194014_0029_C024_1302_008634_HH/measurements/latitude
+Shape: 194 x 254
+Chunk Shape: 194 x 254
+No. of Chunks: 1 (1 x 1)
+Data Type: float32
+Endianness: little
+Compressor: blosc</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>owi <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"longitude"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type: Array
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202509-s01siwocn-eu/21/products/cpm_v256/S1C_IW_OCN__2SDH_20250921T194014_20250921T194043_004227_008634_1302.zarr/owi/S01SIWOCN_20250921T194014_0029_C024_1302_008634_HH/measurements/longitude
+Shape: 194 x 254
+Chunk Shape: 194 x 254
+No. of Chunks: 1 (1 x 1)
+Data Type: float32
+Endianness: little
+Compressor: blosc</code></pre>
+</div>
+</div>
+<p>Here, we can see that all of the arrays are of the same shape: 166 x 264, with only one chunk. Since these are small, we can read all of the data in at once.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>owi_wind_direction <span class="ot">&lt;-</span> owi <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"wind_direction"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>owi_wind_direction[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     [,1] [,2] [,3] [,4] [,5]
+[1,]  NaN  NaN  NaN  NaN  NaN
+[2,]  NaN  NaN  NaN  NaN  NaN
+[3,]  NaN  NaN  NaN  NaN  NaN
+[4,]  NaN  NaN  NaN  NaN  NaN
+[5,]  NaN  NaN  NaN  NaN  NaN</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>owi_lat <span class="ot">&lt;-</span> owi <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"latitude"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>owi_lat[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]     [,2]     [,3]     [,4]     [,5]
+[1,] 66.73324 66.73544 66.73763 66.73981 66.74200
+[2,] 66.74212 66.74432 66.74651 66.74870 66.75089
+[3,] 66.75100 66.75320 66.75540 66.75759 66.75978
+[4,] 66.75988 66.76208 66.76428 66.76648 66.76867
+[5,] 66.76875 66.77097 66.77317 66.77537 66.77757</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>owi_long <span class="ot">&lt;-</span> owi <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"longitude"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>owi_lat[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]     [,2]     [,3]     [,4]     [,5]
+[1,] 66.73324 66.73544 66.73763 66.73981 66.74200
+[2,] 66.74212 66.74432 66.74651 66.74870 66.75089
+[3,] 66.75100 66.75320 66.75540 66.75759 66.75978
+[4,] 66.75988 66.76208 66.76428 66.76648 66.76867
+[5,] 66.76875 66.77097 66.77317 66.77537 66.77757</code></pre>
+</div>
+</div>
+<p>As described in the previous R tutorial, Zarr data arrays are often packed or compressed in order to limit space, and may need to be scaled or offset to their actual physical units or meaningful values.</p>
+<p>This information is contained in the metadata associated with the Zarr store. We created a helper function to obtain these values, setting the <code>offset</code> to 0 and <code>scale</code> to 1 if they do not need to be offset or scaled.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>get_scale_and_offset <span class="ot">&lt;-</span> <span class="cf">function</span>(zarr_url, array) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  metadata <span class="ot">&lt;-</span> Rarr<span class="sc">:::</span><span class="fu">.read_zmetadata</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    zarr_url,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">s3_client =</span> Rarr<span class="sc">:::</span><span class="fu">.create_s3_client</span>(zarr_url)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  metadata <span class="ot">&lt;-</span> metadata[[<span class="st">"metadata"</span>]]</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  array_metadata <span class="ot">&lt;-</span> metadata[[<span class="fu">paste0</span>(array, <span class="st">"/.zattrs"</span>)]]</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  scale <span class="ot">&lt;-</span> array_metadata[[<span class="st">"scale_factor"</span>]]</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  scale <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.null</span>(scale), <span class="dv">1</span>, scale)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  offset <span class="ot">&lt;-</span> array_metadata[[<span class="st">"add_offset"</span>]]</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  offset <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.null</span>(offset), <span class="dv">0</span>, offset)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> scale,</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">offset =</span> offset</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="fu">get_scale_and_offset</span>(l2_ocn_url, <span class="fu">paste0</span>(array_id_prefix, <span class="st">"wind_direction"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 1
+
+$offset
+[1] 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_scale_and_offset</span>(l2_ocn_url, <span class="fu">paste0</span>(array_id_prefix, <span class="st">"latitude"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 1
+
+$offset
+[1] 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_scale_and_offset</span>(l2_ocn_url, <span class="fu">paste0</span>(array_id_prefix, <span class="st">"longitude"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 1
+
+$offset
+[1] 0</code></pre>
+</div>
+</div>
+<p>None of this data need to be scaled or offset.</p>
+<p>Note that both <code>longitude</code> and <code>latitude</code> are 2-dimensional arrays, and they are not evenly spaced. Rather, the data grid is <strong>curvilinear</strong> — it has grid lines that are not straight, and there is a longitude and latitude for every pixel of the other layers (i.e., <code>wind_direction</code>). This format is very common in satellite data.</p>
+<p>We use functions from the <code>stars</code> package, loaded earlier, to format the data for visualisation. <code>stars</code> is specifically designed for reading, manipulating, and plotting spatiotemporal data, such as satellite data.</p>
+<p>The function <code>st_as_stars()</code> is used to get our data into the correct format for visualisation:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>owi_stars <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(<span class="at">wind_direction =</span> owi_wind_direction) <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_stars</span>(<span class="at">curvilinear =</span> <span class="fu">list</span>(<span class="at">X1 =</span> owi_long, <span class="at">X2 =</span> owi_lat))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Getting the data into this format is also beneficial because it allows for a quick summary of the data and its attributes, providing information such as the median and mean <code>wind_direction</code>, the number of <code>NA</code>s, and information on the grid:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>owi_stars</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 1 attribute
+attribute(s):
+                     Min.  1st Qu.   Median     Mean  3rd Qu.     Max.  NA's
+wind_direction  0.6547565 49.15513 59.34981 59.91768 67.66366 359.6461 37952
+dimension(s):
+   from  to         refsys point                     values x/y
+X1    1 194 WGS 84 (CRS84) FALSE [194x254] -36.8,...,-30.03 [x]
+X2    1 254 WGS 84 (CRS84) FALSE  [194x254] 66.73,...,68.92 [y]
+curvilinear grid</code></pre>
+</div>
+</div>
+<p>Finally, we can plot this object:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(owi_stars, <span class="at">main =</span> <span class="st">"Wind Direction"</span>, <span class="at">as_points =</span> <span class="cn">FALSE</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">col =</span> hcl.colors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="54_eopf_zarr_r_examples_files/figure-html/owi-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sentinel-3" class="level2">
+<h2 class="anchored" data-anchor-id="sentinel-3">Sentinel-3</h2>
+<p>Next, we look at an example from the Sentinel-3 mission. The Sentinel-3 mission measures sea-surface topography and land- and sea-surface temperature and colour, in support of environmental and climate monitoring. The <a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr?.language=en">Sentinel-3 OLCI L2 LFR</a> product provides this data, computed for full resolution.</p>
+<p>Again, we will access a specific item from this collection:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>l2_lfr <span class="ot">&lt;-</span> <span class="fu">stac</span>(<span class="st">"https://stac.core.eopf.eodc.eu/"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collections</span>(<span class="at">collection_id =</span> <span class="st">"sentinel-3-olci-l2-lfr"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">items</span>(<span class="at">feature_id =</span> <span class="st">"S3B_OL_2_LFR____20260105T103813_20260105T104113_20260106T120044_0179_115_165_2160_ESA_O_NT_003"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_request</span>()</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>l2_lfr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>###Item
+- id: 
+S3B_OL_2_LFR____20260105T103813_20260105T104113_20260106T120044_0179_115_165_2160_ESA_O_NT_003
+- collection: sentinel-3-olci-l2-lfr
+- bbox: xmin: -14.13710, ymin: 39.53910, xmax: 5.86104, ymax: 52.44410
+- datetime: 2026-01-05T10:39:42.550682Z
+- assets: 
+iwv, lagp, lqsf, otci, rc681, rc865, gifapar, product, zipped_product, product_metadata
+- item's fields: 
+assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac_version, type</code></pre>
+</div>
+</div>
+<p>To access all of the data, we get the “product” asset and then the full Zarr store, again using our helper function to extract array information from the full array path:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>derive_store_array <span class="ot">&lt;-</span> <span class="cf">function</span>(store, product_url) {</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  store <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">array =</span> <span class="fu">str_remove</span>(path, product_url)) <span class="sc">|&gt;</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">relocate</span>(array, <span class="at">.before =</span> path)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>l2_lfr_url <span class="ot">&lt;-</span> l2_lfr <span class="sc">|&gt;</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_select</span>(<span class="at">asset_names =</span> <span class="st">"product"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_url</span>()</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>l2_lfr_store <span class="ot">&lt;-</span> l2_lfr_url <span class="sc">|&gt;</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>(<span class="at">as_data_frame =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">derive_store_array</span>(l2_lfr_url)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>l2_lfr_store</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 46 × 8
+   array           path  data_type endianness compressor dim   chunk_dim nchunks
+   &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;lis&gt; &lt;list&gt;    &lt;list&gt; 
+ 1 /conditions/ge… http… int32     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 2 /conditions/ge… http… int32     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 3 /conditions/ge… http… int32     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 4 /conditions/ge… http… uint32    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 5 /conditions/ge… http… int32     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 6 /conditions/ge… http… uint32    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 7 /conditions/im… http… int16     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 8 /conditions/im… http… int16     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+ 9 /conditions/im… http… int8      &lt;NA&gt;       blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+10 /conditions/im… http… int32     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+# ℹ 36 more rows</code></pre>
+</div>
+</div>
+<p>Next, we filter to access measurement data only:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>l2_lfr_measurements <span class="ot">&lt;-</span> l2_lfr_store <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_starts</span>(array, <span class="st">"/measurements"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">array =</span> <span class="fu">str_remove</span>(array, <span class="st">"/measurements/"</span>))</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>l2_lfr_measurements</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 8
+  array      path        data_type endianness compressor dim   chunk_dim nchunks
+  &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;      &lt;lis&gt; &lt;list&gt;    &lt;list&gt; 
+1 altitude   https://ob… int16     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+2 gifapar    https://ob… uint8     &lt;NA&gt;       blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+3 iwv        https://ob… uint8     &lt;NA&gt;       blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+4 latitude   https://ob… int32     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+5 longitude  https://ob… int32     little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+6 otci       https://ob… uint8     &lt;NA&gt;       blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+7 rc681      https://ob… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+8 rc865      https://ob… uint16    little     blosc      &lt;int&gt; &lt;int [2]&gt; &lt;dbl&gt;  
+9 time_stamp https://ob… int64     little     blosc      &lt;int&gt; &lt;int [1]&gt; &lt;dbl&gt;  </code></pre>
+</div>
+</div>
+<p>Of these, we are interested in Green Instantaneous FAPAR (GIFAPAR). FAPAR is the fraction of absorbed photosynthetically active radiation in the plant canopy. We extract <code>gifapar</code> as well as <code>longitude</code> and <code>latitude</code>. We can get an overview of the arrays’ dimensions and structures:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>l2_lfr_measurements <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"gifapar"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type: Array
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202601-s03olclfr-eu/05/products/cpm_v262/S3B_OL_2_LFR____20260105T103813_20260105T104113_20260106T120044_0179_115_165_2160_ESA_O_NT_003.zarr/measurements/gifapar
+Shape: 4090 x 4865
+Chunk Shape: 1024 x 1024
+No. of Chunks: 20 (4 x 5)
+Data Type: uint8
+Endianness: NA
+Compressor: blosc</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>l2_lfr_measurements <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"longitude"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type: Array
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202601-s03olclfr-eu/05/products/cpm_v262/S3B_OL_2_LFR____20260105T103813_20260105T104113_20260106T120044_0179_115_165_2160_ESA_O_NT_003.zarr/measurements/longitude
+Shape: 4090 x 4865
+Chunk Shape: 1024 x 1024
+No. of Chunks: 20 (4 x 5)
+Data Type: int32
+Endianness: little
+Compressor: blosc</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>l2_lfr_measurements <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"latitude"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Type: Array
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202601-s03olclfr-eu/05/products/cpm_v262/S3B_OL_2_LFR____20260105T103813_20260105T104113_20260106T120044_0179_115_165_2160_ESA_O_NT_003.zarr/measurements/latitude
+Shape: 4090 x 4865
+Chunk Shape: 1024 x 1024
+No. of Chunks: 20 (4 x 5)
+Data Type: int32
+Endianness: little
+Compressor: blosc</code></pre>
+</div>
+</div>
+<p>Similar to the previous example, we can see that all of the arrays are of the same shape: 4091 x 4865. We read in all of the arrays:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>gifapar <span class="ot">&lt;-</span> l2_lfr_measurements <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"gifapar"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>gifapar_long <span class="ot">&lt;-</span> l2_lfr_measurements <span class="sc">|&gt;</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"longitude"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>gifapar_long[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          [,1]      [,2]      [,3]      [,4]      [,5]
+[1,] -12519564 -12515610 -12511656 -12507702 -12503748
+[2,] -12519948 -12515994 -12512040 -12508087 -12504133
+[3,] -12520333 -12516379 -12512425 -12508471 -12504518
+[4,] -12520717 -12516763 -12512810 -12508856 -12504903
+[5,] -12521101 -12517147 -12513194 -12509241 -12505288</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>gifapar_lat <span class="ot">&lt;-</span> l2_lfr_measurements <span class="sc">|&gt;</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(array <span class="sc">==</span> <span class="st">"latitude"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>gifapar_lat[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         [,1]     [,2]     [,3]     [,4]     [,5]
+[1,] 52444051 52443830 52443608 52443386 52443165
+[2,] 52441491 52441270 52441048 52440827 52440605
+[3,] 52438931 52438710 52438488 52438267 52438045
+[4,] 52436371 52436150 52435928 52435707 52435485
+[5,] 52433811 52433590 52433368 52433147 52432925</code></pre>
+</div>
+</div>
+<p>We can immediately tell that the <code>longitude</code> and <code>latitude</code> will need to be scaled, since they are not typical values. We again find the scale and offset values for this data:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>gifapar_scale_offset <span class="ot">&lt;-</span> <span class="fu">get_scale_and_offset</span>(l2_lfr_url, <span class="st">"measurements/gifapar"</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>gifapar_scale_offset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 0.003937008
+
+$offset
+[1] 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>long_scale_offset <span class="ot">&lt;-</span> <span class="fu">get_scale_and_offset</span>(l2_lfr_url, <span class="st">"measurements/longitude"</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>long_scale_offset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 0.000001
+
+$offset
+[1] 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>lat_scale_offset <span class="ot">&lt;-</span> <span class="fu">get_scale_and_offset</span>(l2_lfr_url, <span class="st">"measurements/latitude"</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>lat_scale_offset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 0.000001
+
+$offset
+[1] 0</code></pre>
+</div>
+</div>
+<p>Again, both <code>longitude</code> and <code>latitude</code> are unevenly spaced 2-dimensional arrays. This tells us that the data grid is curvilinear, and we use <code>st_as_stars()</code> to get our data into the correct format for visualisation, and scale it:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>gifapar_stars <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(<span class="at">gifapar =</span> gifapar) <span class="sc">|&gt;</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_stars</span>(<span class="at">curvilinear =</span> <span class="fu">list</span>(</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">X1 =</span> gifapar_long <span class="sc">*</span> long_scale_offset[[<span class="st">"scale"</span>]],</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">X2 =</span> gifapar_lat <span class="sc">*</span> lat_scale_offset[[<span class="st">"scale"</span>]]</span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gifapar =</span> gifapar <span class="sc">*</span> gifapar_scale_offset[[<span class="st">"scale"</span>]])</span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>gifapar_stars</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 1 attribute
+attribute(s), summary of first 100000 cells:
+             Min.  1st Qu.   Median     Mean  3rd Qu.     Max.
+gifapar  1.003937 1.003937 1.003937 1.003937 1.003937 1.003937
+dimension(s):
+   from   to         refsys point                       values x/y
+X1    1 4090 WGS 84 (CRS84) FALSE [4090x4865] -14.14,...,5.861 [x]
+X2    1 4865 WGS 84 (CRS84) FALSE  [4090x4865] 39.54,...,52.44 [y]
+curvilinear grid</code></pre>
+</div>
+</div>
+<p>Finally, we plot the GIFAPAR:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(gifapar_stars, <span class="at">as_points =</span> <span class="cn">FALSE</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">col =</span> hcl.colors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="54_eopf_zarr_r_examples_files/figure-html/gifapar-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="now-it-is-your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="now-it-is-your-turn">💪 Now it is your turn</h2>
+<p>The following exercises will help you understand how to analyse and visualise different measurements.</p>
+<section id="task-1-visualise-ocean-swell-spectra" class="level3">
+<h3 class="anchored" data-anchor-id="task-1-visualise-ocean-swell-spectra">Task 1: Visualise Ocean Swell spectra</h3>
+<p>Following the steps from the Ocean Wind field analysis, extract the Ocean Swell spectra data and visualise it. Check if the data needs to be scaled or offset, and do so if necessary.</p>
+</section>
+<section id="task-2-visualise-another-measurement-from-sentinel-3-olci-level-2-lfr" class="level3">
+<h3 class="anchored" data-anchor-id="task-2-visualise-another-measurement-from-sentinel-3-olci-level-2-lfr">Task 2: Visualise another measurement from Sentinel-3 OLCI Level-2 LFR</h3>
+<p>Review the <a href="https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr?.language=en">Sentinel-3 OLCI Level-2 LFR page</a> from the EOPF Sentinel Zarr Sample Service STAC Catalog and choose another measurement of interest, then visualise it.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In this section, we accessed additional Zarr data from the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Sample Service STAC Catalog</a> using <code>rstac</code> and <code>Rarr</code>. We extracted measurement variables and curvillinear coordinates, formatted and scaled them using the <code>stars</code> package’s <code>st_as_stars()</code> function, and visualised the data.</p>
+</section>
+<section id="whats-next" class="level2">
+<h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../05_zarr_tools/53_eopf_zarr_r.html" class="pagination-link" aria-label="Access and analyse EOPF STAC Zarr data with R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="pagination-link" aria-label="Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using `rstac` and `gdalcubes`">
+        <span class="nav-page-text"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Development Seed, thriveGEO and SparkGeo</p>
+</div>   
+    <div class="nav-footer-center">
+<p>License: Apache 2.0</p>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link active" href="https://github.com/eopf-toolkit/eopf-101" aria-current="page">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

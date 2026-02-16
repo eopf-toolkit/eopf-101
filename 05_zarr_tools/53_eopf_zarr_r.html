@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../05_zarr_tools/57_rstac_gdalcubes.html" rel="next">
+<link href="../05_zarr_tools/54_eopf_zarr_r_examples.html" rel="next">
 <link href="../05_zarr_tools/52_eopf_stac_qgis.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -298,6 +298,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../05_zarr_tools/54_eopf_zarr_r_examples.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></a>
   </div>
 </li>
@@ -382,6 +387,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#coordinates" id="toc-coordinates" class="nav-link" data-scroll-target="#coordinates">Coordinates</a></li>
   <li><a href="#different-resolutions" id="toc-different-resolutions" class="nav-link" data-scroll-target="#different-resolutions">Different resolutions</a></li>
+  </ul></li>
+  <li><a href="#scaling-data" id="toc-scaling-data" class="nav-link" data-scroll-target="#scaling-data">Scaling data</a></li>
   <li><a href="#simple-data-analysis-calculating-ndvi" id="toc-simple-data-analysis-calculating-ndvi" class="nav-link" data-scroll-target="#simple-data-analysis-calculating-ndvi">Simple Data Analysis: Calculating NDVI</a></li>
   <li><a href="#now-it-is-your-turn" id="toc-now-it-is-your-turn" class="nav-link" data-scroll-target="#now-it-is-your-turn">💪 Now it is your turn</a>
   <ul class="collapse">
@@ -391,7 +398,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#whats-next" id="toc-whats-next" class="nav-link" data-scroll-target="#whats-next">What’s next?</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -426,7 +432,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="what-we-will-learn">What we will learn</h3>
 <ul>
 <li>☁️ How to overview cloud-optimised datasets from the EOPF Zarr STAC Catalog with the <code>Rarr</code> package.</li>
-<li>🔎 Read and examine loaded datasets</li>
+<li>🔎 Read, examine, and scale loaded datasets</li>
 <li>📊 Perform simple data analyses with the loaded data</li>
 </ul>
 </section>
@@ -489,7 +495,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>s2_l2a_product_url</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/12/products/cpm_v262/S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509.zarr"</code></pre>
+<pre><code>[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T092441_N0512_R093_T36VVJ_20260216T102810.zarr"</code></pre>
 </div>
 </div>
 <p>The product is the “top level” Zarr asset, which contains the full Zarr product hierarchy. We can use <code>zarr_overview()</code> to get an overview of it, setting <code>as_data_frame</code> to <code>TRUE</code> so that we can see the entries in a data frame instead of printed directly to the console. Each entry is a Zarr array; we remove <code>product_url</code> from the path to get a better idea of what each array is. Since this is something we will want to do multiple times throughout the tutorial, we create a helper function for this.</p>
@@ -555,7 +561,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.list</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$path
-[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/12/products/cpm_v262/S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509.zarr/measurements/reflectance/r20m/b02"
+[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T092441_N0512_R093_T36VVJ_20260216T102810.zarr/measurements/reflectance/r20m/b02"
 
 $nchunks
 $nchunks[[1]]
@@ -582,7 +588,7 @@ $chunk_dim[[1]]
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Type: Array
-Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/12/products/cpm_v262/S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509.zarr/measurements/reflectance/r20m/b02
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T092441_N0512_R093_T36VVJ_20260216T102810.zarr/measurements/reflectance/r20m/b02
 Shape: 5490 x 5490
 Chunk Shape: 915 x 915
 No. of Chunks: 36 (6 x 6)
@@ -593,8 +599,8 @@ Compressor: blosc</code></pre>
 </div>
 <p>The above overview tells us that the data is two-dimensional, with dimensions 5490 x 5490. Zarr data is split up into <strong>chunks</strong>, which are smaller, independent piece of the larger array. Chunks can be accessed individually, without loading the entire array. In this case, there are 36 chunks in total, with 6 along each of the dimensions, each of size 915 x 915.</p>
 </section>
-<section id="read-zarr-data" class="level1">
-<h1>Read Zarr data</h1>
+<section id="read-zarr-data" class="level2">
+<h2 class="anchored" data-anchor-id="read-zarr-data">Read Zarr data</h2>
 <p>To read in Zarr data, we use <code>read_zarr_array()</code>, and can pass a list to the <code>index</code> argument, describing which elements we want to extract along each dimension. Since this array is two-dimensional, we can think of the dimensions as rows and columns of the data. For example, to select the first 10 rows and the first 5 columns:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>r20m_b02 <span class="sc">|&gt;</span></span>
@@ -619,7 +625,7 @@ Compressor: blosc</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>s2_l2a_item[[<span class="st">"properties"</span>]][[<span class="st">"proj:code"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "EPSG:32634"</code></pre>
+<pre><code>[1] "EPSG:32636"</code></pre>
 </div>
 </div>
 <p>We can see that <code>x</code> and <code>y</code> are one dimensional:</p>
@@ -632,7 +638,7 @@ Compressor: blosc</code></pre>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Type: Array
-Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/12/products/cpm_v262/S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509.zarr/measurements/reflectance/r20m/x
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T092441_N0512_R093_T36VVJ_20260216T102810.zarr/measurements/reflectance/r20m/x
 Shape: 5490
 Chunk Shape: 5490
 No. of Chunks: 1 (1)
@@ -648,7 +654,7 @@ Compressor: blosc</code></pre>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Type: Array
-Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/12/products/cpm_v262/S2A_MSIL2A_20260212T094641_N0512_R036_T34UFB_20260212T104509.zarr/measurements/reflectance/r20m/y
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T092441_N0512_R093_T36VVJ_20260216T102810.zarr/measurements/reflectance/r20m/y
 Shape: 5490
 Chunk Shape: 5490
 No. of Chunks: 1 (1)
@@ -663,7 +669,7 @@ Compressor: blosc</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>(<span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 600010 600030 600050 600070 600090</code></pre>
+<pre><code>[1] 399970 399990 400010 400030 400050</code></pre>
 </div>
 </div>
 <p>Or, we can read in the whole array (by not providing any elements to <code>index</code>) and view its first few values with <code>head()</code>. Of course, reading in the whole array, rather than a small section of it, will take longer.</p>
@@ -674,7 +680,7 @@ Compressor: blosc</code></pre>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 600010 600030 600050 600070 600090</code></pre>
+<pre><code>[1] 399970 399990 400010 400030 400050</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="ot">&lt;-</span> r20m_y <span class="sc">|&gt;</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
@@ -682,7 +688,7 @@ Compressor: blosc</code></pre>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="sc">|&gt;</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 5699990 5699970 5699950 5699930 5699910</code></pre>
+<pre><code>[1] 6400010 6399990 6399970 6399950 6399930</code></pre>
 </div>
 </div>
 </section>
@@ -722,17 +728,74 @@ Compressor: blosc</code></pre>
 </div>
 </div>
 </section>
+</section>
+<section id="scaling-data" class="level2">
+<h2 class="anchored" data-anchor-id="scaling-data">Scaling data</h2>
+<p>Zarr data arrays are often packed or compressed in order to limit space. Because of this, when we read in the data, we also need to check whether the values need to be scaled or offset to their actual physical units or meaningful values. This information is contained in the metadata associated with the Zarr store. We create a helper function to obtain these values, setting the <code>offset</code> to 0 and <code>scale</code> to 1 if they do not need to be offset or scaled.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>get_scale_and_offset <span class="ot">&lt;-</span> <span class="cf">function</span>(zarr_url, array) {</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  metadata <span class="ot">&lt;-</span> Rarr<span class="sc">:::</span><span class="fu">.read_zmetadata</span>(</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    zarr_url,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">s3_client =</span> Rarr<span class="sc">:::</span><span class="fu">.create_s3_client</span>(zarr_url)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  metadata <span class="ot">&lt;-</span> metadata[[<span class="st">"metadata"</span>]]</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  array_metadata <span class="ot">&lt;-</span> metadata[[<span class="fu">paste0</span>(array, <span class="st">"/.zattrs"</span>)]]</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  scale <span class="ot">&lt;-</span> array_metadata[[<span class="st">"scale_factor"</span>]]</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  scale <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.null</span>(scale), <span class="dv">1</span>, scale)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  offset <span class="ot">&lt;-</span> array_metadata[[<span class="st">"add_offset"</span>]]</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  offset <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">is.null</span>(offset), <span class="dv">0</span>, offset)</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">scale =</span> scale,</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">offset =</span> offset</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Then, we can check the scale and offset of the B02 spectral band, which tells us that we need to multiply the values by 0.0001 and offset them by -0.1.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_scale_and_offset</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  s2_l2a_product_url,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"measurements/reflectance/r20m/b02"</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 0.0001
+
+$offset
+[1] -0.1</code></pre>
+</div>
+</div>
+<p>We can also check for the <code>x</code> dimensions. This tells us that no scaling or offsetting needs to be done.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_scale_and_offset</span>(</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  s2_l2a_product_url,</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"measurements/reflectance/r20m/x"</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 1
+
+$offset
+[1] 0</code></pre>
+</div>
+</div>
+</section>
 <section id="simple-data-analysis-calculating-ndvi" class="level2">
 <h2 class="anchored" data-anchor-id="simple-data-analysis-calculating-ndvi">Simple Data Analysis: Calculating NDVI</h2>
 <p>Let us now do a simple analysis with the data from the EOPF Zarr STAC Catalog. Let us calculate the Normalized Difference Vegetation Index (NDVI).</p>
 <p>First, we access the <em>Red</em> (B04) and <em>Near-InfraRed</em> (B08A) bands, which are needed for calculation of the NDVI, at 20m resolution:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>r20m_b04 <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b04"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>r20m_b04[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>r20m_b04 <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b04"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>r20m_b04[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
 [1,]    0    0    0    0    0
@@ -741,12 +804,12 @@ Compressor: blosc</code></pre>
 [4,]    0    0    0    0    0
 [5,]    0    0    0    0    0</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>r20m_b8a <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b8a"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>r20m_b8a[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>r20m_b8a <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b8a"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(path) <span class="sc">|&gt;</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>r20m_b8a[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
 [1,]    0    0    0    0    0
@@ -756,24 +819,83 @@ Compressor: blosc</code></pre>
 [5,]    0    0    0    0    0</code></pre>
 </div>
 </div>
-<p>The function <code>st_as_stars()</code> is used to get our data into a format that makes data manipulation and visualisation easy.</p>
+<p>Then, we access the scale and offset for the bands and for the coordinates:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>r20m_b04_scale_offset <span class="ot">&lt;-</span> <span class="fu">get_scale_and_offset</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  s2_l2a_product_url,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"measurements/reflectance/r20m/b04"</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>r20m_b04_scale_offset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 0.0001
+
+$offset
+[1] -0.1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>r20m_b8a_scale_offset <span class="ot">&lt;-</span> <span class="fu">get_scale_and_offset</span>(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  s2_l2a_product_url,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"measurements/reflectance/r20m/b8a"</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>r20m_b8a_scale_offset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 0.0001
+
+$offset
+[1] -0.1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>r20m_x_scale_offset <span class="ot">&lt;-</span> <span class="fu">get_scale_and_offset</span>(</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  s2_l2a_product_url,</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"measurements/reflectance/r20m/x"</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>r20m_x_scale_offset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 1
+
+$offset
+[1] 0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>r20m_y_scale_offset <span class="ot">&lt;-</span> <span class="fu">get_scale_and_offset</span>(</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  s2_l2a_product_url,</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"measurements/reflectance/r20m/y"</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>r20m_y_scale_offset</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$scale
+[1] 1
+
+$offset
+[1] 0</code></pre>
+</div>
+</div>
+<p>The function <code>st_as_stars()</code> is used to get our data into a format that makes data manipulation and visualisation easy. In particular, it is easy to use <code>mutate()</code> to apply the necessary <code>scale</code> and <code>offset</code> factors to the data.</p>
 <p>This format is also beneficial because it allows for a quick summary of the data and its attributes, providing information such as the median and mean values of the bands and information on the grid:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(<span class="at">B04 =</span> r20m_b04, <span class="at">B08A =</span> r20m_b8a) <span class="sc">|&gt;</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_dimensions</span>(<span class="dv">1</span>, <span class="at">names =</span> <span class="st">"X"</span>, <span class="at">values =</span> r20m_x) <span class="sc">|&gt;</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_dimensions</span>(<span class="dv">2</span>, <span class="at">names =</span> <span class="st">"Y"</span>, <span class="at">values =</span> r20m_y)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>ndvi_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> <span class="fu">st_as_stars</span>(<span class="at">B04 =</span> r20m_b04, <span class="at">B08A =</span> r20m_b8a) <span class="sc">|&gt;</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_dimensions</span>(<span class="dv">1</span>, <span class="at">names =</span> <span class="st">"X"</span>, <span class="at">values =</span> r20m_x) <span class="sc">|&gt;</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_set_dimensions</span>(<span class="dv">2</span>, <span class="at">names =</span> <span class="st">"Y"</span>, <span class="at">values =</span> r20m_y) <span class="sc">|&gt;</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">B04 =</span> B04 <span class="sc">*</span> r20m_b04_scale_offset[[<span class="st">"scale"</span>]] <span class="sc">+</span> r20m_b04_scale_offset[[<span class="st">"offset"</span>]],</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">B08A =</span> B08A <span class="sc">*</span> r20m_b8a_scale_offset[[<span class="st">"scale"</span>]] <span class="sc">+</span> r20m_b8a_scale_offset[[<span class="st">"offset"</span>]]</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>ndvi_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stars object with 2 dimensions and 2 attributes
-attribute(s), summary of first 1e+05 cells:
-      Min. 1st Qu. Median     Mean 3rd Qu.  Max.
-B04      0    4425 6651.5 5393.742    7748 10739
-B08A     0    4369 6362.0 5185.833    7410 10637
+attribute(s), summary of first 100000 cells:
+      Min. 1st Qu. Median      Mean 3rd Qu.   Max.
+B04   -0.1  0.0627 0.0953 0.1355380  0.1556 1.5911
+B08A  -0.1  0.1303 0.1759 0.1888692  0.2429 1.5455
 dimension(s):
   from   to  offset delta point x/y
-X    1 5490   6e+05    20 FALSE [x]
-Y    1 5490 5699990   -20 FALSE [y]</code></pre>
+X    1 5490  399970    20 FALSE [x]
+Y    1 5490 6400010   -20 FALSE [y]</code></pre>
 </div>
 </div>
 <p>Now, we perform the initial steps for NDVI calculation:</p>
@@ -782,23 +904,23 @@ Y    1 5490 5699990   -20 FALSE [y]</code></pre>
 <li><code>diff_bands</code>: Calculates the difference between the Near-Infrared and Red bands.</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> ndvi_data <span class="sc">|&gt;</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sum_bands =</span> B04 <span class="sc">+</span> B08A,</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff_bands =</span> B04 <span class="sc">-</span> B08A</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> ndvi_data <span class="sc">|&gt;</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sum_bands =</span> B04 <span class="sc">+</span> B08A,</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff_bands =</span> B04 <span class="sc">-</span> B08A</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Then, we calculate the NDVI, which is <code>diff_bands</code> / <code>sum_bands</code>. To prevent division by zero errors in areas where both red and NIR bands might be zero (e.g., water bodies or clouds), we also replace any <code>NaN</code> values resulting from division by zero with 0. This ensures a clean and robust NDVI product.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> ndvi_data <span class="sc">|&gt;</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ndvi =</span> diff_bands <span class="sc">/</span> sum_bands,</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ndvi =</span> <span class="fu">ifelse</span>(sum_bands <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, ndvi)</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>ndvi_data <span class="ot">&lt;-</span> ndvi_data <span class="sc">|&gt;</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ndvi =</span> diff_bands <span class="sc">/</span> sum_bands,</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ndvi =</span> <span class="fu">ifelse</span>(sum_bands <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">0</span>, ndvi)</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In a final step, we can visualise the calculated NDVI.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ndvi_data, <span class="at">as_points =</span> <span class="cn">FALSE</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">col =</span> hcl.colors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ndvi_data, <span class="at">as_points =</span> <span class="cn">FALSE</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">col =</span> hcl.colors)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -810,7 +932,6 @@ Y    1 5490 5699990   -20 FALSE [y]</code></pre>
 </section>
 <section id="now-it-is-your-turn" class="level2">
 <h2 class="anchored" data-anchor-id="now-it-is-your-turn">💪 Now it is your turn</h2>
-<p>The following exercises will help you master the STAC API and understand how to find the data you need.</p>
 <section id="task-1-explore-five-additional-sentinel-2-items" class="level3">
 <h3 class="anchored" data-anchor-id="task-1-explore-five-additional-sentinel-2-items">Task 1: Explore five additional Sentinel-2 Items</h3>
 <p>Replicate the RGB quick-look for five additional items from your area of interest and review the spatial changes.</p>
@@ -833,7 +954,6 @@ Y    1 5490 5699990   -20 FALSE [y]</code></pre>
 <p>In the following <a href="../05_zarr_tools/57_rstac_gdalcubes.html">notebook</a> we will present a workflow that makes use of <code>rstac</code> and <code>gdalcubes</code> in <code>R</code> to create a raster data cube and visualize an aggregated RGB plot!</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -1244,8 +1364,8 @@ Y    1 5490 5699990   -20 FALSE [y]</code></pre>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="pagination-link" aria-label="Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using `rstac` and `gdalcubes`">
-        <span class="nav-page-text"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../05_zarr_tools/54_eopf_zarr_r_examples.html" class="pagination-link" aria-label="Access and analyse EOPF STAC Zarr data with R">
+        <span class="nav-page-text"><span class="chapter-title">Access and analyse EOPF STAC Zarr data with R</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
