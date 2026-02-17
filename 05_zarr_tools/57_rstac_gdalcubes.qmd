@@ -4,6 +4,13 @@ format: html
 self-contained: true
 ---
 
+<a href="`r jupyterlab_link`" target="_blank">
+<button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;">
+🚀 Launch this notebook in JupyterLab
+</button>
+</a>
+<br>
+
 **By:** *[@DaChro](https://github.com/DaChro)*
 
 ### Introduction
