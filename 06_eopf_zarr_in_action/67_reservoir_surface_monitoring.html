@@ -436,6 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/65_reservoir_surface_monitoring.ipynb" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<p><strong>By:</strong> <em><a href="https://github.com/atsiokanos"><span class="citation" data-cites="atsiokanos">@atsiokanos</span></a></em></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>Water reservoirs are essential for water supply, energy production, and irrigation. However, population growth, economic expansion, and climate change are increasing pressure on these resources, affecting water availability and raising the risk of droughts and floods. Reliable monitoring of reservoirs is critical to ensure sustainable water management and water security. This is especially important in transboundary basins, where upstream reservoirs can significantly influence water availability for downstream countries.</p>
@@ -460,7 +461,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <section id="import-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
-<div id="8" class="cell" data-execution_count="1">
+<div id="9" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parallel computing and data handling</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> dask                                  </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dask.distributed <span class="im">import</span> Client          </span>
@@ -485,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="helper-functions" class="level4">
 <h4 class="anchored" data-anchor-id="helper-functions">Helper functions</h4>
 <p>This notebook utilizes a set of helper functions from the Python file <a href="./reservoir_surface_monitoring_utils.py">reservoir_surface_monitoring_utils.py</a> to handle key tasks, including loading and preprocessing the datasets, computing water masks using the GWW algorithm, and calculating reservoir areas. The main logic of each function is outlined in the notebook prior to its use, and the full code can be inspected in <code>reservoir_surface_monitoring_utils.py</code>.</p>
-<div id="11" class="cell" data-execution_count="2">
+<div id="12" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> reservoir_surface_monitoring_utils <span class="im">import</span> (</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    list_found_elements,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    load_datatrees,</span>
@@ -507,18 +508,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="initial-settings-and-data-connection" class="level3">
 <h3 class="anchored" data-anchor-id="initial-settings-and-data-connection">1.1 - Initial settings and data connection</h3>
 <p>Initiate dask client for parallel processing</p>
-<div id="17" class="cell" data-execution_count="3">
+<div id="18" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Start dask client </span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client()  <span class="co"># local cluster, can monitor dashboard</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(client.dashboard_link)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;Client: 'tcp://127.0.0.1:38405' processes=4 threads=8, memory=31.34 GiB&gt;
+<pre><code>&lt;Client: 'tcp://127.0.0.1:35861' processes=4 threads=8, memory=31.34 GiB&gt;
 http://127.0.0.1:8787/status</code></pre>
 </div>
 </div>
 <p>Define the settings and retrieve Sentinel-2 L1C data from the EOPF STAC Catalog. In this example, we will use the bounding box covering Mita Hills, apply a 30% cloud cover cutoff for the query, and select a period from August 2022 to December 2024. This relatively long period ensures a sufficient number of scenes, covering both dry and wet conditions.</p>
-<div id="19" class="cell" data-execution_count="4">
+<div id="20" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define AOI bbox coordinates (minx, miny, maxx, maxy) in EPSG:4326 (WGS 84)</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>minx, miny, maxx, maxy <span class="op">=</span> <span class="fl">28.99253107</span>, <span class="op">-</span><span class="fl">14.2426452</span>, <span class="fl">29.17046702</span>, <span class="op">-</span><span class="fl">13.95317373</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -568,14 +569,14 @@ http://127.0.0.1:8787/status</code></pre>
 <section id="load-and-preprocess-data" class="level3">
 <h3 class="anchored" data-anchor-id="load-and-preprocess-data">1.2 - Load and preprocess data</h3>
 <p>First we load the datasets using the <code>load_datatrees</code> function. Note that in the following cell loading is done lazily using <code>dask.delayed</code>, which builds a Dask task graph. Execution of this graph triggers <strong>parallel processing</strong> of all dataset loading tasks, improving efficiency and reducing memory usage.</p>
-<div id="22" class="cell" data-execution_count="5">
+<div id="23" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load datatrees in parallel using dask.delayed</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>delayed_datatrees <span class="op">=</span> [dask.delayed(load_datatrees)(path) <span class="cf">for</span> path <span class="kw">in</span> items_loc_url]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>datatrees <span class="op">=</span> dask.compute(<span class="op">*</span>delayed_datatrees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The obtained datatrees contain the full set of source bands (at all available resolutions) as well as useful metadata for every retrieved scene. Some preprocessing is necessary. This is handled by the <code>preprocess_datatree</code> function, which extracts only the bands of interest, i.e.&nbsp;green (b03) and NIR (b08), clips the tile to the AOI, merges the two bands into a single dataset, and finally adds a <strong>time dimension</strong> derived from the datatree attributes (“stac_discovery” / “properties” / “start_datetime”).</p>
 <p>Although the search coordinates are given in geographic coordinates (EPSG:4326), the data retrieved from the <strong>EOPF STAC API</strong> is provided in UTM coordinates. Therefore, we need to convert the AOI coordinates to UTM as well, to ensure that the clipping is performed correctly. The image CRS code is also available in the datatree attributes.</p>
-<div id="24" class="cell" data-execution_count="6">
+<div id="25" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the scenes crs from the attributes of the first datatree</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>crs_code <span class="op">=</span> datatrees[<span class="dv">0</span>].attrs[<span class="st">"other_metadata"</span>][<span class="st">"horizontal_CRS_code"</span>]  </span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Scene CRS code:"</span>, crs_code)</span>
@@ -592,7 +593,7 @@ http://127.0.0.1:8787/status</code></pre>
 </div>
 </div>
 <p>Apply the preprocessing and compute the datasets</p>
-<div id="26" class="cell" data-execution_count="7">
+<div id="27" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preprocess datatrees in parallel using dask.delayed</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>delayed_datasets <span class="op">=</span> [</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    dask.delayed(preprocess_datatree)(</span>
@@ -608,7 +609,7 @@ http://127.0.0.1:8787/status</code></pre>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>datasets <span class="op">=</span> dask.compute(<span class="op">*</span>delayed_datasets)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Create a datacube with all datasets along time dimension</p>
-<div id="28" class="cell" data-execution_count="8">
+<div id="29" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ignore some warnings</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>, message<span class="op">=</span><span class="st">"Converting non-nanosecond precision"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -630,7 +631,7 @@ http://127.0.0.1:8787/status</code></pre>
 <li><p>Keeping the top 75% of the cleanest images is also somewhat arbitrary.</p></li>
 <li><p>All of the above filtering settings may reduce the number of final cleaned images compared to the number used/provided by the official GWW algorithm over the same period, although only minor differences are expected.</p></li>
 </ol>
-<div id="31" class="cell" data-execution_count="9">
+<div id="32" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute quality scores based on green band 75th percentile</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>quality_scores <span class="op">=</span> data_cube[<span class="st">"green"</span>].quantile(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    q<span class="op">=</span><span class="fl">0.75</span>,</span>
@@ -640,7 +641,7 @@ http://127.0.0.1:8787/status</code></pre>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Store quality scores in data cube</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>data_cube[<span class="st">"quality_score"</span>] <span class="op">=</span> quality_scores</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="32" class="cell" data-execution_count="10">
+<div id="33" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep the 75% cleanest scenes based on quality scores</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>keep_fraction <span class="op">=</span> <span class="fl">0.75</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -669,14 +670,14 @@ http://127.0.0.1:8787/status</code></pre>
 <section id="compute-normalized-difference-water-index-ndwi" class="level3">
 <h3 class="anchored" data-anchor-id="compute-normalized-difference-water-index-ndwi">2.1 - Compute Normalized Difference Water Index (NDWI)</h3>
 <p>Once we have preprocessed and prepared the data for our AOI, we can start by computing the Normalized Difference Water Index (NDWI) using the green (b03) and NIR (b08) bands. The NDWI highlights water features by producing high positive values for water pixels and lower or negative values for land and vegetation. This provides an initial indication of where water is located, although simple thresholding at this stage can be unreliable, particularly near shorelines or in areas with shallow water or vegetation.</p>
-<div id="39" class="cell" data-execution_count="11">
+<div id="40" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate NDWI</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>green <span class="op">=</span> data_cube[<span class="st">'green'</span>]</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>nir <span class="op">=</span> data_cube[<span class="st">'nir'</span>]</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>ndwi <span class="op">=</span> (green <span class="op">-</span> nir) <span class="op">/</span> (green <span class="op">+</span> nir)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Visualize example output from Subsection 2.1</p>
-<div id="41" class="cell" data-execution_count="12">
+<div id="42" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot NDWI for a specific date as an example</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(ndwi.sel(time<span class="op">=</span><span class="st">'2024-05-23'</span>), vmin<span class="op">=-</span><span class="fl">0.5</span>, vmax<span class="op">=</span><span class="fl">0.5</span>, cmap<span class="op">=</span><span class="st">'managua'</span>)</span>
@@ -737,7 +738,7 @@ http://127.0.0.1:8787/status</code></pre>
 <p>For more information the user is referred to the <a href="https://www.nature.com/articles/nature20584">associated journal article</a> and the online <a href="https://storage.googleapis.com/global-surface-water/downloads_ancillary/DataUsersGuidev2021.pdf">Data Users Guide</a>.</p>
 <p>The WO dataset is static. For this exercise, we have stored a subset over our AOI (under the <code>data</code> folder), which we will read. In general, the dataset can be downloaded <a href="https://global-surface-water.appspot.com/download">here</a> or accessed through <strong>Google Earth Engine</strong>. At the end of this notebook, in the example tasks, a code snippet is provided showing how the WO dataset can be downloaded and processed using <code>ee</code> and/or <code>geemap</code>.</p>
 <p>The <strong>GSWE</strong> will be used in the next step to perform some filling over the initially classified water areas.</p>
-<div id="45" class="cell" data-execution_count="13">
+<div id="46" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ds_wo <span class="op">=</span> rioxarray.open_rasterio(<span class="st">"data/water_occurrence_utm35_v14.tif"</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ndwi.rio.write_crs(crs_code, inplace<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -749,7 +750,7 @@ http://127.0.0.1:8787/status</code></pre>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>ds_wo_matched <span class="op">=</span> ds_wo_matched[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Visualize example output from Subsection 2.2</p>
-<div id="47" class="cell" data-execution_count="14">
+<div id="48" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot WO</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.imshow(ds_wo_matched, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span><span class="dv">1</span>, cmap<span class="op">=</span><span class="st">'managua'</span>)</span>
@@ -772,7 +773,7 @@ http://127.0.0.1:8787/status</code></pre>
 <p>Next, we use the WO dataset to fill in water areas that NDWI might miss, such as shallow, turbid zones etc. The 80th percentile of the WO values is computed only on the edge pixels, making the filling threshold context-aware. This filling also helps recover water in pixels obscured by clouds or shadows in the current image. Water is added in areas that are classified as non-water (NDWI&lt;0 here, -0.15 in raw GWW) but exceed the WO threshold.</p>
 <p>Finally, the water mask from NDWI and the filled water mask from WO are combined to produce the total water mask.</p>
 <p><em>The code for the steps described above can be found in the <code>gww</code> function.</em></p>
-<div id="51" class="cell" data-execution_count="15">
+<div id="52" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>water_mask_da, water_fill_da, total_water_da <span class="op">=</span> xr.apply_ufunc(</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    gww,</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    ndwi,              <span class="co"># NDWI array</span></span>
@@ -792,7 +793,7 @@ http://127.0.0.1:8787/status</code></pre>
 <span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Visualize example output from Subsection 2.3</p>
-<div id="53" class="cell" data-execution_count="16">
+<div id="54" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">10</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)</span>
@@ -825,7 +826,7 @@ http://127.0.0.1:8787/status</code></pre>
 <section id="extract-largest-connected-component" class="level3">
 <h3 class="anchored" data-anchor-id="extract-largest-connected-component">2.4 - Extract Largest Connected Component</h3>
 <p>Even after thresholding, small water patches or noise may appear in the mask. Since we are interested in the main reservoir, we extract the <strong>largest connected component</strong> from the binary water mask. This isolates the primary water body while ignoring smaller, isolated water regions, giving a clean representation of the reservoir. For this we are using the <code>largest_connected_component</code> function. (Note that the largest connected component is not extracted in the original GWW algorithm)</p>
-<div id="57" class="cell" data-execution_count="17">
+<div id="58" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Largest Connected Component (LCC) filtering on Total Water</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>lcc_da <span class="op">=</span> xr.apply_ufunc(</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    largest_connected_component,</span>
@@ -841,7 +842,7 @@ http://127.0.0.1:8787/status</code></pre>
 <section id="compute-reservoir-area" class="level3">
 <h3 class="anchored" data-anchor-id="compute-reservoir-area">2.5 - Compute reservoir area</h3>
 <p>As a last step, we can calculate the reservoir area by counting the number of pixels in the largest water body and converting this count to square kilometers using the pixel size (10 m for our case; see the <code>compute_area_km2</code> function).</p>
-<div id="60" class="cell" data-execution_count="18">
+<div id="61" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute area in km² of LCC water bodies</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>area_da <span class="op">=</span> xr.apply_ufunc(</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    compute_area_km2,</span>
@@ -855,7 +856,7 @@ http://127.0.0.1:8787/status</code></pre>
 <span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Visualize example output from Subsections 2.4 and 2.5</p>
-<div id="62" class="cell" data-execution_count="19">
+<div id="63" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>plt.imshow(lcc_da.sel(time<span class="op">=</span><span class="st">"2024-05-23"</span>).compute(), cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Largest Connected Component on 2024-05-23 </span><span class="ch">\n</span><span class="ss"> Calculated Area: </span><span class="sc">{</span>area_da<span class="sc">.</span>sel(time<span class="op">=</span><span class="st">"2024-05-23"</span>)<span class="sc">.</span>compute()<span class="sc">:.2f}</span><span class="ss"> km²'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -868,12 +869,12 @@ http://127.0.0.1:8787/status</code></pre>
 </div>
 </div>
 <p>Compute and visualize the estimated areas over time. (Note that the final surface water area time series in the raw GWW algorithm are post-processed with a temporal quantile-based filter)</p>
-<div id="64" class="cell" data-execution_count="20">
+<div id="65" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute area time series</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>area_da <span class="op">=</span> area_da.compute()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Plotting the entire time series</p>
-<div id="66" class="cell" data-execution_count="21">
+<div id="67" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>area_da.to_pandas().plot(</span>

@@ -429,6 +429,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/login?next=%2Fhub%2Fspawn%3Fnext%3D%252Fhub%252Fuser-redirect%252Fgit-pull%253Frepo%253Dhttps%253A%252F%252Fgithub.com%252Feopf-toolkit%252Feopf-101%2526branch%253Dmain%2526urlpath%253Dlab%252Ftree%252Feopf-101%252F05_zarr_tools%252F53_eopf_zarr_r.ipynb%23fancy-forms-config=%7B%22profile%22%3A%22choose-your-environment%22%2C%22image%22%3A%22unlisted_choice%22%2C%22image%3Aunlisted_choice%22%3A%224zm3809f.c1.de1.container-registry.ovh.net%2Feopf-toolkit-r%2Feopf-toolkit-r%3Alatest%22%2C%22autoStart%22%3A%22true%22%7D" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<p><strong>By:</strong> <em><a href="https://github.com/sharlagelfand"><span class="citation" data-cites="sharlagelfand">@sharlagelfand</span></a></em></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>In this tutorial, we will demonstrate how to access EOPF Zarr products directly from the <a href="https://stac.browser.user.eopf.eodc.eu/">EOPF Sentinel Zarr Sample Service STAC Catalog</a> using R. We will introduce R packages that enable us to effectively get an overview of and read Zarr arrays.</p>
@@ -500,7 +501,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>s2_l2a_product_url</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2B_MSIL2A_20260216T110029_N0512_R094_T35WLV_20260216T131717.zarr"</code></pre>
+<pre><code>[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T142251_N0512_R096_T26WMC_20260216T202508.zarr"</code></pre>
 </div>
 </div>
 <p>The product is the “top level” Zarr asset, which contains the full Zarr product hierarchy. We can use <code>zarr_overview()</code> to get an overview of it, setting <code>as_data_frame</code> to <code>TRUE</code> so that we can see the entries in a data frame instead of printed directly to the console. Each entry is a Zarr array; we remove <code>product_url</code> from the path to get a better idea of what each array is. Since this is something we will want to do multiple times throughout the tutorial, we create a helper function for this.</p>
@@ -566,7 +567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.list</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$path
-[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2B_MSIL2A_20260216T110029_N0512_R094_T35WLV_20260216T131717.zarr/measurements/reflectance/r20m/b02"
+[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T142251_N0512_R096_T26WMC_20260216T202508.zarr/measurements/reflectance/r20m/b02"
 
 $nchunks
 $nchunks[[1]]
@@ -593,7 +594,7 @@ $chunk_dim[[1]]
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Type: Array
-Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2B_MSIL2A_20260216T110029_N0512_R094_T35WLV_20260216T131717.zarr/measurements/reflectance/r20m/b02
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T142251_N0512_R096_T26WMC_20260216T202508.zarr/measurements/reflectance/r20m/b02
 Shape: 5490 x 5490
 Chunk Shape: 915 x 915
 No. of Chunks: 36 (6 x 6)
@@ -612,16 +613,16 @@ Compressor: blosc</code></pre>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>(<span class="at">index =</span> <span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      [,1] [,2] [,3] [,4] [,5]
- [1,] 4470 4451 4503 4495 4598
- [2,] 4500 4518 4495 4495 4510
- [3,] 4467 4527 4470 4408 4461
- [4,] 4412 4378 4410 4416 4408
- [5,] 4325 4424 4364 4350 4359
- [6,] 4370 4377 4312 4351 4285
- [7,] 4252 4329 4285 4404 4328
- [8,] 4334 4339 4339 4394 4366
- [9,] 4272 4337 4307 4290 4337
-[10,] 4503 4407 4381 4372 4374</code></pre>
+ [1,]    0    0    0    0    0
+ [2,]    0    0    0    0    0
+ [3,]    0    0    0    0    0
+ [4,]    0    0    0    0    0
+ [5,]    0    0    0    0    0
+ [6,]    0    0    0    0    0
+ [7,]    0    0    0    0    0
+ [8,]    0    0    0    0    0
+ [9,]    0    0    0    0    0
+[10,]    0    0    0    0    0</code></pre>
 </div>
 </div>
 <section id="coordinates" class="level3">
@@ -630,7 +631,7 @@ Compressor: blosc</code></pre>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>s2_l2a_item[[<span class="st">"properties"</span>]][[<span class="st">"proj:code"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "EPSG:32635"</code></pre>
+<pre><code>[1] "EPSG:32626"</code></pre>
 </div>
 </div>
 <p>We can see that <code>x</code> and <code>y</code> are one dimensional:</p>
@@ -643,7 +644,7 @@ Compressor: blosc</code></pre>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Type: Array
-Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2B_MSIL2A_20260216T110029_N0512_R094_T35WLV_20260216T131717.zarr/measurements/reflectance/r20m/x
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T142251_N0512_R096_T26WMC_20260216T202508.zarr/measurements/reflectance/r20m/x
 Shape: 5490
 Chunk Shape: 5490
 No. of Chunks: 1 (1)
@@ -659,7 +660,7 @@ Compressor: blosc</code></pre>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">zarr_overview</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Type: Array
-Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2B_MSIL2A_20260216T110029_N0512_R094_T35WLV_20260216T131717.zarr/measurements/reflectance/r20m/y
+Path: https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202602-s02msil2a-eu/16/products/cpm_v262/S2A_MSIL2A_20260216T142251_N0512_R096_T26WMC_20260216T202508.zarr/measurements/reflectance/r20m/y
 Shape: 5490
 Chunk Shape: 5490
 No. of Chunks: 1 (1)
@@ -674,7 +675,7 @@ Compressor: blosc</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>(<span class="fu">list</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 300010 300030 300050 300070 300090</code></pre>
+<pre><code>[1] 399970 399990 400010 400030 400050</code></pre>
 </div>
 </div>
 <p>Or, we can read in the whole array (by not providing any elements to <code>index</code>) and view its first few values with <code>head()</code>. Of course, reading in the whole array, rather than a small section of it, will take longer.</p>
@@ -685,7 +686,7 @@ Compressor: blosc</code></pre>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>r20m_x <span class="sc">|&gt;</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 300010 300030 300050 300070 300090</code></pre>
+<pre><code>[1] 399970 399990 400010 400030 400050</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="ot">&lt;-</span> r20m_y <span class="sc">|&gt;</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_zarr_array</span>()</span>
@@ -693,7 +694,7 @@ Compressor: blosc</code></pre>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>r20m_y <span class="sc">|&gt;</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 8000030 8000010 7999990 7999970 7999950</code></pre>
+<pre><code>[1] 7799990 7799970 7799950 7799930 7799910</code></pre>
 </div>
 </div>
 </section>
@@ -803,11 +804,11 @@ $offset
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>r20m_b04[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
-[1,] 4034 4011 4044 4106 4048
-[2,] 4022 4038 4018 4069 4108
-[3,] 4117 4085 4068 4059 4077
-[4,] 4018 4079 4073 4027 4022
-[5,] 3995 4021 4064 3980 4065</code></pre>
+[1,]    0    0    0    0    0
+[2,]    0    0    0    0    0
+[3,]    0    0    0    0    0
+[4,]    0    0    0    0    0
+[5,]    0    0    0    0    0</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>r20m_b8a <span class="ot">&lt;-</span> r20m <span class="sc">|&gt;</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_ends</span>(array, <span class="st">"b8a"</span>)) <span class="sc">|&gt;</span></span>
@@ -817,11 +818,11 @@ $offset
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>r20m_b8a[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2] [,3] [,4] [,5]
-[1,] 4212 4195 4127 4286 4356
-[2,] 4125 4147 4205 4277 4264
-[3,] 4285 4215 4272 4251 4317
-[4,] 4192 4122 4216 4178 4300
-[5,] 4168 4223 4169 4103 4122</code></pre>
+[1,]    0    0    0    0    0
+[2,]    0    0    0    0    0
+[3,]    0    0    0    0    0
+[4,]    0    0    0    0    0
+[5,]    0    0    0    0    0</code></pre>
 </div>
 </div>
 <p>Then, we access the scale and offset for the bands and for the coordinates:</p>
@@ -894,13 +895,13 @@ $offset
 <div class="cell-output cell-output-stdout">
 <pre><code>stars object with 2 dimensions and 2 attributes
 attribute(s), summary of first 100000 cells:
-        Min.  1st Qu. Median      Mean 3rd Qu.   Max.
-B04   0.1537 0.282500 0.3958 0.3781030  0.4593 0.7422
-B08A  0.1461 0.285475 0.3987 0.3846894  0.4648 0.7882
+      Min. 1st Qu. Median      Mean  3rd Qu.   Max.
+B04   -0.1    -0.1   -0.1 0.1732280 0.608925 1.5052
+B08A  -0.1    -0.1   -0.1 0.1502935 0.489000 1.5065
 dimension(s):
   from   to  offset delta point x/y
-X    1 5490  300010    20 FALSE [x]
-Y    1 5490 8000030   -20 FALSE [y]</code></pre>
+X    1 5490  399970    20 FALSE [x]
+Y    1 5490 7799990   -20 FALSE [y]</code></pre>
 </div>
 </div>
 <p>Now, we perform the initial steps for NDVI calculation:</p>
