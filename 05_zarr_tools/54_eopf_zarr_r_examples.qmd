@@ -23,6 +23,8 @@ jupyterlab_link <- paste0(link_start, folder, separator, file, link_end)
 </button>
 </a>
 
+**By:** *[@sharlagelfand](https://github.com/sharlagelfand)*
+
 ## Introduction
 
 This tutorial expands on the previous tutorials ([Access the EOPF Zarr STAC API with R](https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/51_eopf_stac_r.html) and [Access and analyse EOPF STAC Zarr data with R](https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/53_eopf_zarr_r.html)), going into further details on analysing and visualising Zarr data from the [EOPF Sample Service STAC catalog](https://stac.browser.user.eopf.eodc.eu/) programmatically using R. We recommend reviewing the previous tutorials if you have not done so already.
