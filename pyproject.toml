@@ -73,7 +73,8 @@ dependencies = [
     "nbconvert>=7.17.0",
     "aiohttp>=3.13.3",
     "fonttools>=4.60.2",
-    "bokeh>=3.8.2"
+    "bokeh>=3.8.2",
+    "spyndex>=0.8.0"
 ]
 
 [tool.setuptools]
