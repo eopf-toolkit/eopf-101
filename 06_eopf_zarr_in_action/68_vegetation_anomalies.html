@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -111,6 +111,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
   plausible.init()
 </script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -461,7 +464,7 @@ window.Quarto = {
 </header>
 
 
-<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/06_eopf_zarr_in_action/65_vegetation_anomalies" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/login?next=/hub/spawn?next=/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/02_about_eopf_zarr/68_vegetation_anomalies.ipynb#fancy-forms-config={&quot;profile&quot;:&quot;choose-your-environment&quot;,&quot;image&quot;:&quot;unlisted_choice&quot;,&quot;image:unlisted_choice&quot;:&quot;4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:latest&quot;,&quot;autoStart&quot;:&quot;true&quot;}" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
 <p><strong>By:</strong> <em><a href="https://github.com/davemlz"><span class="citation" data-cites="davemlz">@davemlz</span></a></em></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
@@ -502,7 +505,7 @@ window.Quarto = {
 <hr>
 <section id="import-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
-<div id="8" class="cell">
+<div id="8" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> xarray <span class="im">as</span> xr</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -518,7 +521,7 @@ window.Quarto = {
 <section id="helper-functions" class="level4">
 <h4 class="anchored" data-anchor-id="helper-functions">Helper functions</h4>
 <p>Helper functions were defined in the <code>vegetation_anomalies_utils.py</code> file. Here we import all of the functions and explain their role.</p>
-<div id="11" class="cell">
+<div id="11" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> vegetation_anomalies_utils <span class="im">import</span> <span class="op">*</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="get_items" class="level5">
@@ -547,15 +550,249 @@ window.Quarto = {
 <section id="vegetation-anomalies-in-the-hainich-national-park" class="level2">
 <h2 class="anchored" data-anchor-id="vegetation-anomalies-in-the-hainich-national-park">Vegetation Anomalies in the Hainich National Park</h2>
 <p>We will start the notebook with a forest ecosystem that was severely affacted by the drought of 2018: DE-Hai.</p>
-<div id="19" class="cell">
+<div id="19" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DE-Hai Coordinates</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>HAI_LAT <span class="op">=</span> <span class="fl">51.079212</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>HAI_LON <span class="op">=</span> <span class="fl">10.452168</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Initialize a <strong>Dask distributed client</strong> to enable parallel and delayed computation. This will manage the execution of tasks, such as loading and processing large Sentinel-2 Zarr datasets, efficiently.</p>
-<div id="21" class="cell">
+<div id="21" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>client <span class="op">=</span> Client()</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>client</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+    <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
+    <div style="margin-left: 48px;">
+        <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-9cc0badf-1175-11f1-aeda-96fcf4d799a6</p>
+        
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Connection method:</strong> Cluster object</td>
+<td style="text-align: left;"><strong>Cluster type:</strong> distributed.LocalCluster</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+
+
+        
+            <button style="margin-bottom: 12px;" data-commandlinker-command="dask:populate-and-launch-layout" data-commandlinker-args="{&quot;url&quot;: &quot;http://127.0.0.1:8787/status&quot; }">
+                Launch dashboard in JupyterLab
+            </button>
+        
+
+        
+            <details>
+            <summary style="margin-bottom: 20px;"><h3 style="display: inline;" class="anchored">Cluster Info</h3></summary>
+            <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-mod-trusted jp-OutputArea-output">
+    <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;">
+    </div>
+    <div style="margin-left: 48px;">
+        <h3 style="margin-bottom: 0px; margin-top: 0px;" class="anchored">LocalCluster</h3>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">7b308541</p>
+        
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a></td>
+<td style="text-align: left;"><strong>Workers:</strong> 4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Total threads:</strong> 8</td>
+<td style="text-align: left;"><strong>Total memory:</strong> 31.35 GiB</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Status:</strong> running</td>
+<td style="text-align: left;"><strong>Using processes:</strong> True</td>
+</tr>
+</tbody>
+</table>
+
+
+        <details>
+            <summary style="margin-bottom: 20px;">
+                <h3 style="display: inline;" class="anchored">Scheduler Info</h3>
+            </summary>
+
+            <div style="">
+    <div>
+        <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
+        <div style="margin-left: 48px;">
+            <h3 style="margin-bottom: 0px;" class="anchored">Scheduler</h3>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-769b53bd-4e5a-47fe-80fc-3065ffcbe33a</p>
+            
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:45621</td>
+<td style="text-align: left;"><strong>Workers:</strong> 0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:8787/status" target="_blank">http://127.0.0.1:8787/status</a></td>
+<td style="text-align: left;"><strong>Total threads:</strong> 0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Started:</strong> Just now</td>
+<td style="text-align: left;"><strong>Total memory:</strong> 0 B</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+    </div>
+
+    <details style="margin-left: 48px;">
+        <summary style="margin-bottom: 20px;">
+            <h3 style="display: inline;" class="anchored">Workers</h3>
+        </summary>
+
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;" class="anchored">Worker: 0</h4>
+                </summary>
+                
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:34657</td>
+<td style="text-align: left;"><strong>Total threads:</strong> 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:36271/status" target="_blank">http://127.0.0.1:36271/status</a></td>
+<td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:40567</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-43x65cqi</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;" class="anchored">Worker: 1</h4>
+                </summary>
+                
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:43427</td>
+<td style="text-align: left;"><strong>Total threads:</strong> 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34413/status" target="_blank">http://127.0.0.1:34413/status</a></td>
+<td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:42231</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-ndsrpdr1</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;" class="anchored">Worker: 2</h4>
+                </summary>
+                
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:33767</td>
+<td style="text-align: left;"><strong>Total threads:</strong> 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:45553/status" target="_blank">http://127.0.0.1:45553/status</a></td>
+<td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:33715</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-j7ynkoic</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 20px;">
+            <div style="width: 24px; height: 24px; background-color: #DBF5FF; border: 3px solid #4CC9FF; border-radius: 5px; position: absolute;"> </div>
+            <div style="margin-left: 48px;">
+            <details>
+                <summary>
+                    <h4 style="margin-bottom: 0px; display: inline;" class="anchored">Worker: 3</h4>
+                </summary>
+                
+<table class="caption-top table table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:33957</td>
+<td style="text-align: left;"><strong>Total threads:</strong> 2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:42227/status" target="_blank">http://127.0.0.1:42227/status</a></td>
+<td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:34935</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-r4ff7rr1</td>
+</tr>
+</tbody>
+</table>
+
+            </details>
+            </div>
+        </div>
+        
+
+    </details>
+</div>
+
+        </details>
+    </div>
+</div>
+            </details>
+        
+
+    </div>
+</div>
+</div>
 </div>
 <section id="load-the-gpp-data" class="level3">
 <h3 class="anchored" data-anchor-id="load-the-gpp-data">Load the GPP data</h3>
@@ -570,7 +807,7 @@ window.Quarto = {
 <li><code>anomaly</code>: GPP anomalies, computed as the deviation from the mean seasonal cycle.</li>
 <li><code>extreme</code>: Whether the specific value was a extreme or not (1 = extreme, 0 = normal).</li>
 </ul>
-<div id="24" class="cell">
+<div id="24" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>HAI_df <span class="op">=</span> curate_gpp(<span class="st">"DE-Hai"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -580,7 +817,7 @@ window.Quarto = {
 <ul>
 <li>We specify for the following helper function the coordinates of the site (<code>lat</code>, <code>lon</code>), and we set <code>return_as_dicts</code> to <em>True</em> to avoid ocnflicts when a <em>href</em> link is not present in an asset of the retrieved items.</li>
 </ul>
-<div id="26" class="cell">
+<div id="26" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get all items as a list of dicts</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>HAI_items <span class="op">=</span> get_items(HAI_LAT,HAI_LON,return_as_dicts<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -594,7 +831,7 @@ window.Quarto = {
 <li>Finally, <code>items_as_dicts</code> is set to <em>True</em> since we defined it in the previous code cell.</li>
 </ul>
 <p>After this, datasets are <strong>computed in parallel with Dask</strong>.</p>
-<div id="28" class="cell">
+<div id="28" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the delayed Dask objects</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>HAI_ds <span class="op">=</span> [open_and_curate_data(item,lat<span class="op">=</span>HAI_LAT,lon<span class="op">=</span>HAI_LON,bands<span class="op">=</span>[<span class="st">"b04"</span>,<span class="st">"b8a"</span>],resolution<span class="op">=</span><span class="dv">20</span>,<span class="bu">buffer</span><span class="op">=</span><span class="dv">500</span>,items_as_dicts<span class="op">=</span><span class="va">True</span>) <span class="cf">for</span> item <span class="kw">in</span> HAI_items]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -602,7 +839,7 @@ window.Quarto = {
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>HAI_data <span class="op">=</span> dask.compute(<span class="op">*</span>HAI_ds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>After computed, datasets are concatenated along the <strong>time dimension</strong>, sorted by time, and finally <strong>loaded into memory</strong> as a single <code>xarray.Dataset</code>.</p>
-<div id="30" class="cell">
+<div id="30" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Concatenate the previous list using the time dimension and sort it</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>HAI_ds <span class="op">=</span> xr.concat(HAI_data,dim<span class="op">=</span><span class="st">"time"</span>).sortby(<span class="st">"time"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -629,7 +866,7 @@ window.Quarto = {
 <p>The <code>spyndex.computeIndex</code> function computes both indices across the time series and stores them in an <strong><code>xarray.Dataset</code></strong> named <code>idx</code> for subsequent anomaly analysis.</p>
 <p>The <code>spyndex.computeKernel</code> function computes the kernel for the kNDVI.</p>
 <p>Note that in both cases <code>spyndex</code> just requires the data for computing the indices without the need of hard-coding the formulas.</p>
-<div id="32" class="cell">
+<div id="32" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> spyndex.computeIndex(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"NDVI"</span>,<span class="st">"kNDVI"</span>], <span class="co"># Indices to compute</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> HAI_ds[<span class="st">"b8a"</span>], <span class="co"># NIR band</span></span>
@@ -644,7 +881,7 @@ window.Quarto = {
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>).to_dataset(<span class="st">"index"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Add the name and units of each index to the attributes according to the CF conventions.</p>
-<div id="34" class="cell">
+<div id="34" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>idx.NDVI.attrs[<span class="st">"long_name"</span>] <span class="op">=</span> spyndex.indices.NDVI.long_name</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>idx.NDVI.attrs[<span class="st">"units"</span>] <span class="op">=</span> <span class="st">"1"</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -652,7 +889,7 @@ window.Quarto = {
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>idx.kNDVI.attrs[<span class="st">"units"</span>] <span class="op">=</span> <span class="st">"1"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Resample the NDVI and kNDVI time series to <strong>weekly frequency</strong>, taking the <strong>median</strong> within each week. After resampling, fill temporal gaps by applying <strong>cubic interpolation</strong> along the time dimension. This produces smooth, continuous weekly index time series suitable for anomaly computation.</p>
-<div id="36" class="cell">
+<div id="36" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> idx.resample(time<span class="op">=</span><span class="st">"1W"</span>).median().interpolate_na(dim<span class="op">=</span><span class="st">"time"</span>,method<span class="op">=</span><span class="st">"cubic"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -661,23 +898,37 @@ window.Quarto = {
 <p>Compute the <strong>median seasonal cycle</strong> (MSC) for NDVI and kNDVI.</p>
 <p>By grouping the time series by <code>weekofyear</code> and taking the <strong>median across years</strong>, this step produces a climatological baseline that represents the typical vegetation state for each week of the year.</p>
 <p>The MSC will be used later to derive vegetation anomalies.</p>
-<div id="38" class="cell">
+<div id="38" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>msc <span class="op">=</span> idx.groupby(<span class="st">"time.weekofyear"</span>).median(<span class="st">"time"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Plot the MSC of the NDVI.</p>
-<div id="40" class="cell">
+<div id="40" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>msc.NDVI.plot.imshow(col <span class="op">=</span> <span class="st">"weekofyear"</span>,cmap <span class="op">=</span> <span class="st">"viridis"</span>,col_wrap <span class="op">=</span> <span class="dv">8</span>,vmin<span class="op">=</span><span class="dv">0</span>,vmax<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="68_vegetation_anomalies_files/figure-html/cell-14-output-1.png" width="2207" height="2006" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>Plot the MSC of the kNDVI.</p>
-<div id="42" class="cell">
+<div id="42" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>msc.kNDVI.plot.imshow(col <span class="op">=</span> <span class="st">"weekofyear"</span>,cmap <span class="op">=</span> <span class="st">"viridis"</span>,col_wrap <span class="op">=</span> <span class="dv">8</span>,vmin<span class="op">=</span><span class="dv">0</span>,vmax<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="68_vegetation_anomalies_files/figure-html/cell-15-output-1.png" width="2207" height="2006" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>Compute <strong>vegetation anomalies</strong> by subtracting the <strong>median seasonal cycle (MSC)</strong> from the weekly NDVI and kNDVI values. This step isolates deviations from the expected seasonal pattern, allowing us to identify abnormal vegetation conditions potentially linked to stress or extreme events.</p>
-<div id="44" class="cell">
+<div id="44" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>idx_anomalies <span class="op">=</span> idx.groupby(<span class="st">"time.weekofyear"</span>) <span class="op">-</span> msc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Add the name and units of each index anomaly to the attributes according to the CF conventions.</p>
-<div id="46" class="cell">
+<div id="46" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>idx_anomalies.NDVI.attrs[<span class="st">"long_name"</span>] <span class="op">=</span> spyndex.indices.NDVI.long_name <span class="op">+</span> <span class="st">" Anomaly"</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>idx_anomalies.NDVI.attrs[<span class="st">"units"</span>] <span class="op">=</span> <span class="st">"1"</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -688,11 +939,11 @@ window.Quarto = {
 <section id="visualize-time-series" class="level3">
 <h3 class="anchored" data-anchor-id="visualize-time-series">Visualize Time Series</h3>
 <p>We will use time series for visualization. Let’s first aggregate the indices in space using the median to produce a time series.</p>
-<div id="48" class="cell">
+<div id="48" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>idx_agg <span class="op">=</span> idx.median([<span class="st">"x"</span>,<span class="st">"y"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here, we defined the colors to use for our indices.</p>
-<div id="50" class="cell">
+<div id="50" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Colors for indices</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>NDVI_COLOR <span class="op">=</span> <span class="st">'limegreen'</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>kNDVI_COLOR <span class="op">=</span> <span class="st">'darkviolet'</span></span>
@@ -702,7 +953,7 @@ window.Quarto = {
 </div>
 <p>Now, we will plot the NDVI and kNDVI time series together with the GPP measurements for the DE-Hai site. A secondary axis will be used to display GPP, allowing direct visual comparison between vegetation dynamics and ecosystem productivity. Extreme low-GPP events are highlighted as shaded red intervals: These events are defined as <strong>periods of at least two consecutive days</strong> in which GPP anomalies fall <strong>below the 10th percentile</strong> of the lower tail of the distribution. This information is contained in the <code>HAI_df</code> dataframe created via <code>curate_gpp</code> helper function.</p>
 <p>This visualization helps link vegetation index to observed reductions in carbon uptake, revealing how forest canopy responses relate to ecosystem-scale stress signals.</p>
-<div id="52" class="cell">
+<div id="52" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">3</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ax.plot(idx_agg.time, idx_agg[<span class="st">"NDVI"</span>],  color<span class="op">=</span>NDVI_COLOR,  label<span class="op">=</span><span class="st">"NDVI"</span>)</span>
@@ -729,14 +980,21 @@ window.Quarto = {
 <span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"NDVI, kNDVI, GPP and Extreme Events"</span>)</span>
 <span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="68_vegetation_anomalies_files/figure-html/cell-20-output-1.png" width="1430" height="278" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>Now, let’s do the same for the anomalies by aggregating the anomalies of the indices in space using the median to produce a time series.</p>
-<div id="54" class="cell">
+<div id="54" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>idx_anomalies_agg <span class="op">=</span> idx_anomalies.median([<span class="st">"x"</span>,<span class="st">"y"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we can visualize the <strong>anomaly time series</strong> of NDVI, kNDVI, and GPP for the DE-Hai site. Here, both vegetation indices and GPP have been transformed into <strong>weekly anomalies</strong>, representing deviations from their typical seasonal cycles. A horizontal line at zero indicates the expected baseline. A secondary axis displays <strong>GPP anomalies</strong>, allowing direct comparison between canopy-level spectral responses and ecosystem-level carbon uptake changes. Extreme low-GPP events are shown as shaded red intervals.</p>
 <p>This plot highlights how vegetation index anomalies co-occur with (e.g.&nbsp;2021) or diverge (e.g.&nbsp;2018) from carbon uptake anomalies, offering insight into forest responses to stress events.</p>
-<div id="56" class="cell">
+<div id="56" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">3</span>))</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>ax.plot(idx_anomalies_agg.time, idx_anomalies_agg[<span class="st">"NDVI"</span>],  color<span class="op">=</span>NDVI_COLOR,  label<span class="op">=</span><span class="st">"NDVI"</span>)</span>
@@ -764,6 +1022,13 @@ window.Quarto = {
 <span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"NDVI, kNDVI, GPP Anomalies and Extreme Events"</span>)</span>
 <span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="68_vegetation_anomalies_files/figure-html/cell-22-output-1.png" width="1430" height="278" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <hr>
 </section>
@@ -778,7 +1043,7 @@ window.Quarto = {
 <li>Retrieve the red edge bands in addition to the NIR and red bands.</li>
 <li>Modify the code as you need.</li>
 </ul>
-<div id="60" class="cell">
+<div id="60" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DE-Tha Coordinates</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>THA_LAT <span class="op">=</span> <span class="fl">50.9625</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>THA_LON <span class="op">=</span> <span class="fl">13.56515</span></span>
@@ -798,11 +1063,60 @@ window.Quarto = {
 <li>Select a vegetation index from <a href="https://github.com/awesome-spectral-indices/awesome-spectral-indices">Awesome Spectral Indices</a> that uses the Red Edge bands.</li>
 <li>Modify the code as you need.</li>
 </ul>
-<div id="62" class="cell">
+<div id="62" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Indices that include any of the red edge bands</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, attrs <span class="kw">in</span> spyndex.indices.items():</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">any</span>(item <span class="kw">in</span> [<span class="st">"RE1"</span>,<span class="st">"RE2"</span>,<span class="st">"RE3"</span>] <span class="cf">for</span> item <span class="kw">in</span> attrs.bands):</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(idx)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ARI
+ARI2
+BAIS2
+CIRE
+CRI700
+FDI
+GM1
+GM2
+IRECI
+MCARI
+MCARI705
+MCARIOSAVI
+MCARIOSAVI705
+MSR705
+MTCI
+ND705
+NDCI
+NDREI
+NDTI4RE
+NDVI4RE
+NDVI705
+NHFD
+PSRI
+REDSI
+RENDVI
+RVI
+RVI4RE
+S2REP
+S2WI
+SAVI4RE
+SNDTI4RE
+SR3
+SR555
+SR705
+STI4RE
+SeLI
+TCARI
+TCARIOSAVI
+TCARIOSAVI705
+TCI
+TRRVI
+TTVI
+TWI
+VARI700
+VI700
+mND705
+mSR705</code></pre>
+</div>
 </div>
 </section>
 <section id="task-3-calculate-vegetation-anomalies" class="level3">
@@ -810,13 +1124,13 @@ window.Quarto = {
 <ul>
 <li>Calculate anomalies for the selected index and compare them against the GPP anomalies of DE-Tha.</li>
 </ul>
-<div id="64" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>THA_df <span class="op">=</span> curate_gpp(<span class="st">"DE-Tha"</span>)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["GPP_NT_VUT_REF"] -&gt; GPP values</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["time"] -&gt; time simension</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["anomaly"] -&gt; Anomalies</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["extreme"] -&gt; Extreme = 1, Normal condition = 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="64" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>THA_df <span class="op">=</span> curate_gpp(<span class="st">"DE-Tha"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["GPP_NT_VUT_REF"] -&gt; GPP values</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["time"] -&gt; time simension</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["anomaly"] -&gt; Anomalies</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># THA_df["extreme"] -&gt; Extreme = 1, Normal condition = 0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
