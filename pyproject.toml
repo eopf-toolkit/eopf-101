@@ -1,12 +1,12 @@
 [build-system]
-requires = ["setuptools>=67.0.0", "wheel"]
+requires = ["setuptools==81.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "eopf-101"
 version = "0.1.0"
 description = "EOPF 101 - A toolkit for working with Sentinel data in Zarr format"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.14"
 readme = "README.md"
 authors = [
     { name = "Emmanuel Mathot", email = "emmanuel@developmentseed.com" },
@@ -30,6 +30,7 @@ keywords = [
 ]
 
 dependencies = [
+    "setuptools==81.0.0",
     "jupyter>=1.1.1",
     "zarr>=3.1.1",
     "pystac>=1.13.0",
@@ -39,13 +40,12 @@ dependencies = [
     "matplotlib>=3.10.3",
     "rioxarray>=0.14.1",
     "stackstac>=0.4.4",
-    "xarray>=2024.5.0",
+    "xarray>=2025.10.1",
     "distributed>=2024.5.0",
     "dask>=2024.5.0",
     "ipykernel>=6.23.1",
     "llvmlite>=0.44.0",
     "requests",
-    "aiohttp",
     "nbstripout",
     "pyproj>=3.4.1",
     "cartopy>=0.22.0",
@@ -57,14 +57,27 @@ dependencies = [
     "xarray_sentinel",
     "earthpy",
     "dask[distributed]",
+    "ipywidgets>=8.0.0",     # Required for interactive visualization (66_use_overviews.ipynb)
+    "ipyleaflet>=0.17.0",    # Required for web map visualization (66_use_overviews.ipynb)
+    "pillow>=10.0.0",        # Required for ipyleaflet_multiscales (RGB image encoding)
     "nbgitpuller>=1.2.2",
     "dask-labextension>=7.0.0",
     "jupyter-leaflet>=0.20.0",
     "jupyterlab-git>=0.51.2",
     "efast",
     "pyresample>=1.35.0",
-    "session-info>=1.0.1",
     "imageio>=2.37.0",
+    "hvplot>=0.12.2",
+    "session-info>=1.0.1",
+    "odc>=0.1.3",
+    "odc-geo>=0.5.0",
+    "geopandas>=1.1.2",
+    "urllib3>=2.6.3",
+    "nbconvert>=7.17.0",
+    "aiohttp>=3.13.3",
+    "fonttools>=4.60.2",
+    "bokeh>=3.8.2",
+    "spyndex>=0.8.0"
 ]
 
 [tool.setuptools]
@@ -74,7 +87,7 @@ packages = ["deployment", "img"]
 "*" = ["*.png", "*.jpg", "*.PNG", "*.webp"]
 
 [tool.uv.sources]
-efast = { git = "https://github.com/DHI-GRAS/efast@v1.0.0" }
+efast = { git = "https://github.com/DHI-GRAS/efast", tag = "v1.0.0"}
 
 [project.urls]
 Homepage = "https://eopf-toolkit.github.io/eopf-101/"

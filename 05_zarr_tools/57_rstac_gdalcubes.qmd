@@ -1,0 +1,258 @@
+---
+title: "Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using `rstac` and `gdalcubes`"
+format: html
+self-contained: true
+---
+
+<!-- <a>
+<button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;">
+🚀 Launch this notebook in JupyterLab
+</button>
+</a>
+<br> -->
+
+**By:** *[@DaChro](https://github.com/DaChro)*
+
+### Introduction
+
+This notebook demonstrates how to create a raster data cube from STAC items of the EOPF Sentinel Zarr Samples Service using the `rstac` and `gdalcubes` packages in R.
+We will search for Sentinel-2 images roughly covering the "Münsterland" region in Germany for June 2025, and retrieve corresponding STAC items with `rstac`. We will then use `gdalcubes` to create a raster data cube and visualize an RGB plot aggregating the data to one image (using median), and compute the NDVI for that image. 
+
+The `gdalcubes` package facilitates the creation of regular raster cubes from irregular image collections with differing spatial and temporal resolutions, partial spatial overlap or differing projections etc. It first collects images in so-called _image collections_ and creates data cubes from them, where the spatio-temporal geometry is defined via a _data cube view_. It also has a function to directly create _image collections_ from STAC items, which we will use here.
+For details on the functionality and concepts, see the [gdalcubes documentation](https://gdalcubes.github.io/) and specifically [Marius´ tutorial](https://gdalcubes.github.io/source/tutorials/vignettes/gc02_AWS_Sentinel2.html) on the example of the Sentinel-2 COG catalog on Amazon Web Services (AWS).
+
+
+### What we will learn
+
+- 🛰️ Retrieve STAC items for Sentinel-2 imagery in a specified AOI (roughly "Münsterland" region, Germany) and time range (June 2025) using `rstac`
+- 🔎 Create an image collection from STAC items using `stac_image_collection()` in `gdalcubes`
+- 🚀 Create a raster data cube with a user-defined spatio-temporal geometry using `cube_view()` and `raster_cube()` in `gdalcubes` and compute the NDVI 
+
+
+::: {.callout-note}
+As you’ll notice, we’ll need to make a small adjustment to the workflow at one stage, since gdalcubes isn’t fully optimized yet for the EOPF Sentinel Zarr Samples Service. However, the required functionality is available, and we can expect it to be even more seamless in future releases.
+:::
+
+::: {.callout-note}
+This now also works on Windows when using R >= 4.5.2, where an issue with reading blosc compressed files using gdal was fixed, see [here](https://github.com/r-spatial/stars/issues/663#issuecomment-3435761956) 
+:::
+
+### Prerequisites
+
+Make sure to have R >=4.5.2. Install `rstac`, `sf` and `gdalcubes`. We will also use  `viridis` for nice color maps, so we will install it as well.
+
+```{r}
+#install.packages("rstac")
+#install.packages("sf")
+#install.packages("gdalcubes")
+#install.packages("viridis")
+```
+
+
+
+### Create image collection from STAC items 
+We can convert STAC items received through `rstac` to `gdalcubes` image collections using the function `stac_image_collection()`.
+From there on, we can create raster cubes using the usual `gdalcubes` workflow.
+
+::: {.callout-tip}
+This notebook is only meant to showcase a simple example of the usage of `gdalcubes` with STAC items. It does not contain details on the concepts and workflow of creating and further processing raster cubes. For a more in-depth introduction, please refer to the [gdalcubes documentation](https://gdalcubes.github.io/). This also contains a number of tutorials that explain the capabilities and potential applications of the package.
+:::
+
+
+We start with a search for image data in the EOPF Sentinel Zarr Samples Service. To interact with the EOPF STAC API, we will use `rstac`:
+```{r}	
+library(rstac)
+library(gdalcubes)
+library(sf)
+
+# Using a bbox roughly for "Münsterland" region in Germany 
+# and the month June 2025.
+# For the stac request, we need the bbox in WGS84
+# We limit the no of results to 5 for this example
+bbox_wgs84 = st_bbox(
+  c(xmin = 6.55, xmax = 7.8, ymin = 51.8, ymax = 52.4),
+  crs = st_crs(4326)
+)
+
+stac_source = stac("https://stac.core.eopf.eodc.eu/")
+items = stac_source |>
+  stac_search(
+    collections = "sentinel-2-l2a",
+    datetime = "2025-06-01T00:00:00Z/2025-06-30T23:59:59Z",
+    bbox = c(
+      bbox_wgs84["xmin"],
+      bbox_wgs84["ymin"],
+      bbox_wgs84["xmax"],
+      bbox_wgs84["ymax"]
+    ),
+    limit = 5
+  ) |>
+  post_request()
+length(items$features)
+
+items
+
+###--> Helper function to adapt URLs (adding a prefix) to make them accessible for GDAL
+f = function(href) {
+  return(paste0("ZARR:\"/vsicurl/", gsub(".zarr/", ".zarr\"/", href)))
+}
+```
+
+As you can see, we have received 5 STAC items matching our search criteria (we would have received more items, but we have set the limit to 5). 
+We have then defined a helper function that adapts the asset URLs.
+
+❓ *Why adapt the URLs?*
+
+The items returned from our STAC request have asset hrefs like this:
+```{r}
+items$features[[1]]$assets$B02_10m$href 
+```
+In order for GDAL to use the correct driver, we need the URL with a prefix for the correct Zarr driver (see this [tutorial](https://eopf-sample-service.github.io/eopf-sample-notebooks/gdal-explore-zarr/)).
+Additionally, we want it to point directly to the .zarr file. The function above replaces the href by one that links directly there and prepends the required prefix.
+Since you can give this function as an argument to `stac_image_collection()`, it will be applied to all assets automatically.
+
+
+Now we can create an image collection from the received STAC items:
+```{r}
+# the helper function f (argument 'url_fun') is applied to all asset hrefs
+s2_collection = stac_image_collection(
+  items$features,
+  asset_names = c("B02_10m", "B03_10m", "B04_10m", "B08_10m"),
+  url_fun = f
+)
+
+s2_collection
+```
+
+Note that the images originate from two different UTM zones (`EPSG:32632` and `EPSG:32631`). They will be automatically detected and images -if necessary- reprojected during the creation of the raster data cube. This simplifies the workflow significantly and allows to easily combine images from different UTM zones in one cube.
+
+
+### Create a cube view
+After collecting all available images in an image collection, we will now create a raster data cube. For this, we first need to define a cube view, which specifies the desired spatio-temporal geometry of the raster cube (spatial resolution, extent, temporal resolution, time extent, etc.).
+For our example, we will select a small subset (10 x 10 km) north of the city of Muenster, which includes the "Rieselfelder" bird sanctuary. 
+We collect the spatio-temporal extent in a list, which we then pass to `cube_view()`. We also specify a spatial resolution of 10m and a temporal resolution of 1 day. While the Sentinel-2 satellites have a revisit time of ~5 days (and in addition we have limited the number of items received in our STAC request to 5 in this example), swath overlaps may in principal lead to a higher temporal resolution for certain pixels, so we define 1 day here to get as much data from the image collection as we can, leading to a rather sparse cube. However, days and locations without images are interpreted as no-data values and will simply be ignored in the following steps (see [https://gdalcubes.github.io/source/concepts/execution.html#chunking](https://gdalcubes.github.io/source/concepts/execution.html#chunking) for details).
+
+Even for the same day, certain locations may in principal be recorded more than once. Thus, we always have to define an aggregation method. Here we use "first": in the unlikely case that we have data from two images per day at a certain location, we simply choose the first. 
+
+
+```{r}
+
+#Collect spatio-temporal extent in a list
+# We select a coordinate north of Muenster close to the "Rieselfelder" bird sanctuary,
+# and define a 10km x 10km extent around it
+rieselX = 404500.13
+rieselY = 5765279
+ext = list()
+ext$left = rieselX - 5000
+ext$right = rieselX + 5000
+ext$bottom = rieselY - 5000
+ext$top = rieselY + 5000
+ext$t0 = "2025-06-01"
+ext$t1 = "2025-06-30"
+
+# Create cube view with 10m spatial and 1 day temporal resolution, 
+# and the previously defined spatio-temporal extent
+v = cube_view(srs="EPSG:32632", dx=10, dy=10, dt="P1D",
+              aggregation="first",
+              extent=ext)
+
+v
+```
+
+As you can see, the cube view summarizes the spatio-temporal geometry of the raster cube we want to create. We can see (amongst other information) that the resulting cube will have 1000 x 1000 pixels in space (10 km x 10 km at 10m resolution) and 30 time steps (1 per day for June 2025), though many of these pixels and time steps will be no-data values as we do not have complete daily coverage for the whole area. We decide to use UTM-Zone 32N (define the srs as `EPSG:32632`) for our cube view, images in other spatial references systems will be reprojected on the fly. 
+
+### Create cube and plot an RGB and an NDVI image
+
+Now we´ll create a raster cube using the previously defined cube view. As an example application for such a raster cube, we´ll first plot an RGB image of the area. We´ll then select the red and near-infrared bands, and compute an NDVI. In both cases, we use our raster cube to aggregate the results for one month computing the median. This means, that for all locations where we received data on more than one day in that month, the median of all values of that pixel throughout the month is taken --> a very basic, but easy and straightforward way to select a value that is robust against outliers (e.g. clouds).
+
+
+
+```{r}	
+
+
+gdalcubes_options(parallel=4)
+
+#create an RGB plot of the area, aggregated to one image for the whole month using median 
+raster_cube(s2_collection, v) |>
+  select_bands(c("B02_10m","B03_10m","B04_10m")) |>
+  reduce_time(c("median(B02_10m)", "median(B03_10m)", "median(B04_10m)")) |> 
+  plot(rgb = 3:1, zlim = c(0,3000))
+
+
+#compute NDVI and aggregate to one image using median
+ndvi <- raster_cube(s2_collection, v) |>
+              select_bands(c("B04_10m","B08_10m")) |>
+              apply_pixel("(B08_10m - B04_10m)/(B08_10m + B04_10m)", "NDVI") |>
+              reduce_time(c("median(NDVI)")) 
+            
+plot(ndvi, zlim = c(-0.2,1),key.pos=1, col=viridis::viridis)
+
+
+
+```
+
+
+
+## 💪 Now it is your turn
+
+- 🔍 **Task**: Perform a simple NDVI change analysis between April and June 2025.
+
+- ℹ️ `gdalcubes` can also be used to compute more complex analyses, such as change analysis between two time periods. For a task like this however, it is probably more straightforward to create two separate cubes for both months, derive cloud-free composite NDVI images from them, and then use another package like `terra` to compute the difference image.
+You can apply the same approach as above to create a composite NDVI image for the same area in April. Export both NDVI images (April and June) using `write_tif()` and use the function `rast()` of the package `terra` to load the output. You can then simply subtract both objects to compute a simple difference image highlighting changes between the two months.
+
+
+```{r, echo=FALSE, eval=FALSE}
+#SOLUTION using terra for the change analysis
+#install.packages("terra") if necessary
+library(terra)
+
+items2 = stac_source |>
+  stac_search(
+    collections = "sentinel-2-l2a",
+    datetime = "2025-04-01T00:00:00Z/2025-04-30T23:59:59Z",
+    bbox = c(
+      bbox_wgs84["xmin"],
+      bbox_wgs84["ymin"],
+      bbox_wgs84["xmax"],
+      bbox_wgs84["ymax"]
+    ),
+    limit = 5
+  ) |>
+  post_request()
+
+
+s2_collection2 = stac_image_collection(
+  items2$features,
+  asset_names = c("B02_10m", "B03_10m", "B04_10m", "B08_10m"),
+  url_fun = f
+)
+
+ext$t0 = "2025-04-01"
+ext$t1 = "2025-04-30"
+
+v2 = cube_view(
+  srs = "EPSG:32632",
+  dx = 10,
+  dy = 10,
+  dt = "P1D",
+  aggregation = "first",
+  extent = ext
+)
+
+ndvi2 <- raster_cube(s2_collection2, v2) |>
+  select_bands(c("B04_10m", "B08_10m")) |>
+  apply_pixel("(B08_10m - B04_10m)/(B08_10m + B04_10m)", "NDVI") |>
+  reduce_time(c("median(NDVI)"))
+
+
+ndvi_april <- rast(write_tif(ndvi2))
+ndvi_june <- rast(write_tif(ndvi))
+ndvi_change <- ndvi_june - ndvi_april
+plot(ndvi_change, main = "NDVI Change April 2025 - June 2025")
+
+```
+
+## Conclusion
+In this notebook, we have demonstrated how to create a raster data cube from STAC items of the EOPF Sentinel Zarr Samples Service using the `rstac` and `gdalcubes` packages in R. We retrieved Sentinel-2 images for a specified area and time range, created an image collection from these items, and then constructed a raster cube with a defined spatio-temporal geometry. We visualized an RGB composite and computed the NDVI for the area of interest. We have seen that currently some manual adjustments are necessary to work with the EOPF Sentinel Zarr Samples Service using `gdalcubes`, but this will be streamlined in future releases of the package.
+
+In the following [chapter](./../06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb) we will present several **end-to-end** workflows, where we will showcase the application of the available **Sentinel Products** in the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en).
