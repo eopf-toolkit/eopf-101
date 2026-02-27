@@ -1,8 +1,6 @@
 ---
 title: "Access EOPF Sentinel Zarr using `Rarr`"
 format: html
-execute: 
-  cache: refresh
 ---
 
 ### Introduction
@@ -68,14 +66,14 @@ print(zarr_content)
 ```
 :::
 
-Now that we have explored the content, let's get some related metadata. `Rarr` provides the `read_zattrs` function for this purpose, which looks for the `.zattrs` file inside the Zarr store. 
+Now that we have explored the content, let's get some related metadata. `Rarr` provides the `read_zarr_attributes` function for this purpose, which looks for the `.zattrs` file inside the Zarr store. 
 
 ⛔ Unfortunately we were not successful when applying it to our remote store.
 ```{r}
 #| error: true
 
-read_zattrs(zarr_url)
-read_zattrs(file.path(zarr_url, ".zattrs"))
+read_zarr_attributes(zarr_url)
+read_zarr_attributes(file.path(zarr_url, ".zattrs"))
 ```
 
 ✅ As a simple workaround we can read the JSON directly:
@@ -342,7 +340,6 @@ mapviewOptions(basemaps = c("OpenTopoMap","Esri.WorldImagery",
 
 ```{r}
 #| message: false
-#| cache: true
 
 mapview(multi_band)
 ```
@@ -367,7 +364,6 @@ f_rarr = function(){rr = st_read_zarray(zarr_url, "b01", 60)}
 
 ```{r}
 #| warning: false
-#| cache: true
 
 bench::mark(f_stars(), f_mdim(), f_rast(), f_rarr(), 
   check = F, iterations = 5)
