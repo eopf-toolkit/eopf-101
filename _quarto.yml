@@ -49,7 +49,7 @@ book:
         - 05_zarr_tools/53_eopf_zarr_r.qmd
         - 05_zarr_tools/54_zarr_R_rarr.qmd
         - 05_zarr_tools/55_zarr_R_gdal.qmd
-        # - 05_zarr_tools/56_titiler.qmd
+        - 05_zarr_tools/54_eopf_zarr_r_examples.qmd
         - 05_zarr_tools/57_rstac_gdalcubes.qmd
         # - 05_zarr_tools/55_titiler.qmd
         
@@ -63,7 +63,9 @@ book:
         - 06_eopf_zarr_in_action/66_use_overviews.ipynb
         - 06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb
         - 06_eopf_zarr_in_action/68_vegetation_anomalies.ipynb
-        # - 06_eopf_zarr_in_action/69_
+        - 06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.ipynb
+        # - 06_eopf_zarr_in_action/69_ 
+    
     - glossary.qmd
     - references.qmd
 
