@@ -64,7 +64,7 @@ dependencies = [
     "dask-labextension>=7.0.0",
     "jupyter-leaflet>=0.20.0",
     "jupyterlab-git>=0.51.2",
-    "efast @ git+https://github.com/DHI-GRAS/efast@v1.0.0",
+    "efast @ git+https://github.com/DHI-GRAS/efast@v1.0.1",
     "pyresample>=1.35.0",
     "imageio>=2.37.0",
     "hvplot>=0.12.2",
@@ -87,7 +87,7 @@ packages = ["deployment", "img"]
 "*" = ["*.png", "*.jpg", "*.PNG", "*.webp"]
 
 [tool.uv.sources]
-efast = { git = "https://github.com/DHI-GRAS/efast", tag = "v1.0.0"}
+efast = { git = "https://github.com/DHI-GRAS/efast", tag = "v1.0.1"}
 
 [project.urls]
 Homepage = "https://eopf-toolkit.github.io/eopf-101/"
