@@ -1,6 +1,6 @@
 FROM quay.io/jupyter/base-notebook:python-3.12.10
 
-RUN pip install pdm
+RUN pip install uv
 
 USER root
 
@@ -11,15 +11,15 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
+COPY ../uv.lock /home/${NB_USER}/deps/uv.lock
+
 RUN chown -R ${NB_UID}:${NB_GID} /home/${NB_USER}/deps
 
 USER ${NB_UID}
 
 WORKDIR /home/${NB_USER}/deps 
 
-RUN pdm config python.use_venv false && \
-    pdm lock && \
-    pdm export --without-hashes --format requirements | pip install -r /dev/stdin
+RUN UV_PROJECT_ENVIRONMENT=system uv sync --frozen --no-install-project
 
 WORKDIR /home/${NB_USER}
 RUN rm -rf deps
