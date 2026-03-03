@@ -32,6 +32,7 @@ This tutorial expands on the previous tutorials ([Access the EOPF Zarr STAC API 
 ## What we will learn
 
 - 🗂 How to extract measurements, such as Ocean Wind field and GIFAPAR, along with latitude and longitude
+- 🔎 How to open and visualise quicklook composite images
 - 📊 How to format, scale, and visualise satellite data on a curvillinear grid
 
 ## Prerequisites
@@ -85,16 +86,9 @@ The first example looks at [Sentinel-1 Level 2 Ocean (OCN) data](https://stac.br
 First, select the relevant collection and item from STAC:
 
 ```{r sentinel-1-stac}
-first_item <- stac("https://stac.core.eopf.eodc.eu/") |>
-  collections(collection_id = "sentinel-1-l2-ocn") |>
-  items(limit = 1) |>
-  get_request()
-
-first_item_id <- first_item[["features"]][[1]][["id"]]
-
 l2_ocn <- stac("https://stac.core.eopf.eodc.eu/") |>
   collections(collection_id = "sentinel-1-l2-ocn") |>
-  items(feature_id = first_item_id) |>
+  items(feature_id = "S1C_IW_OCN__2SDH_20250921T194014_20250921T194043_004227_008634_1302") |>
   get_request()
 
 l2_ocn
@@ -113,6 +107,12 @@ We are interested in the "Ocean Wind field" data, and will hold onto the `owi` k
 To access all of the `owi` data, we get the "product" asset and then the full Zarr store, again using our helper function from the previous tutorial to extract array information from the full array path:
 
 ```{r l2-ocn-store}
+derive_store_array <- function(store, product_url) {
+  store |>
+    mutate(array = str_remove(path, product_url)) |>
+    relocate(array, .before = path)
+}
+
 l2_ocn_url <- l2_ocn |>
   assets_select(asset_names = "product") |>
   assets_url()
@@ -169,7 +169,7 @@ owi |>
   zarr_overview()
 ```
 
-Here, we can see that all of the arrays are of the same shape: 166 x 264, with only one chunk. Since these are small, we can read all of the data in at once.
+Here, we can see that all of the arrays are of the same shape: 194 x 254, with only one chunk. Since these are small, we can read all of the data in at once.
 
 ```{r owi-read}
 owi_wind_direction <- owi |>
@@ -261,11 +261,9 @@ For this example, we return to the [Sentinel-2 Level-2A Collection](https://stac
 EOPF Zarr assets include quicklook RGB composites, which are readily viewable representations of the satellite image. We will open the 10-metre resolution quicklook and visualise it. This is available as an asset, so we can access it directly from the STAC item.
 
 ```{r tci-10m-asset}
-item_id <- "S2B_MSIL2A_20250530T101559_N0511_R065_T32TPT_20250530T130924"
-
 s2_l2a_item <- stac("https://stac.core.eopf.eodc.eu/") |>
   collections(collection_id = "sentinel-2-l2a") |>
-  items(feature_id = item_id) |>
+  items(feature_id = "S2B_MSIL2A_20250530T101559_N0511_R065_T32TPT_20250530T130924") |>
   get_request()
 
 tci_10m_asset <- s2_l2a_item |>
@@ -357,7 +355,7 @@ s2_l2a_zarr_store |>
 
 ## Sentinel-3
 
-Next, we look at an example from the Sentinel-3 mission. The Sentinel-3 mission measures sea-surface topography and land- and sea-surface temperature and colour, in support of environmental and climate monitoring. The [Sentinel-3 OLCI L2 LFR](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr?.language=en) product provides this data, computed for full resolution.
+Finally, we look at an example from the Sentinel-3 mission. The Sentinel-3 mission measures sea-surface topography and land- and sea-surface temperature and colour, in support of environmental and climate monitoring. The [Sentinel-3 OLCI L2 LFR](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr?.language=en) product provides this data, computed for full resolution.
 
 Again, we will access a specific item from this collection:
 
@@ -373,12 +371,6 @@ l2_lfr
 To access all of the data, we get the "product" asset and then the full Zarr store, again using our helper function to extract array information from the full array path:
 
 ```{r gifapar-store}
-derive_store_array <- function(store, product_url) {
-  store |>
-    mutate(array = str_remove(path, product_url)) |>
-    relocate(array, .before = path)
-}
-
 l2_lfr_url <- l2_lfr |>
   assets_select(asset_names = "product") |>
   assets_url()
@@ -419,7 +411,7 @@ l2_lfr_measurements |>
   zarr_overview()
 ```
 
-Similar to the previous example, we can see that all of the arrays are of the same shape: 4091 x 4865. We read in all of the arrays:
+Similar to the previous example, we can see that all of the arrays are of the same shape: 4090 x 4865. We read in all of the arrays:
 
 ```{r gifapar-read}
 gifapar <- l2_lfr_measurements |>
@@ -482,12 +474,16 @@ The following exercises will help you understand how to analyse and visualise di
 
 Following the steps from the Ocean Wind field analysis, extract the Ocean Swell spectra data and visualise it. Check if the data needs to be scaled or offset, and do so if necessary.
 
+### Task 2: Visualise a quicklook composite for another item or mission
+
+Following the steps for the quicklook composite visualisation, choose data from another item, or another mission altogether, and visualize its quicklook image. Hint: you can tell if a mission has a quicklook image if it has an entry for "True colour image" under its assets on the EOPF Sentinel Zarr Sample Service STAC Catalog!
+
 ### Task 2: Visualise another measurement from Sentinel-3 OLCI Level-2 LFR
 
 Review the [Sentinel-3 OLCI Level-2 LFR page](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr?.language=en) from the EOPF Sentinel Zarr Sample Service STAC Catalog and choose another measurement of interest, then visualise it.
 
 ## Conclusion
 
-In this section, we accessed additional Zarr data from the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) using `rstac` and `Rarr`. We extracted measurement variables and curvillinear coordinates, formatted and scaled them using the `stars` package's `st_as_stars()` function, and visualised the data.
+In this section, we accessed additional Zarr data from the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) using `rstac` and `Rarr`. We learned how to visualise a quicklook image at different resolutions. We also extracted measurement variables and curvillinear coordinates, formatted and scaled them using the `stars` package's `st_as_stars()` function, and visualised the data.
 
 ## What's next?
