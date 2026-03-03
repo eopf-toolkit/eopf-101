@@ -113,12 +113,6 @@ We are interested in the "Ocean Wind field" data, and will hold onto the `owi` k
 To access all of the `owi` data, we get the "product" asset and then the full Zarr store, again using our helper function from the previous tutorial to extract array information from the full array path:
 
 ```{r l2-ocn-store}
-derive_store_array <- function(store, product_url) {
-  store |>
-    mutate(array = str_remove(path, product_url)) |>
-    relocate(array, .before = path)
-}
-
 l2_ocn_url <- l2_ocn |>
   assets_select(asset_names = "product") |>
   assets_url()
@@ -258,6 +252,107 @@ Finally, we can plot this object:
 
 ```{r owi-plot}
 plot(owi_stars, main = "Wind Direction", as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.colors)
+```
+
+## Sentinel-2
+
+For this example, we return to the [Sentinel-2 Level-2A Collection](https://stac.browser.user.eopf.eodc.eu/collections/sentinel-2-l2a). The Sentinel-2 mission is based on two satellites with 13 spectral bands, with four bands at 10-metre resolution, six bands at 20-metres resolution, and three bands at 60-metre resolution. The mission supports applications for land services, including the monitoring of vegetation, soil and water cover, as well as the observation of inland waterways and coastal areas.
+
+EOPF Zarr assets include quicklook RGB composites, which are readily viewable representations of the satellite image. We will open the 10-metre resolution quicklook and visualise it. This is available as an asset, so we can access it directly from the STAC item.
+
+```{r tci-10m-asset}
+item_id <- "S2B_MSIL2A_20250530T101559_N0511_R065_T32TPT_20250530T130924"
+
+s2_l2a_item <- stac("https://stac.core.eopf.eodc.eu/") |>
+  collections(collection_id = "sentinel-2-l2a") |>
+  items(feature_id = item_id) |>
+  get_request()
+
+tci_10m_asset <- s2_l2a_item |>
+  assets_select(asset_names = "TCI_10m")
+
+tci_10m_url <- tci_10m_asset |>
+  assets_url()
+
+tci_10m_url |>
+  zarr_overview()
+```
+
+From the overview, we can see that the quicklook array has three dimensions to it, each of size 10980 x 10980. The three dimensions correspond to red, green, and blue spectral bands (B04, B03, and B02, respectively), since this is an RGB composite. This information is also available by looking at the assets' bands:
+
+```{r tci-10m-bands}
+s2_l2a_item[["assets"]][["TCI_10m"]][["bands"]] |>
+  map_dfr(as_tibble)
+```
+
+We can read in a small chunk of the array to get an idea of its shape, using the same indexing process we've used before. Note that we want to select _all_ of the bands (the first dimension listed). Rather than writing `1:3`, we can simply use `NULL` as the first dimension, indicating to get all data at this dimension. To preview the data, we will just get the first 2 entries (in each dimension) along the three bands.
+
+```{r tci-10m-preview}
+tci_10m_preview <- tci_10m_url |>
+  read_zarr_array(list(NULL, 1:2, 1:2))
+
+tci_10m_preview
+```
+
+For visualisation purposes, we need the data in a different configuration --- note the dimensions of the data:
+
+```{r tci-10m-preview-dims}
+dim(tci_10m_preview)
+```
+
+Instead, we need to get it into e.g. 2 x 2 x 3, with the _third_ dimension reflecting the number of bands (or layers) To do this, we use the `aperm()` function to transpose an array, with argument `c(2, 3, 1)` -- moving the second dimension to the first, the third to the second, and the first to the third. Then, we can see that the dimensions of the array are correct:
+
+```{r tci-10m-preview-transf}
+tci_10m_preview_perm <- tci_10m_preview |>
+  aperm(c(2, 3, 1))
+
+tci_10m_preview_perm
+
+dim(tci_10m_preview_perm)
+```
+
+Let's read in the full TCI array to visualise it.
+
+```{r tci-10m-dims}
+tci_10m <- tci_10m_url |>
+  read_zarr_array()
+
+tci_10m_perm <- tci_10m |>
+  aperm(c(2, 3, 1))
+
+dim(tci_10m)
+```
+
+For visualisation, we use `terra`'s `plotRGB()` function, first converting the array into a raster object with `rast()`:
+
+```{r tci-10m-vis}
+tci_10m_perm |>
+  rast() |>
+  plotRGB()
+```
+
+We can do the same with the quicklook at the 60-metre resolution, first accessing the full Zarr store for the product.
+
+```{r tci-60m-store}
+s2_l2a_url <- s2_l2a_item |>
+  assets_select(asset_names = "product") |>
+  assets_url()
+
+s2_l2a_zarr_store <- s2_l2a_url |>
+  zarr_overview(as_data_frame = TRUE) |>
+  derive_store_array(s2_l2a_url)
+```
+
+Then, the full visualisation process can be done in a single step:
+
+```{r tci-60m-vis}
+s2_l2a_zarr_store |>
+  filter(array == "/quality/l2a_quicklook/r60m/tci") |>
+  pull(path) |>
+  read_zarr_array() |>
+  aperm(c(2, 3, 1)) |>
+  rast() |>
+  plotRGB()
 ```
 
 ## Sentinel-3
