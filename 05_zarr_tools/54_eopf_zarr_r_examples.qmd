@@ -137,7 +137,7 @@ Since all of these arrays start with a long ID, we can remove that to get a clea
 owi <- l2_ocn_store |>
   filter(str_starts(array, "/owi"), str_detect(array, "measurements"))
 
-array_id_prefix <- str_split(owi[["array"]], "measurements", simplify = TRUE)[, 1] %>%
+array_id_prefix <- str_split(owi[["array"]], "measurements", simplify = TRUE)[, 1] |>
   unique()
 
 array_id_prefix
