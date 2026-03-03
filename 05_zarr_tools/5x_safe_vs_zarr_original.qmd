@@ -1,5 +1,5 @@
 ---
-title: "Access and analyse EOPF STAC Zarr data with R"
+title: "Comparisons of SAFE vs Zarr in R"
 format: md
 execute:
   cache: true
@@ -111,8 +111,7 @@ zarr_end <- Sys.time()
 
 The following example accesses the same 60-metre quicklook image as the example above, using SAFE instead of EOPF Zarr.
 
-This example also requires authentication to the SAFE STAC API. You need a [Copernicus Dataspace](https://dataspace.copernicus.eu/)
-account, and to store your username and password in the environment variables `CDSE_USERNAME` and `CDSE_PASSWORD` (using e.g. `usethis::edit_r_environ()` to set these).
+This example also requires authentication to the SAFE STAC API. You need a [Copernicus Dataspace](https://dataspace.copernicus.eu/) account, and to store your username and password in the environment variables `CDSE_USERNAME` and `CDSE_PASSWORD` (using e.g. `usethis::edit_r_environ()` to set these).
 
 We then use this to generate a *token*:
 
@@ -186,20 +185,6 @@ if (!file_exists(safe_zip)) {
     req_error(body = \(x) resp_body_json(x)[["message"]]) |>
     req_perform(path = safe_zip)
 }
-```
-
-```
-<httr2_response>
-
-GET
-https://download.dataspace.copernicus.eu/odata/v1/Products(fa3a0848-1568-4dc4-9ecb-dabecf23bd4b)/$value 
-
-Status: 200 OK
-
-Content-Type: application/zip
-
-Body: On disk
-(1259528508 bytes)
 ```
 
 We need to unzip the file and find the manifest file, which contains information on where different data sets are.
