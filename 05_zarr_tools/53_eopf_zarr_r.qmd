@@ -3,6 +3,7 @@ title: "Access and analyse EOPF STAC Zarr data with R"
 format:
   html:
     df-print: tibble
+engine: markdown
 ---
 
 ```{r, echo = FALSE}

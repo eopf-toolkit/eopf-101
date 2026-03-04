@@ -2,6 +2,7 @@
 title: "Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using `rstac` and `gdalcubes`"
 format: html
 self-contained: true
+engine: markdown
 ---
 
 <!-- <a>

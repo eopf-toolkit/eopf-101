@@ -1,6 +1,7 @@
 ---
 title: "Access the EOPF Zarr STAC API with R"
 format: html
+engine: markdown
 ---
 
 ```{r, echo = FALSE}
