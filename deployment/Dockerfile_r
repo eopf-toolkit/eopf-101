@@ -8,7 +8,7 @@ RUN mamba env update -n base -f environment.yaml && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
-RUN pip install pdm
+RUN pip install uv
 
 USER root
 
@@ -36,16 +36,20 @@ RUN Rscript -e 'options(repos = c(CRAN="https://cloud.r-project.org")); \
     if (!ok) BiocManager::install("Rarr", ask=FALSE, update=FALSE); \
     cat("Installed Rarr version:", as.character(packageVersion("Rarr")), "\n")'
 
+ENV PATH=${CONDA_DIR}/bin:$PATH
+
 COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
+COPY ../uv.lock /home/${NB_USER}/deps/uv.lock
+
 USER root
 RUN chown -R ${NB_UID}:${NB_GID} /home/${NB_USER}/deps
 USER ${NB_UID}
 
 WORKDIR /home/${NB_USER}/deps
 
-RUN pdm config python.use_venv false && \
-    pdm lock && \
-    pdm export --without-hashes --format requirements | pip install -r /dev/stdin
+ENV UV_PROJECT_ENVIRONMENT=${CONDA_DIR}
+
+RUN uv sync --frozen --no-install-project --inexact
 
 WORKDIR /home/${NB_USER}
 RUN rm -rf deps
