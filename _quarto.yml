@@ -83,6 +83,15 @@ book:
     - glossary.qmd
     - references.qmd
 
+<<<<<<< HEAD
+=======
+execute:
+  eval: false
+  timeout: 300
+  error: false
+  warning: false
+
+>>>>>>> 746bc46 (layout update)
 format:
   html:
     number-sections: false
