@@ -83,12 +83,6 @@ book:
     - glossary.qmd
     - references.qmd
 
-execute:
-  eval: false
-  timeout: 300
-  error: false
-  warning: false
-
 format:
   html:
     number-sections: false
