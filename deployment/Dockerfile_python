@@ -10,6 +10,8 @@ RUN apt-get update && \
     openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
+ENV PATH=${CONDA_DIR}/bin:$PATH
+
 COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
 COPY ../uv.lock /home/${NB_USER}/deps/uv.lock
 
@@ -19,7 +21,9 @@ USER ${NB_UID}
 
 WORKDIR /home/${NB_USER}/deps 
 
-RUN UV_PROJECT_ENVIRONMENT=system uv sync --frozen --no-install-project
+ENV UV_PROJECT_ENVIRONMENT=${CONDA_DIR}
+
+RUN uv sync --frozen --no-install-project --inexact
 
 WORKDIR /home/${NB_USER}
 RUN rm -rf deps
