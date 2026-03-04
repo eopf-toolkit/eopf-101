@@ -174,7 +174,7 @@ jobs:
           set -euo pipefail
           while IFS= read -r -d '' f; do
             echo "Rendering (standalone): $f"
-            quarto render "$f" --to html
+            quarto render "$f" --to html --verbose
           done < changed.lst
         env:
           BUCKET_NAME: ${{ secrets.RENDER_BUCKET_NAME }}
