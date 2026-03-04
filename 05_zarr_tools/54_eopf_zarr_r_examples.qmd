@@ -1,5 +1,5 @@
 ---
-title: "Access and analyse EOPF STAC Zarr data with R"
+title: "More examples analysing EOPF STAC Zarr data with R"
 format:
   html:
     df-print: tibble
