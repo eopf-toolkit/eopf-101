@@ -57,7 +57,6 @@ book:
         - section: "Qgis"
           contents: 
             - 05_zarr_tools/52_eopf_stac_qgis.qmd
-
         
     - part: "**EOPF Zarr in Action**"
       contents:
