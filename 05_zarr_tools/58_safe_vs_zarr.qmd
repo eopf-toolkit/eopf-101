@@ -1,6 +1,8 @@
 ---
 title: "Comparisons of SAFE vs Zarr in R"
-format: html
+format: md
+execute:
+  cache: true
 ---
   
 ### Introduction
@@ -153,11 +155,11 @@ token
 ## <httr2_token>
 ## * token_type        : "Bearer"
 ## * access_token      : <REDACTED>
-## * expires_at        : "2026-03-06 16:16:05"
+## * expires_at        : "2026-03-06 16:57:16"
 ## * refresh_token     : <REDACTED>
 ## * refresh_expires_in: 3600
 ## * not-before-policy : 0
-## * session_state     : "36c21c4c-626b-f5c1-841c-97642fca2e00"
+## * session_state     : "0b942e6f-0b09-cc0b-5d55-f543d6d9e12e"
 ## * scope             : "AUDIENCE_PUBLIC openid email profile ondemand_processing user-context"
 ```
 
@@ -198,17 +200,21 @@ safe_item |>
 ```
 
 ```
-##  [1] "AOT_10m"            "AOT_20m"            "AOT_60m"            "B01_20m"           
-##  [5] "B01_60m"            "B02_10m"            "B02_20m"            "B02_60m"           
-##  [9] "B03_10m"            "B03_20m"            "B03_60m"            "B04_10m"           
-## [13] "B04_20m"            "B04_60m"            "B05_20m"            "B05_60m"           
-## [17] "B06_20m"            "B06_60m"            "B07_20m"            "B07_60m"           
-## [21] "B08_10m"            "B09_60m"            "B11_20m"            "B11_60m"           
-## [25] "B12_20m"            "B12_60m"            "B8A_20m"            "B8A_60m"           
-## [29] "Product"            "SCL_20m"            "SCL_60m"            "TCI_10m"           
-## [33] "TCI_20m"            "TCI_60m"            "WVP_10m"            "WVP_20m"           
-## [37] "WVP_60m"            "thumbnail"          "safe_manifest"      "granule_metadata"  
-## [41] "inspire_metadata"   "product_metadata"   "datastrip_metadata"
+##  [1] "AOT_10m"            "AOT_20m"            "AOT_60m"           
+##  [4] "B01_20m"            "B01_60m"            "B02_10m"           
+##  [7] "B02_20m"            "B02_60m"            "B03_10m"           
+## [10] "B03_20m"            "B03_60m"            "B04_10m"           
+## [13] "B04_20m"            "B04_60m"            "B05_20m"           
+## [16] "B05_60m"            "B06_20m"            "B06_60m"           
+## [19] "B07_20m"            "B07_60m"            "B08_10m"           
+## [22] "B09_60m"            "B11_20m"            "B11_60m"           
+## [25] "B12_20m"            "B12_60m"            "B8A_20m"           
+## [28] "B8A_60m"            "Product"            "SCL_20m"           
+## [31] "SCL_60m"            "TCI_10m"            "TCI_20m"           
+## [34] "TCI_60m"            "WVP_10m"            "WVP_20m"           
+## [37] "WVP_60m"            "thumbnail"          "safe_manifest"     
+## [40] "granule_metadata"   "inspire_metadata"   "product_metadata"  
+## [43] "datastrip_metadata"
 ```
 
 We can select its URL for accessing the data:
@@ -239,11 +245,14 @@ request(safe_url) |>
   req_perform(path = safe_zip)
 ```
 
-    <httr2_response>
-    GET https://download.dataspace.copernicus.eu/odata/v1/Products(fa3a0848-1568-4dc4-9ecb-dabecf23bd4b)/$value
-    Status: 200 OK
-    Content-Type: application/zip
-    Body: On disk (1259528508 bytes)
+
+```
+## <httr2_response>
+## GET https://download.dataspace.copernicus.eu/odata/v1/Products(fa3a0848-1568-4dc4-9ecb-dabecf23bd4b)/$value
+## Status: 200 OK
+## Content-Type: application/zip
+## Body: On disk (1259528508 bytes)
+```
 
 We need to unzip the file and find the manifest file, which contains information on where different data sets are.
 
@@ -262,16 +271,16 @@ safe_files
 
 ```
 ## # A tibble: 8 × 2
-##   file                                                                path               
-##   <chr>                                                               <fs::path>         
-## 1 DATASTRIP                                                           …924.SAFE/DATASTRIP
-## 2 GRANULE                                                             …30924.SAFE/GRANULE
-## 3 HTML                                                                …0T130924.SAFE/HTML
-## 4 INSPIRE.xml                                                         …4.SAFE/INSPIRE.xml
-## 5 MTD_MSIL2A.xml                                                      …AFE/MTD_MSIL2A.xml
-## 6 S2B_MSIL2A_20250530T101559_N0511_R065_T32TPT_20250530T130924-ql.jpg …0530T130924-ql.jpg
-## 7 manifest.safe                                                       …SAFE/manifest.safe
-## 8 rep_info                                                            …0924.SAFE/rep_info
+##   file                                                           path      
+##   <chr>                                                          <fs::path>
+## 1 DATASTRIP                                                      …DATASTRIP
+## 2 GRANULE                                                        …E/GRANULE
+## 3 HTML                                                           …SAFE/HTML
+## 4 INSPIRE.xml                                                    …SPIRE.xml
+## 5 MTD_MSIL2A.xml                                                 …SIL2A.xml
+## 6 S2B_MSIL2A_20250530T101559_N0511_R065_T32TPT_20250530T130924-… …24-ql.jpg
+## 7 manifest.safe                                                  …fest.safe
+## 8 rep_info                                                       …/rep_info
 ```
 
 ``` r
@@ -329,7 +338,7 @@ zarr_end - zarr_start
 
 
 ```
-## Time difference of 33.86 secs
+## Time difference of 31.67 secs
 ```
 
 
@@ -339,7 +348,7 @@ safe_end - safe_start
 
 
 ```
-## Time difference of 15.77 secs
+## Time difference of 10.88 mins
 ```
 
 
@@ -348,7 +357,7 @@ time_diff <- (safe_time_numeric * 60) - zarr_time_numeric
 time_diff_min <- round(time_diff / 60, 2)
 ```
 
-The EOPF Zarr example took 33.86 seconds, while the SAFE example took 15.77 minutes---a difference of nearly 10 minutes. 
+The EOPF Zarr example took 31.67 seconds, while the SAFE example took 10.88 minutes---a difference of over 10 minutes. 
 
 We can also compare the size of the objects in R:
 
@@ -415,8 +424,8 @@ To summarise:
 
 |Format    |Time       |Downloaded to disk |Download used | Object size|
 |:---------|:----------|:------------------|:-------------|-----------:|
-|EOPF Zarr |33.86 secs |---                |---           |     9.69 MB|
-|SAFE      |15.77 secs |1.17G              |0.3%          |    45.99 MB|
+|EOPF Zarr |31.67 secs |---                |---           |     9.69 MB|
+|SAFE      |10.88 mins |1.17G              |0.3%          |    45.99 MB|
 
 ## Optimisations
 
