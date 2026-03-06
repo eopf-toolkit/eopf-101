@@ -1,8 +1,6 @@
 ---
 title: "Comparisons of SAFE vs Zarr in R"
-format: md
-execute:
-  cache: true
+format: html
 ---
   
 ### Introduction
