@@ -282,7 +282,7 @@ time_diff <- (safe_time_numeric * 60) - zarr_time_numeric
 time_diff_min <- round(time_diff / 60, 2)
 ```
 
-The EOPF Zarr example took `r zarr_time_numeric` seconds, while the SAFE example took `r safe_time_numeric` minutes---a difference of nearly 10 minutes. 
+The EOPF Zarr example took `r zarr_time_numeric` seconds, while the SAFE example took `r safe_time_numeric` minutes---a difference of over 10 minutes. 
 
 We can also compare the size of the objects in R:
 
@@ -361,8 +361,8 @@ To summarise:
 #| echo: false
 tribble(
   ~Format, ~`Time`, ~`Downloaded to disk`, ~`Download used`, ~`Object size`,
-  "EOPF Zarr", zarr_time, "---", "---", zarr_size,
-  "SAFE", safe_time, as.character(safe_zip_size), total_used_percent, safe_size
+  "EOPF Zarr", glue::glue("{time} secs", time = as.character(zarr_time)), "---", "---", zarr_size,
+  "SAFE", glue::glue("{safe_time} mins"), as.character(safe_zip_size), total_used_percent, safe_size
 ) |>
   knitr::kable()
 ```
