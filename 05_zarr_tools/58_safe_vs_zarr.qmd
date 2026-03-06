@@ -1,8 +1,6 @@
 ---
 title: "Comparisons of SAFE vs Zarr in R"
-format: md
-execute:
-  cache: true
+format: html
 ---
   
 ### Introduction
@@ -123,7 +121,7 @@ r60m_tci |>
   plotRGB()
 ```
 
-![plot of chunk zarr-ex](figure/zarr-ex-1.png)
+![](../img/58_zarr_ex.png)
 
 ``` r
 zarr_end <- Sys.time()
@@ -319,7 +317,7 @@ r60m_tci_safe |>
   plot()
 ```
 
-![plot of chunk safe-plot](figure/safe-plot-1.png)
+![](../img/58_safe_plot.png)
 
 ``` r
 safe_end <- Sys.time()
