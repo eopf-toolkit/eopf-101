@@ -51,7 +51,8 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
   * [Zarr Overviews - Part 2](./06_eopf_zarr_in_action/66_use_overviews.ipynb)
   * [Reservoir Surface Monitoring](./06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb)
   * [Analysing Forest Vegetation Anomalies](./06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb)
-  * [Surface Water Dynamics - Time Series Analysis with Sentinel-1](./06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.ipynb)  
+  * [Surface Water Dynamics - Time Series Analysis with Sentinel-1](./06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.ipynb)
+  * [African rangeland monitoring using Sentinel-2 and Sentinel-3 fusion](./06_eopf_zarr_in_action/610_s2_s3_fusion.ipynb)   
 
 
 <h2>💡 How best to use EOPF 101 </h2>
