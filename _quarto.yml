@@ -1,7 +1,6 @@
 project:
   type: book
 
-engine: markdow
 
 book:
   title: ""
@@ -83,6 +82,12 @@ book:
     - glossary.qmd
     - references.qmd
 
+execute:
+  eval: true
+  timeout: 300
+  error: false
+  warning: false
+  
 format:
   html:
     number-sections: false
