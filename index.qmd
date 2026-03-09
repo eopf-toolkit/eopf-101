@@ -40,7 +40,7 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
   * [Access the EOPF Zarr STAC API with R](./05_zarr_tools/51_eopf_stac_r.qmd)
   * [Access the EOPF Zarr STAC API with QGIS](./05_zarr_tools/52_eopf_stac_qgis.qmd)
   * [Access and analyse EOPF STAC Zarr data with R](./05_zarr_tools/53_eopf_zarr_r.ipynb)
-  <!-- * [Raster cube with rstac](./05_eopf_zarr_in_action/57_rstac_gdalcubes.qmd) -->
+  * [Raster cube with rstac](./05_zarr_tools/57_rstac_gdalcubes.qmd)
 
 * **Chapter 6 - EOPF Zarr in Action**
   * [Flood Mapping - Time Series Analysis in Valencia](./06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb)
