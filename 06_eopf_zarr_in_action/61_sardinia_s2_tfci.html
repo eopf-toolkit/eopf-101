@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fire in Sardinia 2025 - Part 1</title>
+<title>True and False Composites with Sentinel-2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -66,7 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" rel="next">
-<link href="../05_zarr_tools/57_rstac_gdalcubes.html" rel="prev">
+<link href="../06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -127,7 +127,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><strong>EOPF Zarr in Action</strong></a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html"><strong>EOPF Zarr in Action</strong></a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html">Fire in Sardinia 2025</a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><span class="chapter-title">True and False Composites with Sentinel-2</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -284,14 +284,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">R</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../05_zarr_tools/51_eopf_stac_r.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access the EOPF Zarr STAC API with R</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -311,35 +315,78 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
+          <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text"><strong>EOPF Zarr in Action</strong></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Qgis</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a>
+  <a href="../05_zarr_tools/52_eopf_stac_qgis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Access EOPF Zarr in QGIS Using STAC</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Fire in Sardinia 2025 - Part 3</span></a>
-  </div>
-</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>EOPF Zarr in Action</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Flood Mapping - Time Series Analysis in Valencia</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Surface Water Dynamics - Time Series Analysis with Sentinel-1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fire in Sardinia 2025</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">True and False Composites with Sentinel-2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Heat Detection with Sentinel-3 LST</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/63_sardinia_dNBR.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Normalised Burn Ratio</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false">
+ <span class="menu-text">Create and Visualise Multiscale Pyramids</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-10" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06_eopf_zarr_in_action/65_create_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 1</span></a>
@@ -350,6 +397,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <a href="../06_eopf_zarr_in_action/66_use_overviews.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Create and Visualise Multiscale Pyramids - Part 2</span></a>
   </div>
 </li>
+      </ul>
+  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../06_eopf_zarr_in_action/67_reservoir_surface_monitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Reservoir Surface Monitoring</span></a>
@@ -362,12 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Surface Water Dynamics - Time Series Analysis with Sentinel-1</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../06_eopf_zarr_in_action/610_s2_s3_fusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">African rangeland monitoring using Sentinel-2 and Sentinel-3 fusion</span></a>
+  <a href="../06_eopf_zarr_in_action/610_s2_s3_fusion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">African rangeland monitoring with Sentinel-2 and Sentinel-3</span></a>
   </div>
 </li>
       </ul>
@@ -423,9 +467,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><strong>EOPF Zarr in Action</strong></a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/64_flood_mapping_valencia.html"><strong>EOPF Zarr in Action</strong></a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html">Fire in Sardinia 2025</a></li><li class="breadcrumb-item"><a href="../06_eopf_zarr_in_action/61_sardinia_s2_tfci.html"><span class="chapter-title">True and False Composites with Sentinel-2</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Fire in Sardinia 2025 - Part 1</span></h1>
+<h1 class="title"><span class="chapter-title">True and False Composites with Sentinel-2</span></h1>
 </div>
 
 
@@ -442,7 +486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/login?next=/hub/spawn?next=/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/02_about_eopf_zarr/61_sardinia_s2_tfci.ipynb#fancy-forms-config={&quot;profile&quot;:&quot;choose-your-environment&quot;,&quot;image&quot;:&quot;unlisted_choice&quot;,&quot;image:unlisted_choice&quot;:&quot;4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:latest&quot;,&quot;autoStart&quot;:&quot;true&quot;}" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
+<p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/login?next=/hub/spawn?next=/hub/user-redirect/git-pull?repo=https://github.com/eopf-toolkit/eopf-101&amp;branch=main&amp;urlpath=lab/tree/eopf-101/06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb#fancy-forms-config={&quot;profile&quot;:&quot;choose-your-environment&quot;,&quot;image&quot;:&quot;unlisted_choice&quot;,&quot;image:unlisted_choice&quot;:&quot;4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:latest&quot;,&quot;autoStart&quot;:&quot;true&quot;}" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
 <p><strong>By:</strong> <em><a href="https://github.com/gisromerocandanedo"><span class="citation" data-cites="gisromerocandanedo">@gisromerocandanedo</span></a></em></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
@@ -555,7 +599,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div style="width: 24px; height: 24px; background-color: #e1e1e1; border: 3px solid #9D9D9D; border-radius: 5px; position: absolute;"> </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px;" class="anchored">Client</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-f4cedce6-1a0f-11f1-9a2f-1651762ab4a0</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">Client-b804a4ae-1bac-11f1-a22a-7aca5474074a</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -585,7 +629,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </div>
     <div style="margin-left: 48px;">
         <h3 style="margin-bottom: 0px; margin-top: 0px;" class="anchored">LocalCluster</h3>
-        <p style="color: #9D9D9D; margin-bottom: 0px;">89dae465</p>
+        <p style="color: #9D9D9D; margin-bottom: 0px;">8e174cfd</p>
         
 <table class="caption-top table table-sm table-striped small">
 <tbody>
@@ -615,12 +659,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <div style="width: 24px; height: 24px; background-color: #FFF7E5; border: 3px solid #FF6132; border-radius: 5px; position: absolute;"> </div>
         <div style="margin-left: 48px;">
             <h3 style="margin-bottom: 0px;" class="anchored">Scheduler</h3>
-            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-fc5b5d85-f721-44cd-8162-8536f95400d8</p>
+            <p style="color: #9D9D9D; margin-bottom: 0px;">Scheduler-90d829c9-b19c-4125-a09a-227ddabf1de0</p>
             
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:45241</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:34047</td>
 <td style="text-align: left;"><strong>Workers:</strong> 0</td>
 </tr>
 <tr class="even">
@@ -654,19 +698,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:35217</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:42761</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34625/status" target="_blank">http://127.0.0.1:34625/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:44551/status" target="_blank">http://127.0.0.1:44551/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:40307</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41275</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-o8bq7g3m</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-g2fck66w</td>
 </tr>
 </tbody>
 </table>
@@ -686,19 +730,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36517</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:34905</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:36197/status" target="_blank">http://127.0.0.1:36197/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:34929/status" target="_blank">http://127.0.0.1:34929/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:38041</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:42285</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-g0efklod</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-9zg9iupg</td>
 </tr>
 </tbody>
 </table>
@@ -718,19 +762,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:46693</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:41933</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:45079/status" target="_blank">http://127.0.0.1:45079/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:38087/status" target="_blank">http://127.0.0.1:38087/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:35923</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:46247</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-4over3_m</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-cd58c7rz</td>
 </tr>
 </tbody>
 </table>
@@ -750,19 +794,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <table class="caption-top table table-sm table-striped small">
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:43425</td>
+<td style="text-align: left;"><strong>Comm:</strong> tcp://127.0.0.1:36515</td>
 <td style="text-align: left;"><strong>Total threads:</strong> 2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:38469/status" target="_blank">http://127.0.0.1:38469/status</a></td>
+<td style="text-align: left;"><strong>Dashboard:</strong> <a href="http://127.0.0.1:39575/status" target="_blank">http://127.0.0.1:39575/status</a></td>
 <td style="text-align: left;"><strong>Memory:</strong> 7.84 GiB</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:41235</td>
+<td style="text-align: left;"><strong>Nanny:</strong> tcp://127.0.0.1:35595</td>
 <td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-yuvdjspr</td>
+<td colspan="2" style="text-align: left;"><strong>Local directory:</strong> /tmp/dask-scratch-space/worker-outzkiuk</td>
 </tr>
 </tbody>
 </table>
@@ -1263,7 +1307,7 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Running Time: '</span>, total_t,<span class="st">' seconds'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Total Running Time:  51.17173504829407  seconds</code></pre>
+<pre><code>Total Running Time:  50.14513301849365  seconds</code></pre>
 </div>
 </div>
 <p>As our plots show, the <strong>True Colour Image</strong> reveals a clear change in the state of the vegetation, with an evident burn scar visible on the ground. The <strong>False Colour Image</strong> also highlights a significant change in the spectral response, which precisely encloses the spot where the fire occurred.<br></p>
@@ -1688,13 +1732,13 @@ Total Items Found for Sentinel-2 L2A over Sardinia:   1</code></pre>
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../05_zarr_tools/57_rstac_gdalcubes.html" class="pagination-link" aria-label="Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using `rstac` and `gdalcubes`">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using <code>rstac</code> and <code>gdalcubes</code></span></span>
+      <a href="../06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.html" class="pagination-link" aria-label="Surface Water Dynamics - Time Series Analysis with Sentinel-1">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Surface Water Dynamics - Time Series Analysis with Sentinel-1</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="pagination-link" aria-label="Fire in Sardinia 2025 - Part 2">
-        <span class="nav-page-text"><span class="chapter-title">Fire in Sardinia 2025 - Part 2</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../06_eopf_zarr_in_action/62_sardinia_s3_lst.html" class="pagination-link" aria-label="Heat Detection with Sentinel-3 LST">
+        <span class="nav-page-text"><span class="chapter-title">Heat Detection with Sentinel-3 LST</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
