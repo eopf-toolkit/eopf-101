@@ -43,16 +43,18 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
   <!-- * [Raster cube with rstac](./05_eopf_zarr_in_action/57_rstac_gdalcubes.qmd) -->
 
 * **Chapter 6 - EOPF Zarr in Action**
-  * [Fire in Sardinia 2025 - Part 1](./06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb)
-  * [Fire in Sardinia 2025 - Part 2](./06_eopf_zarr_in_action/62_sardinia_s3_lst.ipynb)
-  * [Fire in Sardinia 2025 - Part 3](./06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb)
   * [Flood Mapping - Time Series Analysis in Valencia](./06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb)
-  * [Zarr Overviews - Part 1](./06_eopf_zarr_in_action/65_create_overviews.ipynb)
-  * [Zarr Overviews - Part 2](./06_eopf_zarr_in_action/66_use_overviews.ipynb)
+  * [Surface Water Dynamics - Time Series Analysis with Sentinel-1](./06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.ipynb)
+  * **Fire in Sardinia 2025**
+    * [True and False Composites with Sentinel-2](./06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb)
+    * [Heat Detection with Sentinel-3 LST](./06_eopf_zarr_in_action/62_sardinia_s3_lst.ipynb)
+    * [Normalised Burn Ratio](./06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb)
+  * **Zarr Overviews**
+    * [Creating Zarr Overviews](./06_eopf_zarr_in_action/65_create_overviews.ipynb)
+    * [Visualising Zarr Overviews](./06_eopf_zarr_in_action/66_use_overviews.ipynb)
   * [Reservoir Surface Monitoring](./06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb)
   * [Analysing Forest Vegetation Anomalies](./06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb)
-  * [Surface Water Dynamics - Time Series Analysis with Sentinel-1](./06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.ipynb)
-  * [African rangeland monitoring using Sentinel-2 and Sentinel-3 fusion](./06_eopf_zarr_in_action/610_s2_s3_fusion.ipynb)   
+  * [African rangeland monitoring with Sentinel-2 and Sentinel-3](./06_eopf_zarr_in_action/610_s2_s3_fusion.ipynb)   
 
 
 <h2>💡 How best to use EOPF 101 </h2>
