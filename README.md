@@ -13,9 +13,10 @@ The toolkit consists of a set of community resources, including an online book, 
 ### EOPF 101 - Outline
 * Chapter 1 - About EOPF
 * Chapter 2 - About EOPF Zarr
-* Chapter 3 - EOPF and STAC
-* Chapter 4 - Tools to work with EOPF Zarr
-* Chapter 5 - EOPF Zarr in Action
+* Chapter 3 - About Chunking
+* Chapter 4 - EOPF and STAC
+* Chapter 5 - Tools to work with EOPF Zarr
+* Chapter 6 - EOPF Zarr in Action
 * Glossary
 * References
 
