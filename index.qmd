@@ -12,7 +12,7 @@ EOPF 101 is designed for Sentinel data users who are new to cloud-optimised geos
 It introduces you to fundamental cloud-native geospatial concepts, the Earth Observation Processing Framework (EOPF) activities by ESA, 
 re-processed EOPF Sentinel Zarr data, as well as tools and libraries to work with EOPF Sentinel Zarr data in the cloud.
 
-Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments, as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data.
+Across six chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr products, how you can search and access these, relevant tools and plugins to use EOPF Sentinel Zarr data in different working environments, as well as practical end-to-end application workflows highlighting the benefits of EOPF Sentinel Zarr data.
 
 * **Chapter 1 - About EOPF**
   * [Introduction to the EOPF](./01_about_eopf/11_about_eopf.qmd)
@@ -49,9 +49,9 @@ Across five chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zar
     * [True and False Composites with Sentinel-2](./06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb)
     * [Heat Detection with Sentinel-3 LST](./06_eopf_zarr_in_action/62_sardinia_s3_lst.ipynb)
     * [Normalised Burn Ratio](./06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb)
-  * **Zarr Overviews**
+  * **Create and Visualise Zarr at Several Resolutions**
     * [Creating Zarr Overviews](./06_eopf_zarr_in_action/65_create_overviews.ipynb)
-    * [Visualising Zarr Overviews](./06_eopf_zarr_in_action/66_use_overviews.ipynb)
+    * [Visualising Multiscale Pyramids](./06_eopf_zarr_in_action/66_use_overviews.ipynb)
   * [Reservoir Surface Monitoring](./06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb)
   * [Analysing Forest Vegetation Anomalies](./06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb)
   * [African rangeland monitoring with Sentinel-2 and Sentinel-3](./06_eopf_zarr_in_action/610_s2_s3_fusion.ipynb)   
