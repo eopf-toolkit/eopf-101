@@ -1,6 +1,7 @@
 project:
   type: book
 
+
 book:
   title: ""
   author: ""
@@ -54,17 +55,24 @@ book:
         # - 05_zarr_tools/55_titiler.qmd
         
     - part: "**EOPF Zarr in Action**"
-      chapters:
-        - 06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb
-        - 06_eopf_zarr_in_action/62_sardinia_s3_lst.ipynb
-        - 06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb
+      contents:
         - 06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb
-        - 06_eopf_zarr_in_action/65_create_overviews.ipynb
-        - 06_eopf_zarr_in_action/66_use_overviews.ipynb
+        - 06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.ipynb
+
+        - section: "Fire in Sardinia 2025"
+          contents:
+            - 06_eopf_zarr_in_action/61_sardinia_s2_tfci.ipynb
+            - 06_eopf_zarr_in_action/62_sardinia_s3_lst.ipynb
+            - 06_eopf_zarr_in_action/63_sardinia_dNBR.ipynb
+
+        - section: "Create and Visualise Multiscale Pyramids"
+          contents:
+            - 06_eopf_zarr_in_action/65_create_overviews.ipynb
+            - 06_eopf_zarr_in_action/66_use_overviews.ipynb
+      
         - 06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb
         - 06_eopf_zarr_in_action/68_vegetation_anomalies.ipynb
-        - 06_eopf_zarr_in_action/69_coastal_water_dynamics_s1.ipynb
-        # - 06_eopf_zarr_in_action/69_ 
+        - 06_eopf_zarr_in_action/610_s2_s3_fusion.ipynb
     
     - glossary.qmd
     - references.qmd
@@ -74,7 +82,7 @@ execute:
   timeout: 300
   error: false
   warning: false
-
+  
 format:
   html:
     number-sections: false
