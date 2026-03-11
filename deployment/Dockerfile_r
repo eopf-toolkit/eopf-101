@@ -8,6 +8,9 @@ RUN mamba env update -n base -f environment.yaml && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
+ENV PROJ_LIB=${CONDA_DIR}/share/proj
+ENV GDAL_DATA=${CONDA_DIR}/share/gdal
+
 RUN pip install uv
 
 USER root
