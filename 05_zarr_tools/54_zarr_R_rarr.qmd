@@ -319,7 +319,7 @@ st_read_zarray = function(path, var, res, scale = 1, offset = 0, ...){
 
 ✅ Now we can read multiple bands, combine them to a single multi-band object, and visualize them in a static map...
 
-```{r}
+```{r static-plot}
 system.time({
   # scale: 0.0001 = 1 / 10,000
   b01 = st_read_zarray(zarr_url, "b01", 60, scale=0.0001, offset = 0.1)
@@ -332,13 +332,13 @@ plot(multi_band, axes = TRUE)
 
 ... or by generating an interactive map:
 
-```{r}
+```{r mapview-options}
 #| echo: false
 mapviewOptions(basemaps = c("OpenTopoMap","Esri.WorldImagery", 
                             "CartoDB.Positron"))
 ```
 
-```{r}
+```{r mapview}
 #| message: false
 
 mapview(multi_band)
@@ -349,7 +349,7 @@ mapview(multi_band)
 
 Using `Rarr` to read remote Zarr stores is just one of several options. R packages `stars` and `terra` provide functionality, that uses GDAl's Zarr driver in the background. To see if there is a benefit to each of the methods, we can compare their execution time and memory allocation with a little benchmark.
 
-```{r}
+```{r benchmark-functions}
 # GDAL-compatible VSI URL
 vsi_prefix = "ZARR:/vsicurl/"
 vsi_url = paste0(vsi_prefix, dplyr::as_label(zarr_url)) 
@@ -362,7 +362,7 @@ f_rast = function(){tr = terra::rast(vsi_url, band_variable) |> terra::toMemory(
 f_rarr = function(){rr = st_read_zarray(zarr_url, "b01", 60)}
 ```
 
-```{r}
+```{r benchmark}
 #| warning: false
 
 bench::mark(f_stars(), f_mdim(), f_rast(), f_rarr(), 
