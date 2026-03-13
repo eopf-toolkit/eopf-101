@@ -44,20 +44,15 @@ book:
         - 04_eopf_and_stac/43_eopf_stac_connection.ipynb
         - 04_eopf_and_stac/44_eopf_stac_xarray_tutorial.ipynb
     - part: "**Tools to work with EOPF Zarr**"
-      contents:
-        # - section: "Python"
-        #   contents:
-            # - 05_zarr_tools/55_titiler.qmd
-        - section: "R"
-          contents:
-            - 05_zarr_tools/51_eopf_stac_r.qmd
-            - 05_zarr_tools/53_eopf_zarr_r.qmd
-            - 05_zarr_tools/54_eopf_zarr_r_examples.qmd
-            - 05_zarr_tools/57_rstac_gdalcubes.qmd
-        - section: "Qgis"
-          contents: 
-            - 05_zarr_tools/52_eopf_stac_qgis.qmd
-
+      chapters:
+        - 05_zarr_tools/51_eopf_stac_r.qmd
+        - 05_zarr_tools/52_eopf_stac_qgis.qmd
+        - 05_zarr_tools/53_eopf_zarr_r.qmd
+        - 05_zarr_tools/54_zarr_R_rarr.qmd
+        - 05_zarr_tools/55_zarr_R_gdal.qmd
+        - 05_zarr_tools/54_eopf_zarr_r_examples.qmd
+        - 05_zarr_tools/57_rstac_gdalcubes.qmd
+        # - 05_zarr_tools/55_titiler.qmd
         
     - part: "**EOPF Zarr in Action**"
       contents:
