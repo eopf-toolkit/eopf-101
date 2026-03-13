@@ -121,7 +121,7 @@ r60m_tci |>
   plotRGB()
 ```
 
-![](../img/58_zarr_ex.png)
+![](../img/55_zarr_ex.png)
 
 ``` r
 zarr_end <- Sys.time()
@@ -317,7 +317,7 @@ r60m_tci_safe |>
   plot()
 ```
 
-![](../img/58_safe_plot.png)
+![](../img/55_safe_plot.png)
 
 ``` r
 safe_end <- Sys.time()
