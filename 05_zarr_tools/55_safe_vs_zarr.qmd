@@ -7,7 +7,7 @@ format: html
 
 Prior to the introduction of EOPF's Zarr, the ESA's Copernicus data was published and distributed using the [Standard Archive Format for Europe (SAFE)](https://earth.esa.int/eogateway/activities/safe-the-standard-archive-format-for-europe). Sentinel scenes were downloaded as zip archives, containing several files as well as an XML manifest. In order to access any scene data, the entire zip archive had to be downloaded, which could be quite inefficient.
 
-Zarr is optimised for efficient data retrieval---arrays are segmented into one or more chunks, and a single Sentinel scene could potentially be across several chunks. A data consumer can choose to download only the chunks required for their use case, rather than the entire zip archive. There is no need to download all data before processing it, and data can be **lazy-loaded** so that it is only downloaded when required. The [Comparisons](#comparisons) section shows how this is more efficient in terms of both network bandwidth and compute resources.
+Zarr is optimised for efficient data retrieval; arrays are segmented into one or more chunks, and a single Sentinel scene could potentially be across several chunks. A data consumer can choose to download only the chunks required for their use case, rather than the entire zip archive. There is no need to download all data before processing it, and data can be **lazy-loaded** so that it is only downloaded when required. The [Comparisons](#comparisons) section shows how this is more efficient in terms of both network bandwidth and compute resources.
 
 The following chapter will contrast the processes for working with EOPF Zarr versus the SAFE format, showing that Zarr takes less code, time, and downloads less data.
 
@@ -82,7 +82,7 @@ library(Rarr)
 
 ## Zarr example
 
-This example how to access the 60-metre resolution quicklook of a Sentinel-2 mission, explored in more detail the tutorial [More examples analysing EOPF STAC Zarr data with R](https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/54_eopf_zarr_r_examples.html#sentinel-2).
+This example shows how to access the 60-metre resolution quicklook of a Sentinel-2 mission, explored in more detail the tutorial [More examples analysing EOPF STAC Zarr data with R](https://eopf-toolkit.github.io/eopf-101/05_zarr_tools/54_eopf_zarr_r_examples.html#sentinel-2).
 
 We set up `zarr_start` and `zarr_end` to time the data retrieval and visualisation process, for comparison to the SAFE process later on.
 
@@ -161,7 +161,7 @@ token
 ## * scope             : "AUDIENCE_PUBLIC openid email profile ondemand_processing user-context"
 ```
 
-which will be used for accessing SAFE data. The `token` object contains the token itself and, as you can see, when it expires (30 minutes after generation).
+This token will be used for accessing SAFE data. The `token` object contains the token itself and, as you can see, when it expires (30 minutes after generation).
 
 To access the SAFE data, we first get the STAC item from the Sentinel-2 collection. Its ID is the same as in the EOPF Sample Service STAC catalog example, with the suffix `.SAFE`. We'll also set up timing how long this process takes, in `safe_start`.
 
