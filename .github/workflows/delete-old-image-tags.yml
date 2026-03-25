@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete old eopf-toolkit-python image tags from Harbor
-        uses: developmentseed/container-registry-cleanup@v0.2.0
+        uses: developmentseed/container-registry-cleanup@41ad2d4065be2825ebf0aec1e7d2b3215d5d6d47 # v0.2.0
         env:
           REGISTRY_TYPE: harbor
           REPOSITORY_NAME: eopf-toolkit-python
@@ -23,7 +23,7 @@ jobs:
           DRY_RUN: false
 
       - name: Delete old eopf-toolkit-r image tags from Harbor
-        uses: developmentseed/container-registry-cleanup@v0.2.0
+        uses: developmentseed/container-registry-cleanup@41ad2d4065be2825ebf0aec1e7d2b3215d5d6d47 # v0.2.0
         env:
           REGISTRY_TYPE: harbor
           REPOSITORY_NAME: eopf-toolkit-r
