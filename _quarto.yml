@@ -57,10 +57,11 @@ book:
             - 05_zarr_tools/56_zarr_R_rarr.qmd
             - 05_zarr_tools/57_zarr_R_gdal.qmd
             - 05_zarr_tools/58_rstac_gdalcubes.qmd
+            - 05_zarr_tools/59_rio_tiler.ipynb
         - section: "Qgis"
-          contents: 
+          contents:
             - 05_zarr_tools/52_eopf_stac_qgis.qmd
-        
+
     - part: "**EOPF Zarr in Action**"
       contents:
         - 06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb
@@ -76,11 +77,11 @@ book:
           contents:
             - 06_eopf_zarr_in_action/65_create_overviews.ipynb
             - 06_eopf_zarr_in_action/66_use_overviews.ipynb
-      
+
         - 06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb
         - 06_eopf_zarr_in_action/68_vegetation_anomalies.ipynb
         - 06_eopf_zarr_in_action/610_s2_s3_fusion.ipynb
-    
+
     - glossary.qmd
     - references.qmd
 
@@ -89,7 +90,7 @@ execute:
   timeout: 300
   error: false
   warning: false
-  
+
 format:
   html:
     number-sections: false
