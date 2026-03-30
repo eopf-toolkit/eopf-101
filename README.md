@@ -13,9 +13,10 @@ The toolkit consists of a set of community resources, including an online book, 
 ### EOPF 101 - Outline
 * Chapter 1 - About EOPF
 * Chapter 2 - About EOPF Zarr
-* Chapter 3 - EOPF and STAC
-* Chapter 4 - Tools to work with EOPF Zarr
-* Chapter 5 - EOPF Zarr in Action
+* Chapter 3 - About Chunking
+* Chapter 4 - EOPF and STAC
+* Chapter 5 - Tools to work with EOPF Zarr
+* Chapter 6 - EOPF Zarr in Action
 * Glossary
 * References
 
@@ -27,24 +28,24 @@ We will develop a series of open-source libraries and plugins, including the fol
 * **GDAL** evolution of the current driver
 * **Titiler-multidimensional**: Prepare a docker for starting a titiler tailored for EOPF Zarr
 
-### Case studies (planned)
+### Case studies
 Together with a group of champion users, we will developed and publish technical and thematic case studies that include example Jupyter Notebook workflows for using Sentinels data in Zarr format:
 * `Technical case studies`:
-  * Zarr with QGIS
-  * Zarr with R
-  * EOPF and STAC (xpystac)
-  * Multi-scale Zarr
-  * Dataset screening with rio-tiler and lonboard
+  * Access the EOPF Zarr STAC API with R
+  * Access the EOPF Zarr STAC API with QGIS
+  * Access and analyse EOPF STAC Zarr data with R
+  * Raster cube with rstac
+  * Create and Visualise Zarr at Several Resolutions (Creating Zarr Overviews, Visualising Multiscale Pyramids)
 * `Thematic case studies`:
-  * Monitoring coastal dynamics in cloud-prone regions using Sentinel-1
-  * African rangeland monitoring using Sentinel-2 / Sentinel-3 fusion
-  * Wildfire assessment with Sentinel-3 and Sentinel-2 data
-
+  * Flood Mapping - Time Series Analysis in Valencia
+  * Surface Water Dynamics - Time Series Analysis with Sentinel-1
+  * Fire in Sardinia 2025 (True and False Composites with Sentinel-2, Heat Detection with Sentinel-3 LST, Normalised Burn Ratio)
+  * Reservoir Surface Monitoring
+  * Analysing Forest Vegetation Anomalies
+  * African rangeland monitoring with Sentinel-2 and Sentinel-3
 
 ### Notebook competition
-Between October 2025 and March 2026, we will run a notebook competition. During this time, we will invite Sentinel data users to work with the live sample data reprocessed as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/).
-
-[Express your interest](https://thrivegeo.com/eopf-toolkit-competition/) today and do not miss any updates related to the notebook competition.
+Between October 2025 and March 2026, we ran a notebook competition inviting Sentinel data users to work with the live sample data reprocessed as part of the [EOPF Sentinel Zarr Sample Service](https://zarr.eopf.copernicus.eu/). We received 12 submissions. A total of five winners were selected and will be integrated into EOPF 101.
 
 ## Clean notebooks
 
@@ -96,7 +97,6 @@ By March 2026, we will have develped a community resource where you can learn ho
 ## Get involved
 We welcome to join you in this community effort in the following ways:
 * Follow us here on [Github](https://github.com/eopf-toolkit)
-* Participate in the upcoming notebook competition (Oct 2025 to Mar 2026) ([Express your interest](https://thrivegeo.com/eopf-toolkit-competition/))
 
 ## Install dependencies
 We use uv to install the packages and dependencies. If you want to recreatre this environment run the following command.
