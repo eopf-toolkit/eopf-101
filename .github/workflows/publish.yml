@@ -15,11 +15,11 @@ jobs:
     outputs:
       image_changes: ${{ steps.filter.outputs.image_changes }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Check changed paths
         id: filter
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3
         with:
           filters: |
             image_changes:
@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Login to OVH Harbor docker registry
         if: needs.detect-changes.outputs.image_changes == 'true'
-        uses: docker/login-action@v3
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
           registry: ${{ secrets.OVH_HARBOR_REGISTRY }}
           username: ${{ secrets.OVH_HARBOR_USERNAME }}
@@ -41,7 +41,7 @@ jobs:
 
       - name: Checkout code
         if: needs.detect-changes.outputs.image_changes == 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Extract short commit hash
         if: needs.detect-changes.outputs.image_changes == 'true'
@@ -76,7 +76,7 @@ jobs:
       contents: write
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -110,12 +110,12 @@ jobs:
           git fetch origin
 
       - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
+        uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2
         with:
           tinytex: true
 
       - name: Render and Publish
-        uses: quarto-dev/quarto-actions/publish@v2
+        uses: quarto-dev/quarto-actions/publish@8a96df13519ee81fd526f2dfca5962811136661b # v2
         with:
           target: gh-pages
         env:
