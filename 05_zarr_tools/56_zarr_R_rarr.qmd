@@ -8,7 +8,7 @@ format: html
 This notebook demonstrates how to **retrieve** remotely stored Zarr data using the `Rarr` package in R. We will explore how to **read and visualize** Zarr data (zarrays) and their metadata. For subsequent analysis and visualization we turn the zarray into `stars` objects which are more suitable for spatial data.
 
 ::: {.callout-tip}
-This notebook has a sibling, which demonstrates how to access the same data using the GDAL Zarr driver. You can find it [here](./55_zarr_R_gdal.qmd).
+This notebook has a sibling, which demonstrates how to access the same data using the GDAL Zarr driver. You can find it [here](./57_zarr_R_gdal.qmd).
 :::
 
 ### What we will learn
@@ -362,12 +362,44 @@ f_rast = function(){tr = terra::rast(vsi_url, band_variable) |> terra::toMemory(
 f_rarr = function(){rr = st_read_zarray(zarr_url, "b01", 60)}
 ```
 
-```{r benchmark}
-#| warning: false
-
+```{r benchmark, eval = FALSE}
 bench::mark(f_stars(), f_mdim(), f_rast(), f_rarr(), 
   check = F, iterations = 5)
 ```
+
+```{r, echo = FALSE}
+benchmark_res <- structure(list(expression = c("f_stars()", "f_mdim()", "f_rast()", 
+"f_rarr()"), min = c("24s", "23.2s", "23.8s", "13.7s"), median = c("24.2s", 
+"23.3s", "24s", "15.6s"), `itr/sec` = c(0.0408704162404322, 0.0426762100581431, 
+0.0407136403291853, 0.0647030857080621), mem_alloc = c("25.6MB", 
+"25.9MB", "12.2KB", "147.6MB"), `gc/sec` = c(0.0163481664961729, 
+0.00853524201162861, 0, 0.103524937132899), n_itr = c(5L, 5L, 
+5L, 5L), n_gc = c(2, 1, 0, 8), total_time = c("2.04m", "1.95m", 
+"2.05m", "1.29m"), result = list(NULL, NULL, NULL, NULL), time = list(
+    structure(c(24.08415314, 24.222256605, 23.956614288, 25.553828476, 
+    24.521025593), class = c("bench_time", "numeric")), structure(c(23.192109523, 
+    23.243710091, 23.818210449, 23.283462489, 23.6238016020001
+    ), class = c("bench_time", "numeric")), structure(c(24.6853339800001, 
+    23.8472002110001, 24.035650262, 24.028166546, 26.212613259
+    ), class = c("bench_time", "numeric")), structure(c(13.73344349, 
+    15.636023838, 16.072754524, 14.370977603, 17.462867757), class = c("bench_time", 
+    "numeric"))), gc = list(structure(list(level0 = c(0L, 1L, 
+0L, 0L, 0L), level1 = c(0L, 0L, 0L, 0L, 1L), level2 = c(0L, 0L, 
+0L, 0L, 0L)), class = c("tbl_df", "tbl", "data.frame"), row.names = c(NA, 
+-5L)), structure(list(level0 = c(0L, 0L, 0L, 0L, 0L), level1 = c(0L, 
+0L, 0L, 0L, 0L), level2 = c(0L, 0L, 1L, 0L, 0L)), class = c("tbl_df", 
+"tbl", "data.frame"), row.names = c(NA, -5L)), structure(list(
+    level0 = c(0L, 0L, 0L, 0L, 0L), level1 = c(0L, 0L, 0L, 0L, 
+    0L), level2 = c(0L, 0L, 0L, 0L, 0L)), class = c("tbl_df", 
+"tbl", "data.frame"), row.names = c(NA, -5L)), structure(list(
+    level0 = c(1L, 2L, 0L, 2L, 1L), level1 = c(0L, 0L, 1L, 0L, 
+    1L), level2 = c(0L, 0L, 0L, 0L, 0L)), class = c("tbl_df", 
+"tbl", "data.frame"), row.names = c(NA, -5L)))), row.names = c(NA, 
+-4L), class = c("bench_mark", "tbl_df", "tbl", "data.frame"))
+
+benchmark_res
+```
+
 
 The benchmark does not reveal a clear winner in terms of speed. However, `Rarr` seems not to be faster than `GDAL` but allocates more memory compared to `stars` and `terra`.
 
@@ -385,4 +417,4 @@ In this notebook we have demonstrated how to access remote Zarr stores in R usin
 
 Further tests should evaluate wether data retrieved via `Rarr` versus GDAL are identical in terms of spatial extent and offset.
 
-Explore [this related notebook](./55_zarr_R_gdal.qmd) which demonstrates how to access the same Zarr data using the GDAL Zarr driver via the `stars` and `terra` packages.
+Explore [this related notebook](./57_zarr_R_gdal.qmd) which demonstrates how to access the same Zarr data using the GDAL Zarr driver via the `stars` and `terra` packages.
