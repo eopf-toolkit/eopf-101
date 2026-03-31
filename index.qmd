@@ -36,11 +36,18 @@ Across six chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr
   * [Access the EOPF Zarr STAC API with Python](./04_eopf_and_stac/43_eopf_stac_connection.ipynb)
   * [From STAC to Data: Accessing EOPF Zarr with xarray](./04_eopf_and_stac/44_eopf_stac_xarray_tutorial.ipynb)
 
-* **Chapter 5 - Tools to work with EOPF Zarr** -- *more coming soon!*
-  * [Access the EOPF Zarr STAC API with R](./05_zarr_tools/51_eopf_stac_r.qmd)
-  * [Access the EOPF Zarr STAC API with QGIS](./05_zarr_tools/52_eopf_stac_qgis.qmd)
-  * [Access and analyse EOPF STAC Zarr data with R](./05_zarr_tools/53_eopf_zarr_r.ipynb)
-  * [Raster cube with rstac](./05_zarr_tools/57_rstac_gdalcubes.qmd)
+* **Chapter 5 - Tools to work with EOPF Zarr**
+  * R
+    * [Access the EOPF Zarr STAC API with R](./05_zarr_tools/51_eopf_stac_r.qmd)
+    * [Access and analyse EOPF STAC Zarr data with R](./05_zarr_tools/53_eopf_zarr_r.qmd)
+    * [More examples analysing EOPF STAC Zarr data with R](./05_zarr_tools/54_eopf_zarr_r_examples.qmd)
+    * [Comparisons of SAFE vs Zarr in R](./05_zarr_tools/55_safe_vs_zarr.qmd)
+    * [Access EOPF Sentinel Zarr using `Rarr`](./05_zarr_tools/56_zarr_R_rarr.qmd)
+    * [Access EOPF Sentinel Zarr via GDAL in `stars` and `terra`](./05_zarr_tools/57_zarr_R_gdal.qmd)
+    * [Creating a raster cube from STAC items of the EOPF Sentinel Zarr Samples Service using `rstac` and `gdalcubes](./05_zarr_tools/58_rstac_gdalcubes.qmd)
+  * Qgis
+    * [Access EOPF Zarr in QGIS Using STAC](./05_zarr_tools/52_eopf_stac_qgis.qmd)
+
 
 * **Chapter 6 - EOPF Zarr in Action**
   * [Flood Mapping - Time Series Analysis in Valencia](./06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb)
