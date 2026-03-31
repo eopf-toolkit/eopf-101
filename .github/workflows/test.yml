@@ -12,7 +12,7 @@ jobs:
       tag: ${{ steps.check.outputs.tag }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
 
@@ -37,11 +37,11 @@ jobs:
     needs: check-diff
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         if: needs.check-diff.outputs.build == 'true'
 
       - name: Login to OVH Harbor docker registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         if: needs.check-diff.outputs.build == 'true'
         with:
           registry: ${{ secrets.OVH_HARBOR_REGISTRY }}
@@ -83,7 +83,7 @@ jobs:
           zlib1g
 
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           fetch-depth: 0
 
@@ -121,7 +121,7 @@ jobs:
           fi
 
       - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
+        uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2
         with:
           tinytex: true
 

@@ -462,9 +462,11 @@ gifapar_stars
 
 Finally, we plot the GIFAPAR:
 
-```{r gifapar-plot, message = FALSE, warning = FALSE}
+```{r gifapar-plot, eval = FALSE}
 plot(gifapar_stars, as_points = FALSE, axes = TRUE, breaks = "equal", col = hcl.colors)
 ```
+
+![](../img/54_r-examples-gifapar-plot.png)
 
 ## 💪 Now it is your turn
 
