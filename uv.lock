@@ -960,7 +960,7 @@ requires-dist = [
     { name = "aiohttp", specifier = ">=3.13.3" },
     { name = "bokeh", specifier = ">=3.8.2" },
     { name = "cartopy", specifier = ">=0.22.0" },
-    { name = "contextily" },
+    { name = "contextily", specifier = ">=1.7.0" },
     { name = "dask", specifier = ">=2024.5.0" },
     { name = "dask", extras = ["distributed"] },
     { name = "dask-labextension", specifier = ">=7.0.0" },
@@ -1004,7 +1004,7 @@ requires-dist = [
     { name = "stackstac", specifier = ">=0.4.4" },
     { name = "urllib3", specifier = ">=2.6.3" },
     { name = "xarray", specifier = ">=2025.10.1" },
-    { name = "xarray-eopf" },
+    { name = "xarray-eopf", specifier = ">=0.2.6" },
     { name = "xarray-sentinel" },
     { name = "zarr", specifier = ">=3.1.1" },
 ]

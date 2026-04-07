@@ -78,8 +78,8 @@ dependencies = [
     "fonttools>=4.60.2",
     "bokeh>=3.8.2",
     "spyndex>=0.8.0",
-    "contextily",                #notebook competition dependencies
-    "xarray-eopf"
+    "contextily>=1.7.0",               #notebook competition dependencies
+    "xarray-eopf>=0.2.6"
 ]
 
 [tool.setuptools]
