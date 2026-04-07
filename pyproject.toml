@@ -77,7 +77,8 @@ dependencies = [
     "aiohttp>=3.13.3",
     "fonttools>=4.60.2",
     "bokeh>=3.8.2",
-    "spyndex>=0.8.0"
+    "spyndex>=0.8.0",
+    "folium"
 ]
 
 [tool.setuptools]
