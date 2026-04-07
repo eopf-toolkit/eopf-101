@@ -871,12 +871,15 @@ dependencies = [
     { name = "efast" },
     { name = "fonttools" },
     { name = "geopandas" },
+    { name = "geoviews" },
+    { name = "holoviews" },
     { name = "hvplot" },
     { name = "imageio" },
     { name = "ipykernel" },
     { name = "ipyleaflet" },
     { name = "ipywidgets" },
     { name = "jupyter" },
+    { name = "jupyter-bokeh" },
     { name = "jupyter-leaflet" },
     { name = "jupyterlab-git" },
     { name = "llvmlite" },
@@ -888,6 +891,7 @@ dependencies = [
     { name = "odc" },
     { name = "odc-geo" },
     { name = "pandas" },
+    { name = "panel" },
     { name = "pillow" },
     { name = "pyproj" },
     { name = "pyresample" },
@@ -924,12 +928,15 @@ requires-dist = [
     { name = "efast", git = "https://github.com/DHI-GRAS/efast?tag=v1.0.1" },
     { name = "fonttools", specifier = ">=4.60.2" },
     { name = "geopandas", specifier = ">=1.1.2" },
+    { name = "geoviews" },
+    { name = "holoviews" },
     { name = "hvplot", specifier = ">=0.12.2" },
     { name = "imageio", specifier = ">=2.37.0" },
     { name = "ipykernel", specifier = ">=6.23.1" },
     { name = "ipyleaflet", specifier = ">=0.17.0" },
     { name = "ipywidgets", specifier = ">=8.0.0" },
     { name = "jupyter", specifier = ">=1.1.1" },
+    { name = "jupyter-bokeh" },
     { name = "jupyter-leaflet", specifier = ">=0.20.0" },
     { name = "jupyterlab-git", specifier = ">=0.51.2" },
     { name = "llvmlite", specifier = ">=0.44.0" },
@@ -941,6 +948,7 @@ requires-dist = [
     { name = "odc", specifier = ">=0.1.3" },
     { name = "odc-geo", specifier = ">=0.5.0" },
     { name = "pandas", specifier = ">=2.0.2" },
+    { name = "panel" },
     { name = "pillow", specifier = ">=10.0.0" },
     { name = "pyproj", specifier = ">=3.4.1" },
     { name = "pyresample", specifier = ">=1.35.0" },
@@ -1156,6 +1164,27 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/8d/24/5eb5685d7bf89d64218919379f882d19a60f8219d66d833c83b1cf264c95/geopandas-1.1.2.tar.gz", hash = "sha256:33f7b33565c46a45b8459a2ab699ec943fdbb5716e58e251b3c413cf7783106c", size = 336037, upload-time = "2025-12-22T21:06:13.749Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/54/e4/fac19dc34cb686c96011388b813ff7b858a70681e5ce6ce7698e5021b0f4/geopandas-1.1.2-py3-none-any.whl", hash = "sha256:2bb0b1052cb47378addb4ba54c47f8d4642dcbda9b61375638274f49d9f0bb0d", size = 341734, upload-time = "2025-12-22T21:06:12.498Z" },
+]
+
+[[package]]
+name = "geoviews"
+version = "1.15.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "bokeh" },
+    { name = "cartopy" },
+    { name = "holoviews" },
+    { name = "numpy" },
+    { name = "packaging" },
+    { name = "panel" },
+    { name = "param" },
+    { name = "pyproj" },
+    { name = "shapely" },
+    { name = "xyzservices" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/76/dc/e74f5997e41933aa30aea5786c407a10e1cf169bfdceeb4173111c02d5de/geoviews-1.15.1.tar.gz", hash = "sha256:c72097ef4f24895c46f95834e5c19ac185ea1c34fd610f0f956421ba515d4aad", size = 507037, upload-time = "2026-01-13T17:34:38.197Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/63/90/d0323acc02966204035bb5bcaf7385d5a1f2b5359410eb6a09f2ce380f94/geoviews-1.15.1-py3-none-any.whl", hash = "sha256:f369eb94907476e9233abe77bdd6b92340872a20845df7da0341f9a4a13309c8", size = 574718, upload-time = "2026-01-13T17:34:36.562Z" },
 ]
 
 [[package]]
@@ -1621,6 +1650,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/58/f3/af28ea964ab8bc1e472dba2e82627d36d470c51f5cd38c37502eeffaa25e/jupyter-1.1.1.tar.gz", hash = "sha256:d55467bceabdea49d7e3624af7e33d59c37fff53ed3a350e1ac957bed731de7a", size = 5714959, upload-time = "2024-08-30T07:15:48.299Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/38/64/285f20a31679bf547b75602702f7800e74dbabae36ef324f716c02804753/jupyter-1.1.1-py2.py3-none-any.whl", hash = "sha256:7a59533c22af65439b24bbe60373a4e95af8f16ac65a6c00820ad378e3f7cc83", size = 2657, upload-time = "2024-08-30T07:15:47.045Z" },
+]
+
+[[package]]
+name = "jupyter-bokeh"
+version = "4.0.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "bokeh" },
+    { name = "ipywidgets" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b4/fd/8f0213c704bf36b5f523ae5bf7dc367f3687e75dcc2354084b75c05d2b53/jupyter_bokeh-4.0.5.tar.gz", hash = "sha256:a33d6ab85588f13640b30765fa15d1111b055cbe44f67a65ca57d3593af8245d", size = 149140, upload-time = "2024-06-03T06:33:33.488Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/47/78/33b2294aad62e5f95b89a89379c5995c2bd978018387ef8bec79f6dc272c/jupyter_bokeh-4.0.5-py3-none-any.whl", hash = "sha256:1110076c14c779071cf492646a1a871aefa8a477261e4721327a666e65df1a2c", size = 148593, upload-time = "2024-06-03T06:33:35.82Z" },
 ]
 
 [[package]]
