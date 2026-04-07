@@ -93,6 +93,14 @@ jobs:
           uv sync
           pip install nbstripout
 
+      - name: Verify Julia installation
+        run: |
+          echo "🔍 Checking Julia installation..."
+          julia --version
+          julia -e 'using Pkg; Pkg.status()'
+          julia -e 'using HTTP, JSON3, Zarr, CairoMakie, Statistics; println("✅ Core Julia packages available")'
+          echo "✅ Julia environment ready"
+
       - name: Validate notebooks are clean
         shell: bash
         run: |

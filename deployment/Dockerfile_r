@@ -23,7 +23,19 @@ RUN apt-get update && \
     libcurl4-openssl-dev \
     libssl-dev \
     libxml2-dev \
+    wget \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Julia
+ARG JULIA_VERSION=1.12.5
+RUN mkdir -p /opt/julia && \
+    cd /tmp && \
+    wget -q https://julialang-s3.julialang.org/bin/linux/x64/$(echo ${JULIA_VERSION} | cut -d. -f1,2)/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
+    tar xzf julia-${JULIA_VERSION}-linux-x86_64.tar.gz -C /opt/julia --strip-components=1 && \
+    rm julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
+    ln -s /opt/julia/bin/julia /usr/local/bin/julia && \
+    fix-permissions /opt/julia
 
 USER ${NB_UID}
 
@@ -38,6 +50,24 @@ RUN Rscript -e 'options(repos = c(CRAN="https://cloud.r-project.org")); \
     error=function(e) { message("Pinned install failed, falling back to BiocManager::install('Rarr')"); ok <<- FALSE }); \
     if (!ok) BiocManager::install("Rarr", ask=FALSE, update=FALSE); \
     cat("Installed Rarr version:", as.character(packageVersion("Rarr")), "\n")'
+
+# Set Julia depot path and install Julia packages
+ENV JULIA_DEPOT_PATH=/home/${NB_USER}/.julia
+
+RUN julia -e 'using Pkg; \
+    Pkg.add("IJulia"); \
+    using IJulia; \
+    installkernel("Julia", "--project=@.");' && \
+    julia -e 'using Pkg; \
+    Pkg.add([ \
+        PackageSpec(name="HTTP", version="1.11.0"), \
+        PackageSpec(name="JSON3", version="1.14.3"), \
+        PackageSpec(name="Zarr", version="0.9.6"), \
+        PackageSpec(name="CairoMakie", version="0.15.9"), \
+        PackageSpec(name="Statistics") \
+    ]); \
+    Pkg.precompile();' && \
+    fix-permissions "${JULIA_DEPOT_PATH}"
 
 ENV PATH=${CONDA_DIR}/bin:$PATH
 
@@ -56,3 +86,13 @@ RUN uv sync --frozen --no-install-project --inexact
 
 WORKDIR /home/${NB_USER}
 RUN rm -rf deps
+
+# Verify all environments
+RUN echo "=== Python ===" && \
+    python --version && \
+    echo "=== R ===" && \
+    R --version | head -n 1 && \
+    Rscript -e 'cat("Rarr version:", as.character(packageVersion("Rarr")), "\n")' && \
+    echo "=== Julia ===" && \
+    julia --version && \
+    julia -e 'using HTTP, JSON3, Zarr, CairoMakie, Statistics; println("✅ All Julia packages loaded")'

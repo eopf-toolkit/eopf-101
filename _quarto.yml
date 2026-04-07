@@ -57,6 +57,9 @@ book:
             - 05_zarr_tools/56_zarr_R_rarr.qmd
             - 05_zarr_tools/57_zarr_R_gdal.qmd
             - 05_zarr_tools/58_rstac_gdalcubes.qmd
+        - section: "Julia"
+          contents:
+            - 05_zarr_tools/60_eopf_zarr_julia.ipynb
         - section: "Qgis"
           contents:
             - 05_zarr_tools/52_eopf_stac_qgis.qmd
