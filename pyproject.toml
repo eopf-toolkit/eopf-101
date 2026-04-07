@@ -78,10 +78,10 @@ dependencies = [
     "fonttools>=4.60.2",
     "bokeh>=3.8.2",
     "spyndex>=0.8.0",
-    "panel",
-    "holoviews",
-    "geoviews",
-    "jupyter_bokeh"
+    "panel>=1.8.7",
+    "holoviews>=1.22.1",
+    "geoviews>=1.15.1",
+    "jupyter_bokeh>=4.0.5"
 ]
 
 [tool.setuptools]
