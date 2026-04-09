@@ -84,8 +84,13 @@ dependencies = [
     "geoviews>=1.15.1",
     "jupyter_bokeh>=4.0.5",
     "contextily>=1.7.0",               
-    "xarray-eopf>=0.2.6"
+    "xarray-eopf>=0.2.6",
+    "fsspec>=2026.2.0",
+    "scipy>=1.17.0",
+    "pytz>=2025.2",
+    "modular>=26.2"
 ]
+
 
 [tool.setuptools]
 packages = ["deployment", "img"]
