@@ -3,6 +3,8 @@ title: "An introduction to Chunking"
 format: html
 ---
 
+**By:** *[@emmanuelmathot](https://github.com/emmanuelmathot)*  | [Development Seed](https://developmentseed.org/)
+
 ### Introduction
 
 **Chunking** is the secret sauce that makes `.zarr` format incredibly efficient for **Earth Observation** data processing.<br>

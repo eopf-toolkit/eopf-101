@@ -3,6 +3,8 @@ title: "Explore the web interface of the EOPF Zarr STAC Catalog"
 code-block-background: true
 ---
 
+**By:** *[@gisromerocandanedo](https://github.com/gisromerocandanedo)* | [thriveGEO](https://thrivegeo.com/)
+
 ### Introduction
 
 This section introduces you to the [EOPF Sentinel Zarr Samples Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en), which offers access to the re-engineered Sentinel-1, Sentinel-2 and Sentinel-3 data products. We will guide you through its web interface, inspect the various levels of STAC components, and demonstrate how to access the underlying Sentinel Zarr data.

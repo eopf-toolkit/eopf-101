@@ -2,7 +2,7 @@
 title: "Access EOPF Zarr in QGIS Using STAC"
 ---
 
-**By:** *[@captaincoordinates](https://github.com/captaincoordinates)*
+**By:** *[@captaincoordinates](https://github.com/captaincoordinates)*  | [SparkGeo](https://sparkgeo.com/)
 
 ### Introduction
 

@@ -3,6 +3,8 @@ title: "About cloud-optimised formats"
 format: html
 ---
 
+**By:** *[@gisromerocandanedo](https://github.com/gisromerocandanedo)* and *[@jwagemann](https://github.com/jwagemann)* | [thriveGEO](https://thrivegeo.com/)
+
 ### Introduction
 
 In this section, we will dive into **cloud-optimised geospatial formats**. We explore why these new formats are important and will introduce you to two common cloud-optimised data formats specifically for raster files.

@@ -2,6 +2,7 @@
 title: "Best practices and Chunking optimisation in EOPF"
 format: html
 ---
+**By:** *[@emmanuelmathot](https://github.com/emmanuelmathot)*  | [Development Seed](https://developmentseed.org/)
 
 ## Introduction
 

@@ -3,6 +3,9 @@ title: "Comparisons of SAFE vs Zarr in R"
 format: html
 ---
   
+**By:** *[@sharlagelfand](https://github.com/sharlagelfand)*  | [SparkGeo](https://sparkgeo.com/)
+
+
 ### Introduction
 
 Prior to the introduction of EOPF's Zarr, the ESA's Copernicus data was published and distributed using the [Standard Archive Format for Europe (SAFE)](https://earth.esa.int/eogateway/activities/safe-the-standard-archive-format-for-europe). Sentinel scenes were downloaded as zip archives, containing several files as well as an XML manifest. In order to access any scene data, the entire zip archive had to be downloaded, which could be quite inefficient.

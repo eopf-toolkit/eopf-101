@@ -5,6 +5,9 @@ execute:
   cache: refresh
 ---
 
+**By:** *[@joheisig](https://github.com/joheisig)* | [Institut für Geoinformatik](https://www.uni-muenster.de/Geoinformatics/)
+
+
 ### Introduction
 
 This notebook demonstrates how to **retrieve** remotely stored Zarr data using the Zarr GDAL driver in R. We will explore how to **read and visualize** Zarr data (zarrays) and their metadata using the `stars`, `sf` and `terra` packages as well as their current limitations. 

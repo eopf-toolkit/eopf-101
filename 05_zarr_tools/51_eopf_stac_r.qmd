@@ -19,7 +19,7 @@ jupyterlab_link <- paste0(link_start, folder, separator, file, link_end)
 </button>
 </a>
 
-**By:** *[@sharlagelfand](https://github.com/sharlagelfand)*
+**By:** *[@sharlagelfand](https://github.com/sharlagelfand)* | [SparkGeo](https://sparkgeo.com/)
 
 ### Introduction
 

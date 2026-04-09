@@ -2,6 +2,10 @@
 title: "Overview of the EOPF Zarr format"
 format: html
 ---
+
+**By:** *[@gisromerocandanedo](https://github.com/gisromerocandanedo)* | [thriveGEO](https://thrivegeo.com/)
+
+
 ### Introduction
 
 In our journey to understand **cloud-optimised Earth Observation** (EO) data, we have frequently mentioned the **Zarr** format. Now, we will take a closer look and truly understand what **Zarr** is and why it is such a game-changer for large datasets like those from ESA's Sentinel missions. This chapter will break down the essential building blocks of **Zarr**, explaining how it organises data to make it incredibly efficient for cloud-based analysis.

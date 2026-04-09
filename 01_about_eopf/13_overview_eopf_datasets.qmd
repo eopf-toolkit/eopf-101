@@ -2,6 +2,9 @@
 title: "Overview of EOPF Zarr Products"
 format: html
 ---
+
+**By:** *[@gisromerocandanedo](https://github.com/gisromerocandanedo)* | [thriveGEO](https://thrivegeo.com/)
+
 ### Introduction
 
 In the previous section, we introduced the **Earth Observation Processing Framework** (EOPF) initiative and explored the advantages of cloud-optimised formats like Zarr.

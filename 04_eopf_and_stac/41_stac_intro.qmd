@@ -4,6 +4,9 @@ format: html
 code-block-background: true
 ---
 
+**By:** *[@gisromerocandanedo](https://github.com/gisromerocandanedo)* | [thriveGEO](https://thrivegeo.com/)
+
+
 ### Introduction
 
 Welcome to the chapter on EOPF and STAC. In the following section, we will introduce you to the **S**patio-**T**emporal **A**sset **C**atalog (STAC). We will explain its fundamental principles and, most importantly, we will explore its structure and core components. Understanding the fundamentals of STAC is key in order to be able to effectively discover and access data from STAC catalogs.

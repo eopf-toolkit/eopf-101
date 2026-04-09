@@ -3,6 +3,9 @@ title: "Access EOPF Sentinel Zarr using `Rarr`"
 format: html
 ---
 
+**By:** *[@joheisig](https://github.com/joheisig)* | [Institut für Geoinformatik](https://www.uni-muenster.de/Geoinformatics/)
+
+
 ### Introduction
 
 This notebook demonstrates how to **retrieve** remotely stored Zarr data using the `Rarr` package in R. We will explore how to **read and visualize** Zarr data (zarrays) and their metadata. For subsequent analysis and visualization we turn the zarray into `stars` objects which are more suitable for spatial data.
