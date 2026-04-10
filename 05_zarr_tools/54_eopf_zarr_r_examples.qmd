@@ -489,3 +489,5 @@ Review the [Sentinel-3 OLCI Level-2 LFR page](https://stac.browser.user.eopf.eod
 In this section, we accessed additional Zarr data from the [EOPF Sentinel Zarr Sample Service STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) using `rstac` and `Rarr`. We learned how to visualise a quicklook image at different resolutions. We also extracted measurement variables and curvillinear coordinates, formatted and scaled them using the `stars` package's `st_as_stars()` function, and visualised the data.
 
 ## What's next?
+
+In the following [notebook](./55_safe_vs_zarr.qmd) we will explore a benchmark among the legacy `.SAFE` format and `EOPF Zarr` through R.

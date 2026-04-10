@@ -447,3 +447,6 @@ The approach adopted for STAC metadata in the EOPF Sample STAC Service most clos
 ### Memory Limitations
 
 If a use case requires more memory than the data consumer can support, even after optimisation efforts, it may be necessary to use a cloud-hosted compute environment with access to a larger pool of compute resources.
+
+## What's next?
+In the following [notebook](56_zarr_R_rarr.qmd) we will explore the use of `rarr`, `terra` and `stars` to showcase retrieval of **Sentinel-2 L2A Products** with `R`.

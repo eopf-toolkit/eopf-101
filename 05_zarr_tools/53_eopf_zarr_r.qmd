@@ -405,4 +405,4 @@ In this tutorial we established a connection to the [EOPF Sentinel Zarr Sample S
 
 ## What's next?
 
-In the following [notebook](./57_rstac_gdalcubes.qmd) we will present a workflow that makes use of  `rstac` and `gdalcubes` in `R` to create a raster data cube and visualize an aggregated RGB plot!
+In the following [notebook](./54_eopf_zarr_r_examples.qmd) we will explore more examples such as extracting measurements, as Ocean Wind field and GIFAPAR and how to format, scale, and visualise them on a curvillinear grid 💨.

@@ -224,4 +224,4 @@ In this notebook we have demonstrated how to access remote Zarr stores using GDA
 
 ## What's next?
 
-Explore [this related notebook](./54_zarr_R_rarr.qmd) which demonstrates how to access the same Zarr data using the `Rarr` package and building a `stars` object from it.
+In the following [notebook](./58_rstac_gdalcubes.qmd), we will explore how to create a data cube from STAC items of the [EOPF STAC Catalog](https://stac.browser.user.eopf.eodc.eu/?.language=en) using the `rstac` and `gdalcubes` packages in R.
