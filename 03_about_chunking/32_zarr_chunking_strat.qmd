@@ -2,7 +2,8 @@
 title: "Best practices and Chunking optimisation in EOPF"
 format: html
 ---
-**By:** *[@emmanuelmathot](https://github.com/emmanuelmathot)*  | [Development Seed](https://developmentseed.org/)
+
+**By:** *[@emmanuelmathot](https://github.com/emmanuelmathot)* and *[@gisromerocandanedo](https://github.com/gisromerocandanedo)* | [Development Seed](https://developmentseed.org/), [thriveGEO](https://thrivegeo.com/)
 
 **By:** *[@emmanuelmathot](https://github.com/emmanuelmathot)* and *[@gisromerocandanedo](https://github.com/gisromerocandanedo)* | [Development Seed](https://developmentseed.org/), [thriveGEO](https://thrivegeo.com/)
 
