@@ -30,10 +30,7 @@ zarr_url = "https://objects.eodc.eu/e05ab01a9d56408d82ac32d69a5aae2a:sample-data
 
 ### Import packages
 
-```{r}
-#| message: false
-#| warning: false
-
+```{r, message = FALSE, warning = FALSE}
 library(Rarr)      # reading; BiocManager::install("Rarr")
 library(stars)     # spatial objects
 library(dplyr)     # table operations
@@ -62,9 +59,7 @@ filter(zarr_content, grepl("reflectance", var))
 ::: {.callout-tip collapse="true"}
 ## Expand for full Zarr metadata output
 
-```{r}
-#| echo: false
-
+```{r, echo = FALSE}
 print(zarr_content)
 ```
 :::
@@ -72,9 +67,7 @@ print(zarr_content)
 Now that we have explored the content, let's get some related metadata. `Rarr` provides the `read_zarr_attributes` function for this purpose, which looks for the `.zattrs` file inside the Zarr store. 
 
 ⛔ Unfortunately we were not successful when applying it to our remote store.
-```{r}
-#| error: true
-
+```{r, error = TRUE}
 read_zarr_attributes(zarr_url)
 read_zarr_attributes(file.path(zarr_url, ".zattrs"))
 ```
@@ -88,9 +81,7 @@ names(zattrs)
 ::: {.callout-tip collapse="true"}
 ## Expand for full Zarr metadata output
 
-```{r}
-#| echo: false
-
+```{r, echo = FALSE}
 print(zarr_content)
 ```
 :::
@@ -101,10 +92,7 @@ The same information can be retrieved with `sf::gdal_utils('mdiminfo', ...)`.
 
 Reading zarrays from a remote Zarr store with `Rarr` and turning them into useful spatial R objects is not as straightforward as with `GDAL`-based `stars` and `terra` functions. We will demonstrate the current capabilities and limitations of `Rarr` by using a reference object retrieved through the `GDAL` Zarr driver which is loaded in the background.
 
-```{r}
-#| echo: false
-#| warning: false
-
+```{r, echo = FALSE, warning = FALSE}
 # parse GDAL-compatible VSI URL
 vsi_url = paste0("ZARR:/vsicurl/", dplyr::as_label(zarr_url)) 
 
@@ -124,9 +112,7 @@ We start with an naive attempt to read the entire Zarr store using `Rarr::read_z
 
 ⛔ Rarr, like `stars` and `terra`, is not capable of reading multiple arrays from the remote Zarr store simultaneously.
 
-```{r}
-#| error: true
-
+```{r, error = TRUE}
 read_zarr_array(zarr_url)
 ```
 

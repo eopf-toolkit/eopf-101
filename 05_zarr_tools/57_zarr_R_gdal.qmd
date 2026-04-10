@@ -32,10 +32,7 @@ zarr_url = "https://objects.eodc.eu/e05ab01a9d56408d82ac32d69a5aae2a:sample-data
 
 ### Import packages
 
-```{r}
-#| message: false
-#| warning: false
-
+```{r, message = FALSE, warning = FALSE}
 library(stars)     # reading; imports sf too
 library(terra)     # reading
 library(jsonlite)  # parsing metadata
@@ -67,9 +64,7 @@ names(metadata)
 
 ::: {.callout-tip collapse="true"}
 ## Expand for full GDAL MDIM metadata output
-```{r}
-#| echo: false
-
+```{r, echo = FALSE}
 print(metadata)
 ```
 :::
@@ -84,30 +79,25 @@ Successful attempts are marked with a ✅, failed attempts with a ⛔.
 
 First we define the path to a specific data array (band 1, 60 meter resolution) inside the Zarr store which can be understood as a single raster layer.
 
-```{r, error=T}
+```{r, error = TRUE}
 band_variable = "/measurements/reflectance/r60m/b01"
 ```
 
 ### `stars::read_stars()`
 
 ⛔ Traditional approach for reading all bands/layers and specifying a driver.
-```{r}
-#| error: true
+```{r, error = TRUE}
 
 r = read_stars(vsi_url, driver = "ZARR")
 ```
 
 ⛔ Traditional approach for reading all bands/layers and specifying a sub-dataset (integer).
-```{r}
-#| error: true
-
+```{r, error = TRUE}
 r = read_stars(vsi_url, sub = 1)
 ```
 
 ⛔ Traditional approach for reading all bands/layers and specifying a sub-dataset (path).
-```{r}
-#| error: true
-
+```{r, error = TRUE}
 r = read_stars(vsi_url, sub = band_variable)
 ```
 
@@ -138,10 +128,7 @@ system.time(plot(r, axes = TRUE))
 
 ... or is an interactive visualization:
 
-```{r}
-#| message: false
-#| echo: false
-
+```{r, message = FALSE, echo = FALSE}
 mapviewOptions(basemaps = c("OpenTopoMap","Esri.WorldImagery", 
                             "CartoDB.Positron"))
 ```
@@ -155,9 +142,7 @@ mapview(r)
 ### `stars::read_mdim()`
 
 ⛔ Traditional approach for reading all bands/layers at once. "?" should return a list of array possible names.
-```{r}
-#| error: true
-
+```{r, error = TRUE}
 m = read_mdim(vsi_url)
 m = read_mdim(vsi_url, variable = "?") # query array names
 ```
@@ -181,7 +166,7 @@ As for `read_stars()`, the CRS is not automatically recognized and needs to be s
 
 ⛔ Traditional approach for reading all bands/layers at once.
 
-```{r, error=T}
+```{r, error = TRUE}
 (tr = terra::rast(vsi_url))
 tr$b02
 
