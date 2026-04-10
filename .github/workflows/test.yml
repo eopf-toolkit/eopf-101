@@ -101,6 +101,9 @@ jobs:
           julia -e 'using HTTP, JSON3, Zarr, CairoMakie, Statistics; println("✅ Core Julia packages available")'
           echo "✅ Julia environment ready"
 
+      - name: Register Julia kernel
+        run: julia -e 'using IJulia; installkernel("julia", specname="julia")'
+
       - name: Validate notebooks are clean
         shell: bash
         run: |

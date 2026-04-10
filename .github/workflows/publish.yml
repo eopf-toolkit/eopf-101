@@ -109,6 +109,9 @@ jobs:
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
           git fetch origin
 
+      - name: Register Julia kernel
+        run: julia -e 'using IJulia; installkernel("julia")'
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2
         with:
