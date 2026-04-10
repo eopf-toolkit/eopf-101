@@ -336,15 +336,12 @@ plot(multi_band, axes = TRUE)
 
 ... or by generating an interactive map:
 
-```{r mapview-options}
-#| echo: false
+```{r mapview-options, echo = FALSE}
 mapviewOptions(basemaps = c("OpenTopoMap","Esri.WorldImagery", 
                             "CartoDB.Positron"))
 ```
 
-```{r mapview}
-#| message: false
-
+```{r mapview, message = FALSE}
 mapview(multi_band)
 ```
 

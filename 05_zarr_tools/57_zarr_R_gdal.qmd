@@ -3,7 +3,6 @@ title: "Access EOPF Sentinel Zarr via GDAL in `stars` and `terra`"
 format: html
 execute: 
   cache: refresh
-jupyter: ir
 ---
 
 **By:** *[@joheisig](https://github.com/joheisig)* | [Institut für Geoinformatik](https://www.uni-muenster.de/Geoinformatics/)
