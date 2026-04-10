@@ -131,7 +131,7 @@ EOPF 101 is a community resource developed as part of the [EOPF Toolkit project]
 EOPF 101 is brought to you by [Development Seed](https://developmentseed.org/), [thriveGEO](https://www.thrivegeo.com) and [SparkGeo](https://sparkgeo.com/).
 <br>
 
-<p align="center"><b>Special Thanks</b> to <a href="https://github.com/ciaransweet"> @ciaransweett </a> for developing the  pipeline and processes for this book!! 📕 🚀</p>
+<p align="center"><b>Special Thanks</b> to <a href="https://github.com/ciaransweet"> @ciaransweet </a> for developing the  pipeline and processes for this book!! 📕 🚀</p>
 <br>
 
 <p align="center"><img title="EOPF Toolkit Logo" alt="Alt text" src="/img/EOPF_FINAL_LOGO.png" class="center" width=40%></p>
