@@ -115,7 +115,7 @@ jobs:
           julia --version
           julia -e 'using Pkg; Pkg.status()'
           julia -e 'using HTTP, JSON3, Zarr, CairoMakie, Statistics; println("✅ Core Julia packages available")'
-          echo "✅ Julia environment ready
+          echo "✅ Julia environment ready"
 
       - name: Register Julia kernel
         run: julia -e 'using IJulia; installkernel("julia", specname="julia")'
