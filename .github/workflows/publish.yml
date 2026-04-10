@@ -109,8 +109,16 @@ jobs:
           git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
           git fetch origin
 
+      - name: Verify Julia installation
+        run: |
+          echo "🔍 Checking Julia installation..."
+          julia --version
+          julia -e 'using Pkg; Pkg.status()'
+          julia -e 'using HTTP, JSON3, Zarr, CairoMakie, Statistics; println("✅ Core Julia packages available")'
+          echo "✅ Julia environment ready
+
       - name: Register Julia kernel
-        run: julia -e 'using IJulia; installkernel("julia")'
+        run: julia -e 'using IJulia; installkernel("julia", specname="julia")'
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@8a96df13519ee81fd526f2dfca5962811136661b # v2
