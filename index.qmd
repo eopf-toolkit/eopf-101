@@ -116,11 +116,11 @@ There are several ways you can still leverage this work and contribute to the ec
 
 <h3> 🚀 Explore the Competition Legacy </h3> 
 
-**The EOPF Toolkit Notebook Competition (2025–2026)** brought together innovators from across the EO sector. You can now use the results of this competition as a starting point for your own research and explore the poer of Zarr.
+**The EOPF Toolkit Notebook Competition (2025–2026)** brought together innovators from across the EO sector. You can now use the results of this competition as a starting point for your own research and explore the power of Zarr.
 
-- View the Winners: Browse the [EOPF Zarr in Action Chapter](./06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb) to see top-tier examples of EOPF Zarr integration.
+- **View the Winners**: Browse the [EOPF Zarr in Action Chapter](./06_eopf_zarr_in_action/64_flood_mapping_valencia.ipynb) to see top-tier examples of EOPF Zarr integration.
 
-- Study the Case Studies: **Winning notebook**s have been integrated into EOPF 101 as official case studies, providing proven workflows for complex data processing.
+- **The Case Studies**: Winner Notebooks have been integrated into EOPF 101 as official case studies, providing proven workflows for complex data processing.
 
 <h3>🗺️ Meet the EOPF Sentinel Zarr Explorer</h3>
 
