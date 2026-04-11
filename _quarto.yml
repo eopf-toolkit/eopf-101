@@ -88,6 +88,8 @@ book:
         # - 06_eopf_zarr_in_action/613_computing_lai_s2.ipynb
         - 06_eopf_zarr_in_action/614_flood_change_detection_s1.ipynb
         # - 06_eopf_zarr_in_action/615_vad_ppi.ipynb 
+        # - 06_eopf_zarr_in_action/614_flood_change_detection_s1.ipynb
+        - 06_eopf_zarr_in_action/615_vad_ppi.ipynb
 
     - glossary.qmd
     - references.qmd
