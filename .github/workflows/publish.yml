@@ -5,13 +5,13 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-  pages: write
+permissions: {}
 
 jobs:
   detect-changes:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       image_changes: ${{ steps.filter.outputs.image_changes }}
     steps:
@@ -30,14 +30,17 @@ jobs:
   publish-images:
     needs: detect-changes
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: Login to OVH Harbor docker registry
+      - name: Login to GHCR
         if: needs.detect-changes.outputs.image_changes == 'true'
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         with:
-          registry: ${{ secrets.OVH_HARBOR_REGISTRY }}
-          username: ${{ secrets.OVH_HARBOR_USERNAME }}
-          password: ${{ secrets.OVH_HARBOR_PASSWORD }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout code
         if: needs.detect-changes.outputs.image_changes == 'true'
@@ -70,10 +73,14 @@ jobs:
     if: needs.publish-images.result == 'success'
     container:
       # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
-      image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:latest
+      image: ghcr.io/eopf-toolkit/eopf-toolkit-r:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
       options: --entrypoint "" --user root
     permissions:
       contents: write
+      pages: write
     steps:
       - name: Check out repository
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4

@@ -10,10 +10,10 @@ build-docker-image:
 	DOCKER_DEFAULT_PLATFORM="linux/amd64" docker build --no-cache -f $(ROOT_DIR)/deployment/Dockerfile_$(PROJECT) -t eopf-toolkit-$(PROJECT) $(ROOT_DIR)
 
 tag-docker-image:
-	docker tag eopf-toolkit-$(PROJECT) 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-$(PROJECT)/eopf-toolkit-$(PROJECT):$(TAG)
+	docker tag eopf-toolkit-$(PROJECT) ghcr.io/eopf-toolkit/eopf-toolkit-$(PROJECT):$(TAG)
 
 push-docker-image:
-	docker push 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-$(PROJECT)/eopf-toolkit-$(PROJECT):$(TAG)
+	docker push ghcr.io/eopf-toolkit/eopf-toolkit-$(PROJECT):$(TAG)
 
 build-and-push-docker-image: build-docker-image tag-docker-image push-docker-image
 	@echo "Docker image built and pushed with tag: $(TAG)"
