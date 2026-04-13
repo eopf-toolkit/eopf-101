@@ -28,7 +28,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Julia
-ARG JULIA_VERSION=1.12.5
+ARG JULIA_VERSION=1.11.5
 RUN mkdir -p /opt/julia && \
     cd /tmp && \
     wget -q https://julialang-s3.julialang.org/bin/linux/x64/$(echo ${JULIA_VERSION} | cut -d. -f1,2)/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
