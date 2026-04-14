@@ -51,21 +51,37 @@ jobs:
         id: commit
         run: echo "hash=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
-      - name: Build and push python docker image
-        working-directory: deployment
+      - name: Set up Docker Buildx
         if: needs.detect-changes.outputs.image_changes == 'true'
-        run: |
-          make build-and-push-docker-image TAG=release-${{ steps.commit.outputs.hash }} PROJECT="python"
-          make tag-docker-image TAG=latest PROJECT="python"
-          make push-docker-image TAG=latest PROJECT="python"
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+
+      - name: Build and push python docker image
+        if: needs.detect-changes.outputs.image_changes == 'true'
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          file: deployment/Dockerfile_python
+          push: true
+          tags: |
+            ghcr.io/eopf-toolkit/eopf-toolkit-python:release-${{ steps.commit.outputs.hash }}
+            ghcr.io/eopf-toolkit/eopf-toolkit-python:latest
+          platforms: linux/amd64
+          cache-from: type=registry,ref=ghcr.io/eopf-toolkit/eopf-toolkit-python:cache
+          cache-to: type=registry,ref=ghcr.io/eopf-toolkit/eopf-toolkit-python:cache,mode=max
 
       - name: Build and push r docker image
-        working-directory: deployment
         if: needs.detect-changes.outputs.image_changes == 'true'
-        run: |
-          make build-and-push-docker-image TAG=release-${{ steps.commit.outputs.hash }} PROJECT="r"
-          make tag-docker-image TAG=latest PROJECT="r"
-          make push-docker-image TAG=latest PROJECT="r"
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          file: deployment/Dockerfile_r
+          push: true
+          tags: |
+            ghcr.io/eopf-toolkit/eopf-toolkit-r:release-${{ steps.commit.outputs.hash }}
+            ghcr.io/eopf-toolkit/eopf-toolkit-r:latest
+          platforms: linux/amd64
+          cache-from: type=registry,ref=ghcr.io/eopf-toolkit/eopf-toolkit-r:cache
+          cache-to: type=registry,ref=ghcr.io/eopf-toolkit/eopf-toolkit-r:cache,mode=max
 
   publish-book:
     needs: publish-images
