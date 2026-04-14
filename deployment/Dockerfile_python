@@ -1,27 +1,27 @@
 FROM quay.io/jupyter/base-notebook:python-3.12.10
 
-RUN pip install uv
-
 USER root
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     git \
     openssh-client \
     && rm -rf /var/lib/apt/lists/*
 
-ENV PATH=${CONDA_DIR}/bin:$PATH
+USER ${NB_UID}
+
+RUN pip install uv
 
 COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
 COPY ../uv.lock /home/${NB_USER}/deps/uv.lock
 
+USER root
 RUN chown -R ${NB_UID}:${NB_GID} /home/${NB_USER}/deps
-
 USER ${NB_UID}
 
-WORKDIR /home/${NB_USER}/deps 
+WORKDIR /home/${NB_USER}/deps
 
 ENV UV_PROJECT_ENVIRONMENT=${CONDA_DIR}
+ENV PATH=${CONDA_DIR}/bin:$PATH
 
 RUN uv sync --frozen --no-install-project --inexact
 

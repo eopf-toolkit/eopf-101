@@ -55,12 +55,22 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
-      - name: build image
-        working-directory: deployment
+      - name: Set up Docker Buildx
         if: needs.check-diff.outputs.build == 'true'
-        run: |
-          make build-and-push-docker-image TAG=${{ needs.check-diff.outputs.tag }} PROJECT="r"
+        uses: docker/setup-buildx-action@v3
+
+      # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
+      - name: Build and push R image
+        if: needs.check-diff.outputs.build == 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deployment/Dockerfile_r
+          push: true
+          tags: ghcr.io/eopf-toolkit/eopf-toolkit-r:${{ needs.check-diff.outputs.tag }}
+          platforms: linux/amd64
+          cache-from: type=registry,ref=ghcr.io/eopf-toolkit/eopf-toolkit-r:cache
+          cache-to: type=registry,ref=ghcr.io/eopf-toolkit/eopf-toolkit-r:cache,mode=max
 
   test-render:
     needs: [check-diff, prepare-docker-image]
