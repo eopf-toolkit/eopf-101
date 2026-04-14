@@ -1,20 +1,6 @@
 FROM quay.io/jupyter/r-notebook:python-3.12.10
 
-COPY ../deployment/environment.yaml environment.yaml
-
-RUN mamba env update -n base -f environment.yaml && \
-    mamba clean --all -f -y && \
-    rm environment.yaml && \
-    fix-permissions "${CONDA_DIR}" && \
-    fix-permissions "/home/${NB_USER}"
-
-ENV PROJ_LIB=${CONDA_DIR}/share/proj
-ENV GDAL_DATA=${CONDA_DIR}/share/gdal
-
-RUN pip install uv
-
 USER root
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     git \
@@ -27,8 +13,7 @@ RUN apt-get update && \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Julia
-ARG JULIA_VERSION=1.12.5
+ARG JULIA_VERSION=1.11.5
 RUN mkdir -p /opt/julia && \
     cd /tmp && \
     wget -q https://julialang-s3.julialang.org/bin/linux/x64/$(echo ${JULIA_VERSION} | cut -d. -f1,2)/julia-${JULIA_VERSION}-linux-x86_64.tar.gz && \
@@ -39,19 +24,6 @@ RUN mkdir -p /opt/julia && \
 
 USER ${NB_UID}
 
-ENV R_LIBS_USER=${CONDA_DIR}/lib/R/library
-
-RUN Rscript -e 'options(repos = c(CRAN="https://cloud.r-project.org")); \
-    if (!requireNamespace("BiocManager", quietly=TRUE)) install.packages("BiocManager"); \
-    if (!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes"); \
-    repos <- BiocManager::repositories(); \
-    ok <- TRUE; \
-    tryCatch({ remotes::install_version("Rarr", version="1.10.1", repos=repos, upgrade="never") }, \
-    error=function(e) { message("Pinned install failed, falling back to BiocManager::install('Rarr')"); ok <<- FALSE }); \
-    if (!ok) BiocManager::install("Rarr", ask=FALSE, update=FALSE); \
-    cat("Installed Rarr version:", as.character(packageVersion("Rarr")), "\n")'
-
-# Set Julia depot path and install Julia packages
 ENV JULIA_DEPOT_PATH=/home/${NB_USER}/.julia
 
 RUN julia -e 'using Pkg; \
@@ -69,7 +41,29 @@ RUN julia -e 'using Pkg; \
     Pkg.precompile();' && \
     fix-permissions "${JULIA_DEPOT_PATH}"
 
-ENV PATH=${CONDA_DIR}/bin:$PATH
+COPY ../deployment/environment.yaml environment.yaml
+
+RUN mamba env update -n base -f environment.yaml && \
+    mamba clean --all -f -y && \
+    rm environment.yaml && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
+
+ENV PROJ_LIB=${CONDA_DIR}/share/proj
+ENV GDAL_DATA=${CONDA_DIR}/share/gdal
+ENV R_LIBS_USER=${CONDA_DIR}/lib/R/library
+
+RUN Rscript -e 'options(repos = c(CRAN="https://cloud.r-project.org")); \
+    if (!requireNamespace("BiocManager", quietly=TRUE)) install.packages("BiocManager"); \
+    if (!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes"); \
+    repos <- BiocManager::repositories(); \
+    ok <- TRUE; \
+    tryCatch({ remotes::install_version("Rarr", version="1.10.1", repos=repos, upgrade="never") }, \
+    error=function(e) { message("Pinned install failed, falling back to BiocManager::install(Rarr)"); ok <<- FALSE }); \
+    if (!ok) BiocManager::install("Rarr", ask=FALSE, update=FALSE); \
+    cat("Installed Rarr version:", as.character(packageVersion("Rarr")), "\n")'
+
+RUN pip install uv
 
 COPY ../pyproject.toml /home/${NB_USER}/deps/pyproject.toml
 COPY ../uv.lock /home/${NB_USER}/deps/uv.lock
@@ -81,13 +75,13 @@ USER ${NB_UID}
 WORKDIR /home/${NB_USER}/deps
 
 ENV UV_PROJECT_ENVIRONMENT=${CONDA_DIR}
+ENV PATH=${CONDA_DIR}/bin:$PATH
 
 RUN uv sync --frozen --no-install-project --inexact
 
 WORKDIR /home/${NB_USER}
 RUN rm -rf deps
 
-# Verify all environments
 RUN echo "=== Python ===" && \
     python --version && \
     echo "=== R ===" && \

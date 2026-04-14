@@ -101,10 +101,10 @@ Once you click, the following box is displayed:
 In the box, you can copy and paste the following custom lines:
 
 * If you would like to develop your workflow in Python:<br>
-`4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-python/eopf-toolkit-python:competition`
+`ghcr.io/eopf-toolkit/eopf-toolkit-python:latest`
 
 * Or, if you prefer to use R:<br>
-`4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:competition`
+`ghcr.io/eopf-toolkit/eopf-toolkit-r:latest`
 
 And select **Start**.
 

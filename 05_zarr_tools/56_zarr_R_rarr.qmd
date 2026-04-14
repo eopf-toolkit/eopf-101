@@ -10,7 +10,7 @@ link_start <- "https://jupyterhub.user.eopf.eodc.eu/hub/login?next=%2Fhub%2Fspaw
 folder <- "05_zarr_tools"
 separator <- "%252F"
 file <- "56_zarr_R_rarr.ipynb"
-link_end <- "%23fancy-forms-config=%7B%22profile%22%3A%22choose-your-environment%22%2C%22image%22%3A%22unlisted_choice%22%2C%22image%3Aunlisted_choice%22%3A%224zm3809f.c1.de1.container-registry.ovh.net%2Feopf-toolkit-r%2Feopf-toolkit-r%3Alatest%22%2C%22autoStart%22%3A%22true%22%7D"
+link_end <- "%23fancy-forms-config=%7B%22profile%22%3A%22choose-your-environment%22%2C%22image%22%3A%22unlisted_choice%22%2C%22image%3Aunlisted_choice%22%3A%22ghcr.io%2Feopf-toolkit%2Feopf-toolkit-r%3Alatest%22%2C%22autoStart%22%3A%22true%22%7D"
 
 jupyterlab_link <- paste0(link_start, folder, separator, file, link_end)
 ```

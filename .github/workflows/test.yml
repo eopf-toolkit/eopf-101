@@ -4,9 +4,13 @@ on:
   workflow_dispatch:
   pull_request:
 
+permissions: {}
+
 jobs:
   check-diff:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       build: ${{ steps.check.outputs.build }}
       tag: ${{ steps.check.outputs.tag }}
@@ -35,33 +39,51 @@ jobs:
   prepare-docker-image:
     runs-on: ubuntu-latest
     needs: check-diff
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         if: needs.check-diff.outputs.build == 'true'
 
-      - name: Login to OVH Harbor docker registry
+      - name: Login to GHCR
         uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
         if: needs.check-diff.outputs.build == 'true'
         with:
-          registry: ${{ secrets.OVH_HARBOR_REGISTRY }}
-          username: ${{ secrets.OVH_HARBOR_USERNAME }}
-          password: ${{ secrets.OVH_HARBOR_PASSWORD }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        if: needs.check-diff.outputs.build == 'true'
+        uses: docker/setup-buildx-action@v3
 
       # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
-      - name: build image
-        working-directory: deployment
+      - name: Build and push R image
         if: needs.check-diff.outputs.build == 'true'
-        run: |
-          make build-and-push-docker-image TAG=${{ needs.check-diff.outputs.tag }} PROJECT="r"
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deployment/Dockerfile_r
+          push: true
+          tags: ghcr.io/eopf-toolkit/eopf-toolkit-r:${{ needs.check-diff.outputs.tag }}
+          platforms: linux/amd64
+          cache-from: type=registry,ref=ghcr.io/eopf-toolkit/eopf-toolkit-r:cache
+          cache-to: type=registry,ref=ghcr.io/eopf-toolkit/eopf-toolkit-r:cache,mode=max
 
   test-render:
     needs: [check-diff, prepare-docker-image]
     runs-on: eopf-large
+    permissions:
+      contents: read
     if: needs.check-diff.result == 'success' && (needs.prepare-docker-image.result == 'success' || needs.prepare-docker-image.result == 'skipped')
     container:
       # We use the R image as this contains the same Python Dependencies as the Python one, so should work for everything
-      image: 4zm3809f.c1.de1.container-registry.ovh.net/eopf-toolkit-r/eopf-toolkit-r:${{ needs.check-diff.outputs.tag }}
+      image: ghcr.io/eopf-toolkit/eopf-toolkit-r:${{ needs.check-diff.outputs.tag }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
       options: --entrypoint "" --user root
 
     steps:
