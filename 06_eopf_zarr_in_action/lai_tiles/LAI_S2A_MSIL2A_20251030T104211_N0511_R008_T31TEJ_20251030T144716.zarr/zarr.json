@@ -1,0 +1,500 @@
+{
+  "attributes": {
+    "Conventions": "CF-1.13",
+    "title": "Sentinel-2 LAI - S2A_MSIL2A_20251030T104211_N0511_R008_T31TEJ_20251030T144716",
+    "institution": "",
+    "source": "ESA SNAP S2ToolBox BiophysicalOp neural network algorithm applied to Sentinel-2 L2A (S2A) bottom-of-atmosphere reflectances at 20 m resolution. Input bands: B03, B04, B05, B06, B07, B8A, B11, B12 + illumination/viewing geometry cosines.",
+    "history": "2026-04-17T12:37:44Z: LAI computed using ESA SNAP S2ToolBox BiophysicalOp neural network algorithm. Source product: https:/objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202510-s02msil2a-eu/30/products/cpm_v262/S2A_MSIL2A_20251030T104211_N0511_R008_T31TEJ_20251030T144716.zarr (sensing time: 2025-10-30T10:42:11Z, tile: T31TEJ). Sensor: S2A, spatial resolution: 20 m. Input reflectance bands (bottom-of-atmosphere, BOA reflectance): B03, B04, B05, B06, B07, B8A, B11, B12. Additional NN inputs: cosine of mean view zenith angle, cosine of sun zenith angle, cosine of relative azimuth angle (sun minus view). Viewing angles: per-band bilinear interpolation of 23x23 geometry grids from EOPF product conditions/geometry group, merged using per-detector footprint masks, then averaged across all input bands. Sun angles: bilinear interpolation of 23x23 geometry grids. Reflectance values read from measurements/reflectance/r20m group. Two-layer neural network: tanh hidden layer (5 neurons), linear output, with min-max normalisation / denormalisation from ESA S2ToolBox coefficient files (processing baseline N0511). Input validated against definition domain (stage 1: per-band min-max; stage 2: convex hull grid). Output validated against extreme-cases thresholds.",
+    "references": "Weiss, M., Baret, F. (2016). S2ToolBox Level 2 products: LAI, FAPAR, FCOVER. Algorithm Theoretical Basis Document (ATBD), ESA. https://step.esa.int/docs/extra/ATBD_S2ToolBox_V1.1.pdf",
+    "comment": "Leaf Area Index (LAI) is defined as half the developed area of photosynthetically active elements of the vegetation per unit horizontal ground area.",
+    "product_id": "S2A_MSIL2A_20251030T104211_N0511_R008_T31TEJ_20251030T144716",
+    "mission_id": "S2A",
+    "sensing_time": "2025-10-30T10:42:11Z",
+    "tile_id": "T31TEJ",
+    "processing_baseline": "N0511",
+    "relative_orbit": "R008",
+    "geospatial_bounds_crs": "EPSG:32631",
+    "spatial_resolution_meters": "20",
+    "date_created": "2026-04-17T12:37:44Z",
+    "crs_epsg": 32631,
+    "crs_wkt": "PROJCRS[\"WGS 84 / UTM zone 31N\",BASEGEOGCRS[\"WGS 84\",ENSEMBLE[\"World Geodetic System 1984 ensemble\",MEMBER[\"World Geodetic System 1984 (Transit)\"],MEMBER[\"World Geodetic System 1984 (G730)\"],MEMBER[\"World Geodetic System 1984 (G873)\"],MEMBER[\"World Geodetic System 1984 (G1150)\"],MEMBER[\"World Geodetic System 1984 (G1674)\"],MEMBER[\"World Geodetic System 1984 (G1762)\"],MEMBER[\"World Geodetic System 1984 (G2139)\"],MEMBER[\"World Geodetic System 1984 (G2296)\"],ELLIPSOID[\"WGS 84\",6378137,298.257223563,LENGTHUNIT[\"metre\",1]],ENSEMBLEACCURACY[2.0]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4326]],CONVERSION[\"UTM zone 31N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",3,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],USAGE[SCOPE[\"Navigation and medium accuracy spatial referencing.\"],AREA[\"Between 0\u00b0E and 6\u00b0E, northern hemisphere between equator and 84\u00b0N, onshore and offshore. Algeria. Andorra. Belgium. Benin. Burkina Faso. Denmark - North Sea. France. Germany - North Sea. Ghana. Luxembourg. Mali. Netherlands. Niger. Nigeria. Norway. Spain. Togo. United Kingdom (UK) - North Sea.\"],BBOX[0,0,84,6]],ID[\"EPSG\",32631]]",
+    "transform": [
+      20.0,
+      0.0,
+      499980.0,
+      0.0,
+      -20.0,
+      4900020.0
+    ]
+  },
+  "zarr_format": 3,
+  "consolidated_metadata": {
+    "kind": "inline",
+    "must_understand": false,
+    "metadata": {
+      "crs": {
+        "shape": [],
+        "data_type": "int32",
+        "chunk_grid": {
+          "name": "regular",
+          "configuration": {
+            "chunk_shape": []
+          }
+        },
+        "chunk_key_encoding": {
+          "name": "default",
+          "configuration": {
+            "separator": "/"
+          }
+        },
+        "fill_value": 0,
+        "codecs": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 0,
+              "checksum": false
+            }
+          }
+        ],
+        "attributes": {
+          "crs_wkt": "PROJCRS[\"WGS 84 / UTM zone 31N\",BASEGEOGCRS[\"WGS 84\",ENSEMBLE[\"World Geodetic System 1984 ensemble\",MEMBER[\"World Geodetic System 1984 (Transit)\"],MEMBER[\"World Geodetic System 1984 (G730)\"],MEMBER[\"World Geodetic System 1984 (G873)\"],MEMBER[\"World Geodetic System 1984 (G1150)\"],MEMBER[\"World Geodetic System 1984 (G1674)\"],MEMBER[\"World Geodetic System 1984 (G1762)\"],MEMBER[\"World Geodetic System 1984 (G2139)\"],MEMBER[\"World Geodetic System 1984 (G2296)\"],ELLIPSOID[\"WGS 84\",6378137,298.257223563,LENGTHUNIT[\"metre\",1]],ENSEMBLEACCURACY[2.0]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4326]],CONVERSION[\"UTM zone 31N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",3,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],USAGE[SCOPE[\"Navigation and medium accuracy spatial referencing.\"],AREA[\"Between 0\u00b0E and 6\u00b0E, northern hemisphere between equator and 84\u00b0N, onshore and offshore. Algeria. Andorra. Belgium. Benin. Burkina Faso. Denmark - North Sea. France. Germany - North Sea. Ghana. Luxembourg. Mali. Netherlands. Niger. Nigeria. Norway. Spain. Togo. United Kingdom (UK) - North Sea.\"],BBOX[0,0,84,6]],ID[\"EPSG\",32631]]",
+          "semi_major_axis": 6378137.0,
+          "semi_minor_axis": 6356752.314245179,
+          "inverse_flattening": 298.257223563,
+          "reference_ellipsoid_name": "WGS 84",
+          "longitude_of_prime_meridian": 0.0,
+          "prime_meridian_name": "Greenwich",
+          "geographic_crs_name": "WGS 84",
+          "horizontal_datum_name": "World Geodetic System 1984 ensemble",
+          "projected_crs_name": "WGS 84 / UTM zone 31N",
+          "grid_mapping_name": "transverse_mercator",
+          "latitude_of_projection_origin": 0.0,
+          "longitude_of_central_meridian": 3.0,
+          "false_easting": 500000.0,
+          "false_northing": 0.0,
+          "scale_factor_at_central_meridian": 0.9996,
+          "epsg_code": "EPSG:32631",
+          "spatial_ref": "PROJCRS[\"WGS 84 / UTM zone 31N\",BASEGEOGCRS[\"WGS 84\",ENSEMBLE[\"World Geodetic System 1984 ensemble\",MEMBER[\"World Geodetic System 1984 (Transit)\"],MEMBER[\"World Geodetic System 1984 (G730)\"],MEMBER[\"World Geodetic System 1984 (G873)\"],MEMBER[\"World Geodetic System 1984 (G1150)\"],MEMBER[\"World Geodetic System 1984 (G1674)\"],MEMBER[\"World Geodetic System 1984 (G1762)\"],MEMBER[\"World Geodetic System 1984 (G2139)\"],MEMBER[\"World Geodetic System 1984 (G2296)\"],ELLIPSOID[\"WGS 84\",6378137,298.257223563,LENGTHUNIT[\"metre\",1]],ENSEMBLEACCURACY[2.0]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4326]],CONVERSION[\"UTM zone 31N\",METHOD[\"Transverse Mercator\",ID[\"EPSG\",9807]],PARAMETER[\"Latitude of natural origin\",0,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8801]],PARAMETER[\"Longitude of natural origin\",3,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8802]],PARAMETER[\"Scale factor at natural origin\",0.9996,SCALEUNIT[\"unity\",1],ID[\"EPSG\",8805]],PARAMETER[\"False easting\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8806]],PARAMETER[\"False northing\",0,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8807]]],CS[Cartesian,2],AXIS[\"(E)\",east,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"(N)\",north,ORDER[2],LENGTHUNIT[\"metre\",1]],USAGE[SCOPE[\"Navigation and medium accuracy spatial referencing.\"],AREA[\"Between 0\u00b0E and 6\u00b0E, northern hemisphere between equator and 84\u00b0N, onshore and offshore. Algeria. Andorra. Belgium. Benin. Burkina Faso. Denmark - North Sea. France. Germany - North Sea. Ghana. Luxembourg. Mali. Netherlands. Niger. Nigeria. Norway. Spain. Togo. United Kingdom (UK) - North Sea.\"],BBOX[0,0,84,6]],ID[\"EPSG\",32631]]"
+        },
+        "zarr_format": 3,
+        "node_type": "array",
+        "storage_transformers": []
+      },
+      "input_out_of_range": {
+        "shape": [
+          5490,
+          5490
+        ],
+        "data_type": "uint8",
+        "chunk_grid": {
+          "name": "regular",
+          "configuration": {
+            "chunk_shape": [
+              687,
+              1373
+            ]
+          }
+        },
+        "chunk_key_encoding": {
+          "name": "default",
+          "configuration": {
+            "separator": "/"
+          }
+        },
+        "fill_value": 0,
+        "codecs": [
+          {
+            "name": "bytes"
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 0,
+              "checksum": false
+            }
+          }
+        ],
+        "attributes": {
+          "long_name": "Input spectral bands outside definition domain",
+          "flag_values": [
+            0,
+            1
+          ],
+          "flag_meanings": "valid out_of_range",
+          "grid_mapping": "crs"
+        },
+        "dimension_names": [
+          "y",
+          "x"
+        ],
+        "zarr_format": 3,
+        "node_type": "array",
+        "storage_transformers": []
+      },
+      "LAI": {
+        "shape": [
+          5490,
+          5490
+        ],
+        "data_type": "float32",
+        "chunk_grid": {
+          "name": "regular",
+          "configuration": {
+            "chunk_shape": [
+              344,
+              687
+            ]
+          }
+        },
+        "chunk_key_encoding": {
+          "name": "default",
+          "configuration": {
+            "separator": "/"
+          }
+        },
+        "fill_value": "NaN",
+        "codecs": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 0,
+              "checksum": false
+            }
+          }
+        ],
+        "attributes": {
+          "standard_name": "leaf_area_index",
+          "long_name": "Leaf Area Index",
+          "units": "1",
+          "valid_min": 0.0,
+          "valid_max": 8.0,
+          "grid_mapping": "crs",
+          "_FillValue": "AAAAAAAA+H8="
+        },
+        "dimension_names": [
+          "y",
+          "x"
+        ],
+        "zarr_format": 3,
+        "node_type": "array",
+        "storage_transformers": []
+      },
+      "output_set_to_max": {
+        "shape": [
+          5490,
+          5490
+        ],
+        "data_type": "uint8",
+        "chunk_grid": {
+          "name": "regular",
+          "configuration": {
+            "chunk_shape": [
+              687,
+              1373
+            ]
+          }
+        },
+        "chunk_key_encoding": {
+          "name": "default",
+          "configuration": {
+            "separator": "/"
+          }
+        },
+        "fill_value": 0,
+        "codecs": [
+          {
+            "name": "bytes"
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 0,
+              "checksum": false
+            }
+          }
+        ],
+        "attributes": {
+          "long_name": "Output thresholded to maximum value",
+          "flag_values": [
+            0,
+            1
+          ],
+          "flag_meanings": "not_thresholded thresholded_to_max",
+          "grid_mapping": "crs"
+        },
+        "dimension_names": [
+          "y",
+          "x"
+        ],
+        "zarr_format": 3,
+        "node_type": "array",
+        "storage_transformers": []
+      },
+      "output_set_to_min": {
+        "shape": [
+          5490,
+          5490
+        ],
+        "data_type": "uint8",
+        "chunk_grid": {
+          "name": "regular",
+          "configuration": {
+            "chunk_shape": [
+              687,
+              1373
+            ]
+          }
+        },
+        "chunk_key_encoding": {
+          "name": "default",
+          "configuration": {
+            "separator": "/"
+          }
+        },
+        "fill_value": 0,
+        "codecs": [
+          {
+            "name": "bytes"
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 0,
+              "checksum": false
+            }
+          }
+        ],
+        "attributes": {
+          "long_name": "Output thresholded to minimum value",
+          "flag_values": [
+            0,
+            1
+          ],
+          "flag_meanings": "not_thresholded thresholded_to_min",
+          "grid_mapping": "crs"
+        },
+        "dimension_names": [
+          "y",
+          "x"
+        ],
+        "zarr_format": 3,
+        "node_type": "array",
+        "storage_transformers": []
+      },
+      "output_too_high": {
+        "shape": [
+          5490,
+          5490
+        ],
+        "data_type": "uint8",
+        "chunk_grid": {
+          "name": "regular",
+          "configuration": {
+            "chunk_shape": [
+              687,
+              1373
+            ]
+          }
+        },
+        "chunk_key_encoding": {
+          "name": "default",
+          "configuration": {
+            "separator": "/"
+          }
+        },
+        "fill_value": 0,
+        "codecs": [
+          {
+            "name": "bytes"
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 0,
+              "checksum": false
+            }
+          }
+        ],
+        "attributes": {
+          "long_name": "Output above acceptable maximum",
+          "flag_values": [
+            0,
+            1
+          ],
+          "flag_meanings": "valid above_max",
+          "grid_mapping": "crs"
+        },
+        "dimension_names": [
+          "y",
+          "x"
+        ],
+        "zarr_format": 3,
+        "node_type": "array",
+        "storage_transformers": []
+      },
+      "output_too_low": {
+        "shape": [
+          5490,
+          5490
+        ],
+        "data_type": "uint8",
+        "chunk_grid": {
+          "name": "regular",
+          "configuration": {
+            "chunk_shape": [
+              687,
+              1373
+            ]
+          }
+        },
+        "chunk_key_encoding": {
+          "name": "default",
+          "configuration": {
+            "separator": "/"
+          }
+        },
+        "fill_value": 0,
+        "codecs": [
+          {
+            "name": "bytes"
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 0,
+              "checksum": false
+            }
+          }
+        ],
+        "attributes": {
+          "long_name": "Output below acceptable minimum",
+          "flag_values": [
+            0,
+            1
+          ],
+          "flag_meanings": "valid below_min",
+          "grid_mapping": "crs"
+        },
+        "dimension_names": [
+          "y",
+          "x"
+        ],
+        "zarr_format": 3,
+        "node_type": "array",
+        "storage_transformers": []
+      },
+      "x": {
+        "shape": [
+          5490
+        ],
+        "data_type": "float32",
+        "chunk_grid": {
+          "name": "regular",
+          "configuration": {
+            "chunk_shape": [
+              5490
+            ]
+          }
+        },
+        "chunk_key_encoding": {
+          "name": "default",
+          "configuration": {
+            "separator": "/"
+          }
+        },
+        "fill_value": "NaN",
+        "codecs": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 0,
+              "checksum": false
+            }
+          }
+        ],
+        "attributes": {
+          "standard_name": "projection_x_coordinate",
+          "long_name": "x coordinate of projection",
+          "units": "m",
+          "axis": "X",
+          "_FillValue": "AAAAAAAA+H8="
+        },
+        "dimension_names": [
+          "x"
+        ],
+        "zarr_format": 3,
+        "node_type": "array",
+        "storage_transformers": []
+      },
+      "y": {
+        "shape": [
+          5490
+        ],
+        "data_type": "float32",
+        "chunk_grid": {
+          "name": "regular",
+          "configuration": {
+            "chunk_shape": [
+              5490
+            ]
+          }
+        },
+        "chunk_key_encoding": {
+          "name": "default",
+          "configuration": {
+            "separator": "/"
+          }
+        },
+        "fill_value": "NaN",
+        "codecs": [
+          {
+            "name": "bytes",
+            "configuration": {
+              "endian": "little"
+            }
+          },
+          {
+            "name": "zstd",
+            "configuration": {
+              "level": 0,
+              "checksum": false
+            }
+          }
+        ],
+        "attributes": {
+          "standard_name": "projection_y_coordinate",
+          "long_name": "y coordinate of projection",
+          "units": "m",
+          "axis": "Y",
+          "_FillValue": "AAAAAAAA+H8="
+        },
+        "dimension_names": [
+          "y"
+        ],
+        "zarr_format": 3,
+        "node_type": "array",
+        "storage_transformers": []
+      }
+    }
+  },
+  "node_type": "group"
+}
