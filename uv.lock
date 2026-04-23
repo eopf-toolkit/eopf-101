@@ -336,7 +336,7 @@ wheels = [
 [[package]]
 name = "biophysicalop"
 version = "1.0.3"
-source = { git = "https://github.com/Geomatys/biophysicalop.git?tag=v1.0.3#3480091f3617c8392446c66aee79f48083bcb4fc" }
+source = { git = "https://github.com/Geomatys/biophysicalop?tag=v1.0.3#3480091f3617c8392446c66aee79f48083bcb4fc" }
 dependencies = [
     { name = "aiohttp" },
     { name = "folium" },
@@ -1087,7 +1087,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "aiohttp", specifier = ">=3.13.3" },
-    { name = "biophysicalop", git = "https://github.com/Geomatys/biophysicalop.git?tag=v1.0.3" },
+    { name = "biophysicalop", git = "https://github.com/Geomatys/biophysicalop?tag=v1.0.3" },
     { name = "bokeh", specifier = ">=3.8.2" },
     { name = "cartopy", specifier = ">=0.22.0" },
     { name = "contextily", specifier = ">=1.7.0" },

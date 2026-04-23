@@ -100,12 +100,9 @@ packages = ["deployment", "img"]
 [tool.setuptools.package-data]
 "*" = ["*.png", "*.jpg", "*.PNG", "*.webp"]
 
-[tool.hatch.metadata]
-allow-direct-references = true
-
 [tool.uv.sources]
 efast = { git = "https://github.com/DHI-GRAS/efast", tag = "v1.0.1"}
-biophysicalop = { git = "https://github.com/Geomatys/biophysicalop.git", tag = "v1.0.3"}
+biophysicalop = { git = "https://github.com/Geomatys/biophysicalop", tag = "v1.0.3"}
 
 [project.urls]
 Homepage = "https://eopf-toolkit.github.io/eopf-101/"
