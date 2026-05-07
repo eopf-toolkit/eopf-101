@@ -64,7 +64,7 @@ dependencies = [
     "nbgitpuller>=1.2.2",
     "dask-labextension>=7.0.0",
     "jupyter-leaflet>=0.20.0",
-    "jupyterlab-git>=0.51.2",
+    "jupyterlab-git>=0.53.0",
     "efast @ git+https://github.com/DHI-GRAS/efast@python_313",
     "pyresample>=1.35.0",
     "imageio>=2.37.0",
