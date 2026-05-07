@@ -37,7 +37,7 @@ dependencies = [
     "pystac-client",
     "numpy>=2.3.1",
     "pandas>=2.0.2",
-    "matplotlib>=3.10.3",
+    "matplotlib>=3.10.9",
     "rioxarray>=0.19.0",
     "rio-tiler>=7.9.2",
     "stackstac>=0.4.4",
