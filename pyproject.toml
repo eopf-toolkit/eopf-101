@@ -89,7 +89,8 @@ dependencies = [
     "fsspec>=2026.2.0",
     "scipy>=1.17.0",
     "pytz>=2025.2",
-    "modular>=26.2"
+    "modular>=26.2",
+    "biophysicalop==1.0.3",
 ]
 
 
@@ -101,6 +102,7 @@ packages = ["deployment", "img"]
 
 [tool.uv.sources]
 efast = { git = "https://github.com/DHI-GRAS/efast", tag = "v1.0.1"}
+biophysicalop = { git = "https://github.com/Geomatys/biophysicalop", tag = "v1.0.3"}
 
 [project.urls]
 Homepage = "https://eopf-toolkit.github.io/eopf-101/"

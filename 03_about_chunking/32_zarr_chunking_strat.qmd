@@ -5,8 +5,6 @@ format: html
 
 **By:** *[@emmanuelmathot](https://github.com/emmanuelmathot)* and *[@gisromerocandanedo](https://github.com/gisromerocandanedo)* | [Development Seed](https://developmentseed.org/), [thriveGEO](https://thrivegeo.com/)
 
-**By:** *[@emmanuelmathot](https://github.com/emmanuelmathot)* and *[@gisromerocandanedo](https://github.com/gisromerocandanedo)* | [Development Seed](https://developmentseed.org/), [thriveGEO](https://thrivegeo.com/)
-
 ## Introduction
 
 In the [previous section](./31_zarr_chunking_intro.qmd), we explored the fundamentals of Zarr chunking and its significance for Earth Observation data.<br>
