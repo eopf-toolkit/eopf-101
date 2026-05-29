@@ -83,7 +83,7 @@ book:
         - 06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb
         - 06_eopf_zarr_in_action/68_vegetation_anomalies.ipynb
         - 06_eopf_zarr_in_action/610_s2_s3_fusion.ipynb
-        # - 06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.ipynb
+        - 06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.ipynb
         - 06_eopf_zarr_in_action/612_cloud_probability_s2.ipynb
         - 06_eopf_zarr_in_action/613_computing_lai_s2.ipynb
         - 06_eopf_zarr_in_action/614_flood_change_detection_s1.ipynb
