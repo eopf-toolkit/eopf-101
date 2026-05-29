@@ -70,9 +70,11 @@ Across six chapters, EOPF 101 gradually introduces you to the EOPF Sentinel Zarr
     * [Visualising Multiscale Pyramids](./06_eopf_zarr_in_action/66_use_overviews.ipynb)
   * [Reservoir Surface Monitoring](./06_eopf_zarr_in_action/67_reservoir_surface_monitoring.ipynb)
   * [Analysing Forest Vegetation Anomalies](./06_eopf_zarr_in_action/68_vegetation_anomalies.ipynb)
-  * [African rangeland monitoring with Sentinel-2 and Sentinel-3](./06_eopf_zarr_in_action/610_s2_s3_fusion.ipynb)   
-  * [Cloud-Native Intertidal Vegetation Monitoring with Sentinel-2 and EOPF Zarr](./06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.ipynb)
-  <!-- * [Cloud Probability Analysis with EOPF Sentinel-2 Data](./06_eopf_zarr_in_action/612_cloud_probability_s2.ipynb)  -->
+  * [African rangeland monitoring with Sentinel-2 and Sentinel-3](./06_eopf_zarr_in_action/610_s2_s3_fusion.ipynb)
+
+  <!-- * [Cloud-Native Intertidal Vegetation Monitoring with Sentinel-2 and EOPF Zarr](./06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.ipynb) -->
+  
+  * [Cloud Probability Analysis with EOPF Sentinel-2 Data](./06_eopf_zarr_in_action/612_cloud_probability_s2.ipynb) 
   * [Computing Leaf Area Index Using Sentinel-2 Data](./06_eopf_zarr_in_action/613_computing_lai_s2.ipynb)  
   * [Sentinel-1 SAR Flood Detection and Mapping Using Change Detection](./06_eopf_zarr_in_action/614_flood_change_detection_s1.ipynb)
   * [Vegetation Productivity and Drought Monitoring in the Horn of Africa Using PPI, fPAR, and EOPF Zarr](./06_eopf_zarr_in_action/615_vad_ppi.ipynb)
