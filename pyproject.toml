@@ -43,7 +43,7 @@ dependencies = [
     "stackstac>=0.4.4",
     "xarray>=2025.10.1",
     "distributed>=2024.5.0",
-    "dask>=2024.5.0",
+    "dask>=2026.6.0",
     "ipykernel>=6.23.1",
     "llvmlite>=0.44.0",
     "requests",
