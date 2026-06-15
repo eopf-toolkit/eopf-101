@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -76,10 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-36bf55b16c7cb4b1420f41495cb5446a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3f70bac5631458d474a321d4182f9338.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -465,6 +465,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud-Native Intertidal Vegetation Monitoring with Sentinel-2 and EOPF Zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/612_cloud_probability_s2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud Probability Analysis with EOPF Sentinel-2 Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/613_computing_lai_s2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Computing Leaf Area Index Using Sentinel-2 Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../06_eopf_zarr_in_action/614_flood_change_detection_s1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 SAR Flood Detection and Mapping Using Change Detection</span></a>
   </div>
 </li>
@@ -543,7 +558,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p><a href="https://jupyterhub.user.eopf.eodc.eu/hub/login?next=%2Fhub%2Fspawn%3Fnext%3D%252Fhub%252Fuser-redirect%252Fgit-pull%253Frepo%253Dhttps%253A%252F%252Fgithub.com%252Feopf-toolkit%252Feopf-101%2526branch%253Dmain%2526urlpath%253Dlab%252Ftree%252Feopf-101%252F04_eopf_and_stac%252F43_eopf_stac_connection.ipynb%23fancy-forms-config=%7B%22profile%22%3A%22choose-your-environment%22%2C%22image%22%3A%22unlisted_choice%22%2C%22image%3Aunlisted_choice%22%3A%22ghcr.io%2Feopf-toolkit%2Feopf-toolkit-python%3Alatest%22%2C%22autoStart%22%3A%22true%22%7D" target="_blank"> <button style="background-color:#0072ce; color:white; padding:0.6em 1.2em; font-size:1rem; border:none; border-radius:6px; margin-top:1em;"> 🚀 Launch this notebook in JupyterLab </button> </a></p>
 <p><strong>By:</strong> <em><a href="https://github.com/gisromerocandanedo"><span class="citation" data-cites="gisromerocandanedo">@gisromerocandanedo</span></a></em> | <a href="https://thrivegeo.com/">thriveGEO</a></p>
-<p><strong>By:</strong> <em><a href="https://github.com/gisromerocandanedo"><span class="citation" data-cites="gisromerocandanedo">@gisromerocandanedo</span></a></em> | <a href="https://thrivegeo.com/">thriveGEO</a></p>
 <section id="introduction" class="level3">
 <h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>In this section, we will dive into the programmatic access of EOPF Zarr Collections available in the <a href="https://stac.browser.user.eopf.eodc.eu/?.language=en">EOPF Sentinel Zarr Sample Service STAC Catalog</a>. We will introduce Python libraries that enable us to effectively access and search through STAC catalogs.</p>
@@ -562,7 +576,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <hr>
 <section id="import-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
-<div id="9" class="cell" data-execution_count="1">
+<div id="8" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> List, Optional, cast</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac <span class="im">import</span> Collection, MediaType</span>
@@ -575,7 +589,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="list_found_elements" class="level5">
 <h5 class="anchored" data-anchor-id="list_found_elements"><code>list_found_elements</code></h5>
 <p>As we are expecting to visualise several elements that will be stored in lists, we define a function that will allow us retrieve item <code>id</code>’s and collections <code>id</code>’s for further retrieval.</p>
-<div id="12" class="cell" data-execution_count="2">
+<div id="11" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pystac <span class="im">import</span> Item</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> list_found_elements(search_result):</span>
@@ -622,7 +636,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Copy paste the URL: <code>https://stac.core.eopf.eodc.eu/</code>.</p>
 <p>With the <code>Client.open()</code> function, we can create the access to the starting point of the Catalog by providing the specific url. If the connection was successful, you will see the description of the STAC catalog and additional information.</p>
-<div id="17" class="cell" data-execution_count="3">
+<div id="16" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>eopf_stac_api_root_endpoint <span class="op">=</span> <span class="st">"https://stac.core.eopf.eodc.eu/"</span> <span class="co">#root starting point</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>eopf_catalog <span class="op">=</span> Client.<span class="bu">open</span>(url<span class="op">=</span>eopf_stac_api_root_endpoint) <span class="co"># calls the selected url</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>eopf_catalog</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1203,6 +1217,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-2-l1c"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-2 Level-1C"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">10</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
             <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l1-slc"</span>
         </li>
     
@@ -1238,7 +1303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">10</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">11</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1289,7 +1354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">11</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1340,109 +1405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
             <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 OLCI Level-2 LFR"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">14</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1493,7 +1456,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">14</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
             <summary class="pystac-summary"><span class="pystac-k">15</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-frp"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 FRP"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">16</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1544,7 +1609,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">16</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">17</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1595,57 +1660,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">17</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-2-l1c"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-2 Level-1C"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
             <summary class="pystac-summary"><span class="pystac-k">18</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
@@ -1662,7 +1676,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-frp"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr"</span>
         </li>
     
             
@@ -1680,7 +1694,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 FRP"</span>
+            <span class="pystac-v">"Sentinel-3 OLCI Level-2 LFR"</span>
         </li>
     
             
@@ -2099,7 +2113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Once a connection established, the next logical step is to get an overview of all the collections the STAC catalog offers. We can do this with the function <code>get_all_collections()</code>. The result is a list, which we can loop through to print the relevant collection IDs.</p>
 <p><strong>Please note:</strong> Since the EOPF Zarr STAC Catalog is still in active development, we need to test whether a collection is valid, otherwise you might get an error message. The code below is testing for validity and for one collection, it throws an error.</p>
 <p>You see, that so far, we can browse through 10 available collections</p>
-<div id="20" class="cell" data-execution_count="4">
+<div id="19" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> collection <span class="kw">in</span> eopf_catalog.get_all_collections():</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(collection.<span class="bu">id</span>)</span>
@@ -2111,20 +2125,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-stdout">
 <pre><code>sentinel-2-l2a
 sentinel-1-l1-grd
+sentinel-2-l1c
 sentinel-1-l1-slc
 sentinel-3-olci-l1-efr
 sentinel-3-slstr-l2-lst
-sentinel-1-l2-ocn
-sentinel-3-olci-l2-lfr
 sentinel-3-slstr-l1-rbt
+sentinel-1-l2-ocn
+sentinel-3-slstr-l2-frp
 sentinel-3-olci-l1-err
 sentinel-3-olci-l2-lrr
-sentinel-2-l1c
-sentinel-3-slstr-l2-frp</code></pre>
+sentinel-3-olci-l2-lfr</code></pre>
 </div>
 </div>
 <p>In a next step, we can select one <code>collection</code> and retrieve certain metadata that allow us to get more information about the selected collection, such as keywords, the ID and useful links for resources.</p>
-<div id="22" class="cell" data-execution_count="5">
+<div id="21" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>S2l2a_coll <span class="op">=</span> eopf_catalog.get_collection(<span class="st">'sentinel-2-l2a'</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Keywords:        '</span>,S2l2a_coll.keywords)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Catalog ID:      '</span>,S2l2a_coll.<span class="bu">id</span>)</span>
@@ -2143,7 +2157,7 @@ Available Links:  [&lt;Link rel=items target=https://stac.core.eopf.eodc.eu/coll
 <h3 class="anchored" data-anchor-id="filter-for-temporal-extent">Filter for temporal extent</h3>
 <p>Let us search on the <code>datetime</code> parameter. For this, we specify the <code>datetime</code> argument for a time period we are interested in, e.g.&nbsp;from 1 May 2020 to 31 May 2023. In addition, we also specify the <code>collection</code> parameter indicating that we only want to search for the Sentinel-2 L2A collection.</p>
 <p>We apply the helper function <code>list_found_elements</code> which constructs a list from the search result. If we check the length of the final list, we can see that for the specified time period, 196 items were found.</p>
-<div id="26" class="cell" data-execution_count="6">
+<div id="25" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>time_frame <span class="op">=</span> eopf_catalog.search(  <span class="co">#searching the catalog</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    collections<span class="op">=</span><span class="st">'sentinel-2-l2a'</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    datetime<span class="op">=</span><span class="st">"2020-05-01T00:00:00Z/2023-05-31T23:59:59.999999Z"</span>)  <span class="co"># the interval we are interested in, separated by '/'</span></span>
@@ -2155,7 +2169,7 @@ Available Links:  [&lt;Link rel=items target=https://stac.core.eopf.eodc.eu/coll
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Search Results:"</span>)</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:  '</span>,<span class="bu">len</span>(time_items[<span class="dv">0</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;pystac_client.item_search.ItemSearch object at 0x7f36ba5342f0&gt;
+<pre><code>&lt;pystac_client.item_search.ItemSearch object at 0x7fd92cbba7e0&gt;
 Search Results:
 Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   1838</code></pre>
 </div>
@@ -2165,7 +2179,7 @@ Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   1
 <h3 class="anchored" data-anchor-id="filter-for-spatial-extent">Filter for spatial extent</h3>
 <p>Now, let us filter based on a specific area of interest. We can use the <code>bbox</code> argument, which is composed by providing the top-left and bottom-right corner coordinates. It is similar to drawing the extent in the interactive map of the EOPF browser interface.</p>
 <p>For example, we defined a bounding box of the outskirts of Innsbruck, Austria. We then again apply the helper function <code>list_found_elements</code> and see that for the defined area, only 39 items are available.</p>
-<div id="28" class="cell" data-execution_count="7">
+<div id="27" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>bbox_search <span class="op">=</span>  eopf_catalog.search(  <span class="co">#searching the catalog</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    collections<span class="op">=</span><span class="st">'sentinel-2-l2a'</span>,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span>(</span>
@@ -2181,7 +2195,7 @@ Total Items Found for Sentinel-2 L-2A between May 1, 2020, and May 31, 2023:   1
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Total Items Found:  '</span>,<span class="bu">len</span>(innsbruck_sets[<span class="dv">0</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Search Result:
-Total Items Found:   173</code></pre>
+Total Items Found:   217</code></pre>
 </div>
 </div>
 </section>
@@ -2189,7 +2203,7 @@ Total Items Found:   173</code></pre>
 <h3 class="anchored" data-anchor-id="combined-filtering-collection-temporal-extent-spatial-extent">Combined filtering: Collection + temporal extent + spatial extent</h3>
 <p>As a usual workflow, we often look for datasets within an AOI and a specific period of time. The <code>search()</code> function allows us also to combine the <code>collection</code>, <code>bbox</code> and <code>datetime</code> arguments in one search request.</p>
 <p>Let us now search for Items available for the AOI around Innsbruck within the previously defined timeframe for the <strong>Sentinel-2 Level-2A</strong> collection. As a result, we get 27 Items that are available for our selection.</p>
-<div id="30" class="cell" data-execution_count="8">
+<div id="29" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>innsbruck_s2 <span class="op">=</span> eopf_catalog.search( </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    collections<span class="op">=</span> <span class="st">'sentinel-2-l2a'</span>, <span class="co"># interest Collection,</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span>(<span class="fl">11.124756</span>, <span class="fl">47.311058</span>, <span class="co"># AOI extent</span></span>
@@ -2208,7 +2222,7 @@ Total Items Found for Sentinel-2 L-2A over Innsbruck:   28</code></pre>
 </div>
 <p>Let’s repeat a combined search for a different collection.<br> We define a new AOI for the coastal area of Rostock, Germany and we search over the <strong>Sentinel-3 SLSTR-L2</strong> collection for the same time period as above.<br></p>
 <p>As a result, 14 Items are available for the specified search.</p>
-<div id="32" class="cell" data-execution_count="9">
+<div id="31" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>rostock_s3 <span class="op">=</span> eopf_catalog.search(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span>(<span class="fl">11.766357</span>,<span class="fl">53.994566</span>, <span class="co"># AOI extent</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>          <span class="fl">12.332153</span>,<span class="fl">54.265086</span>),</span>
@@ -2231,7 +2245,7 @@ Total Items Found for Sentinel-3 SLSTR-L2 over Rostock Coast:   18</code></pre>
 <p>So far, we have made a search among the STAC catalog and browsed over the general metadata of the collections. To access the actual EOPF Zarr <code>Items</code>, we need to get their storage location in the cloud.</p>
 <p>The relevant information we can find inside the <code>.items</code> argument by the <code>.get_assets()</code> function. Inside, it allows us to specify the <code>.MediaType</code> we are interested in. In our example, we want to obtain the location of the <code>.zarr</code> file.</p>
 <p>Let us retrieve the <code>url</code> of the 27 available items over Innsbruck. The resulting URL we can then use to directly access an asset in our workflow.</p>
-<div id="35" class="cell" data-execution_count="10">
+<div id="34" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_item_cleaned(collection, item_id):</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Retrieve an item from a collection and clean assets with missing href.</span></span>
@@ -2275,7 +2289,7 @@ URL for accessing S2B_MSIL2A_20250530T101559_N0511_R065_T32TPT_20250530T130924 i
 <section id="retrieve-item-metadata" class="level3">
 <h3 class="anchored" data-anchor-id="retrieve-item-metadata">Retrieve Item metadata</h3>
 <p>Finally, once you selected an <code>Item</code>, you can also explore the relevant metadata on <code>Item</code> level. For example with the <code>keys()</code> function, you can retrieve the available assets of the selected Item.</p>
-<div id="38" class="cell" data-execution_count="11">
+<div id="37" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Available Assets: '</span>, <span class="bu">list</span>(first_item.keys()))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Available Assets:  ['SR_10m', 'SR_20m', 'SR_60m', 'AOT_10m', 'B01_20m', 'B02_10m', 'B03_10m', 'B04_10m', 'B05_20m', 'B06_20m', 'B07_20m', 'B08_10m', 'B09_60m', 'B11_20m', 'B12_20m', 'B8A_20m', 'SCL_20m', 'TCI_10m', 'WVP_10m', 'product']</code></pre>

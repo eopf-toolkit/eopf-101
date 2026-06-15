@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,7 +68,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../06_eopf_zarr_in_action/614_flood_change_detection_s1.html" rel="next">
+<link href="../06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.html" rel="next">
 <link href="../06_eopf_zarr_in_action/68_vegetation_anomalies.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -76,10 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-36bf55b16c7cb4b1420f41495cb5446a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3f70bac5631458d474a321d4182f9338.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -465,6 +465,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud-Native Intertidal Vegetation Monitoring with Sentinel-2 and EOPF Zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/612_cloud_probability_s2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud Probability Analysis with EOPF Sentinel-2 Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/613_computing_lai_s2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Computing Leaf Area Index Using Sentinel-2 Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../06_eopf_zarr_in_action/614_flood_change_detection_s1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 SAR Flood Detection and Mapping Using Change Detection</span></a>
   </div>
 </li>
@@ -600,12 +615,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre>-----
 dateutil            2.9.0.post0
 efast               NA
-matplotlib          3.10.8
-numpy               2.4.4
+matplotlib          3.10.9
+numpy               2.4.6
 pyresample          1.35.0
 pystac_client       0.8.6
 session_info        v1.0.1
-xarray              2026.2.0
+xarray              2026.4.0
 zarr_efast_utils    NA
 zarr_wf_utils       NA
 -----
@@ -619,26 +634,26 @@ annotated_types             0.7.0
 anyio                       NA
 arrow                       1.4.0
 astropy                     7.2.0
-astropy_iers_data           0.2026.4.6.0.54.57
+astropy_iers_data           0.2026.6.8.17.49.5
 asttokens                   NA
 attr                        26.1.0
 attrs                       26.1.0
 babel                       2.18.0
-boto3                       1.42.84
-botocore                    1.42.84
-cachetools                  7.0.5
+boto3                       1.43.0
+botocore                    1.43.0
+cachetools                  7.1.4
 cartopy                     0.25.0
-certifi                     2026.02.25
+certifi                     2026.05.20
 charset_normalizer          3.4.7
-click                       8.3.2
+click                       8.4.1
 cloudpickle                 3.1.2
 colorama                    0.4.6
 comm                        0.2.3
 cycler                      0.12.1
 cython_runtime              NA
 dask                        2026.3.0
-debugpy                     1.8.20
-decorator                   5.2.1
+debugpy                     1.8.21
+decorator                   5.3.1
 defusedxml                  0.7.1
 distributed                 2026.3.0
 donfig                      0.8.1.post1
@@ -650,12 +665,12 @@ fqdn                        NA
 func_timeout                4.3.5
 geopandas                   1.1.3
 google_crc32c               NA
-h3                          4.4.2
-idna                        3.11
+h3                          4.5.0
+idna                        3.18
 igraph                      0.11.9
 ipykernel                   7.2.0
 isoduration                 NA
-jedi                        0.19.2
+jedi                        0.20.0
 jinja2                      3.1.6
 jmespath                    1.1.0
 joblib                      1.5.3
@@ -663,38 +678,39 @@ json5                       0.14.0
 jsonpointer                 3.1.1
 jsonschema                  4.26.0
 jsonschema_specifications   NA
-jupyter_events              0.12.0
-jupyter_server              2.17.0
+jupyter_events              0.12.1
+jupyter_server              2.19.0
 jupyterlab_server           2.28.0
 kiwisolver                  1.5.0
 lark                        1.3.1
 lazy_loader                 0.5
 locket                      NA
 markupsafe                  3.0.3
-matplotlib_inline           0.2.1
+matplotlib_inline           0.2.2
 mpl_toolkits                NA
 msgpack                     1.1.2
+narwhals                    2.22.1
 nbformat                    5.10.4
 networkx                    3.6.1
 numcodecs                   0.16.5
 numexpr                     2.14.1
 odc                         NA
 osmnx                       2.0.6
-packaging                   26.0
+packaging                   26.2
 pandas                      2.3.3
-parso                       0.8.6
+parso                       0.8.7
 planetary_computer          1.0.0
-platformdirs                4.9.6
+platformdirs                4.10.0
 prometheus_client           NA
 prompt_toolkit              3.0.52
 psutil                      7.2.2
 pure_eval                   0.2.3
-pyarrow                     23.0.1
-pydantic                    2.12.5
-pydantic_core               2.41.5
+pyarrow                     24.0.0
+pydantic                    2.13.4
+pydantic_core               2.46.4
 pydev_ipython               NA
 pydevconsole                NA
-pydevd                      3.2.3
+pydevd                      3.4.1
 pydevd_file_utils           NA
 pydevd_plugins              NA
 pydevd_tracing              NA
@@ -705,24 +721,25 @@ pyparsing                   3.3.2
 pyproj                      3.7.2
 pystac                      1.14.3
 pythonjsonlogger            NA
-pytz                        2026.1.post1
-rasterio                    1.5.0
+pytz                        2025.2
+rasterio                    1.4.4
 referencing                 NA
-regex                       2026.4.4
-requests                    2.33.1
+regex                       2026.5.9
+requests                    2.34.2
 rfc3339_validator           0.1.4
 rfc3986_validator           0.1.1
 rfc3987_syntax              NA
+rich                        NA
 rioxarray                   0.22.0
 rpds                        NA
-s3transfer                  0.16.0
+s3transfer                  0.17.1
 scipy                       1.17.1
 send2trash                  NA
-shapefile                   3.0.3
+shapefile                   3.0.12
 shapely                     2.1.2
 six                         1.17.0
 skimage                     0.26.0
-sklearn                     1.8.0
+sklearn                     1.9.0
 snap_graph                  NA
 sortedcontainers            2.4.0
 stack_data                  0.6.3
@@ -731,14 +748,14 @@ texttable                   1.7.0
 threadpoolctl               3.6.0
 tlz                         1.1.0
 toolz                       1.1.0
-tornado                     6.5.5
-tqdm                        4.67.3
-traitlets                   5.14.3
+tornado                     6.5.7
+tqdm                        4.68.1
+traitlets                   5.15.1
 typing_extensions           NA
 typing_inspection           NA
 uri_template                NA
-urllib3                     2.6.3
-wcwidth                     0.6.0
+urllib3                     2.7.0
+wcwidth                     0.8.1
 webcolors                   NA
 websocket                   1.9.0
 xxhash                      NA
@@ -749,16 +766,16 @@ zoneinfo                    NA
 </pre>
 </details> <!-- seems like this ends pre, so might as well be explicit -->
 <pre>-----
-IPython             9.12.0
-jupyter_client      8.8.0
+IPython             9.14.1
+jupyter_client      8.9.0
 jupyter_core        5.9.1
-jupyterlab          4.5.6
-notebook            7.5.5
+jupyterlab          4.5.8
+notebook            7.5.7
 -----
 Python 3.12.13 | packaged by conda-forge | (main, Mar  5 2026, 16:50:00) [GCC 14.3.0]
-Linux-6.17.0-1010-azure-x86_64-with-glibc2.39
+Linux-6.17.0-1018-azure-x86_64-with-glibc2.39
 -----
-Session information updated at 2026-04-16 09:59
+Session information updated at 2026-06-15 10:35
 </pre>
 </details>
 </div>
@@ -1374,6 +1391,57 @@ Session information updated at 2026-04-16 09:59
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-2-l1c"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-2 Level-1C"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">10</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
             <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l1-slc"</span>
         </li>
     
@@ -1409,7 +1477,7 @@ Session information updated at 2026-04-16 09:59
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">10</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">11</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1460,7 +1528,7 @@ Session information updated at 2026-04-16 09:59
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">11</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1511,109 +1579,7 @@ Session information updated at 2026-04-16 09:59
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">12</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
             <summary class="pystac-summary"><span class="pystac-k">13</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 OLCI Level-2 LFR"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">14</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1664,7 +1630,109 @@ Session information updated at 2026-04-16 09:59
             
                 
         <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">14</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-1-l2-ocn"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-1 Level-2 OCN"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
             <summary class="pystac-summary"><span class="pystac-k">15</span></summary>
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">rel</span>
+            <span class="pystac-v">"child"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">href</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-frp"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">type</span>
+            <span class="pystac-v">"application/json"</span>
+        </li>
+    
+            
+        
+            
+                
+        <li class="pystac-row">
+            <span class="pystac-k">title</span>
+            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 FRP"</span>
+        </li>
+    
+            
+        
+    </ul>
+        </details></li>
+    
+            
+        
+    </ul>
+        
+            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
+        
+            
+                
+        <li><details>
+            <summary class="pystac-summary"><span class="pystac-k">16</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1715,7 +1783,7 @@ Session information updated at 2026-04-16 09:59
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">16</span></summary>
+            <summary class="pystac-summary"><span class="pystac-k">17</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
             
@@ -1766,57 +1834,6 @@ Session information updated at 2026-04-16 09:59
             
                 
         <li><details>
-            <summary class="pystac-summary"><span class="pystac-k">17</span></summary>
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">rel</span>
-            <span class="pystac-v">"child"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-2-l1c"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">type</span>
-            <span class="pystac-v">"application/json"</span>
-        </li>
-    
-            
-        
-            
-                
-        <li class="pystac-row">
-            <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-2 Level-1C"</span>
-        </li>
-    
-            
-        
-    </ul>
-        </details></li>
-    
-            
-        
-    </ul>
-        
-            <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
-        
-            
-                
-        <li><details>
             <summary class="pystac-summary"><span class="pystac-k">18</span></summary>
             <ul style="margin: 0px; padding: 0px 0px 0px 1.75em; list-style: none; display: block;">
         
@@ -1833,7 +1850,7 @@ Session information updated at 2026-04-16 09:59
                 
         <li class="pystac-row">
             <span class="pystac-k">href</span>
-            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-slstr-l2-frp"</span>
+            <span class="pystac-v">"https://stac.core.eopf.eodc.eu/collections/sentinel-3-olci-l2-lfr"</span>
         </li>
     
             
@@ -1851,7 +1868,7 @@ Session information updated at 2026-04-16 09:59
                 
         <li class="pystac-row">
             <span class="pystac-k">title</span>
-            <span class="pystac-v">"Sentinel-3 SLSTR Level-2 FRP"</span>
+            <span class="pystac-v">"Sentinel-3 OLCI Level-2 LFR"</span>
         </li>
     
             
@@ -2869,9 +2886,9 @@ Group: /measurements/reflectance/r20m
         b07      (y, x) float64 241MB dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;
         b11      (y, x) float64 241MB dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;
         b12      (y, x) float64 241MB dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;
-        b8a      (y, x) float64 241MB dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataTree</div><div class="xr-obj-name">'r20m'</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-438608ae-85b4-471f-8270-db500d7ca82a" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-438608ae-85b4-471f-8270-db500d7ca82a" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">y</span>: 5490</li><li><span class="xr-has-index">x</span>: 5490</li></ul></div></li><li class="xr-section-item"><input id="section-32d71781-0845-45a2-91d9-ab340b8b97a5" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-32d71781-0845-45a2-91d9-ab340b8b97a5" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">9.8e+06 9.8e+06 ... 9.69e+06</div><input id="attrs-bd65e0b3-0cb2-4496-855a-4fbd8f62c999" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bd65e0b3-0cb2-4496-855a-4fbd8f62c999" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-be47a7b4-6a1c-4bdc-b4fb-0a5215361feb" class="xr-var-data-in" type="checkbox"><label for="data-be47a7b4-6a1c-4bdc-b4fb-0a5215361feb" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['y']</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>y coordinates of the image at 20m in meters from up-left pixel</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([9.80001e+06, 9.79999e+06, 9.79997e+06, ..., 9.69027e+06, 9.69025e+06,
-       9.69023e+06], shape=(5490,), dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">5e+05 5e+05 ... 6.098e+05 6.098e+05</div><input id="attrs-918f9d7d-e9ba-4db4-80eb-f63e7bde1a92" class="xr-var-attrs-in" type="checkbox"><label for="attrs-918f9d7d-e9ba-4db4-80eb-f63e7bde1a92" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9239c142-35c3-40cc-b6c5-7b4141676e88" class="xr-var-data-in" type="checkbox"><label for="data-9239c142-35c3-40cc-b6c5-7b4141676e88" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['x']</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>x coordinates of the image at 20m in meters from up-left pixel</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([499990., 500010., 500030., ..., 609730., 609750., 609770.],
-      shape=(5490,), dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-ebe3ccad-58cc-4ab4-a6fd-dff0e9f73463" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-ebe3ccad-58cc-4ab4-a6fd-dff0e9f73463" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(10)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>b01</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-bf26b866-42cb-43f6-8af3-6771e121a942" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bf26b866-42cb-43f6-8af3-6771e121a942" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6029ed37-d6ec-41f8-a536-c3bcd6c6821f" class="xr-var-data-in" type="checkbox"><label for="data-6029ed37-d6ec-41f8-a536-c3bcd6c6821f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 01 443 nm', 'scale_factor': 0.0001, 'short_name': 'b01_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 01 443 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+        b8a      (y, x) float64 241MB dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataTree</div><div class="xr-obj-name">'r20m'</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-09fe1cbb-55db-4c91-b71e-8cae86edd702" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-09fe1cbb-55db-4c91-b71e-8cae86edd702" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span class="xr-has-index">y</span>: 5490</li><li><span class="xr-has-index">x</span>: 5490</li></ul></div></li><li class="xr-section-item"><input id="section-db923508-251c-4cd8-8e19-40d24a3d76cb" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-db923508-251c-4cd8-8e19-40d24a3d76cb" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">9.8e+06 9.8e+06 ... 9.69e+06</div><input id="attrs-b1741d9a-d2dc-46f7-85e4-a2f47b650901" class="xr-var-attrs-in" type="checkbox"><label for="attrs-b1741d9a-d2dc-46f7-85e4-a2f47b650901" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b4c5e2c7-79ef-4f2e-8b6a-08687613863e" class="xr-var-data-in" type="checkbox"><label for="data-b4c5e2c7-79ef-4f2e-8b6a-08687613863e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['y']</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>y coordinates of the image at 20m in meters from up-left pixel</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([9.80001e+06, 9.79999e+06, 9.79997e+06, ..., 9.69027e+06, 9.69025e+06,
+       9.69023e+06], shape=(5490,), dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">5e+05 5e+05 ... 6.098e+05 6.098e+05</div><input id="attrs-786a4d74-476e-46b1-82f9-40c7e76e06ad" class="xr-var-attrs-in" type="checkbox"><label for="attrs-786a4d74-476e-46b1-82f9-40c7e76e06ad" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-850437aa-6fbf-4c8e-a2d1-6b538a8551d5" class="xr-var-data-in" type="checkbox"><label for="data-850437aa-6fbf-4c8e-a2d1-6b538a8551d5" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['x']</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>x coordinates of the image at 20m in meters from up-left pixel</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([499990., 500010., 500030., ..., 609730., 609750., 609770.],
+      shape=(5490,), dtype=float32)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-fca8f0c8-f3d0-4a46-89fe-56a98d4d2d65" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-fca8f0c8-f3d0-4a46-89fe-56a98d4d2d65" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(10)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>b01</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-1fcd892e-55e7-4e2f-a581-3f448cecb6b2" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1fcd892e-55e7-4e2f-a581-3f448cecb6b2" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-86d731d5-c012-473b-92b6-cec3c6827f38" class="xr-var-data-in" type="checkbox"><label for="data-86d731d5-c012-473b-92b6-cec3c6827f38" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 01 443 nm', 'scale_factor': 0.0001, 'short_name': 'b01_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 01 443 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2914,7 +2931,7 @@ Group: /measurements/reflectance/r20m
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b02</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-fb073737-e9cd-4936-9619-59cba356af4a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-fb073737-e9cd-4936-9619-59cba356af4a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-b254167a-853a-4d45-975e-af46bec8ea8f" class="xr-var-data-in" type="checkbox"><label for="data-b254167a-853a-4d45-975e-af46bec8ea8f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 02 490 nm', 'scale_factor': 0.0001, 'short_name': 'b02_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 02 490 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b02</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-552f7596-60eb-4ac2-9474-1daf6ad47898" class="xr-var-attrs-in" type="checkbox"><label for="attrs-552f7596-60eb-4ac2-9474-1daf6ad47898" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-6e6b0882-c304-4686-b677-787a17599e4b" class="xr-var-data-in" type="checkbox"><label for="data-6e6b0882-c304-4686-b677-787a17599e4b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 02 490 nm', 'scale_factor': 0.0001, 'short_name': 'b02_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 02 490 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -2957,7 +2974,7 @@ Group: /measurements/reflectance/r20m
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b03</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-f7476a33-88cc-4e0e-885b-58559e8b8f69" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f7476a33-88cc-4e0e-885b-58559e8b8f69" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-092e369f-3ac6-44a8-bcab-5350c57f9a52" class="xr-var-data-in" type="checkbox"><label for="data-092e369f-3ac6-44a8-bcab-5350c57f9a52" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 03 560 nm', 'scale_factor': 0.0001, 'short_name': 'b03_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 03 560 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b03</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-3d4a1ae6-315a-4590-b836-7d41f567cf0a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3d4a1ae6-315a-4590-b836-7d41f567cf0a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ec76de6f-024a-4b5a-8ebc-618bda6da8df" class="xr-var-data-in" type="checkbox"><label for="data-ec76de6f-024a-4b5a-8ebc-618bda6da8df" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 03 560 nm', 'scale_factor': 0.0001, 'short_name': 'b03_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 03 560 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3000,7 +3017,7 @@ Group: /measurements/reflectance/r20m
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b04</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-09d21f8f-4e17-494f-9ead-5e4024a69a5e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-09d21f8f-4e17-494f-9ead-5e4024a69a5e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ef47df2d-dee9-427e-958c-fc249aef390b" class="xr-var-data-in" type="checkbox"><label for="data-ef47df2d-dee9-427e-958c-fc249aef390b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 04 665 nm', 'scale_factor': 0.0001, 'short_name': 'b04_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 04 665 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b04</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-f55f8e5a-b0cd-47b8-a65a-0c5e32e4b286" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f55f8e5a-b0cd-47b8-a65a-0c5e32e4b286" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9039349f-8aa3-4a83-b93a-032693cd8f0f" class="xr-var-data-in" type="checkbox"><label for="data-9039349f-8aa3-4a83-b93a-032693cd8f0f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 04 665 nm', 'scale_factor': 0.0001, 'short_name': 'b04_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 04 665 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3043,7 +3060,7 @@ Group: /measurements/reflectance/r20m
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b05</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-a91e390d-59bc-4de0-8569-f81f2cabc47a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a91e390d-59bc-4de0-8569-f81f2cabc47a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-99eb5896-89bc-405b-a125-11d16a12fd52" class="xr-var-data-in" type="checkbox"><label for="data-99eb5896-89bc-405b-a125-11d16a12fd52" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 05 705 nm', 'scale_factor': 0.0001, 'short_name': 'b05_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 05 705 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b05</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-0a40590b-9597-4179-afd9-9434af7b58e3" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0a40590b-9597-4179-afd9-9434af7b58e3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5b9cf243-c2f2-4299-a839-2d5eb4b234e6" class="xr-var-data-in" type="checkbox"><label for="data-5b9cf243-c2f2-4299-a839-2d5eb4b234e6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 05 705 nm', 'scale_factor': 0.0001, 'short_name': 'b05_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 05 705 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3086,7 +3103,7 @@ Group: /measurements/reflectance/r20m
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b06</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-ce8c0eae-1804-4d30-9003-3c4fc1702eb3" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ce8c0eae-1804-4d30-9003-3c4fc1702eb3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-33ac794e-0ff2-4a10-b54e-9aeeaf65a1aa" class="xr-var-data-in" type="checkbox"><label for="data-33ac794e-0ff2-4a10-b54e-9aeeaf65a1aa" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 06 740 nm', 'scale_factor': 0.0001, 'short_name': 'b06_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 06 740 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b06</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-c1a571d4-1b37-4605-abae-ccb8fb50cd0d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c1a571d4-1b37-4605-abae-ccb8fb50cd0d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-12cec0cf-af98-4944-b34e-c265f91d763c" class="xr-var-data-in" type="checkbox"><label for="data-12cec0cf-af98-4944-b34e-c265f91d763c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 06 740 nm', 'scale_factor': 0.0001, 'short_name': 'b06_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 06 740 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3129,7 +3146,7 @@ Group: /measurements/reflectance/r20m
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b07</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-030f3a19-7f05-4c09-8cce-9697c8872a96" class="xr-var-attrs-in" type="checkbox"><label for="attrs-030f3a19-7f05-4c09-8cce-9697c8872a96" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-270fcb07-7fad-4135-9994-cd8c51e49116" class="xr-var-data-in" type="checkbox"><label for="data-270fcb07-7fad-4135-9994-cd8c51e49116" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 07 783 nm', 'scale_factor': 0.0001, 'short_name': 'b07_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 07 783 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b07</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-f32f56bf-5fe0-4a5c-bd91-08d371801f2e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-f32f56bf-5fe0-4a5c-bd91-08d371801f2e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3c35d2f9-3aaa-4816-9c84-2c296a79cdb4" class="xr-var-data-in" type="checkbox"><label for="data-3c35d2f9-3aaa-4816-9c84-2c296a79cdb4" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 07 783 nm', 'scale_factor': 0.0001, 'short_name': 'b07_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 07 783 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3172,7 +3189,7 @@ Group: /measurements/reflectance/r20m
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b11</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-43ff36db-4748-409d-97b1-3a2dbece8231" class="xr-var-attrs-in" type="checkbox"><label for="attrs-43ff36db-4748-409d-97b1-3a2dbece8231" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4983ffab-f44d-47c8-9db0-eac74d644e2c" class="xr-var-data-in" type="checkbox"><label for="data-4983ffab-f44d-47c8-9db0-eac74d644e2c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 11 1610 nm', 'scale_factor': 0.0001, 'short_name': 'b11_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 11 1610 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b11</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-ef3d76fa-4465-4eef-9555-7dbd0d8f418a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ef3d76fa-4465-4eef-9555-7dbd0d8f418a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8cd4e67b-4d74-411c-a504-fd13c6e5943e" class="xr-var-data-in" type="checkbox"><label for="data-8cd4e67b-4d74-411c-a504-fd13c6e5943e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 11 1610 nm', 'scale_factor': 0.0001, 'short_name': 'b11_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 11 1610 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3215,7 +3232,7 @@ Group: /measurements/reflectance/r20m
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b12</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-bea0ec08-ec36-4eca-990e-a0cbd2a26011" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bea0ec08-ec36-4eca-990e-a0cbd2a26011" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c910f689-cd99-4e44-8583-6dd6122a2631" class="xr-var-data-in" type="checkbox"><label for="data-c910f689-cd99-4e44-8583-6dd6122a2631" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 12 2190 nm', 'scale_factor': 0.0001, 'short_name': 'b12_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 12 2190 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b12</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-4783c50a-ebb0-4266-b9af-fe6caff7578f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-4783c50a-ebb0-4266-b9af-fe6caff7578f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4276de33-1620-409f-aef0-e47fa004d3e2" class="xr-var-data-in" type="checkbox"><label for="data-4276de33-1620-409f-aef0-e47fa004d3e2" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 12 2190 nm', 'scale_factor': 0.0001, 'short_name': 'b12_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 12 2190 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3258,7 +3275,7 @@ Group: /measurements/reflectance/r20m
 </tr>
 </tbody>
 </table>
-</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b8a</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-438449f2-5196-4dc0-a72e-059ed294eb6d" class="xr-var-attrs-in" type="checkbox"><label for="attrs-438449f2-5196-4dc0-a72e-059ed294eb6d" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-5fd25f60-2cb1-4517-b121-97d54cba9562" class="xr-var-data-in" type="checkbox"><label for="data-5fd25f60-2cb1-4517-b121-97d54cba9562" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 8A 865 nm', 'scale_factor': 0.0001, 'short_name': 'b8a_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 8A 865 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
+</div></li><li class="xr-var-item"><div class="xr-var-name"><span>b8a</span></div><div class="xr-var-dims">(y, x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">dask.array&lt;chunksize=(915, 915), meta=np.ndarray&gt;</div><input id="attrs-757384a8-bd9b-43ce-bee1-79c8ecaa279b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-757384a8-bd9b-43ce-bee1-79c8ecaa279b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-753102e4-0537-45b2-a4b4-7c39638a0931" class="xr-var-data-in" type="checkbox"><label for="data-753102e4-0537-45b2-a4b4-7c39638a0931" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': -0.1, 'coordinates': ['y', 'x'], 'dimensions': ['y', 'x'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f8', 'fill_value': 0, 'long_name': 'BOA reflectance from MSI acquisition at spectral band 8A 865 nm', 'scale_factor': 0.0001, 'short_name': 'b8a_r20m', 'units': 'digital_counts', 'valid_max': 65535, 'valid_min': 1}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>BOA reflectance from MSI acquisition at spectral band 8A 865 nm</dd><dt><span>units :</span></dt><dd>digital_counts</dd></dl></div><div class="xr-var-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3855,7 +3872,7 @@ dask.array&lt;stack, shape=(3, 5490, 5490), dtype=float64, chunksize=(1, 915, 91
 Coordinates:
   * variable  (variable) object 24B 'b04' 'b03' 'b02'
   * y         (y) float32 22kB 9.8e+06 9.8e+06 9.8e+06 ... 9.69e+06 9.69e+06
-  * x         (x) float32 22kB 5e+05 5e+05 5e+05 ... 6.098e+05 6.098e+05</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name"></div><ul class="xr-dim-list"><li><span class="xr-has-index">variable</span>: 3</li><li><span class="xr-has-index">y</span>: 5490</li><li><span class="xr-has-index">x</span>: 5490</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-767ea931-e027-4259-83e7-746cbecc5ef2" class="xr-array-in" type="checkbox" checked=""><label for="section-767ea931-e027-4259-83e7-746cbecc5ef2" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 915, 915), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
+  * x         (x) float32 22kB 5e+05 5e+05 5e+05 ... 6.098e+05 6.098e+05</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name"></div><ul class="xr-dim-list"><li><span class="xr-has-index">variable</span>: 3</li><li><span class="xr-has-index">y</span>: 5490</li><li><span class="xr-has-index">x</span>: 5490</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-b4085706-2d70-4bc3-b34c-c250a9cb9284" class="xr-array-in" type="checkbox" checked=""><label for="section-b4085706-2d70-4bc3-b34c-c250a9cb9284" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>dask.array&lt;chunksize=(1, 915, 915), meta=np.ndarray&gt;</span></div><div class="xr-array-data">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
 <col style="width: 50%">
@@ -3898,8 +3915,8 @@ Coordinates:
 </tr>
 </tbody>
 </table>
-</div></div></li><li class="xr-section-item"><input id="section-fcb9e547-8f09-4e13-969c-44c2efc350ee" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-fcb9e547-8f09-4e13-969c-44c2efc350ee" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">variable</span></div><div class="xr-var-dims">(variable)</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">'b04' 'b03' 'b02'</div><input id="attrs-575de52b-93d3-4f28-862d-2d2f8dada3fd" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-575de52b-93d3-4f28-862d-2d2f8dada3fd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-9ff74a1c-d252-4bb9-8c14-927db2401a89" class="xr-var-data-in" type="checkbox"><label for="data-9ff74a1c-d252-4bb9-8c14-927db2401a89" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['b04', 'b03', 'b02'], dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">9.8e+06 9.8e+06 ... 9.69e+06</div><input id="attrs-fd5f3b6d-4ad3-4716-ae2e-14813b7673b9" class="xr-var-attrs-in" type="checkbox"><label for="attrs-fd5f3b6d-4ad3-4716-ae2e-14813b7673b9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-bc0adffb-6218-45bc-9a99-daa0134dcac3" class="xr-var-data-in" type="checkbox"><label for="data-bc0adffb-6218-45bc-9a99-daa0134dcac3" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['y']</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>y coordinates of the image at 20m in meters from up-left pixel</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([9.80001e+06, 9.79999e+06, 9.79997e+06, ..., 9.69027e+06, 9.69025e+06,
-       9.69023e+06], shape=(5490,), dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">5e+05 5e+05 ... 6.098e+05 6.098e+05</div><input id="attrs-1be0137f-9fad-4426-9c1b-5dc590a88d1f" class="xr-var-attrs-in" type="checkbox"><label for="attrs-1be0137f-9fad-4426-9c1b-5dc590a88d1f" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ec1b4f50-ed80-4f5f-9251-15dcae59096d" class="xr-var-data-in" type="checkbox"><label for="data-ec1b4f50-ed80-4f5f-9251-15dcae59096d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['x']</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>x coordinates of the image at 20m in meters from up-left pixel</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([499990., 500010., 500030., ..., 609730., 609750., 609770.],
+</div></div></li><li class="xr-section-item"><input id="section-27accf66-de68-406a-b95b-c0ce91994b18" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-27accf66-de68-406a-b95b-c0ce91994b18" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(3)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">variable</span></div><div class="xr-var-dims">(variable)</div><div class="xr-var-dtype">object</div><div class="xr-var-preview xr-preview">'b04' 'b03' 'b02'</div><input id="attrs-b6334f03-d9bb-4e3c-8218-a3ed6ed108ca" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-b6334f03-d9bb-4e3c-8218-a3ed6ed108ca" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ba8359e0-f73c-4928-976e-29e734fde5f6" class="xr-var-data-in" type="checkbox"><label for="data-ba8359e0-f73c-4928-976e-29e734fde5f6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['b04', 'b03', 'b02'], dtype=object)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">9.8e+06 9.8e+06 ... 9.69e+06</div><input id="attrs-7f8d3e3f-e736-4b69-a476-aadd9de6b0ec" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7f8d3e3f-e736-4b69-a476-aadd9de6b0ec" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-610f0978-2564-4875-b106-1044d7bac416" class="xr-var-data-in" type="checkbox"><label for="data-610f0978-2564-4875-b106-1044d7bac416" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['y']</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>y coordinates of the image at 20m in meters from up-left pixel</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([9.80001e+06, 9.79999e+06, 9.79997e+06, ..., 9.69027e+06, 9.69025e+06,
+       9.69023e+06], shape=(5490,), dtype=float32)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">5e+05 5e+05 ... 6.098e+05 6.098e+05</div><input id="attrs-99df8c48-9a77-4c70-9bab-a11a7fe86e73" class="xr-var-attrs-in" type="checkbox"><label for="attrs-99df8c48-9a77-4c70-9bab-a11a7fe86e73" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2daa427a-d3b8-459f-b2c1-51b3d039be1a" class="xr-var-data-in" type="checkbox"><label for="data-2daa427a-d3b8-459f-b2c1-51b3d039be1a" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['x']</dd><dt><span>dtype :</span></dt><dd>&lt;f4</dd><dt><span>long_name :</span></dt><dd>x coordinates of the image at 20m in meters from up-left pixel</dd><dt><span>units :</span></dt><dd>m</dd></dl></div><div class="xr-var-data"><pre>array([499990., 500010., 500030., ..., 609730., 609750., 609770.],
       shape=(5490,), dtype=float32)</pre></div></li></ul></div></li></ul></div></div>
 </div>
 </div>
@@ -4638,7 +4655,7 @@ Coordinates:
 Dimensions without coordinates: rows, columns
 Data variables:
     rc681       (rows, columns) float32 80MB ...
-    rc865       (rows, columns) float32 80MB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-7a890275-b390-42b4-a91f-a2bfeaf119ff" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-7a890275-b390-42b4-a91f-a2bfeaf119ff" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span>rows</span>: 4090</li><li><span>columns</span>: 4865</li></ul></div></li><li class="xr-section-item"><input id="section-04f24cf2-ac86-401e-b71f-68c1750a342b" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-04f24cf2-ac86-401e-b71f-68c1750a342b" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>time_stamp</span></div><div class="xr-var-dims">(rows)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-0a31e335-525f-46d9-89f6-731c24a9458a" class="xr-var-attrs-in" type="checkbox"><label for="attrs-0a31e335-525f-46d9-89f6-731c24a9458a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e323c8c1-f137-40e2-9ccd-c65900ae84ba" class="xr-var-data-in" type="checkbox"><label for="data-e323c8c1-f137-40e2-9ccd-c65900ae84ba" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows']</dd><dt><span>dtype :</span></dt><dd>&lt;M8[ns]</dd><dt><span>fill_value :</span></dt><dd>-1</dd><dt><span>long_name :</span></dt><dd>elapsed time since 01 Jan 2000 00:00:00 as time stamp for each row</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>[4090 values with dtype=datetime64[ns]]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>altitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-75981913-f041-4c3d-a9ce-f2a8ac1de10b" class="xr-var-attrs-in" type="checkbox"><label for="attrs-75981913-f041-4c3d-a9ce-f2a8ac1de10b" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-d723d579-1ef9-4db6-867b-b48d7c3f6dda" class="xr-var-data-in" type="checkbox"><label for="data-d723d579-1ef9-4db6-867b-b48d7c3f6dda" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i2</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_is_scaled :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f4</dd><dt><span>fill_value :</span></dt><dd>-32768</dd><dt><span>long_name :</span></dt><dd>DEM corrected altitude of surface elevation above reference ellipsoid</dd><dt><span>standard_name :</span></dt><dd>altitude</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>9000</dd><dt><span>valid_min :</span></dt><dd>-1000</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-bff85eb4-593a-4311-9948-efeb8e921e00" class="xr-var-attrs-in" type="checkbox"><label for="attrs-bff85eb4-593a-4311-9948-efeb8e921e00" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-fcf996d9-a280-43de-92f0-628ccefd640d" class="xr-var-data-in" type="checkbox"><label for="data-fcf996d9-a280-43de-92f0-628ccefd640d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_is_scaled :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-2147483648</dd><dt><span>long_name :</span></dt><dd>DEM corrected latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90000000</dd><dt><span>valid_min :</span></dt><dd>-90000000</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-596418db-27e4-4887-a9c1-f99fa71fe48c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-596418db-27e4-4887-a9c1-f99fa71fe48c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-7a03b9a1-80e1-4ac1-a102-af0ec9bb9f8b" class="xr-var-data-in" type="checkbox"><label for="data-7a03b9a1-80e1-4ac1-a102-af0ec9bb9f8b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_is_scaled :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-2147483648</dd><dt><span>long_name :</span></dt><dd>DEM corrected longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180000000</dd><dt><span>valid_min :</span></dt><dd>-180000000</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-26936c29-28db-4d89-90a7-05079c96e7b0" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-26936c29-28db-4d89-90a7-05079c96e7b0" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>rc681</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-9809d384-ea3b-4681-9678-767b96a041a5" class="xr-var-attrs-in" type="checkbox"><label for="attrs-9809d384-ea3b-4681-9678-767b96a041a5" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-db892c33-8132-4601-995a-5cbbba85c596" class="xr-var-data-in" type="checkbox"><label for="data-db892c33-8132-4601-995a-5cbbba85c596" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': 0.0, 'coordinates': ['latitude', 'longitude', 'time_stamp', 'altitude'], 'dimensions': ['rows', 'columns'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f4', 'fill_value': 65535, 'long_name': 'rectified reflectance for the band 10 on the current land pixel', 'scale_factor': 1.5259254723787308e-05, 'short_name': 'rc681', 'units': 'mW.m-2.sr-1.nm-1'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>rectified reflectance for the band 10 on the current land pixel</dd><dt><span>units :</span></dt><dd>mW.m-2.sr-1.nm-1</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>rc865</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-7d63551e-752f-4f0e-8a30-a5ee8d222934" class="xr-var-attrs-in" type="checkbox"><label for="attrs-7d63551e-752f-4f0e-8a30-a5ee8d222934" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c8bd3ece-465d-4a23-8bb2-15f407140e64" class="xr-var-data-in" type="checkbox"><label for="data-c8bd3ece-465d-4a23-8bb2-15f407140e64" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': 0.0, 'coordinates': ['latitude', 'longitude', 'time_stamp', 'altitude'], 'dimensions': ['rows', 'columns'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f4', 'fill_value': 65535, 'long_name': 'rectified reflectance for the band 17 on the current land pixel', 'scale_factor': 1.5259254723787308e-05, 'short_name': 'rc865', 'units': 'mW.m-2.sr-1.nm-1'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>rectified reflectance for the band 17 on the current land pixel</dd><dt><span>units :</span></dt><dd>mW.m-2.sr-1.nm-1</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float32]</pre></div></li></ul></div></li></ul></div></div>
+    rc865       (rows, columns) float32 80MB ...</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.Dataset</div></div><ul class="xr-sections"><li class="xr-section-item"><input id="section-063032cf-9064-465d-9b4f-fa9bb05dd87e" class="xr-section-summary-in" type="checkbox" disabled=""><label for="section-063032cf-9064-465d-9b4f-fa9bb05dd87e" class="xr-section-summary">Dimensions:</label><div class="xr-section-inline-details"><ul class="xr-dim-list"><li><span>rows</span>: 4090</li><li><span>columns</span>: 4865</li></ul></div></li><li class="xr-section-item"><input id="section-cbd6174a-af35-4e4a-a65a-47931f7040ab" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-cbd6174a-af35-4e4a-a65a-47931f7040ab" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>time_stamp</span></div><div class="xr-var-dims">(rows)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-85006a5a-f727-4de9-a00d-fe0fb52000be" class="xr-var-attrs-in" type="checkbox"><label for="attrs-85006a5a-f727-4de9-a00d-fe0fb52000be" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-a0f199a2-d03d-46ab-8838-155fcee4d02d" class="xr-var-data-in" type="checkbox"><label for="data-a0f199a2-d03d-46ab-8838-155fcee4d02d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows']</dd><dt><span>dtype :</span></dt><dd>&lt;M8[ns]</dd><dt><span>fill_value :</span></dt><dd>-1</dd><dt><span>long_name :</span></dt><dd>elapsed time since 01 Jan 2000 00:00:00 as time stamp for each row</dd><dt><span>standard_name :</span></dt><dd>time</dd></dl></div><div class="xr-var-data"><pre>[4090 values with dtype=datetime64[ns]]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>altitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-ac97ad5f-d46c-4012-babc-85498cf0e231" class="xr-var-attrs-in" type="checkbox"><label for="attrs-ac97ad5f-d46c-4012-babc-85498cf0e231" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-72c0e01a-b86d-4771-867a-2fd3d151624f" class="xr-var-data-in" type="checkbox"><label for="data-72c0e01a-b86d-4771-867a-2fd3d151624f" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i2</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_is_scaled :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f4</dd><dt><span>fill_value :</span></dt><dd>-32768</dd><dt><span>long_name :</span></dt><dd>DEM corrected altitude of surface elevation above reference ellipsoid</dd><dt><span>standard_name :</span></dt><dd>altitude</dd><dt><span>units :</span></dt><dd>m</dd><dt><span>valid_max :</span></dt><dd>9000</dd><dt><span>valid_min :</span></dt><dd>-1000</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>latitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-a13e19d8-f7c3-46d2-8a9f-04ad4f297186" class="xr-var-attrs-in" type="checkbox"><label for="attrs-a13e19d8-f7c3-46d2-8a9f-04ad4f297186" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-80f80502-81bc-4752-8407-a9bda0886e72" class="xr-var-data-in" type="checkbox"><label for="data-80f80502-81bc-4752-8407-a9bda0886e72" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_is_scaled :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-2147483648</dd><dt><span>long_name :</span></dt><dd>DEM corrected latitude</dd><dt><span>standard_name :</span></dt><dd>latitude</dd><dt><span>units :</span></dt><dd>degrees_north</dd><dt><span>valid_max :</span></dt><dd>90000000</dd><dt><span>valid_min :</span></dt><dd>-90000000</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float64]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>longitude</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-c200d90c-d1c4-4f47-a8a5-af057b30fa75" class="xr-var-attrs-in" type="checkbox"><label for="attrs-c200d90c-d1c4-4f47-a8a5-af057b30fa75" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-45d38f92-1971-4645-b6f9-23aef20ac140" class="xr-var-data-in" type="checkbox"><label for="data-45d38f92-1971-4645-b6f9-23aef20ac140" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>dimensions :</span></dt><dd>['rows', 'columns']</dd><dt><span>dtype :</span></dt><dd>&lt;i4</dd><dt><span>eopf_is_masked :</span></dt><dd>True</dd><dt><span>eopf_is_scaled :</span></dt><dd>True</dd><dt><span>eopf_target_dtype :</span></dt><dd>&lt;f8</dd><dt><span>fill_value :</span></dt><dd>-2147483648</dd><dt><span>long_name :</span></dt><dd>DEM corrected longitude</dd><dt><span>standard_name :</span></dt><dd>longitude</dd><dt><span>units :</span></dt><dd>degrees_east</dd><dt><span>valid_max :</span></dt><dd>180000000</dd><dt><span>valid_min :</span></dt><dd>-180000000</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float64]</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-d030d8b5-d723-4ea0-b389-2ebee3061abc" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d030d8b5-d723-4ea0-b389-2ebee3061abc" class="xr-section-summary" title="Expand/collapse section">Data variables: <span>(2)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span>rc681</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-3e359edd-5a23-4b0d-a37e-1f5764765d15" class="xr-var-attrs-in" type="checkbox"><label for="attrs-3e359edd-5a23-4b0d-a37e-1f5764765d15" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-667acd97-0a54-4998-b9b7-ff73921a73b8" class="xr-var-data-in" type="checkbox"><label for="data-667acd97-0a54-4998-b9b7-ff73921a73b8" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': 0.0, 'coordinates': ['latitude', 'longitude', 'time_stamp', 'altitude'], 'dimensions': ['rows', 'columns'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f4', 'fill_value': 65535, 'long_name': 'rectified reflectance for the band 10 on the current land pixel', 'scale_factor': 1.5259254723787308e-05, 'short_name': 'rc681', 'units': 'mW.m-2.sr-1.nm-1'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>rectified reflectance for the band 10 on the current land pixel</dd><dt><span>units :</span></dt><dd>mW.m-2.sr-1.nm-1</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float32]</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>rc865</span></div><div class="xr-var-dims">(rows, columns)</div><div class="xr-var-dtype">float32</div><div class="xr-var-preview xr-preview">...</div><input id="attrs-07413c15-8d7a-4cde-aa5c-57042de72f81" class="xr-var-attrs-in" type="checkbox"><label for="attrs-07413c15-8d7a-4cde-aa5c-57042de72f81" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e046d80e-3f4a-4103-9515-3af09039a426" class="xr-var-data-in" type="checkbox"><label for="data-e046d80e-3f4a-4103-9515-3af09039a426" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>_eopf_attrs :</span></dt><dd>{'add_offset': 0.0, 'coordinates': ['latitude', 'longitude', 'time_stamp', 'altitude'], 'dimensions': ['rows', 'columns'], 'dtype': '&lt;u2', 'eopf_is_masked': True, 'eopf_is_scaled': True, 'eopf_target_dtype': '&lt;f4', 'fill_value': 65535, 'long_name': 'rectified reflectance for the band 17 on the current land pixel', 'scale_factor': 1.5259254723787308e-05, 'short_name': 'rc865', 'units': 'mW.m-2.sr-1.nm-1'}</dd><dt><span>dtype :</span></dt><dd>&lt;u2</dd><dt><span>long_name :</span></dt><dd>rectified reflectance for the band 17 on the current land pixel</dd><dt><span>units :</span></dt><dd>mW.m-2.sr-1.nm-1</dd></dl></div><div class="xr-var-data"><pre>[19897850 values with dtype=float32]</pre></div></li></ul></div></li></ul></div></div>
 </div>
 </div>
 <p>And to visualize a subset of the retrieved items:</p>
@@ -4834,18 +4851,18 @@ Projection ID: latlon
 Projection: {'datum': 'WGS84', 'no_defs': 'None', 'proj': 'longlat', 'type': 'crs'}
 Number of columns: 366
 Number of rows: 366
-Area extent: (33.0, -2.8, 33.99, -1.81)</pre><div class="pyresample-wrap" style="display:none"><div class="pyresample-header"><div class="pyresample-obj-type">pyresample.AreaDefinition</div></div><div class="pyresample-area-sections"><div class="pyresample-area-section-item"><input id="section-3a681072-e2ef-4a84-b687-011b9b713d69" class="pyresample-area-section-in" type="checkbox" checked=""><label for="section-3a681072-e2ef-4a84-b687-011b9b713d69" title="Expand/collapse section"><svg class="icon pyresample-icon-file-text2"><use href="#icon-file-text2"></use></svg> Properties</label><div class="pyresample-area-section-preview"></div><div class="pyresample-area-section-details"><dl><dt>Area name</dt><dd>olci_grid</dd><dt>Description</dt><dd>OLCI projected grid</dd><dt>Projection</dt><dd>{'datum': 'WGS84', 'no_defs': 'None', 'proj': 'longlat', 'type': 'crs'}</dd><dt>Width/Height</dt><dd>366/366 Pixel</dd><dt>Resolution x/y</dt><dd>0.0/0.0 </dd><dt>Extent (ll_x, ll_y, ur_x, ur_y)</dt><dd>(33.0, -2.8, 33.99, -1.81)</dd></dl></div></div><div class="pyresample-area-section-item"><input id="section-75738ea0-f852-40cd-8d64-c36570a3140e" class="pyresample-area-section-in" type="checkbox"><label for="section-75738ea0-f852-40cd-8d64-c36570a3140e" title="Expand/collapse section"><svg class="icon pyresample-icon-globe"><use href="#icon-globe"></use></svg> Map</label><div class="pyresample-area-section-preview"></div><div class="pyresample-area-section-details"><!--?xml version="1.0" encoding="utf-8" standalone="no"?-->
+Area extent: (33.0, -2.8, 33.99, -1.81)</pre><div class="pyresample-wrap" style="display:none"><div class="pyresample-header"><div class="pyresample-obj-type">pyresample.AreaDefinition</div></div><div class="pyresample-area-sections"><div class="pyresample-area-section-item"><input id="section-425ead34-a81d-42f1-b074-4ab764b7f601" class="pyresample-area-section-in" type="checkbox" checked=""><label for="section-425ead34-a81d-42f1-b074-4ab764b7f601" title="Expand/collapse section"><svg class="icon pyresample-icon-file-text2"><use href="#icon-file-text2"></use></svg> Properties</label><div class="pyresample-area-section-preview"></div><div class="pyresample-area-section-details"><dl><dt>Area name</dt><dd>olci_grid</dd><dt>Description</dt><dd>OLCI projected grid</dd><dt>Projection</dt><dd>{'datum': 'WGS84', 'no_defs': 'None', 'proj': 'longlat', 'type': 'crs'}</dd><dt>Width/Height</dt><dd>366/366 Pixel</dd><dt>Resolution x/y</dt><dd>0.0/0.0 </dd><dt>Extent (ll_x, ll_y, ur_x, ur_y)</dt><dd>(33.0, -2.8, 33.99, -1.81)</dd></dl></div></div><div class="pyresample-area-section-item"><input id="section-dc40451a-f7d0-43c4-8cb8-e0e563c8d2d8" class="pyresample-area-section-in" type="checkbox"><label for="section-dc40451a-f7d0-43c4-8cb8-e0e563c8d2d8" title="Expand/collapse section"><svg class="icon pyresample-icon-globe"><use href="#icon-globe"></use></svg> Map</label><div class="pyresample-area-section-preview"></div><div class="pyresample-area-section-details"><!--?xml version="1.0" encoding="utf-8" standalone="no"?-->
 
 <svg xlink="http://www.w3.org/1999/xlink" width="374.4pt" height="374.4pt" viewbox="0 0 374.4 374.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:rdf xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"></dc:type>
-    <dc:date>2026-04-16T10:08:11.261986</dc:date>
+    <dc:date>2026-06-15T10:43:46.614621</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:agent>
-      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
      </cc:agent>
     </dc:creator>
    </cc:work>
@@ -4875,7 +4892,7 @@ z
 " style="fill: #ffffff"></path>
    </g>
    <g id="FeatureArtist_1">
-    <path clip-path="url(#p1a45a86af2)" style="fill: #efefdb"></path>
+    <path clip-path="url(#pd54eebfa7d)" style="fill: #efefdb"></path>
    </g>
    <g id="patch_3">
     <path d="M 7.2 367.2 
@@ -4891,7 +4908,7 @@ z
   </g>
  </g>
  <defs>
-  <clippath id="p1a45a86af2">
+  <clippath id="pd54eebfa7d">
    <path d="M 7.2 367.2 
 L 7.2 367.2 
 L 7.2 367.2 
@@ -5532,7 +5549,7 @@ Coordinates:
   * band         (band) &lt;U5 40B 'rc681' 'rc865'
   * y            (y) float64 3kB -1.811 -1.814 -1.817 ... -2.793 -2.796 -2.799
   * x            (x) float64 3kB 33.0 33.0 33.01 33.01 ... 33.98 33.99 33.99
-    spatial_ref  int64 8B 0</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name"></div><ul class="xr-dim-list"><li><span class="xr-has-index">band</span>: 2</li><li><span class="xr-has-index">y</span>: 366</li><li><span class="xr-has-index">x</span>: 366</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-7467820e-40c3-42b7-8989-2ffa87171e54" class="xr-array-in" type="checkbox" checked=""><label for="section-7467820e-40c3-42b7-8989-2ffa87171e54" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>nan nan nan nan nan nan ... 0.2787 0.2787 0.2692 0.2684 0.2684 0.2676</span></div><div class="xr-array-data"><pre>array([[[       nan,        nan,        nan, ...,        nan,
+    spatial_ref  int64 8B 0</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name"></div><ul class="xr-dim-list"><li><span class="xr-has-index">band</span>: 2</li><li><span class="xr-has-index">y</span>: 366</li><li><span class="xr-has-index">x</span>: 366</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-6ad28eee-0897-4cda-bba3-57f45a606705" class="xr-array-in" type="checkbox" checked=""><label for="section-6ad28eee-0897-4cda-bba3-57f45a606705" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>nan nan nan nan nan nan ... 0.2787 0.2787 0.2692 0.2684 0.2684 0.2676</span></div><div class="xr-array-data"><pre>array([[[       nan,        nan,        nan, ...,        nan,
                 nan,        nan],
         [       nan,        nan,        nan, ...,        nan,
                 nan,        nan],
@@ -5558,9 +5575,9 @@ Coordinates:
         [       nan,        nan,        nan, ..., 0.27752006,
          0.27594838, 0.27286598],
         [       nan,        nan,        nan, ..., 0.26842555,
-         0.26842555, 0.26760155]]], shape=(2, 366, 366), dtype=float32)</pre></div></div></li><li class="xr-section-item"><input id="section-e8c8fe4a-e89b-4ed0-bf32-e9455dcef8bb" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-e8c8fe4a-e89b-4ed0-bf32-e9455dcef8bb" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">band</span></div><div class="xr-var-dims">(band)</div><div class="xr-var-dtype">&lt;U5</div><div class="xr-var-preview xr-preview">'rc681' 'rc865'</div><input id="attrs-a24eae3e-4251-48ed-9560-d5d300243dc3" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-a24eae3e-4251-48ed-9560-d5d300243dc3" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e61cf383-13d5-411e-992d-8275965b1ee1" class="xr-var-data-in" type="checkbox"><label for="data-e61cf383-13d5-411e-992d-8275965b1ee1" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['rc681', 'rc865'], dtype='&lt;U5')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-1.811 -1.814 ... -2.796 -2.799</div><input id="attrs-eeca61e3-1273-40e5-8c7f-3c5a88d41e91" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-eeca61e3-1273-40e5-8c7f-3c5a88d41e91" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-8678e7dc-cd3d-4aba-a5b6-a195a8f6a619" class="xr-var-data-in" type="checkbox"><label for="data-8678e7dc-cd3d-4aba-a5b6-a195a8f6a619" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-1.811352, -1.814057, -1.816762, ..., -2.793238, -2.795943, -2.798648],
-      shape=(366,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">33.0 33.0 33.01 ... 33.99 33.99</div><input id="attrs-518ccbba-2881-4267-ae21-574cac7a48b9" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-518ccbba-2881-4267-ae21-574cac7a48b9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f3d8c095-9416-4322-9aeb-33c27d428021" class="xr-var-data-in" type="checkbox"><label for="data-f3d8c095-9416-4322-9aeb-33c27d428021" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([33.001352, 33.004057, 33.006762, ..., 33.983238, 33.985943, 33.988648],
-      shape=(366,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-30f50859-ab92-4ce9-a199-9dce4b6bfd1c" class="xr-var-attrs-in" type="checkbox"><label for="attrs-30f50859-ab92-4ce9-a199-9dce4b6bfd1c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-effd95fc-4b67-477e-a554-44e221bd5399" class="xr-var-data-in" type="checkbox"><label for="data-effd95fc-4b67-477e-a554-44e221bd5399" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li></ul></div></div>
+         0.26842555, 0.26760155]]], shape=(2, 366, 366), dtype=float32)</pre></div></div></li><li class="xr-section-item"><input id="section-48e69417-eaf7-4632-917a-378b3330e2d0" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-48e69417-eaf7-4632-917a-378b3330e2d0" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(4)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">band</span></div><div class="xr-var-dims">(band)</div><div class="xr-var-dtype">&lt;U5</div><div class="xr-var-preview xr-preview">'rc681' 'rc865'</div><input id="attrs-15abe6fc-61b5-43a0-b3b7-0f9137d20eb6" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-15abe6fc-61b5-43a0-b3b7-0f9137d20eb6" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ec34f830-0a1c-4467-a899-9054c56b4bda" class="xr-var-data-in" type="checkbox"><label for="data-ec34f830-0a1c-4467-a899-9054c56b4bda" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['rc681', 'rc865'], dtype='&lt;U5')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">-1.811 -1.814 ... -2.796 -2.799</div><input id="attrs-42a3c694-f60e-4987-9913-c11ebd927dd4" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-42a3c694-f60e-4987-9913-c11ebd927dd4" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-913d32d6-1636-4ef7-85ba-baf8404c2983" class="xr-var-data-in" type="checkbox"><label for="data-913d32d6-1636-4ef7-85ba-baf8404c2983" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([-1.811352, -1.814057, -1.816762, ..., -2.793238, -2.795943, -2.798648],
+      shape=(366,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">33.0 33.0 33.01 ... 33.99 33.99</div><input id="attrs-341a43dc-e651-4b8c-af8e-3d4400b9b815" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-341a43dc-e651-4b8c-af8e-3d4400b9b815" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-aa2c817c-eaf7-4e7d-9fbf-0579c4fe0266" class="xr-var-data-in" type="checkbox"><label for="data-aa2c817c-eaf7-4e7d-9fbf-0579c4fe0266" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([33.001352, 33.004057, 33.006762, ..., 33.983238, 33.985943, 33.988648],
+      shape=(366,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-78f9e361-093e-4891-ac93-284bbb1ba18e" class="xr-var-attrs-in" type="checkbox"><label for="attrs-78f9e361-093e-4891-ac93-284bbb1ba18e" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-c5f8a4b3-b387-4ce8-8aa2-a395565db4dd" class="xr-var-data-in" type="checkbox"><label for="data-c5f8a4b3-b387-4ce8-8aa2-a395565db4dd" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>grid_mapping_name :</span></dt><dd>latitude_longitude</dd><dt><span>spatial_ref :</span></dt><dd>GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li></ul></div></div>
 </div>
 </div>
 <p>To have a quick overview of our results:</p>
@@ -6339,7 +6356,7 @@ Coordinates:
     band         int64 8B 2
     spatial_ref  int64 8B 0
 Attributes:
-    AREA_OR_POINT:  Area</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name">'band_data'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 5</li><li><span class="xr-has-index">y</span>: 1000</li><li><span class="xr-has-index">x</span>: 500</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-71e72226-4dff-41e7-a8d3-8550764a8a17" class="xr-array-in" type="checkbox" checked=""><label for="section-71e72226-4dff-41e7-a8d3-8550764a8a17" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>0.2177 0.2102 0.2102 0.2102 0.207 ... 0.2772 0.2329 0.3152 0.3484</span></div><div class="xr-array-data"><pre>array([[[0.21768021, 0.21017014, 0.21016468, ..., 0.10236094,
+    AREA_OR_POINT:  Area</pre><div class="xr-wrap" style="display:none"><div class="xr-header"><div class="xr-obj-type">xarray.DataArray</div><div class="xr-obj-name">'band_data'</div><ul class="xr-dim-list"><li><span class="xr-has-index">time</span>: 5</li><li><span class="xr-has-index">y</span>: 1000</li><li><span class="xr-has-index">x</span>: 500</li></ul></div><ul class="xr-sections"><li class="xr-section-item"><div class="xr-array-wrap"><input id="section-9c50e2b3-18c4-4ebf-a356-56336be555fe" class="xr-array-in" type="checkbox" checked=""><label for="section-9c50e2b3-18c4-4ebf-a356-56336be555fe" title="Show/hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-array-preview xr-preview"><span>0.2177 0.2102 0.2102 0.2102 0.207 ... 0.2772 0.2329 0.3152 0.3484</span></div><div class="xr-array-data"><pre>array([[[0.21768021, 0.21017014, 0.21016468, ..., 0.10236094,
          0.11230454, 0.12994814],
         [0.21498059, 0.1991341 , 0.19354068, ..., 0.10624737,
          0.11810072, 0.13445408],
@@ -6379,10 +6396,10 @@ Attributes:
         [0.26006137, 0.27418699, 0.26291413, ..., 0.26893517,
          0.28589738, 0.29744265],
         [0.25131287, 0.27064247, 0.28972925, ..., 0.23294762,
-         0.315248  , 0.34838121]]], shape=(5, 1000, 500))</pre></div></div></li><li class="xr-section-item"><input id="section-5df003a9-3759-42d9-98c5-bb3e414bcaaa" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-5df003a9-3759-42d9-98c5-bb3e414bcaaa" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2024-11-11 ... 2024-12-21</div><input id="attrs-1ed5f4db-3cf0-4674-b975-d752d5def8f9" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-1ed5f4db-3cf0-4674-b975-d752d5def8f9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-da39f600-a5bb-4279-9140-4c3d38111d48" class="xr-var-data-in" type="checkbox"><label for="data-da39f600-a5bb-4279-9140-4c3d38111d48" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-11-11T00:00:00.000000000', '2024-11-21T00:00:00.000000000',
+         0.315248  , 0.34838121]]], shape=(5, 1000, 500))</pre></div></div></li><li class="xr-section-item"><input id="section-d2155d81-696c-446b-b7c7-902c334da3b9" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d2155d81-696c-446b-b7c7-902c334da3b9" class="xr-section-summary" title="Expand/collapse section">Coordinates: <span>(5)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><ul class="xr-var-list"><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">time</span></div><div class="xr-var-dims">(time)</div><div class="xr-var-dtype">datetime64[ns]</div><div class="xr-var-preview xr-preview">2024-11-11 ... 2024-12-21</div><input id="attrs-f9a77e99-c87b-4402-b326-d02f06d9dcd7" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-f9a77e99-c87b-4402-b326-d02f06d9dcd7" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-3c6525c2-1b7e-489c-a047-398be6e3a421" class="xr-var-data-in" type="checkbox"><label for="data-3c6525c2-1b7e-489c-a047-398be6e3a421" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(['2024-11-11T00:00:00.000000000', '2024-11-21T00:00:00.000000000',
        '2024-12-01T00:00:00.000000000', '2024-12-11T00:00:00.000000000',
-       '2024-12-21T00:00:00.000000000'], dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">9.72e+06 9.72e+06 ... 9.7e+06</div><input id="attrs-02b86c9c-438e-4121-a598-07fcb871e4b1" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-02b86c9c-438e-4121-a598-07fcb871e4b1" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-ee49aba5-cdab-4ba5-bb17-065c62f24f05" class="xr-var-data-in" type="checkbox"><label for="data-ee49aba5-cdab-4ba5-bb17-065c62f24f05" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([9719990., 9719970., 9719950., ..., 9700050., 9700030., 9700010.],
-      shape=(1000,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">5.7e+05 5.7e+05 ... 5.8e+05 5.8e+05</div><input id="attrs-00ba0c34-d937-4e2c-b827-00e8db7092c9" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-00ba0c34-d937-4e2c-b827-00e8db7092c9" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-e1513ed4-6455-4af1-9b0e-f1396504e7ae" class="xr-var-data-in" type="checkbox"><label for="data-e1513ed4-6455-4af1-9b0e-f1396504e7ae" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([570010., 570030., 570050., ..., 579950., 579970., 579990.], shape=(500,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>band</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">2</div><input id="attrs-96da3462-fb72-4931-89b9-d8c6f4d17719" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-96da3462-fb72-4931-89b9-d8c6f4d17719" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-f92b01b8-322b-48fe-a480-0841526987c6" class="xr-var-data-in" type="checkbox"><label for="data-f92b01b8-322b-48fe-a480-0841526987c6" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(2)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-52870add-7a3a-4e1d-ae66-26a876b96745" class="xr-var-attrs-in" type="checkbox"><label for="attrs-52870add-7a3a-4e1d-ae66-26a876b96745" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-2bc4996c-e091-46cb-a52e-12bbb4052e6d" class="xr-var-data-in" type="checkbox"><label for="data-2bc4996c-e091-46cb-a52e-12bbb4052e6d" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>PROJCS["WGS 84 / UTM zone 36S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",33],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32736"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>projected_crs_name :</span></dt><dd>WGS 84 / UTM zone 36S</dd><dt><span>grid_mapping_name :</span></dt><dd>transverse_mercator</dd><dt><span>latitude_of_projection_origin :</span></dt><dd>0.0</dd><dt><span>longitude_of_central_meridian :</span></dt><dd>33.0</dd><dt><span>false_easting :</span></dt><dd>500000.0</dd><dt><span>false_northing :</span></dt><dd>10000000.0</dd><dt><span>scale_factor_at_central_meridian :</span></dt><dd>0.9996</dd><dt><span>spatial_ref :</span></dt><dd>PROJCS["WGS 84 / UTM zone 36S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",33],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32736"]]</dd><dt><span>GeoTransform :</span></dt><dd>499980.0 20.0 0.0 9800020.0 0.0 -20.0</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-191ac419-d488-48ce-b830-847e70b99a39" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-191ac419-d488-48ce-b830-847e70b99a39" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>AREA_OR_POINT :</span></dt><dd>Area</dd></dl></div></li></ul></div></div>
+       '2024-12-21T00:00:00.000000000'], dtype='datetime64[ns]')</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">y</span></div><div class="xr-var-dims">(y)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">9.72e+06 9.72e+06 ... 9.7e+06</div><input id="attrs-d3f88a86-344e-4933-827d-a32a6099903a" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-d3f88a86-344e-4933-827d-a32a6099903a" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-eef33063-42c0-45e1-af3e-08c946b61c3b" class="xr-var-data-in" type="checkbox"><label for="data-eef33063-42c0-45e1-af3e-08c946b61c3b" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([9719990., 9719970., 9719950., ..., 9700050., 9700030., 9700010.],
+      shape=(1000,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span class="xr-has-index">x</span></div><div class="xr-var-dims">(x)</div><div class="xr-var-dtype">float64</div><div class="xr-var-preview xr-preview">5.7e+05 5.7e+05 ... 5.8e+05 5.8e+05</div><input id="attrs-2587801f-312f-44fc-88b0-3d47f89fbebd" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-2587801f-312f-44fc-88b0-3d47f89fbebd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-4d8a3aae-2cc7-4f29-9a86-eeb48c029237" class="xr-var-data-in" type="checkbox"><label for="data-4d8a3aae-2cc7-4f29-9a86-eeb48c029237" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array([570010., 570030., 570050., ..., 579950., 579970., 579990.], shape=(500,))</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>band</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">2</div><input id="attrs-bf990566-4e2a-424c-af8a-6238b3c6698c" class="xr-var-attrs-in" type="checkbox" disabled=""><label for="attrs-bf990566-4e2a-424c-af8a-6238b3c6698c" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-29397fc3-8d69-4423-bb3f-653083d4939e" class="xr-var-data-in" type="checkbox"><label for="data-29397fc3-8d69-4423-bb3f-653083d4939e" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"></dl></div><div class="xr-var-data"><pre>array(2)</pre></div></li><li class="xr-var-item"><div class="xr-var-name"><span>spatial_ref</span></div><div class="xr-var-dims">()</div><div class="xr-var-dtype">int64</div><div class="xr-var-preview xr-preview">0</div><input id="attrs-269c821b-2082-4652-9db8-e61eff2ccbfd" class="xr-var-attrs-in" type="checkbox"><label for="attrs-269c821b-2082-4652-9db8-e61eff2ccbfd" title="Show/Hide attributes"><svg class="icon xr-icon-file-text2"><use href="#icon-file-text2"></use></svg></label><input id="data-48e1c3e2-aa2f-406e-8ff2-28bdeaec316c" class="xr-var-data-in" type="checkbox"><label for="data-48e1c3e2-aa2f-406e-8ff2-28bdeaec316c" title="Show/Hide data repr"><svg class="icon xr-icon-database"><use href="#icon-database"></use></svg></label><div class="xr-var-attrs"><dl class="xr-attrs"><dt><span>crs_wkt :</span></dt><dd>PROJCS["WGS 84 / UTM zone 36S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",33],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32736"]]</dd><dt><span>semi_major_axis :</span></dt><dd>6378137.0</dd><dt><span>semi_minor_axis :</span></dt><dd>6356752.314245179</dd><dt><span>inverse_flattening :</span></dt><dd>298.257223563</dd><dt><span>reference_ellipsoid_name :</span></dt><dd>WGS 84</dd><dt><span>longitude_of_prime_meridian :</span></dt><dd>0.0</dd><dt><span>prime_meridian_name :</span></dt><dd>Greenwich</dd><dt><span>geographic_crs_name :</span></dt><dd>WGS 84</dd><dt><span>horizontal_datum_name :</span></dt><dd>World Geodetic System 1984</dd><dt><span>projected_crs_name :</span></dt><dd>WGS 84 / UTM zone 36S</dd><dt><span>grid_mapping_name :</span></dt><dd>transverse_mercator</dd><dt><span>latitude_of_projection_origin :</span></dt><dd>0.0</dd><dt><span>longitude_of_central_meridian :</span></dt><dd>33.0</dd><dt><span>false_easting :</span></dt><dd>500000.0</dd><dt><span>false_northing :</span></dt><dd>10000000.0</dd><dt><span>scale_factor_at_central_meridian :</span></dt><dd>0.9996</dd><dt><span>spatial_ref :</span></dt><dd>PROJCS["WGS 84 / UTM zone 36S",GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",0],PARAMETER["central_meridian",33],PARAMETER["scale_factor",0.9996],PARAMETER["false_easting",500000],PARAMETER["false_northing",10000000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","32736"]]</dd><dt><span>GeoTransform :</span></dt><dd>499980.0 20.0 0.0 9800020.0 0.0 -20.0</dd></dl></div><div class="xr-var-data"><pre>array(0)</pre></div></li></ul></div></li><li class="xr-section-item"><input id="section-d01e4f47-1208-4b28-bb59-272df56c933b" class="xr-section-summary-in" type="checkbox" checked=""><label for="section-d01e4f47-1208-4b28-bb59-272df56c933b" class="xr-section-summary" title="Expand/collapse section">Attributes: <span>(1)</span></label><div class="xr-section-inline-details"></div><div class="xr-section-details"><dl class="xr-attrs"><dt><span>AREA_OR_POINT :</span></dt><dd>Area</dd></dl></div></li></ul></div></div>
 </div>
 </div>
 <p>The generated maps show reflectance in the <strong>NIR</strong> band. Higher values of it indicate presence of dense green vegetation.</p>
@@ -6470,7 +6487,7 @@ Attributes:
 </section>
 <section id="whats-next" class="level2">
 <h2 class="anchored" data-anchor-id="whats-next">What’s next?</h2>
-<p>In the next <a href="./611_intertidal_vegetation_monitoring_with_s2.ipynb">notebook</a> we will present one of our <a href="https://github.com/eopf-toolkit/community-notebook-competition">EOPF Notebook Competition Winners</a>!<br> We will explore how to derive simple spectral indicators to support intertidal vegetation monitoring and visualise the results.</p>
+<p>In the next <a href="../06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.html">notebook</a> we will present one of our <a href="https://github.com/eopf-toolkit/community-notebook-competition">EOPF Notebook Competition Winners</a>!<br> We will explore how to derive simple spectral indicators to support intertidal vegetation monitoring and visualise the results.</p>
 
 
 </section>
@@ -6884,8 +6901,8 @@ Attributes:
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../06_eopf_zarr_in_action/614_flood_change_detection_s1.html" class="pagination-link" aria-label="Sentinel-1 SAR Flood Detection and Mapping Using Change Detection">
-        <span class="nav-page-text"><span class="chapter-title">Sentinel-1 SAR Flood Detection and Mapping Using Change Detection</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.html" class="pagination-link" aria-label="Cloud-Native Intertidal Vegetation Monitoring with Sentinel-2 and EOPF Zarr">
+        <span class="nav-page-text"><span class="chapter-title">Cloud-Native Intertidal Vegetation Monitoring with Sentinel-2 and EOPF Zarr</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

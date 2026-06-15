@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.37">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -76,10 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-36bf55b16c7cb4b1420f41495cb5446a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-3f70bac5631458d474a321d4182f9338.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -462,6 +462,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/611_intertidal_vegetation_monitoring_with_s2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud-Native Intertidal Vegetation Monitoring with Sentinel-2 and EOPF Zarr</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/612_cloud_probability_s2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Cloud Probability Analysis with EOPF Sentinel-2 Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../06_eopf_zarr_in_action/613_computing_lai_s2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Computing Leaf Area Index Using Sentinel-2 Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../06_eopf_zarr_in_action/614_flood_change_detection_s1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Sentinel-1 SAR Flood Detection and Mapping Using Change Detection</span></a>
   </div>
 </li>
@@ -594,16 +609,16 @@ type, id, title, description, stac_version, conformsTo, links, stac_extensions</
 - collections (12 item(s)):
   - sentinel-2-l2a
   - sentinel-1-l1-grd
+  - sentinel-2-l1c
   - sentinel-1-l1-slc
   - sentinel-3-olci-l1-efr
   - sentinel-3-slstr-l2-lst
-  - sentinel-1-l2-ocn
-  - sentinel-3-olci-l2-lfr
   - sentinel-3-slstr-l1-rbt
+  - sentinel-1-l2-ocn
+  - sentinel-3-slstr-l2-frp
   - sentinel-3-olci-l1-err
   - sentinel-3-olci-l2-lrr
-  - sentinel-2-l1c
-  - sentinel-3-slstr-l2-frp
+  - sentinel-3-olci-l2-lfr
 - field(s): collections, links, numberMatched, numberReturned</code></pre>
 </div>
 </div>
@@ -646,10 +661,10 @@ id, type, links, title, assets, extent, license, keywords, providers, summaries,
 
 [[3]]
 ###Collection
-- id: sentinel-1-l1-slc
-- title: Sentinel-1 Level-1 SLC
+- id: sentinel-2-l1c
+- title: Sentinel-2 Level-1C
 - description: 
-The Sentinel-1 Level-1 Single Look Complex (SLC) products consist of focused SAR data, geo-referenced using orbit and attitude data from the satellite, and provided in slant-range geometry. Slant range is the natural radar range observation coordinate, defined as the line-of-sight from the radar to each reflecting object. The products are in zero-Doppler orientation where each row of pixels represents points along a line perpendicular to the sub-satellite track.
+The Sentinel-2 Level-1C product is composed of 110x110 km2 tiles (ortho-images in UTM/WGS84 projection). Earth is subdivided on a predefined set of tiles, defined in UTM/WGS84 projection and using a 100 km step. However, each tile has a surface of 110x110 km² in order to provide large overlap with the neighbouring. The Level-1C product results from using a Digital Elevation Model (DEM) to project the image in cartographic geometry. Per-pixel radiometric measurements are provided in Top Of Atmosphere (TOA) reflectances along with the parameters to transform them into radiances.
 - field(s): 
 id, type, links, title, assets, extent, license, keywords, providers, summaries, description, item_assets, stac_version, stac_extensions</code></pre>
 </div>
@@ -722,16 +737,16 @@ id, type, links, title, assets, extent, license, keywords, providers, summaries,
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (10 item(s)):
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T26WME_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T26WMD_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WFV_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WFU_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WEV_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WEU_20260415T192815
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WWV_20260415T202801
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WWU_20260415T202801
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WVV_20260415T202801
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WVU_20260415T202801
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T26WMD_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WFV_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WFU_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WEV_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WEU_20260614T174411
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WWV_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WWU_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WVV_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WVU_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WVT_20260614T202417
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -747,16 +762,16 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (20 item(s)):
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T26WME_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T26WMD_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WFV_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WFU_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WEV_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WEU_20260415T192815
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WWV_20260415T202801
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WWU_20260415T202801
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WVV_20260415T202801
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WVU_20260415T202801
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T26WMD_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WFV_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WFU_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WEV_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WEU_20260614T174411
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WWV_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WWU_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WVV_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WVU_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WVT_20260614T202417
   - ... with 10 more feature(s).
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
@@ -773,10 +788,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 ###Item
-- id: S2C_MSIL2A_20260415T142741_N0512_R139_T26WME_20260415T192815
+- id: S2C_MSIL2A_20260614T142741_N0512_R139_T26WMD_20260614T174411
 - collection: sentinel-2-l2a
-- bbox: xmin: -29.91371, ymin: 71.17500, xmax: -27.82979, ymax: 72.09188
-- datetime: 2026-04-15T14:27:41.025000Z
+- bbox: xmin: -29.77968, ymin: 71.16710, xmax: -29.74643, ymax: 71.18247
+- datetime: 2026-06-14T14:27:41.025000Z
 - assets: 
 SR_10m, SR_20m, SR_60m, AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, SCL_20m, TCI_10m, WVP_10m, product, zipped_product, product_metadata
 - item's fields: 
@@ -784,10 +799,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 
 [[2]]
 ###Item
-- id: S2C_MSIL2A_20260415T142741_N0512_R139_T26WMD_20260415T192815
+- id: S2C_MSIL2A_20260614T142741_N0512_R139_T25WFV_20260614T174411
 - collection: sentinel-2-l2a
-- bbox: xmin: -29.77968, ymin: 71.17524, xmax: -29.76432, ymax: 71.18235
-- datetime: 2026-04-15T14:27:41.025000Z
+- bbox: xmin: -30.23383, ymin: 71.08785, xmax: -27.94670, ymax: 72.07789
+- datetime: 2026-06-14T14:27:41.025000Z
 - assets: 
 SR_10m, SR_20m, SR_60m, AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, SCL_20m, TCI_10m, WVP_10m, product, zipped_product, product_metadata
 - item's fields: 
@@ -800,7 +815,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sentinel_2_l2a_first_item[[<span class="st">"bbox"</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -29.91371  71.17500 -27.82979  72.09188</code></pre>
+<pre><code>[1] -29.77968  71.16710 -29.74643  71.18247</code></pre>
 </div>
 </div>
 <p>And many more additional properties, with their properties under <code>"properties"</code> in an individual item.</p>
@@ -886,16 +901,16 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (10 item(s)):
-  - S2C_MSIL2A_20260414T100021_N0512_R122_T33UXP_20260414T154011
-  - S2C_MSIL2A_20260414T100021_N0512_R122_T33UWP_20260414T154011
-  - S2A_MSIL2A_20260413T095101_N0512_R079_T33UXP_20260413T164804
-  - S2A_MSIL2A_20260413T095101_N0512_R079_T33UWP_20260413T164804
-  - S2C_MSIL2A_20260411T095031_N0512_R079_T33UXP_20260411T132108
-  - S2C_MSIL2A_20260411T095031_N0512_R079_T33UWP_20260411T132108
-  - S2B_MSIL2A_20260409T100029_N0512_R122_T33UXP_20260409T135035
-  - S2B_MSIL2A_20260409T100029_N0512_R122_T33UWP_20260409T135035
-  - S2A_MSIL2A_20260406T100051_N0512_R122_T33UXP_20260406T165917
-  - S2A_MSIL2A_20260406T100051_N0512_R122_T33UWP_20260406T165917
+  - S2C_MSIL2A_20260613T100031_N0512_R122_T33UXP_20260613T133712
+  - S2C_MSIL2A_20260613T100031_N0512_R122_T33UWP_20260613T133712
+  - S2A_MSIL2A_20260612T095101_N0512_R079_T33UXP_20260612T162712
+  - S2A_MSIL2A_20260612T095101_N0512_R079_T33UWP_20260612T162712
+  - S2C_MSIL2A_20260610T095031_N0512_R079_T33UXP_20260610T151113
+  - S2C_MSIL2A_20260610T095031_N0512_R079_T33UWP_20260610T151113
+  - S2B_MSIL2A_20260608T100029_N0512_R122_T33UXP_20260608T135005
+  - S2B_MSIL2A_20260608T100029_N0512_R122_T33UWP_20260608T135005
+  - S2A_MSIL2A_20260605T100041_N0512_R122_T33UXP_20260605T164215
+  - S2A_MSIL2A_20260605T100041_N0512_R122_T33UWP_20260605T164215
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -955,16 +970,16 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (10 item(s)):
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T26WME_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T26WMD_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WFV_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WFU_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WEV_20260415T192815
-  - S2C_MSIL2A_20260415T142741_N0512_R139_T25WEU_20260415T192815
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WWV_20260415T202801
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WWU_20260415T202801
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WVV_20260415T202801
-  - S2A_MSIL2A_20260415T134751_N0512_R110_T27WVU_20260415T202801
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T26WMD_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WFV_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WFU_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WEV_20260614T174411
+  - S2C_MSIL2A_20260614T142741_N0512_R139_T25WEU_20260614T174411
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WWV_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WWU_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WVV_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WVU_20260614T202417
+  - S2A_MSIL2A_20260614T134741_N0512_R110_T27WVT_20260614T202417
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -1062,16 +1077,16 @@ $gsd
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (10 item(s)):
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T28WDE_20260415T172418
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T28WDD_20260415T172418
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T27WXV_20260415T172418
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T27WXU_20260415T172418
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T27WWV_20260415T172418
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T27WWU_20260415T172418
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T27WWT_20260415T172418
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T27WWS_20260415T172418
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T27WVV_20260415T172418
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T27WVU_20260415T172418
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T28WDE_20260614T172326
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T28WDD_20260614T172326
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T27WXV_20260614T172326
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T27WXU_20260614T172326
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T27WWV_20260614T172326
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T27WWU_20260614T172326
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T27WWT_20260614T172326
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T27WWS_20260614T172326
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T27WVV_20260614T172326
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T27WVU_20260614T172326
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -1107,7 +1122,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="cell-output cell-output-stdout">
 <pre><code>###Items
 - features (1 item(s)):
-  - S2B_MSIL2A_20260415T133719_N0512_R067_T28WDE_20260415T172418
+  - S2B_MSIL2A_20260614T133719_N0512_R067_T28WDE_20260614T172326
 - assets: 
 AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, product, product_metadata, SCL_20m, SR_10m, SR_20m, SR_60m, TCI_10m, WVP_10m, zipped_product
 - item's fields: 
@@ -1122,7 +1137,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">post_request</span>() <span class="sc">|&gt;</span></span>
 <span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_first_item_property</span>(<span class="st">"eo:cloud_cover"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 22.55633</code></pre>
+<pre><code>[1] 0</code></pre>
 </div>
 </div>
 <p>If we want to search for items where <code>instruments</code> is “msi”, we use the <code>a_contains()</code> function. We need to use this instead of <code>==</code> because <code>instruments</code> is an <code>array</code>, as seen above. This means it operates like a list within R, and can contain multiple values – <code>a_contains()</code> searches for the value <code>"msi"</code> within the list of values that is <code>instruments</code>.</p>
@@ -1182,10 +1197,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>sentinel_2_l2a_collection_items[[<span class="st">"features"</span>]][[<span class="dv">1</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>###Item
-- id: S2C_MSIL2A_20260415T142741_N0512_R139_T26WME_20260415T192815
+- id: S2C_MSIL2A_20260614T142741_N0512_R139_T26WMD_20260614T174411
 - collection: sentinel-2-l2a
-- bbox: xmin: -29.91371, ymin: 71.17500, xmax: -27.82979, ymax: 72.09188
-- datetime: 2026-04-15T14:27:41.025000Z
+- bbox: xmin: -29.77968, ymin: 71.16710, xmax: -29.74643, ymax: 71.18247
+- datetime: 2026-06-14T14:27:41.025000Z
 - assets: 
 SR_10m, SR_20m, SR_60m, AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, SCL_20m, TCI_10m, WVP_10m, product, zipped_product, product_metadata
 - item's fields: 
@@ -1204,10 +1219,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>example_item</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>###Item
-- id: S2C_MSIL2A_20260415T142741_N0512_R139_T26WME_20260415T192815
+- id: S2C_MSIL2A_20260614T142741_N0512_R139_T26WMD_20260614T174411
 - collection: sentinel-2-l2a
-- bbox: xmin: -29.91371, ymin: 71.17500, xmax: -27.82979, ymax: 72.09188
-- datetime: 2026-04-15T14:27:41.025000Z
+- bbox: xmin: -29.77968, ymin: 71.16710, xmax: -29.74643, ymax: 71.18247
+- datetime: 2026-06-14T14:27:41.025000Z
 - assets: 
 SR_10m, SR_20m, SR_60m, AOT_10m, B01_20m, B02_10m, B03_10m, B04_10m, B05_20m, B06_20m, B07_20m, B08_10m, B09_60m, B11_20m, B12_20m, B8A_20m, SCL_20m, TCI_10m, WVP_10m, product, zipped_product, product_metadata
 - item's fields: 
@@ -1236,10 +1251,10 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>sr_10m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>###Item
-- id: S2C_MSIL2A_20260415T142741_N0512_R139_T26WME_20260415T192815
+- id: S2C_MSIL2A_20260614T142741_N0512_R139_T26WMD_20260614T174411
 - collection: sentinel-2-l2a
-- bbox: xmin: -29.91371, ymin: 71.17500, xmax: -27.82979, ymax: 72.09188
-- datetime: 2026-04-15T14:27:41.025000Z
+- bbox: xmin: -29.77968, ymin: 71.16710, xmax: -29.74643, ymax: 71.18247
+- datetime: 2026-06-14T14:27:41.025000Z
 - assets: SR_10m
 - item's fields: 
 assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac_version, type</code></pre>
@@ -1251,7 +1266,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_select</span>(<span class="at">asset_names =</span> <span class="st">"product"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">assets_url</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202604-s02msil2a-eu/15/products/cpm_v270/S2C_MSIL2A_20260415T142741_N0512_R139_T26WME_20260415T192815.zarr"</code></pre>
+<pre><code>[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202606-s02msil2a-eu/14/products/cpm_v270/S2C_MSIL2A_20260614T142741_N0512_R139_T26WMD_20260614T174411.zarr"</code></pre>
 </div>
 </div>
 <p>It is also helpful to know which assets actually contain Zarr data. Assets can be <em>Zarr groups</em>, which share common dimensions and coordinates, and contain Zarr arrays within them. An asset can also be an individual Zarr array.</p>
@@ -1272,7 +1287,7 @@ assets, bbox, collection, geometry, id, links, properties, stac_extensions, stac
 [1] 10
 
 $href
-[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202604-s02msil2a-eu/15/products/cpm_v270/S2C_MSIL2A_20260415T142741_N0512_R139_T26WME_20260415T192815.zarr/measurements/reflectance/r10m"
+[1] "https://objects.eodc.eu:443/e05ab01a9d56408d82ac32d69a5aae2a:202606-s02msil2a-eu/14/products/cpm_v270/S2C_MSIL2A_20260614T142741_N0512_R139_T26WMD_20260614T174411.zarr/measurements/reflectance/r10m"
 
 $type
 [1] "application/vnd+zarr"
