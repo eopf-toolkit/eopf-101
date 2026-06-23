@@ -1142,7 +1142,7 @@ requires-dist = [
     { name = "jupyter", specifier = ">=1.1.1" },
     { name = "jupyter-bokeh", specifier = ">=4.0.5" },
     { name = "jupyter-leaflet", specifier = ">=0.20.0" },
-    { name = "jupyterlab-git", specifier = ">=0.53.0" },
+    { name = "jupyterlab-git", specifier = ">=0.54.0a1" },
     { name = "llvmlite", specifier = ">=0.44.0" },
     { name = "matplotlib", specifier = ">=3.10.9" },
     { name = "modular", specifier = ">=26.2,<26.3" },
@@ -2299,16 +2299,16 @@ wheels = [
 
 [[package]]
 name = "jupyterlab-git"
-version = "0.53.0"
+version = "0.54.0a1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "jupyter-server" },
     { name = "jupyterlab-git-core", extra = ["nbdime"] },
     { name = "traitlets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/bf/9f/b2325f3c350ff2d676768391b8757cb249d54bb53cdd2af8ae796d6c99f7/jupyterlab_git-0.53.0.tar.gz", hash = "sha256:121f0e0bbf637feaed5893d68ca741fd99ae6f7735ab7ef5db230d6da5d19d98", size = 20125, upload-time = "2026-04-30T07:35:46.605Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/f5/53/b72280ce744973607577f14cc292c9c70e38a30b80b7036e1bd47c4fd87b/jupyterlab_git-0.54.0a1.tar.gz", hash = "sha256:81e2c268e71de32513260925d4b081e66e157e4ac0bf3de8a1ed4a66d4aae327", size = 20130, upload-time = "2026-05-21T14:35:52.937Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/75/5d/66434ac333ba10f370230fff798cc8329dbaee227e0074d1ddbdb30ad84b/jupyterlab_git-0.53.0-py3-none-any.whl", hash = "sha256:ecca163bb973c3a007d7e43775ca92c9c95ce642bcd605b590a877804755b72f", size = 11394, upload-time = "2026-04-30T07:35:44.995Z" },
+    { url = "https://files.pythonhosted.org/packages/b9/8b/0a78f3c9c7feb9fb8baf60c3e7b1dd8defce4c53227d4f65a4f86aaa97f8/jupyterlab_git-0.54.0a1-py3-none-any.whl", hash = "sha256:2dcfecd71b94b43ab4cdf953e9990b6a4a8ab0e501dcd1fb8a76d296ffa477d6", size = 11417, upload-time = "2026-05-21T14:35:50.905Z" },
 ]
 
 [[package]]
